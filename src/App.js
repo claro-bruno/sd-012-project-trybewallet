@@ -4,15 +4,15 @@ import Login from './pages/Login';
 import Wallet from './pages/Wallet';
 
 class App extends React.Component {
-  render () {
+  render() {
     return (
       <div>
         <Switch>
-          <Route path="/carteira" component={ Wallet }/>
-          <Route path="/" component={ Login }/>
+          <Route path="/carteira" component={ Wallet } />
+          <Route path="/" component={ Login } />
         </Switch>
       </div>
-    )
+    );
   }
 }
 
