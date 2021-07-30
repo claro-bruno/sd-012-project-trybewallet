@@ -23,6 +23,7 @@ class Wallet extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.renderHeader = this.renderHeader.bind(this);
+    this.renderForms = this.renderForms.bind(this);
   }
 
   handleChange(event) {
@@ -48,7 +49,7 @@ class Wallet extends React.Component {
       </header>);
   }
 
-  render() {
+  renderForms() {
     const {
       exValue,
       desc,
@@ -58,40 +59,46 @@ class Wallet extends React.Component {
       expenseCurrency,
     } = this.state;
     return (
+      <form>
+        <Input name="exValue" value={ exValue } handleChange={ this.handleChange }>
+          Valor:
+        </Input>
+        <Input name="desc" value={ desc } handleChange={ this.handleChange }>
+          Descrição:
+        </Input>
+        <SelectInput
+          name="expenseCurrency"
+          value={ expenseCurrency }
+          handleChange={ this.handleChange }
+          optionsArray={ currencies }
+        >
+          Moeda:
+        </SelectInput>
+        <SelectInput
+          name="payment"
+          value={ payment }
+          handleChange={ this.handleChange }
+          optionsArray={ PAYMENT_METHOD }
+        >
+          Método de pagamento:
+        </SelectInput>
+        <SelectInput
+          name="category"
+          value={ category }
+          handleChange={ this.handleChange }
+          optionsArray={ CATEGORIES }
+        >
+          Tag:
+        </SelectInput>
+      </form>
+    );
+  }
+
+  render() {
+    return (
       <div>
         {this.renderHeader()}
-        <form>
-          <Input name="exValue" value={ exValue } handleChange={ this.handleChange }>
-            Valor:
-          </Input>
-          <Input name="desc" value={ desc } handleChange={ this.handleChange }>
-            Descrição:
-          </Input>
-          <SelectInput
-            name="expenseCurrency"
-            value={ expenseCurrency }
-            handleChange={ this.handleChange }
-            optionsArray={ currencies }
-          >
-            Moeda:
-          </SelectInput>
-          <SelectInput
-            name="payment"
-            value={ payment }
-            handleChange={ this.handleChange }
-            optionsArray={ PAYMENT_METHOD }
-          >
-            Método de pagamento:
-          </SelectInput>
-          <SelectInput
-            name="category"
-            value={ category }
-            handleChange={ this.handleChange }
-            optionsArray={ CATEGORIES }
-          >
-            Tag:
-          </SelectInput>
-        </form>
+        {this.renderForms()}
       </div>
     );
   }
