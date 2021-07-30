@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { ReactComponent as Logo } from './wallet.svg';
 
 class Header extends React.Component {
   render() {
     const { email } = this.props;
     return (
       <header className="header">
-        <p>LOGO</p>
+        <Logo className="logo" />
         <p data-testid="email-field">
           Email:
           { email }

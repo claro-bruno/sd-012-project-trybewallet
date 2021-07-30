@@ -1,0 +1,13 @@
+@mixin inputs {
+  padding: 8px;
+  outline: none;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid $grey-main;
+}
+
+$grey-main: #B8B8D1;
+$blue-main: #5B5F97;
+$yellow-main: #FFC145;
+$light-main: #FFFFFB;
+$test: #FF6B6C;

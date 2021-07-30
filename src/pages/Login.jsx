@@ -58,38 +58,44 @@ class Login extends React.Component {
     if (redirect) { return <Redirect to="/carteira" />; }
     return (
       <section className="login-container">
+        <h1>TrybeWallet</h1>
         <form action="#" className="login-form">
-          <label htmlFor="email">
-            Email
-            <input
-              type="text"
-              placeholder="email@exemplo.com"
-              data-testid="email-input"
-              className={ validEmail ? 'login-input' : 'invalid login-input' }
-              name="email"
-              value={ email }
-              onChange={ this.handleChange }
-            />
-          </label>
-          <label htmlFor="password">
-            Senha
-            <input
-              type="password"
-              data-testid="password-input"
-              className={ validPassword ? 'login-input' : 'invalid login-input' }
-              name="password"
-              value={ password }
-              onChange={ this.handleChange }
-            />
-          </label>
-          <button
-            type="submit"
-            className="login-btn"
-            onClick={ this.handleClick }
-            disabled={ !activeBtn }
-          >
-            Entrar
-          </button>
+          <h2 className="login-title">Login</h2>
+          <div className="login-inputs-container">
+            <label htmlFor="email">
+              Email
+              <br />
+              <input
+                type="text"
+                placeholder="email@exemplo.com"
+                data-testid="email-input"
+                className={ validEmail ? 'login-input' : 'invalid login-input' }
+                name="email"
+                value={ email }
+                onChange={ this.handleChange }
+              />
+            </label>
+            <label htmlFor="password">
+              Senha
+              <br />
+              <input
+                type="password"
+                data-testid="password-input"
+                className={ validPassword ? 'login-input' : 'invalid login-input' }
+                name="password"
+                value={ password }
+                onChange={ this.handleChange }
+              />
+            </label>
+            <button
+              type="submit"
+              className="login-btn"
+              onClick={ this.handleClick }
+              disabled={ !activeBtn }
+            >
+              Entrar
+            </button>
+          </div>
         </form>
       </section>
     );
