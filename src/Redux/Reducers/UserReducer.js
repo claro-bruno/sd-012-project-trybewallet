@@ -1,19 +1,14 @@
 const initialState = {
-  email:'',
-  password:'',
+  email: '',
+  password: '',
   login: false,
-}
+};
 
 const UserReducer = (state = initialState, action) => {
   switch (action.type) {
-    case value:
-      return state
-      break;
-  
-    default:
-      return state;
-      break;
+  default:
+    return state;
   }
-}
+};
 
 export default UserReducer;
