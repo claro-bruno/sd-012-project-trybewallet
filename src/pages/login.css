@@ -44,7 +44,6 @@ body {
   font-size: 18px;
   height: 30px;
   text-align: center;
-  width: 80%;
 }
 
 .button-enable {
@@ -55,7 +54,6 @@ body {
   font-size: 18px;
   height: 30px;
   text-align: center;
-  width: 80%;
 }
 
 .button-enable:hover {

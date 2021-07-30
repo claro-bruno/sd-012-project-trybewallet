@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Input from '../components/Input';
 import './login.css';
 import updateEmail from '../actions/index';
@@ -78,14 +79,16 @@ class Login extends React.Component {
             value={ password }
             onChange={ this.handleChange }
           />
-          <button
-            className={ buttonCSS }
-            disabled={ disable }
-            type="button"
-            onClick={ this.handleEnterButton }
-          >
-            ENTRAR
-          </button>
+          <Link to="/carteira">
+            <button
+              className={ buttonCSS }
+              disabled={ disable }
+              type="button"
+              onClick={ this.handleEnterButton }
+            >
+              ENTRAR
+            </button>
+          </Link>
         </form>
       </section>
     );
