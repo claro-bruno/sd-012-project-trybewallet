@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { validatorLogin } from '../helper';
 import { login as loginAction } from '../actions';
 
 class Login extends React.Component {
@@ -26,16 +27,18 @@ class Login extends React.Component {
         />
         <input
           type="text"
-          onChange={ (e) => this.setState({ email: e.target.value }) }
-          placeholder="email"
+          onChange={ (e) => this.setState({ password: e.target.value }) }
+          placeholder="password"
           data-testid="password-input"
         />
-        <button
-          type="button"
-        >
-          Entrar
-        </button>
-        <Link to="/wallet" onClick={ () => login({ email, password }) } />
+        <Link to="/carteira" onClick={ () => login({ email, password }) }>
+          <button
+            type="button"
+            disabled={ !validatorLogin({ email, password }) }
+          >
+            Entrar
+          </button>
+        </Link>
       </form>
     );
   }
