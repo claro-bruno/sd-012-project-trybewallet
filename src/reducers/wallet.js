@@ -1,7 +1,6 @@
 import { GET_CURRENCIES, LOADING } from "../actions";
 
 const INITIAL_STATE = {
-  total: 0,
   currentCurrency: 'BRL',
   loading: false,
   currencies: [],

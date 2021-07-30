@@ -7,8 +7,8 @@ class Select extends React.Component {
     return (
       <label htmlFor={ name }>
         { label }
-        <select name={ name }>
-        { options.map((option) => (
+        <select id={ name } name={ name }>
+          { options.map((option) => (
         <option key={ option } value={ option }>{ option }</option>
         ))}
         </select>

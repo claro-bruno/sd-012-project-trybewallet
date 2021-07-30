@@ -8,6 +8,7 @@ class Input extends React.Component {
       <label htmlFor={ name }>
         { label }
         <input
+          id={ name }
           name={ name }
           type={ type }
           value={ value }
