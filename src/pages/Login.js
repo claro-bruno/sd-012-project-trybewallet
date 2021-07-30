@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Button from '../components/Button';
 import Input from '../components/Input';
 
@@ -8,9 +9,12 @@ class Login extends React.Component {
 
     this.handleInput = this.handleInput.bind(this);
     this.submitForm = this.submitForm.bind(this);
+    this.inputValidation = this.inputValidation.bind(this);
+
     this.state = {
       email: '',
       password: '',
+      disabled: true,
     };
   }
 
@@ -19,22 +23,29 @@ class Login extends React.Component {
     this.setState({
       [name]: value,
     });
+    this.inputValidation();
   }
 
-  submitForm() {
-    const six = 6;
+  inputValidation() {
     const { email, password } = this.state;
-    // const { history } = this.props;
     const emailRegex = /^[a-z0-9_]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/;
+    const passwordRegex = /^[\S*]{5,}$/;
     const testEmail = emailRegex.test(email);
-    if (testEmail && password.length >= six) {
-      console.log('está valido');
-      // history.push('/carteira');
+    const testPassword = passwordRegex.test(password);
+    if ((testEmail) && (testPassword)) {
+      this.setState({
+        disabled: false,
+      });
     }
   }
 
+  submitForm() {
+    const { history } = this.props;
+    history.push('/carteira');
+  }
+
   render() {
-    const { email, password } = this.state;
+    const { email, password, disabled } = this.state;
     return (
       <form>
         <Input
@@ -56,10 +67,15 @@ class Login extends React.Component {
         <Button
           itemName="Entrar"
           onClick={ this.submitForm }
+          disabled={ disabled }
         />
       </form>
     );
   }
 }
+
+Login.propTypes = {
+  history: PropTypes.objectOf('string').isRequired,
+};
 
 export default Login;
