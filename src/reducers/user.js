@@ -1,5 +1,5 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
-import { createReducer } from '../Helpers';
+import { createReducer } from '@reduxjs/toolkit';
 import { IS_VALID, LOGIN_ACTION } from '../actions';
 
 const INITIAL_STATE = {
