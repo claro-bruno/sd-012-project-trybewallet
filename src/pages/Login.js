@@ -20,7 +20,7 @@ class Login extends React.Component {
               data-testid="email-input"
               name="email"
               value={ email }
-              onChange={}
+              onChange={()=>{}}
             />
           </label> 
 
@@ -31,14 +31,14 @@ class Login extends React.Component {
               data-testid="password-input"
               name="password"
               value={ password }
-              onChange={ }
+              onChange={()=> {}}
             />
           </label>
              
           <button
             type="button"
             className="login-button"
-            onClick={}
+            onClick={()=>{}}
           >
             Entrar
           </button>
