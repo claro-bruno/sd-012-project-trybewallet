@@ -44,39 +44,37 @@ class LoginForm extends React.Component {
     const { email, password, redirect } = this.state;
     if (redirect) { return <Redirect to="/carteira" />; }
     return (
-      <main>
-        <form onSubmit={ this.handleSubmit }>
-          <h1>Trybe Wallet</h1>
-          <label htmlFor="email-input">
-            <input
-              id="email-input"
-              name="email"
-              type="email"
-              value={ email }
-              data-testid="email-input"
-              placeholder="E-mail"
-              onChange={ this.handleChange }
-            />
-          </label>
-          <label htmlFor="password-input">
-            <input
-              id="password-input"
-              name="password"
-              type="password"
-              value={ password }
-              data-testid="password-input"
-              placeholder="Senha"
-              onChange={ this.handleChange }
-            />
-          </label>
-          <button
-            type="submit"
-            disabled={ !validatorLogin({ email, password }) }
-          >
-            Entrar
-          </button>
-        </form>
-      </main>
+      <form onSubmit={ this.handleSubmit }>
+        <h1>Trybe Wallet</h1>
+        <label htmlFor="email-input">
+          <input
+            id="email-input"
+            name="email"
+            type="email"
+            value={ email }
+            data-testid="email-input"
+            placeholder="E-mail"
+            onChange={ this.handleChange }
+          />
+        </label>
+        <label htmlFor="password-input">
+          <input
+            id="password-input"
+            name="password"
+            type="password"
+            value={ password }
+            data-testid="password-input"
+            placeholder="Senha"
+            onChange={ this.handleChange }
+          />
+        </label>
+        <button
+          type="submit"
+          disabled={ !validatorLogin({ email, password }) }
+        >
+          Entrar
+        </button>
+      </form>
     );
   }
 }
