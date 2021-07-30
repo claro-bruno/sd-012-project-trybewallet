@@ -1,12 +1,12 @@
 form {
   display: flex;
-  flex-direction: column;
+  border: 1px solid white;
   box-sizing: border-box;
-  width: 300px;
+  flex-direction: column;
   height: 440px;
   margin: auto;
   padding: 40px;
-  border: 1px solid white;
+  width: 300px;
 }
 
 form input {
