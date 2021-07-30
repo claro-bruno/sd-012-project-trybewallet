@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class Login extends React.Component {
   constructor() {
@@ -7,10 +8,45 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
+      buttonStatus: true,
     };
 
-    this.submitLogin = this.submitLogin.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.changeButtonStatus = this.changeButtonStatus.bind(this);
+    this.submitLogin = this.submitLogin.bind(this);
+  }
+
+  handleChange({ target }) {
+    const { name, value } = target;
+
+    this.setState({
+      [name]: value,
+    });
+
+    this.changeButtonStatus();
+  }
+
+  changeButtonStatus() {
+    // regex de validação adaptado de:
+    // https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail
+    const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+$/i;
+    const MINIMUM_OF_CHARACTERS = 5;
+    const { email, password } = this.state;
+    let checked = true;
+
+    if (password.length >= MINIMUM_OF_CHARACTERS && emailRegex.test(email)) {
+      checked = false;
+    }
+
+    if (checked) {
+      console.log('Não verificado');
+    } else {
+      console.log('Verificado');
+    }
+
+    this.setState({
+      buttonStatus: checked,
+    });
   }
 
   submitLogin(e) {
@@ -22,16 +58,8 @@ class Login extends React.Component {
     });
   }
 
-  handleChange({ target }) {
-    const { name, value } = target;
-
-    this.setState({
-      [name]: value,
-    });
-  }
-
   render() {
-    const { email, password } = this.state;
+    const { email, password, buttonStatus } = this.state;
 
     return (
       <fieldset>
@@ -45,6 +73,7 @@ class Login extends React.Component {
             name="email"
             value={ email }
             onChange={ this.handleChange }
+            required
           />
           <input
             type="password"
@@ -53,8 +82,13 @@ class Login extends React.Component {
             name="password"
             value={ password }
             onChange={ this.handleChange }
+            required
           />
-          <button type="submit">Entrar</button>
+          <Link to="/carteira">
+            <button disabled={ buttonStatus } type="submit">
+              Entrar
+            </button>
+          </Link>
         </form>
       </fieldset>
     );
