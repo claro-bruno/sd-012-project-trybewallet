@@ -3,6 +3,10 @@
   justify-content: center;
 }
 
+header img {
+  height: 100px;
+}
+
 .login img {
   height: 100px;
 }
@@ -12,12 +16,8 @@
 }
 
 header {
-  display: flex;
-  justify-content: space-between;
   border-bottom: 1px solid black;
   box-shadow: gray 2px 2px;
-}
-
-header img {
-  height: 100px;
+  display: flex;
+  justify-content: space-between;
 }
