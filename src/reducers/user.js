@@ -4,13 +4,9 @@ import { LOGIN_USER, WALLET } from '../actions';
 // Configure os seus reducers.
 // ATENÇÃO: você obrigatoriamente tem que utilizar as chaves "user" e "wallet" no seu estado global
 const INITIAL_STATE = {
-  user: {
-    email: '',
-  },
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  email: '',
+  currencies: [],
+  expenses: [],
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -18,20 +14,15 @@ const reducer = (state = INITIAL_STATE, action) => {
   case LOGIN_USER:
     return {
       ...state,
-      user: {
-        email: action.payload,
-      },
+      email: action.payload,
+
     };
   case WALLET:
     return {
       ...state,
-      user: {
-        email: action.payload,
-      },
-      wallet: {
-        currencies: [],
-        expenses: [],
-      },
+      email: action.payload,
+      currencies: [],
+      expenses: [],
     };
   default:
     return state;
