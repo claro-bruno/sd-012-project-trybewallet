@@ -1,4 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { setUserEmail } from '../actions/index';
 
 class Login extends React.Component {
   constructor(props) {
@@ -9,10 +13,12 @@ class Login extends React.Component {
       emailIsValid: false,
       passwordIsValid: false,
       enableSubmit: false,
+      canRedirect: false,
     };
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
     this.checkEnableSubmit = this.checkEnableSubmit.bind(this);
+    this.submitLogin = this.submitLogin.bind(this);
   }
 
   checkEnableSubmit() {
@@ -38,15 +44,30 @@ class Login extends React.Component {
     }, () => (this.checkEnableSubmit()));
   }
 
+  submitLogin() {
+    const { setEmail } = this.props;
+    const { emailInputText } = this.state;
+    setEmail(emailInputText);
+    this.setState({
+      canRedirect: true,
+    });
+  }
+
   render() {
     const {
       emailInputText,
       passwordInputText,
       enableSubmit,
+      canRedirect,
     } = this.state;
+    if (canRedirect) {
+      return (
+        <Redirect to="/carteira" />
+      );
+    }
     return (
       <div>
-        <form onSubmit={ this.submitLogin }>
+        <form>
           <label htmlFor="email-input">
             Email:
             <input
@@ -68,8 +89,9 @@ class Login extends React.Component {
             />
           </label>
           <button
-            type="submit"
+            type="button"
             disabled={ !enableSubmit }
+            onClick={ this.submitLogin }
           >
             Entrar
           </button>
@@ -79,4 +101,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  setEmail: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  setEmail: (email) => dispatch(setUserEmail(email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
