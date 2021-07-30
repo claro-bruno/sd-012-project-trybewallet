@@ -51,6 +51,11 @@ class Login extends React.Component {
               onChange={ handleChange }
             />
           </label>
+          <button
+            type="button"
+          >
+            Entrar
+          </button>
         </form>
       </section>
     );
