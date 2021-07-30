@@ -1,5 +1,9 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { func } from 'prop-types';
 import { validatorLogin } from '../loginValidation';
+import { userAction } from '../actions/index';
 
 class Login extends React.Component {
   constructor(props) {
@@ -8,18 +12,30 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
+      redirect: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange({ target: { name, value } }) {
     this.setState({ [name]: value });
   }
 
+  handleClick(e) {
+    e.preventDefault();
+    const { email } = this.state;
+    const { setEmailToGlobalState } = this.props;
+    setEmailToGlobalState(email);
+    this.setState({ redirect: true });
+  }
+
   render() {
+    const { redirect } = this.state;
+    if (redirect) return <Redirect to="/carteira" />;
     return (
-      <div>
+      <form>
         <label htmlFor="email">
           Email:
           <input
@@ -38,10 +54,25 @@ class Login extends React.Component {
             onChange={ this.handleChange }
           />
         </label>
-        <button type="button" disabled={ !validatorLogin(this.state) }>Entrar</button>
-      </div>
+        <button
+          type="button"
+          disabled={ !validatorLogin(this.state) }
+          onClick={ this.handleClick }
+        >
+          Entrar
+
+        </button>
+      </form>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  setEmailToGlobalState: (state) => dispatch(userAction(state)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
+
+Login.propTypes = ({
+  setEmailToGlobalState: func.isRequired,
+});

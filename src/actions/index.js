@@ -3,19 +3,17 @@ export const EMAIL = 'EMAIL';
 export const CURRENCIES = 'CURRENCIES';
 export const EXPENSES = 'EXPENSES';
 
-const userAction = (state) => ({
+export const userAction = (state) => ({
   type: EMAIL,
   email: state,
 });
 
-const currencyAction = (state) => ({
+export const currencyAction = (state) => ({
   type: CURRENCIES,
   currencies: [state],
 });
 
-const expenseAction = (state) => ({
+export const expenseAction = (state) => ({
   type: EXPENSES,
   expenses: [state],
 });
-
-export default { userAction, currencyAction, expenseAction };
