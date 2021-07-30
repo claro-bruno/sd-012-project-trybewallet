@@ -1,2 +1,3 @@
 export { default as Header } from './Header';
-export const para = 'foi';
+export { default as Input } from './Input';
+export { default as Select } from './Select';
