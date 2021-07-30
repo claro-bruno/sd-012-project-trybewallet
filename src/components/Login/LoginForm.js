@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import changeEmailLogin from '../../actions';
+import { changeEmailLogin } from '../../actions';
 import { validatorLogin } from '../../utils';
 
 class LoginForm extends React.Component {
