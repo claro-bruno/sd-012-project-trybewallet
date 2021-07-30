@@ -48,7 +48,7 @@ class Login extends React.Component {
           value={ email }
         />
         <input
-          type="text"
+          type="password"
           onChange={ (e) => handleChange(e.target.name, e.target.value) }
           placeholder="password"
           data-testid="password-input"
