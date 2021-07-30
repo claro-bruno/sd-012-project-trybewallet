@@ -3,13 +3,16 @@ import { connect } from 'react-redux';
 
 class Header extends React.Component {
   render() {
+    const { email, total, currentCurrency } = this.props;
     return(
       <header>
-        <img src="" alt="" />
         <div>
-          <p data-testid="email-field"></p>
-          <p data-testid="total-field">0</p>
-          <p data-testid="header-currency-field">BRL</p>  
+          <img src="" alt="" />
+        </div>
+        <div>
+          <p data-testid="email-field">Email: { email }</p>
+          <p data-testid="total-field">Total: { total }</p>
+          <p data-testid="header-currency-field">Moeda: { currentCurrency }</p>  
         </div>
       </header>
     );
@@ -17,11 +20,9 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  email: state.user.email
+  email: state.user.email,
+  currentCurrency: state.wallet.currentCurrency,
+  total: state.wallet.total,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  teste: () => {},
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps)(Header);

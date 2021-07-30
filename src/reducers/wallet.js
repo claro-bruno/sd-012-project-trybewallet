@@ -3,7 +3,7 @@ const INITIAL_STATE = {
   currentCurrency: 'BRL',
 };
 
-const wallet = (state, action) => {
+const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     default:
       return state;
