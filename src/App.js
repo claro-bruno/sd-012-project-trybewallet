@@ -1,10 +1,12 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
 import Login from './pages/Login';
+import Wallet from './reducers/wallet';
 
 function App() {
   return (
     <Switch>
+      <Route path="/carteira" component={ Wallet } />
       <Route path="/" component={ Login } />
     </Switch>
   );
