@@ -41,18 +41,38 @@ const tag = [
 ];
 
 class Expenses extends Component {
+  constructor() {
+    super();
+    this.state = {
+      value: 0,
+      description: '',
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange({ target: { name, value } }) {
+    this.setState({ [name]: value });
+  }
+
   render() {
+    const { value, description } = this.state;
     return (
       <form>
         <ExpensesLabel
-          html="expense"
-          text="Valor"
+          // html="expense"
+          text="Valor: "
           type="number"
+          onChange={ this.handleChange }
+          value={ value }
+          name="value"
         />
         <ExpensesLabel
-          html="description"
-          text="Descrição"
+          // html="description"
+          text="Descrição: "
           type="text"
+          onChange={ this.handleChange }
+          value={ description }
+          name="description"
         />
         <SelectLabel
           html="currency"
