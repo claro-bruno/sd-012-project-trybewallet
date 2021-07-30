@@ -1,4 +1,4 @@
-import { GET_CURRENCIES, LOADING } from '../actions';
+import { GET_CURRENCIES, LOADING, ADD_EXPENSE, FORM_CHANGE } from '../actions';
 
 const INITIAL_STATE = {
   currentCurrency: 'BRL',
@@ -13,6 +13,8 @@ const wallet = (state = INITIAL_STATE, action) => {
     return { ...state, loading: true };
   case GET_CURRENCIES:
     return { ...state, loading: false, currencies: action.currencies };
+  case ADD_EXPENSE:
+    return { ...state, expenses: [...state.expenses, action.expense] };
   default:
     return state;
   }

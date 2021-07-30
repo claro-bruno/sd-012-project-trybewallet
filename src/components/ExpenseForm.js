@@ -4,11 +4,31 @@ import PropTypes from 'prop-types';
 import Input from './Input';
 import Button from './Button';
 import Select from './Select';
+import { actionAddExpense } from '../actions';
 
 const paymentMethods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const category = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
 class ExpenseForm extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    const { expenses, addExpense } = this.props;
+    const obj = {
+      id: expenses.length,
+      valor: document.querySelector('#valor').value,
+      moeda: document.querySelector('#moeda').value,
+      payment: document.querySelector('#payment').value,
+      tag: document.querySelector('#tag').value,
+      descricao: document.querySelector('#descricao').value,
+    };
+    addExpense(obj);
+  }
+
   render() {
     const { currencies } = this.props;
     return (
@@ -17,8 +37,6 @@ class ExpenseForm extends React.Component {
           label="Valor"
           type="text"
           name="valor"
-          onChange={ () => {} }
-          value=""
         />
         <Select
           label="Moeda"
@@ -39,13 +57,11 @@ class ExpenseForm extends React.Component {
           label="Descrição"
           type="text"
           name="descricao"
-          onChange={ () => {} }
-          value=""
         />
         <Button
           text="Adicionar"
           name="add"
-          onClick={ () => {} }
+          onClick={ this.handleClick }
         />
       </form>
     );
@@ -54,10 +70,16 @@ class ExpenseForm extends React.Component {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  addExpense: (expense) => dispatch(actionAddExpense(expense)),
 });
 
 ExpenseForm.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  addExpense: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(ExpenseForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);
