@@ -15,15 +15,15 @@ class ExpenseForm extends React.Component {
       <form className="expenseForm">
         <label htmlFor="Valor">
           Valor:
-          <input className="small" type="number" name="Valor" />
+          <input id="Valor" className="small" type="text" name="Valor" />
         </label>
         <label className="descriptionLabel" htmlFor="Descrição">
           Descrição:
-          <input className="descriptionInput" type="text" name="Descrição" />
+          <input id="Descrição" className="descripInput" type="text" name="Descrição" />
         </label>
         <label htmlFor="Moeda">
           Moeda:
-          <select name="Moeda">
+          <select id="Moeda" name="Moeda">
             {currencies.map(
               (curr) => <option key={ curr } value={ curr }>{curr}</option>,
             )}
@@ -31,7 +31,7 @@ class ExpenseForm extends React.Component {
         </label>
         <label htmlFor="Payment">
           Método de pagamento:
-          <select name="Payment">
+          <select id="Payment" name="Payment">
             <option value="cash">Dinheiro</option>
             <option value="cred">Cartão de crédito</option>
             <option value="debit">Cartão de débito</option>
@@ -39,7 +39,7 @@ class ExpenseForm extends React.Component {
         </label>
         <label htmlFor="Category">
           Tag:
-          <select name="Category">
+          <select id="Category" name="Category">
             <option value="food">Alimentação</option>
             <option value="fun">Lazer</option>
             <option value="job">Trabalho</option>
