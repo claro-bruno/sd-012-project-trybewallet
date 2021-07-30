@@ -1,6 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Input from '../components/Input';
 import './login.css';
+import updateEmail from '../actions/index';
 
 class Login extends React.Component {
   constructor(props) {
@@ -14,6 +17,7 @@ class Login extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleEnterButton = this.handleEnterButton.bind(this);
   }
 
   handleChange(e) {
@@ -22,6 +26,13 @@ class Login extends React.Component {
       disable: true,
       buttonCSS: 'button-disable',
     }, () => this.formValidation());
+  }
+
+  handleEnterButton() {
+    const { addEmail } = this.props;
+    const { email } = this.state;
+
+    addEmail(email);
   }
 
   formValidation() {
@@ -71,6 +82,7 @@ class Login extends React.Component {
             className={ buttonCSS }
             disabled={ disable }
             type="button"
+            onClick={ this.handleEnterButton }
           >
             ENTRAR
           </button>
@@ -80,4 +92,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispacthToProps = (dispacth) => ({
+  addEmail: (value) => dispacth(updateEmail(value)),
+});
+
+Login.propTypes = {
+  addEmail: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispacthToProps)(Login);

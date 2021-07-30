@@ -5,7 +5,7 @@ const initialState = {
 
 const user = (state = initialState, action) => {
   switch (action.type) {
-  case 'ADD_EMAIl':
+  case 'ADD_EMAIL':
     return { ...state, email: action.value };
   default:
     return state;
