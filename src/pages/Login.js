@@ -2,17 +2,29 @@ import React from 'react';
 import trybeWalletLogo from '../images/logo-trybe-wallet.png';
 import './login.css';
 
+const EMAIL_REGEX = /^(\.|-|_|[a-z]|\d)+?@([a-z]|\d)+\.[a-z]{2,3}(\.[a-z]{2})?$/;
+const MIN_PASSWORD_LENGTH = 6;
+
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
       password: '',
+      isValid: false,
     };
 
+    this.isValid = this.isValid.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.renderLoginFields = this.renderLoginFields.bind(this);
+  }
+
+  isValid() {
+    const { email, password } = this.state;
+    const checkEmail = EMAIL_REGEX.test(email);
+    const checkPassword = password.length >= MIN_PASSWORD_LENGTH;
+    this.setState({ isValid: checkEmail && checkPassword });
   }
 
   handleSubmit() {
@@ -20,11 +32,11 @@ class Login extends React.Component {
   }
 
   handleChange({ target: { name, value } }) {
-    this.setState({ [name]: value });
+    this.setState({ [name]: value }, () => this.isValid());
   }
 
   renderLoginFields() {
-    const { email, password } = this.state;
+    const { email, password, isValid } = this.state;
     return (
       <fieldset>
         <img
@@ -56,6 +68,7 @@ class Login extends React.Component {
             />
           </label>
           <button
+            disabled={ !isValid }
             type="submit"
             onClick={ () => {} }
           >
