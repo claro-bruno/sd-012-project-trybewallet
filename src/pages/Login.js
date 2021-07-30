@@ -1,22 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { actionLog } from '../actions/index';
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
-    this.onSubmitForm = this.onSubmitForm.bind(this);
     this.verifyInputs = this.verifyInputs.bind(this);
     this.state = {
       email: '',
       password: '',
       disabled: true,
     };
-  }
-
-  onSubmitForm() {
-    const { history } = this.props;
-    history.push('/carteira');
   }
 
   handleChange({ target: { name, value } }) {
@@ -35,6 +32,7 @@ class Login extends React.Component {
 
   render() {
     const { email, password, disabled } = this.state;
+    const { userEmail } = this.props;
     return (
       <div>
         <form>
@@ -54,21 +52,26 @@ class Login extends React.Component {
             value={ password }
             onChange={ this.handleChange }
           />
-          <button
-            type="button"
-            disabled={ disabled }
-            onClick={ this.onSubmitForm }
-          >
-            Entrar
-          </button>
+          <Link to="/carteira" onClick={ () => userEmail({ email }) }>
+            <button
+              type="button"
+              disabled={ disabled }
+            >
+              Entrar
+            </button>
+          </Link>
         </form>
       </div>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  userEmail: (e) => dispatch(actionLog(e)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
 
 Login.propTypes = {
-  history: PropTypes.func.isRequired,
+  userEmail: PropTypes.func.isRequired,
 };
