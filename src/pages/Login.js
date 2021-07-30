@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import { connect } from 'react-redux';
@@ -37,12 +38,14 @@ class Login extends React.Component {
         onChange={ this.handleChange }
         testId="password-input"
       />
-      <Button
-        text="Entrar"
-        name="login"
-        onClick=""
-        isValid={ isValid }
-      />
+      <Link to="/carteira">
+        <Button
+          text="Entrar"
+          name="login"
+          onClick={() => {}}
+          isValid={ isValid }
+        />
+      </Link>
     </div>
     );
   }
