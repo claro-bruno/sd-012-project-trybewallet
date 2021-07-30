@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import { fetchCurrency } from '../actions';
+import { fetchExpense } from '../actions';
 import Input from './Input';
 import Select from './Select';
 import { methodOptions, tagOptions } from '../helpers/optionsData';
@@ -100,7 +100,7 @@ class AddExpense extends React.Component {
 }
 
 const mapDisptachToProps = (dispatch) => ({
-  saveExpense: (expense) => dispatch(fetchCurrency(expense)),
+  saveExpense: (expense) => dispatch(fetchExpense(expense)),
 });
 
 AddExpense.propTypes = {
