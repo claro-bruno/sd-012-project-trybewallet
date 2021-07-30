@@ -3,11 +3,11 @@ body {
 }
 
 .login-page {
-  text-align: center;
   display: flex;
   flex-direction: column;
   height: 100vh;
   justify-content: center;
+  text-align: center;
 }
 
 .login-page h1 {
@@ -15,34 +15,34 @@ body {
 }
 
 .login-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
   align-items: center;
   background-color: rgb(217, 237, 255);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
   height: 30vh;
-  width: 40%;
+  justify-content: space-around;
   margin: 50px auto;
   padding: 15px;
-  border-radius: 15px;
+  width: 40%;
 }
 
 .login-section input {
-  height: 30px;
-  width: 80%;
-  text-align: center;
   border: none;
   border-radius: 5px;
   font-size: 18px;
+  height: 30px;
+  text-align: center;
+  width: 80%;
 }
 
 .login-section button {
-  height: 30px;
-  width: 80%;
-  text-align: center;
+  background-color: green;
   border: none;
   border-radius: 5px;
-  font-size: 18px;
-  background-color: green;
   color: white;
+  font-size: 18px;
+  height: 30px;
+  text-align: center;
+  width: 80%;
 }
