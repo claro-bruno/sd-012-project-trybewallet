@@ -53,7 +53,7 @@ class Form extends Component {
         <label htmlFor="selectedCoin">
           Moeda
           <select name="selectedCoin" onChange={ this.handleChange }>
-            { arrayCurrencies.map((coin, index) => <option key={ index }>{coin}</option>) }
+            { arrayCurrencies.map((c, index) => <option key={ index }>{c}</option>) }
           </select>
         </label>
         <label htmlFor="payment">
