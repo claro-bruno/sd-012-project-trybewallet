@@ -10,6 +10,7 @@ class Header extends React.Component {
       total: 0,
     };
   }
+
   render() {
     const { userEmail } = this.props;
     const { total } = this.state;
@@ -18,7 +19,7 @@ class Header extends React.Component {
         <h1>Weballet</h1>
         <p data-testid="email-field">{ userEmail }</p>
         <p data-testid="total-field">{ total }</p>
-        <p data-testid="header-currency-field"></p>
+        <p data-testid="header-currency-field" />
       </header>
     );
   }

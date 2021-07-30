@@ -1,18 +1,14 @@
 import React from 'react';
-import TableRow from './TableRow';
 import PropTypes from 'prop-types';
-import { deleteWallet } from '../actions';
 import { connect } from 'react-redux';
+import TableRow from './TableRow';
+import { deleteWallet } from '../actions';
 
 class ExpensesTable extends React.Component {
   constructor() {
     super();
 
     this.getInfo = this.getInfo.bind(this);
-  }
-  handleDelete(id) {
-    const { deleteItem } = this.props;
-    deleteItem(id);
   }
 
   getInfo(item) {
@@ -39,12 +35,25 @@ class ExpensesTable extends React.Component {
       name,
       parseFloat(high).toFixed(2),
       (high * value).toFixed(2),
-      "Real Brasileiro",
-      <button onClick={ () => this.handleDelete(id) } data-testid="delete-btn">Excluir</button>,
+      'Real Brasileiro',
+      <button
+        onClick={ () => this.handleDelete(id) }
+        data-testid="delete-btn"
+        type="button"
+        key={ id }
+      >
+        Excluir
+      </button>,
     ];
 
     return info;
   }
+
+  handleDelete(id) {
+    const { deleteItem } = this.props;
+    deleteItem(id);
+  }
+
   render() {
     const header = [
       'Descrição',
@@ -66,12 +75,11 @@ class ExpensesTable extends React.Component {
           <TableRow content={ header } />
         </thead>
         <tbody>
-          { expenses.length > 0 && 
-            expenses.map((item, index) => {
-              return <TableRow key={ index } content={ getInfo(item) } />
-            }
-            )
-          }
+          { expenses.length > 0
+            && expenses.map((item, index) => (<TableRow
+              key={ index }
+              content={ getInfo(item) }
+            />))}
         </tbody>
       </table>
     );
@@ -87,7 +95,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 ExpensesTable.propTypes = {
-  expenses: PropTypes.array.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.any).isRequired,
   deleteItem: PropTypes.func.isRequired,
 };
 

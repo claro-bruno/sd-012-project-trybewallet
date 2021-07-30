@@ -46,7 +46,10 @@ Input.defaultProps = {
 
 Input.propTypes = {
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.any.isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
   name: PropTypes.string.isRequired,
   type: PropTypes.string,
   placeholder: PropTypes.string,

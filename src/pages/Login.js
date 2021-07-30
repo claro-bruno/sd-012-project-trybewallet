@@ -29,34 +29,60 @@ class Login extends React.Component {
   handleEmail({ target: { name, value } }) {
     const emailRegex = /[\w,\W]+@[\w,\W]+\.com/gm;
     this.setState((prevState) => ({
-        validation: {
-          ...prevState.validation,
-          emailIsValid: emailRegex.test(value),
-        },
+      validation: {
+        ...prevState.validation,
+        emailIsValid: emailRegex.test(value),
+      },
     }));
     this.handleChange(name, value);
   }
 
   handlePassword({ target: { name, value } }) {
-    const bool = (value.length && value.length >= 6);
+    const MIN_PASSWORD_LENGTH = 6;
+    const bool = (value.length && value.length >= MIN_PASSWORD_LENGTH);
     this.setState((prevState) => ({
       validation: {
         ...prevState.validation,
         passwordIsValid: bool,
       },
-  }));
+    }));
     this.handleChange(name, value);
   }
+
   render() {
-    const { email, password, validation: { emailIsValid, passwordIsValid } } = this.state;
+    const {
+      email,
+      password,
+      validation: {
+        emailIsValid,
+        passwordIsValid,
+      },
+    } = this.state;
     const { handleEmail, handlePassword } = this;
-    const { sendEmail } = this.props; 
+    const { sendEmail } = this.props;
     return (
       <section>
-        <Input dataTestId="email-input" placeholder="e-mail" name="email" onChange={ handleEmail } value={ email } />
-        <Input dataTestId="password-input" type="password" placeholder="senha" name="password" onChange={ handlePassword } value={ password } />
+        <Input
+          dataTestId="email-input"
+          placeholder="e-mail"
+          name="email"
+          onChange={ handleEmail }
+          value={ email }
+        />
+        <Input
+          dataTestId="password-input"
+          type="password"
+          placeholder="senha"
+          name="password"
+          onChange={ handlePassword }
+          value={ password }
+        />
         <Link to="/carteira">
-          <button onClick={ () => sendEmail(email) } type="button" disabled={ !(emailIsValid && passwordIsValid) }>
+          <button
+            onClick={ () => sendEmail(email) }
+            type="button"
+            disabled={ !(emailIsValid && passwordIsValid) }
+          >
             Entrar
           </button>
         </Link>

@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { changeWallet } from '../actions';
 import Header from '../components/Header';
 import Input from '../components/Input';
 import Select from '../components/Select';
 import ExpensesTable from '../components/ExpensesTable';
 import fetchAll from '../services/api';
-import PropTypes from 'prop-types';
 
 class Wallet extends React.Component {
   constructor() {
@@ -22,19 +22,20 @@ class Wallet extends React.Component {
       paymentMethods: [
         'Dinheiro',
         'Cartão de crédito',
-        'Cartão de débito'
+        'Cartão de débito',
       ],
       expensesTag: [
         'Alimentação',
         'Lazer',
         'Trabalho',
         'Transporte',
-        'Saúde'
+        'Saúde',
       ],
     };
     this.currenciesToState = this.currenciesToState.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.getExpenseDetail = this.getExpenseDetail.bind(this);
+    this.renderForm = this.renderForm.bind(this);
   }
 
   async componentDidMount() {
@@ -42,25 +43,15 @@ class Wallet extends React.Component {
     this.currenciesToState(response);
   }
 
-  currenciesToState(obj) {
-    delete obj["USDT"];
-    const currencies = Object.keys(obj);
-    this.setState({ currenciesTag: currencies });
-  }
-
-  handleChange({ target: { name, value } }) {
-    this.setState({ [name]: value });
-  }
-
   getExpenseDetail() {
     const { currentValue,
       description,
       selectedCurrency,
       selectedPayment,
-      selectedTag
+      selectedTag,
     } = this.state;
     const { expenses } = this.props;
-    
+
     return {
       id: expenses.length,
       value: currentValue,
@@ -71,9 +62,18 @@ class Wallet extends React.Component {
     };
   }
 
-  render() {
-    const { addExpense } = this.props;
+  handleChange({ target: { name, value } }) {
+    this.setState({ [name]: value });
+  }
 
+  currenciesToState(obj) {
+    delete obj.USDT;
+    const currencies = Object.keys(obj);
+    this.setState({ currenciesTag: currencies });
+  }
+
+  renderForm() {
+    const { addExpense } = this.props;
     const {
       currenciesTag,
       paymentMethods,
@@ -81,15 +81,8 @@ class Wallet extends React.Component {
       currentValue,
       description,
     } = this.state;
-
-    const {
-      handleChange,
-      getExpenseDetail,
-    } = this;
-
+    const { handleChange, getExpenseDetail } = this;
     return (
-    <div>
-      <Header />
       <form>
         <Input
           labelName="Valor"
@@ -125,9 +118,17 @@ class Wallet extends React.Component {
         <button type="button" onClick={ () => addExpense(getExpenseDetail()) }>
           Adicionar despesa
         </button>
-      </form>
-      <ExpensesTable />
-    </div>
+      </form>);
+  }
+
+  render() {
+    const { renderForm } = this;
+    return (
+      <div>
+        <Header />
+        { renderForm() }
+        <ExpensesTable />
+      </div>
     );
   }
 }
@@ -142,7 +143,7 @@ const mapStateToProps = (state) => ({
 
 Wallet.propTypes = {
   addExpense: PropTypes.func.isRequired,
-  expenses: PropTypes.array.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

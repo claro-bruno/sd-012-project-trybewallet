@@ -1,17 +1,16 @@
 import { USER_EMAIL } from '../actions';
 
-const initial_state = {
+const initialState = {
   email: '',
 };
 
-const changeEmail = (state = initial_state, action) => {
-  switch(action.type) {
-    case USER_EMAIL:
-      return { ...state, email: action.payload };
-    default:
-      return state;
+const changeEmail = (state = initialState, action) => {
+  switch (action.type) {
+  case USER_EMAIL:
+    return { ...state, email: action.payload };
+  default:
+    return state;
   }
 };
 
 export default changeEmail;
-

@@ -10,11 +10,11 @@ class Select extends React.Component {
       name,
     } = this.props;
     return (
-      <label>
+      <label htmlFor={ name }>
         { labelName }
-          <select onChange={ onChange } name={ name }>
-            { options.map((item) => <option key={ item } value={ item }>{ item }</option>) }
-          </select>
+        <select onChange={ onChange } name={ name }>
+          { options.map((item) => <option key={ item } value={ item }>{ item }</option>) }
+        </select>
       </label>
     );
   }
@@ -29,6 +29,6 @@ Select.propTypes = {
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
   onChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
-}
+};
 
 export default Select;
