@@ -1,5 +1,6 @@
 import React from 'react';
 import '../App.css';
+import { Redirect } from 'react-router-dom';
 
 const ERRORS = {
   errorEmail: 'Email inválido',
@@ -13,10 +14,12 @@ class Login extends React.Component {
     super();
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
 
     this.state = {
       email: '',
       password: '',
+      shouldRedirect: false,
     };
   }
 
@@ -31,17 +34,22 @@ class Login extends React.Component {
     this.setState((state) => ({ ...state, [name]: newValue() }));
   }
 
+  handleClick() {
+    const { state: { email } } = this;
+    console.log(email);
+    this.setState((state) => ({ ...state, shouldRedirect: true }));
+  }
+
   render() {
-    const {
-      state: { email, password },
-      handleChange,
-    } = this;
+    const { handleChange, handleClick } = this;
+    const { email, password, shouldRedirect } = this.state;
     const { errorEmail, errorPassword } = ERRORS;
     const emailValidation = email.includes('@' && '.com');
     const passwordValidation = password.length >= VALID_CARACTERES;
 
     return (
       <section>
+        { shouldRedirect && <Redirect to="/carteira" /> }
         <h1>Login</h1>
         <form>
           <label htmlFor="email">
@@ -73,6 +81,7 @@ class Login extends React.Component {
           <button
             type="button"
             disabled={ !(passwordValidation && emailValidation) }
+            onClick={ handleClick }
           >
             Entrar
           </button>
