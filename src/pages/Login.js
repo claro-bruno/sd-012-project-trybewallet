@@ -7,7 +7,7 @@ class Login extends React.Component {
         <div>Login</div>
         <input type="text" data-testid="email-input" placeholder="email" value="" />
         <input type="password" data-testid="password-input" placeholder="senha" />
-        <button type="button" data-testId="">Login</button>
+        <button type="button" data-testId="">Entrar</button>
       </div>);
   }
 }

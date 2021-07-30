@@ -6,7 +6,6 @@ function App() {
   return (
     <div>
       <div>Hello, TrybeWallett!</div>
-      <Login />
       <Switch>
         <Route exact path="/" component={ Login } />
       </Switch>
