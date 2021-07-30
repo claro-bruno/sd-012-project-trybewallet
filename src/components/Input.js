@@ -3,13 +3,13 @@ import propTypes from 'prop-types';
 
 class Input extends React.Component {
   render() {
-    const { text, name, value, onChange } = this.props;
+    const { text, type, name, value, onChange } = this.props;
 
     return (
       <label htmlFor={ name }>
         { text }
         <input
-          type="text"
+          type={ type }
           name={ name }
           id={ name }
           value={ value }
@@ -22,8 +22,9 @@ class Input extends React.Component {
 
 Input.propTypes = {
   text: propTypes.string.isRequired,
+  type: propTypes.string.isRequired,
   name: propTypes.string.isRequired,
-  value: propTypes.string.isRequired,
+  value: propTypes.oneOfType([propTypes.string, propTypes.number]).isRequired,
   onChange: propTypes.func.isRequired,
 };
 

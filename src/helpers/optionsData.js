@@ -1,37 +1,37 @@
-export const paymentOptions = [
+export const methodOptions = [
   {
-    value: 'money',
+    value: 'Dinheiro',
     description: 'Dinheiro',
   },
   {
-    value: 'credit-card',
+    value: 'Cartão de crédito',
     description: 'Cartão de crédito',
   },
   {
-    value: 'debit-card',
+    value: 'Cartão de débito',
     description: 'Cartão de débito',
   },
 ];
 
 export const tagOptions = [
   {
-    value: 'food',
+    value: 'Alimentação',
     description: 'Alimentação',
   },
   {
-    value: 'recreation',
+    value: 'Lazer',
     description: 'Lazer',
   },
   {
-    value: 'work',
+    value: 'Trabalho',
     description: 'Trabalho',
   },
   {
-    value: 'transport',
+    value: 'Transporte',
     description: 'Transporte',
   },
   {
-    value: 'health',
+    value: 'Saúde',
     description: 'Saúde',
   },
 ];
