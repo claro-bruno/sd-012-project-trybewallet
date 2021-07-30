@@ -52,7 +52,7 @@ class Login extends React.Component {
               id="login-password"
               value={ password }
               onChange={ this.handleChange }
-              placeholder="password"
+              placeholder="Password"
             />
           </label>
           <button
