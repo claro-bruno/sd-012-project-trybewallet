@@ -1,12 +1,10 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 const INITIAL_WALLET_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  currencies: [],
+  expenses: [],
 };
 
-const walletReducer = (state = INITIAL_WALLET_STATE, action) => {
+const wallet = (state = INITIAL_WALLET_STATE, action) => {
   switch (action.type) {
   case 'ADD_EXPENSE':
     return {};
@@ -15,4 +13,4 @@ const walletReducer = (state = INITIAL_WALLET_STATE, action) => {
   }
 };
 
-export default walletReducer;
+export default wallet;
