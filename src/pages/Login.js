@@ -8,18 +8,39 @@ class Login extends React.Component {
     super();
     this.state = {
       email: '',
+      password: '',
+      disabled: true,
     };
-    this.changeEmail = this.changeEmail.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.verifyEmailAndPassword = this.verifyEmailAndPassword.bind(this);
   }
 
-  changeEmail({ target }) {
+  handleChange({ target: { name, value } }) {
     this.setState({
-      email: target.value,
+      [name]: value,
+    });
+    this.verifyEmailAndPassword();
+  }
+
+  verifyEmailAndPassword() {
+    const minLength = 6;
+    this.setState((state) => {
+      if (state.password.length >= minLength
+        && state.email.includes('@')
+        && state.email.includes('.')
+        && state.email[state.email.length - 1] !== '.') {
+        return {
+          disabled: false,
+        };
+      }
+      return {
+        disabled: true,
+      };
     });
   }
 
   render() {
-    const { email } = this.state;
+    const { email, password, disabled } = this.state;
     const { saveEmail } = this.props;
     return (
       <form>
@@ -27,16 +48,22 @@ class Login extends React.Component {
           type="email"
           data-testid="email-input"
           value={ email }
-          onChange={ this.changeEmail }
+          name="email"
+          onInput={ this.handleChange }
+          onChange={ this.handleChange }
         />
         <input
           type="password"
-          minLength="6"
           data-testid="password-input"
+          value={ password }
+          name="password"
+          onInput={ this.handleChange }
+          onChange={ this.handleChange }
         />
         <button
           type="button"
           onClick={ () => saveEmail(email) }
+          disabled={ disabled }
         >
           Entrar
         </button>
