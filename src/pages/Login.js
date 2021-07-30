@@ -1,4 +1,10 @@
 import React from 'react';
+import '../App.css';
+
+const ERRORS = {
+  errorEmail: 'Email inválido',
+  errorPassword: 'Password inválido',
+};
 
 class Login extends React.Component {
   constructor() {
@@ -24,7 +30,13 @@ class Login extends React.Component {
   }
 
   render() {
-    const { state: { email, password }, handleChange } = this;
+    const {
+      state: { email, password },
+      handleChange,
+    } = this;
+
+    const { errorEmail, errorPassword } = ERRORS;
+
     return (
       <section>
         <h1>Login</h1>
@@ -40,6 +52,7 @@ class Login extends React.Component {
               onChange={ handleChange }
               placeholder="Digite o Email"
             />
+            <span>{ errorEmail }</span>
           </label>
           <label htmlFor="password">
             Password:
@@ -52,6 +65,7 @@ class Login extends React.Component {
               onChange={ handleChange }
               placeholder="digite a Senha"
             />
+            <span>{ errorPassword }</span>
           </label>
           <button
             type="button"
