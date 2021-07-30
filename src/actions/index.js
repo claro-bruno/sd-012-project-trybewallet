@@ -1,1 +1,3 @@
-// Coloque aqui suas actions
+const actionSaveEmail = (email) => ({ type: 'EMAIL', value: email });
+
+export default actionSaveEmail;
