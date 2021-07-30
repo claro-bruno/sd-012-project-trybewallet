@@ -1,16 +1,18 @@
 import React from 'react';
 import Input from '../components/Input';
 import Button from '../components/Button';
+import { connect } from 'react-redux';
 
 class Login extends React.Component {
   render() {
+    const { email, senha, isValid } = this.props;
     return (
     <div>
       <img src="" alt="" />
       <Input
         label="Email"
         type="text"
-        value=""
+        value={ email }
         name="email"
         onChange=""
         testId="email-input"
@@ -18,7 +20,7 @@ class Login extends React.Component {
       <Input
         label="Senha"
         type="text"
-        value=""
+        value={ senha }
         name="senha"
         onChange=""
         testId="password-input"
@@ -27,10 +29,17 @@ class Login extends React.Component {
         text="Entrar"
         name="login"
         onClick=""
+        isValid={ isValid }
       />
     </div>
     );
   }
 }
 
-export default Login;
+const mapStateToProps = (state) => ({
+  email: state.user.email,
+  senha: state.user.senha,
+  isValid: state.user.isValid
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
