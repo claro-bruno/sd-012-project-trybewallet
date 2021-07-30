@@ -1,7 +1,5 @@
 const INITIAL_STATE = {
-  user: {
-    email: '',
-  },
+  email: '',
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -9,9 +7,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
   case 'userLogin':
     return {
       ...state,
-      user: {
-        email: action.user.email,
-      },
+      email: action.user.email,
     };
   default:
     return state;
