@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Form from '../components/Form';
 import Header from '../components/Header';
-import { walletChange } from '../redux/actions';
+import { walletChange } from '../actions';
 
 const Wallet = () => {
   const [code, setCode] = useState([]);
