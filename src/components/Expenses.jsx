@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import { fetchCurrencies } from '../actions';
 import ExpensesLabel from './ExpensesLabel';
 import SelectLabel from './SelectLabel';
 
@@ -46,8 +47,26 @@ class Expenses extends Component {
     this.state = {
       value: 0,
       description: '',
+      currencies: [],
+      isLoading: true,
     };
     this.handleChange = this.handleChange.bind(this);
+    this.getApi = this.getApi.bind(this);
+  }
+
+  componentDidMount() {
+    this.getApi();
+  }
+
+  getApi() {
+    fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState({
+          isLoading: false,
+          currencies: ([...Object.keys(data).filter((curren) => curren !== 'USDT')]),
+        });
+      });
   }
 
   handleChange({ target: { name, value } }) {
@@ -55,11 +74,12 @@ class Expenses extends Component {
   }
 
   render() {
-    const { value, description } = this.state;
+    const { value, description, currencies, isLoading } = this.state;
+    if (isLoading) return <div>Carregando...</div>;
     return (
       <form>
+        {console.log(currencies)}
         <ExpensesLabel
-          // html="expense"
           text="Valor: "
           type="number"
           onChange={ this.handleChange }
@@ -67,18 +87,20 @@ class Expenses extends Component {
           name="value"
         />
         <ExpensesLabel
-          // html="description"
           text="Descrição: "
           type="text"
           onChange={ this.handleChange }
           value={ description }
           name="description"
         />
-        <SelectLabel
-          html="currency"
-          text="Moeda"
-          option={ [{ content: 'URL', value: '5,17' }] }
-        />
+        <label htmlFor="currency">
+          Moeda
+          <select name="currency" id="currency">
+            {currencies.map((opt) => (
+              <option key={ opt } value={ opt }>{ opt }</option>
+            ))}
+          </select>
+        </label>
         <SelectLabel
           html="paymentMethod"
           text="Método de pagamento"
