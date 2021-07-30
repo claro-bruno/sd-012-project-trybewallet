@@ -48,7 +48,12 @@ class Form extends Component {
         </label>
         <label htmlFor="descricao">
           Descrição
-          <input id="descricao" type="text" name="description" onChange={ this.handleChange } />
+          <input
+            id="descricao"
+            type="text"
+            name="description"
+            onChange={ this.handleChange }
+          />
         </label>
         <label htmlFor="moeda">
           Moeda
