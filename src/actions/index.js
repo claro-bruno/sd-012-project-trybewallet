@@ -8,6 +8,7 @@ export const fetchCurrencies = () => (dispatch) => (
     .then((data) => data.json())
     .then((response) => {
       const currencies = Object.keys(response);
-      dispatch(getCurrencies(currencies));
+      const newcurrencies = currencies.filter((curr) => curr !== 'USDT');
+      dispatch(getCurrencies(newcurrencies));
     })
 );
