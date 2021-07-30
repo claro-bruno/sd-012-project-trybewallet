@@ -19,15 +19,15 @@ const actionLoading = () => ({
   type: LOADING,
 });
 
-export const fetchCurrencies = () => {
+export function fetchCurrencies() {
   return (dispatch) => {
     dispatch(actionLoading());
     return fetch(URL)
       .then((response) => response.json())
       .then((data) => {
-       const currencies = Object.keys(data).filter((currency) => currency !== 'USDT');
-       dispatch(actionGetCurrencies(currencies));
+        const currencies = Object.keys(data).filter((currency) => currency !== 'USDT');
+        dispatch(actionGetCurrencies(currencies));
       })
       .catch((error) => console.log(error));
-  }
+  };
 }

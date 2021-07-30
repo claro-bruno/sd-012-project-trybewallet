@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Input from './Input';
 import Button from './Button';
 import Select from './Select';
@@ -44,7 +45,7 @@ class ExpenseForm extends React.Component {
         <Button
           text="Adicionar"
           name="add"
-          onClick={() => {}}
+          onClick={ () => {} }
         />
       </form>
     );
@@ -54,5 +55,9 @@ class ExpenseForm extends React.Component {
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
 });
+
+ExpenseForm.propTypes = {
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 
 export default connect(mapStateToProps)(ExpenseForm);
