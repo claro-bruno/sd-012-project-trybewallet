@@ -15,6 +15,7 @@ class Login extends React.Component {
 
     this.emailAndPasswordValidation = this.emailAndPasswordValidation.bind(this);
     this.handleChangeEmailAndPassword = this.handleChangeEmailAndPassword.bind(this);
+    this.handleSubmitEmailToStore = this.handleSubmitEmailToStore.bind(this);
   }
 
   handleChangeEmailAndPassword({ target: { name, value } }) {
