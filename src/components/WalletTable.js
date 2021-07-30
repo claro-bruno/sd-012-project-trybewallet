@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Input from './Input';
 import Select from './Select';
+import Button from './Button';
+import { fetchAPI } from '../actions';
 
 class WalletTable extends Component {
+  componentDidMount() {
+    const { getCurrency } = this.props;
+    getCurrency();
+  }
+
   render() {
     const paymentOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const tagOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
@@ -21,11 +30,6 @@ class WalletTable extends Component {
           placeholder="Insira a Descrição"
         />
         <Select
-          title="Moeda"
-          name="cambio"
-          options={ [] }
-        />
-        <Select
           title="Método de pagamento"
           name="pagamento"
           options={ paymentOptions }
@@ -35,9 +39,23 @@ class WalletTable extends Component {
           name="categoria"
           options={ tagOptions }
         />
+        <Button name="Adicionar Despesa" />
       </div>
     );
   }
 }
 
-export default WalletTable;
+const mapDispatchToProps = (dispatch) => ({
+  getCurrency: () => dispatch(fetchAPI()),
+});
+
+const mapStateToProps = (state) => ({
+  loading: state.wallet.loading,
+  currencies: state.wallet.currencies,
+});
+
+WalletTable.propTypes = {
+  getCurrency: PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(WalletTable);
