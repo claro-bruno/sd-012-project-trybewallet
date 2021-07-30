@@ -6,7 +6,8 @@ class Button extends React.Component {
     const { text, name, onClick, isValid } = this.props;
     return (
       <button
-        name={name}
+        type="button"
+        name={ name }
         onClick={ onClick }
         disabled={ !isValid }
       >
