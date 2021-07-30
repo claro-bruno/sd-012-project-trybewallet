@@ -1,5 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import actionLogin from '../actions/actionLogin';
 
 class Login extends React.Component {
   constructor() {
@@ -38,19 +41,22 @@ class Login extends React.Component {
       checked = false;
     }
 
-    if (checked) {
-      console.log('Não verificado');
-    } else {
-      console.log('Verificado');
-    }
+    // if (checked) {
+    //   console.log('Não verificado');
+    // } else {
+    //   console.log('Verificado');
+    // }
 
     this.setState({
       buttonStatus: checked,
     });
   }
 
-  submitLogin(e) {
-    e.preventDefault();
+  submitLogin() {
+    const { setEmail } = this.props;
+    const { email } = this.state;
+
+    setEmail(email);
 
     this.setState({
       email: '',
@@ -63,9 +69,7 @@ class Login extends React.Component {
 
     return (
       <fieldset>
-        <form
-          onSubmit={ this.submitLogin }
-        >
+        <form>
           <input
             type="email"
             data-testid="email-input"
@@ -85,7 +89,7 @@ class Login extends React.Component {
             required
           />
           <Link to="/carteira">
-            <button disabled={ buttonStatus } type="submit">
+            <button disabled={ buttonStatus } type="submit" onClick={ this.submitLogin }>
               Entrar
             </button>
           </Link>
@@ -95,4 +99,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  setEmail: (email) => dispatch(actionLogin(email)),
+});
+
+Login.propTypes = ({
+  setEmail: PropTypes.func.isRequired,
+});
+
+export default connect(null, mapDispatchToProps)(Login);
