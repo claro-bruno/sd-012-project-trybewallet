@@ -1,12 +1,12 @@
-h1, h2 {
+h1 , h2 {
   text-align: center;
 }
 
 form {
   display: flex;
   flex-flow: column wrap;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
 label {
