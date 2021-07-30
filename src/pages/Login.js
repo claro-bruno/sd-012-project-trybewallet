@@ -38,8 +38,8 @@ class Login extends Component {
     const { login, canLogin } = this.props;
     return (
       <form>
-        <Input name="Email" callback={ this.handleChange } />
-        <Input name="Password" callback={ this.handleChange } />
+        <Input name="Email" callback={ this.handleChange } type="email" />
+        <Input name="Password" callback={ this.handleChange } type="password" />
         <Link to="/carteira">
           <button
             disabled={ !canLogin }
