@@ -1,4 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import storeEmail from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -8,8 +12,10 @@ class Login extends React.Component {
       password: '',
       emailIsValid: false,
       passwordIsValid: false,
+      shouldRedirect: false,
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   // consulta ao repositorio do Miguel retroz sobre validação;
@@ -38,11 +44,23 @@ class Login extends React.Component {
     });
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+    const { email } = this.state;
+    const { saveEmail } = this.props;
+    saveEmail(email);
+    this.setState({
+      shouldRedirect: true,
+    });
+  }
+
   render() {
-    const { email, password, emailIsValid, passwordIsValid } = this.state;
+    const { email, password, emailIsValid, passwordIsValid, shouldRedirect } = this.state;
+
+    if (shouldRedirect) return <Redirect to="/carteira" />;
 
     return (
-      <form>
+      <form onSubmit={ this.handleSubmit }>
         <input
           data-testid="email-input"
           type="text"
@@ -71,4 +89,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  saveEmail: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  saveEmail: (email) => dispatch(storeEmail(email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
