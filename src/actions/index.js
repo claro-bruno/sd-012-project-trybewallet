@@ -1,9 +1,10 @@
 // Coloque aqui suas actions
 // import charAPI from "../services/charAPI";
+export const SAVE_EMAIL = 'SAVE_EMAIL';
 
-// export const searchBegin = (state) => (
-//   { type: 'SEARCH_BEGIN', loading: true, state }
-// );
+export const saveEmail = (payload) => (
+  { type: SAVE_EMAIL, payload }
+);
 
 // export const searchSuccess = (state) => (
 //   { type: 'SEARCH_SUCCESS', loading: false, state }
