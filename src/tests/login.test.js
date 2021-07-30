@@ -12,8 +12,8 @@ const VALID_PASSWORD = '123456';
 
 afterEach(() => jest.clearAllMocks());
 
-describe('1 - Crie uma página inicial de login com os seguintes campos e características:', () => {
-  test('A rota para esta página deve ser \'/\'', () => {
+describe.only('1 - Crie uma página inicial de login com os seguintes campos e características:', () => {
+  test("A rota para esta página deve ser '/'", () => {
     const { history } = renderWithRouterAndStore(<App />, '/');
     expect(history.location.pathname).toBe('/');
   });
@@ -27,7 +27,7 @@ describe('1 - Crie uma página inicial de login com os seguintes campos e caract
     expect(senha).toBeInTheDocument();
   });
 
-  test('Crie um botão com o texto \'Entrar\'', () => {
+  test("Crie um botão com o texto 'Entrar'", () => {
     renderWithRouterAndStore(<App />, '/');
 
     const button = screen.getByText(/Entrar/i);
@@ -106,7 +106,7 @@ describe('3 - Utilize o Redux para salvar no estado global as informações da p
     expect(store.getState().user.email).toBe(VALID_EMAIL);
   });
 
-  test('A rota deve ser mudada para \'/carteira\' após o clique no botão.', () => {
+  test("A rota deve ser mudada para '/carteira' após o clique no botão.", () => {
     const { history } = renderWithRouterAndStore(<App />, '/');
     const email = screen.getByTestId(EMAIL_INPUT_TEST_ID);
     const senha = screen.getByTestId(PASSWORD_INPUT_TEST_ID);
