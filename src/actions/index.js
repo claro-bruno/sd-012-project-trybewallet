@@ -8,6 +8,7 @@ export const RECEIVE_EXPENSE_DATA = 'RECEIVE_EXPENSE_DATA';
 export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
 export const INCREASE_ID = 'INCREASE_ID';
 export const UPDATE_EXPENSE = 'UPDATE_EXPENSE';
+export const EDIT_EXPENSE_VALUE = 'EDIT-EXPENSE-VALUE';
 
 export const loginUser = (email) => ({
   type: LOGIN_USER,
@@ -70,4 +71,9 @@ export const removeExpense = (id) => ({
 export const expenseUpdate = (update) => ({
   type: UPDATE_EXPENSE,
   update,
+});
+
+export const editExpense = (payload) => ({
+  type: EDIT_EXPENSE_VALUE,
+  payload,
 });
