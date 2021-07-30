@@ -2,27 +2,32 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import ExpenseForm from '../components/ExpenseForm';
+import { fetchCurrencies } from '../actions';
 
 
 class Wallet extends React.Component {
   componentDidMount() {
-    fetch('https://economia.awesomeapi.com.br/json/all')
-    .then(response => response.json())
-    .then(data => console.log(data));
+    const { setCurrencies } = this.props;
+    setCurrencies();
   }
 
   render() {
+    const { loading } = this.props;
     return (
       <div>
         <Header />
-        <ExpenseForm />
+        { loading ? <p>Carregando...</p> : <ExpenseForm /> }
       </div>
     );
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  setCurrencies: (currencies) => dispatch(action(currencies)),
+const mapStateToProps = (state) => ({
+  loading: state.wallet.loading,
 });
 
-export default connect(null, mapDispatchToProps)(Wallet);
+const mapDispatchToProps = (dispatch) => ({
+  setCurrencies: () => dispatch(fetchCurrencies()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

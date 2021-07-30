@@ -15,13 +15,13 @@ const actionGetCurrencies = (currencies) => ({
   currencies,
 });
 
-const actiongLoading = () => ({
+const actionLoading = () => ({
   type: LOADING,
 });
 
 export const fetchCurrencies = () => {
   return (dispatch) => {
-    dispatch(actiongLoading());
+    dispatch(actionLoading());
     return fetch(URL)
       .then((response) => response.json())
       .then((data) => {
