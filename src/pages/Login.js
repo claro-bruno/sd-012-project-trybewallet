@@ -1,20 +1,28 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getUser } from '../actions/index';
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      user: '',
       emailCheck: false,
       passwordCheck: false,
+      redirect: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
     this.checkButton = this.checkButton.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e) {
     const email = e.target.value;
+    this.setState({ user: email });
     if (email.match(/^[a-z0-9_]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/) != null) {
       this.setState({ emailCheck: true });
     } else {
@@ -24,8 +32,8 @@ class Login extends React.Component {
 
   handlePassword(e) {
     const senha = e.target.value;
-    const passwordMinLength = 5;
-    if (senha.length > passwordMinLength) {
+    const passwordMinLength = 6;
+    if (senha.length >= passwordMinLength) {
       this.setState({ passwordCheck: true });
     } else {
       this.setState({ passwordCheck: false });
@@ -37,7 +45,18 @@ class Login extends React.Component {
     return !(emailCheck && passwordCheck);
   }
 
+  handleSubmit() {
+    const { user } = this.state;
+    const { getUserEmail } = this.props;
+    this.setState({ redirect: true });
+    getUserEmail(user);
+  }
+
   render() {
+    const { redirect } = this.state;
+    if (redirect) {
+      return <Redirect to="/carteira" />;
+    }
     return (
       <div className="login">
         <form>
@@ -61,6 +80,7 @@ class Login extends React.Component {
               className="btn btn-success"
               type="submit"
               disabled={ this.checkButton() }
+              onClick={ this.handleSubmit }
             >
               Entrar
             </button>
@@ -71,4 +91,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  getUserEmail: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  getUserEmail: (user) => dispatch(getUser(user)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
