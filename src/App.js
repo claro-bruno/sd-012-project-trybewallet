@@ -1,11 +1,15 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
+import Wallet from './pages/Wallet';
 import './App.css';
 
 function App() {
   return (
-    <Route path="/" component={ Login } />
+    <Switch>
+      <Route path="/carteira" component={ Wallet } />
+      <Route path="/" component={ Login } />
+    </Switch>
   );
 }
 
