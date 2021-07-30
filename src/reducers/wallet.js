@@ -3,7 +3,17 @@ const INITIAL_STATE = {
   wallet: '',
 };
 
-const wallet = (state = INITIAL_STATE, action) => {
+const INITIAL_STATE1 = {
+  user: {
+    email: '',
+  },
+  wallet: {
+    currencies: [],
+    expenses: [],
+  },
+};
+
+const wallet = (state = INITIAL_STATE1, action) => {
   switch (action.type) {
   default:
     return state;
