@@ -9,12 +9,14 @@ class Input extends React.Component {
       value,
       onChange,
       placeHolder,
+      name,
     } = this.props;
 
     return (
       <input
         type={ type }
         placeholder={ placeHolder }
+        name={ name }
         data-testid={ testID }
         value={ value }
         onChange={ onChange }
@@ -29,6 +31,7 @@ Input.propTypes = {
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   onChange: PropTypes.func.isRequired,
   placeHolder: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 export default Input;
