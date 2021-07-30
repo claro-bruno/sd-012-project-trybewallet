@@ -50,6 +50,32 @@
   padding: 0 5px;
 }
 
+.expenseForm {
+  background-color: #61dafb;
+  display: flex;
+}
+
+.expenseForm label {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.expenseForm .small , .expenseForm select {
+  height: 100%;
+  width: 100px;
+}
+
+.descriptionInput {
+  height: 30px;
+  width: 250px;
+}
+
+.expenseForm button {
+  margin: 10px;
+  width: 70px;
+}
+
 .App-link {
   color: #61dafb;
 }
