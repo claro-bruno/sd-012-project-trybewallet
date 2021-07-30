@@ -4,8 +4,8 @@ h1 , h2 {
 
 form {
   display: flex;
-  flex-flow: column wrap;
   align-items: center;
+  flex-flow: column wrap;
   justify-content: center;
 }
 
