@@ -2,6 +2,7 @@ import {
   GET_API,
   GET_API_SUCCESS,
   GET_API_ERROR,
+  GET_EXPENSE,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -30,6 +31,13 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       error: action.error,
       isFetching: false,
+    };
+
+  case GET_EXPENSE:
+    console.log(action.payload);
+    return {
+      ...state,
+      expenses: [action.payload],
     };
 
   default:

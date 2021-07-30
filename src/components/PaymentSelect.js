@@ -7,7 +7,7 @@ class PaymentSelect extends Component {
     return (
       <label htmlFor="pagamento">
         Método de Pagamento
-        <select value={ value } onChange={ onChange } id="pagamento">
+        <select value={ value } onChange={ onChange } id="pagamento" name="pagamento">
           <option value="dinheiro">Dinheiro</option>
           <option value="credito">Cartão de Crédito</option>
           <option value="debito">Cartão de Débito</option>

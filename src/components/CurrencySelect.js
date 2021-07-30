@@ -20,7 +20,7 @@ class CurrencySelect extends Component {
     return (
       <label htmlFor="moeda">
         Moeda:
-        <select value={ value } onChange={ onChange } id="moeda">
+        <select value={ value } onChange={ onChange } id="moeda" name="moeda">
           { option }
         </select>
       </label>

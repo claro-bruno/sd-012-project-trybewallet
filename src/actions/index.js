@@ -3,6 +3,7 @@ import {
   GET_API,
   GET_API_SUCCESS,
   GET_API_ERROR,
+  GET_EXPENSE,
 } from './actionTypes';
 
 export const actionGetEmail = (value) => ({ type: GET_EMAIL, payload: value });
@@ -21,3 +22,5 @@ export const actionFetchApi = () => (dispatch) => {
     .then((response) => dispatch(getApiSuccess(response)))
     .catch((error) => dispatch(getApiError(error)));
 };
+
+export const actionGetExpense = (value) => ({ type: GET_EXPENSE, payload: value });

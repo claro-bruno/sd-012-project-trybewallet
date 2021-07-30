@@ -7,7 +7,7 @@ class TagSelect extends Component {
     return (
       <label htmlFor="tag">
         Tag
-        <select value={ value } onChange={ onChange } id="tag">
+        <select value={ value } onChange={ onChange } id="tag" name="tag">
           <option value="alimentacao">Alimentação</option>
           <option value="lazer">Lazer</option>
           <option value="trabalho">Trabalho</option>
