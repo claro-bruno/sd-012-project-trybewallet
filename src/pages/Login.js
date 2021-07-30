@@ -1,7 +1,43 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 
 class Login extends React.Component {
+  constructor() {
+    super();
+
+    this.state = ({
+      userEmail: '',
+      userPassword: '',
+      shouldRedirect: false,
+    });
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.userVerify = this.userVerify.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  };
+
+  handleInputChange(event) {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value,
+    })
+  };
+
+  userVerify() {
+    const { userEmail, userPassword } = this.state;
+    return ( userEmail !== 'isaac@gmail' || userPassword !== "123456" ) 
+  };
+
+  handleSubmit() {
+    // Salva no Redux
+    this.setState({ shouldRedirect: true });
+  }
+
   render() {
+    const { userEmail, userPassword, shouldRedirect } = this.state;
+
+    if ( shouldRedirect ) return <Redirect to="/carteira" />
+
     return (
       <div>
         <h2>
@@ -9,14 +45,14 @@ class Login extends React.Component {
         </h2>
         <label htmlFor="userEmail">
           Email:
-          <input data-testid="email-input" type="text" id="userEmail" />
+          <input onChange={ this.handleInputChange } name="userEmail" value={ userEmail } data-testid="email-input" type="text" id="userEmail" />
         </label>
         <label htmlFor="userPassword">
           Senha:
-          <input data-testid="password-input" type="text" id="userPassword" />
+          <input onChange={ this.handleInputChange } name="userPassword" value={ userPassword } data-testid="password-input" type="text" id="userPassword" />
         </label>
-        <button type="button">
-          Entrar
+        <button onClick={ this.handleSubmit } disabled={ this.userVerify() } type="button">
+            Entrar
         </button>
       </div>
     );
