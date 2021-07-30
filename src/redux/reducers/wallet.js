@@ -11,11 +11,6 @@ const wallet = (state = INITIAL_STATE, action) => {
       currencies: [],
       expenses: [],
     };
-  case 'WALLET_ERROR':
-    return {
-      ...state,
-      error: action.error,
-    };
   default:
     return state;
   }

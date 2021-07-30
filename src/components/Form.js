@@ -1,40 +1,51 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const Form = () => {
+const Form = ({ coin }) => {
   const arrayToOptions = {
     paymentType: ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'],
     tag: ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'],
   };
   return (
     <form>
-      <label>
+      <label htmlFor="input-value">
         Valor:
-        <input type="text" name="name" />
+        <input id="input-value" type="text" name="name" />
       </label>
-      <label>
+      <label htmlFor="describe-input">
         Descrição:
-        <input type="text" name="name" />
+        <input id="describe-input" type="text" name="name" />
       </label>
-      <label>
+      <label htmlFor="select-coin">
         Moedas:
-        <select />
+        <select id="select-coin">
+          {coin.map((e) => <option value={ e } key={ e }>{e}</option>)}
+        </select>
       </label>
-      <label>
+      <label htmlFor="select-payment">
         Método de pagamento:
-        <select>
+        <select id="select-payment">
           {arrayToOptions
             .paymentType.map((e) => <option value={ e } key={ e }>{e}</option>)}
         </select>
       </label>
-      <label>
+      <label htmlFor="select-tag">
         Tag:
-        <select>
+        <select id="select-tag">
           {arrayToOptions
             .tag.map((e) => <option value={ e } key={ e }>{e}</option>)}
         </select>
       </label>
     </form>
   );
+};
+
+Form.propTypes = {
+  coin: PropTypes.arrayOf(PropTypes.string),
+};
+
+Form.defaultProps = {
+  coin: ['BRL'],
 };
 
 export default Form;

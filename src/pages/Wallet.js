@@ -1,24 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Form from '../components/Form';
 import Header from '../components/Header';
 import { walletChange } from '../redux/actions';
 
-const Wallet = ({ setWallet }) => {
-  useEffect(() => {
-
-  }, []);
+const Wallet = () => {
+  const [code, setCode] = useState([]);
 
   const fetchAPI = async () => {
     let result = await fetch('https://economia.awesomeapi.com.br/json/all');
     result = await result.json();
-    return result;
+    setCode(Object.keys(result));
   };
+
+  useEffect(() => {
+    fetchAPI();
+  }, []);
 
   return (
     <div>
       <Header />
-      <Form />
+      <Form coin={ code } />
     </div>
   );
 };
