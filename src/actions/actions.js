@@ -1,8 +1,8 @@
-export const ADD_EMAIL = 'ADD_EMAIL';
-export const ADD_PASSWORD = 'ADD_PASSWORD';
+export const SAVE_EMAIL = 'SAVE_EMAIL';
+export const SAVE_PASSWORD = 'SAVE_PASSWORD';
 
 export const addEmail = (state) => ({
-  type: ADD_EMAIL, state,
+  type: SAVE_EMAIL, email: state,
 });
 
 // export const addPassword = (payload) => ({

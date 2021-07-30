@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Button from '../components/Button';
 import Input from '../components/Input';
@@ -12,9 +13,11 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
+      isValid: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.validationInfo = this.validationInfo.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   // handleChange({ target: { name, value } }) {
@@ -33,10 +36,15 @@ class Login extends React.Component {
     }));
   }
 
-  handleSaveInfo() {
-    const { changeEmail } = this.props;
+  handleSubmit(e) {
+    e.preventDefault();
+    const { saveEmail } = this.props;
     const { email } = this.state;
-    changeEmail(email);
+    saveEmail(email);
+
+    this.setState({
+      isValid: true,
+    });
   }
 
   // código de veirificação de email pego no site => https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail
@@ -51,10 +59,13 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, password } = this.state;
-    console.log(this.props);
+    const { email, password, isValid } = this.state;
+    if (isValid) {
+      return <Redirect to="/carteira" />;
+    }
+    // o Redirect só vai funcionar depois que a função handleSubmit fizer o isValid ser true
     return (
-      <div>
+      <form onSubmit={ this.handleSubmit }>
         <Input
           label="Email"
           dataTestId="email-input"
@@ -76,20 +87,19 @@ class Login extends React.Component {
         <Button
           disable={ this.validationInfo() }
           name="button"
-          onClick={ this.handleChange }
           label="Entrar"
         />
-      </div>
+      </form>
     );
   }
 }
 Login.propTypes = {
-  changeEmail: PropTypes.func.isRequired,
+  saveEmail: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  changeEmail: (email) => dispatch(addEmail(email)),
+  saveEmail: (email) => dispatch(addEmail(email)),
 }); // esse "email" é o valor do email escrito
 
 export default connect(null, mapDispatchToProps)(Login);
-// conecta com oredux
+// conecta com o redux
