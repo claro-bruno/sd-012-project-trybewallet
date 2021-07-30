@@ -16,5 +16,4 @@ class Wallet extends React.Component {
   }
 }
 
-// export default connect(mapStateToProps)(Wallet);
 export default Wallet;

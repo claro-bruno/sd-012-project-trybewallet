@@ -1,5 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { payMethods, tags } from '../helpers/optionsSelects';
+import { fetchCurrencies } from '../actions';
 import Input from './Input';
 import Select from './Select';
 
@@ -16,12 +19,18 @@ class NewExpenses extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentDidMount() {
+    const { getCurrencies } = this.props;
+    getCurrencies();
+  }
+
   handleChange({ target: { name, value } }) {
     this.setState({ [name]: value });
   }
 
   render() {
     const { value, description, currency, payMethod, tag } = this.state;
+    const { currencies } = this.props;
     return (
       <form className="form-newExpense" method="get">
         <Input
@@ -47,7 +56,7 @@ class NewExpenses extends React.Component {
           name="currency"
           onChange={ this.handleChange }
           value={ currency }
-          options={ [] }
+          options={ currencies }
         />
         <Select
           textLabel="Método de pagamento"
@@ -70,4 +79,17 @@ class NewExpenses extends React.Component {
   }
 }
 
-export default NewExpenses;
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getCurrencies: () => dispatch(fetchCurrencies()),
+});
+
+NewExpenses.propTypes = {
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  getCurrencies: PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewExpenses);
