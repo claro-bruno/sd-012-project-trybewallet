@@ -57,16 +57,13 @@
 .login__button {
   background: #3db498;
   background-image: linear-gradient(to bottom, #43bf53, #1f892f);
-  -webkit-border-radius: 28;
-  -moz-border-radius: 28;
   border-radius: 20px;
   color: white;
   cursor: pointer;
-  font-family: Arial;
   font-size: 15px;
   font-weight: 600;
   margin: 10px;
-  padding: 8px 25px 8px 25px;
+  padding: 8px 25px;
   text-decoration: none;
 }
 
