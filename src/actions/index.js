@@ -3,10 +3,10 @@ export const WALLET_ACTION = 'WALLET_ACTION';
 
 export const userAction = () => ({
   type: USER_ACTION,
-  payload,
+  payload: '',
 });
 
 export const walletAction = () => ({
   type: WALLET_ACTION,
-  payload,
+  payload: '',
 });

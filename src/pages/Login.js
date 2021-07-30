@@ -1,4 +1,5 @@
 import React from 'react';
+import './login.css';
 // import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
 
@@ -16,7 +17,8 @@ class Login extends React.Component {
     const { email, senha } = this.state;
     return (
       <div>
-        Login
+        <h1>TrybeWallet</h1>
+        <h2>Login</h2>
         <form>
           <label htmlFor="email">
             Email:
@@ -36,8 +38,8 @@ class Login extends React.Component {
               value={ senha }
             />
           </label>
+          <button type="button">Entrar</button>
         </form>
-        <button type="button">Entrar</button>
       </div>
     );
   }

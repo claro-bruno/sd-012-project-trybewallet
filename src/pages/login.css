@@ -1,0 +1,18 @@
+h1, h2 {
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+label {
+  margin: 5px;
+}
+
+input {
+  margin: 5px;
+}
