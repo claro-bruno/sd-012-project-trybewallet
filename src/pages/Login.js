@@ -94,7 +94,7 @@ class Login extends React.Component {
     if (redirect) return <Redirect to="/carteira" />;
     return (
       <div className="login-page">
-        <form className="login-form" action="get">
+        <form className="login-form" method="get">
           {this.renderLoginFields()}
         </form>
       </div>

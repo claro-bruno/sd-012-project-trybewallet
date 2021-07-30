@@ -1,7 +1,7 @@
 .wallet-page {
   display: grid;
-  grid-template-areas: 'headWallet headWallet' '. .' '. .' '. .';
-  grid-template-rows: 15vh  15vh 10vh 60vh;
+  grid-template-areas: 'headWallet headWallet' 'newExpense newExpense' '. .' '. .';
+  grid-template-rows: 15vh  10vh 10vh 65vh;
 }
 
 .header-wallet {
@@ -16,6 +16,41 @@
 }
 
 .info-wallet {
+  align-items: center;
   display: flex;
+  justify-content: space-around;
   width: 40vw;
+}
+
+.form-newExpense {
+  align-items: center;
+  background-color: rgb(43, 46, 47);
+  border-bottom: 2px solid silver;
+  border-top: 2px solid silver;
+  color: white;
+  display: flex;
+  grid-area: newExpense;
+  justify-content: space-around;
+}
+
+.form-newExpense label {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 17vw;
+}
+
+.form-newExpense input {
+  border-radius: 5px;
+  margin-left: 2px;
+  outline: none;
+  padding: 5px;
+}
+
+.form-newExpense select {
+  border-radius: 5px;
+  margin-left: 2px;
+  outline: none;
+  padding: 5px;
+  width: 70%;
 }
