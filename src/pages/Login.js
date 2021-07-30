@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Input from '../components/Input';
 import Button from '../components/Button';
 
@@ -8,9 +9,59 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
+      emailValid: false,
+      passwordValid: false,
+      loginValid: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.validateEmail = this.validateEmail.bind(this);
+    this.validatePassword = this.validatePassword.bind(this);
+    this.validateLogin = this.validateLogin.bind(this);
+  }
+
+  validateEmail() {
+    this.setState((state) => {
+      const { email } = state;
+      // RegEx compartilhada pelo aluno Rodrigo Merlone no Slack
+      if (email.match(/^[a-z0-9_]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/)) {
+        return ({
+          emailValid: true,
+        });
+      }
+      return ({
+        emailValid: false,
+      });
+    });
+  }
+
+  validatePassword() {
+    const minPasswordLength = 6;
+    this.setState((state) => {
+      const { password } = state;
+      if (password.length >= minPasswordLength) {
+        return ({
+          passwordValid: true,
+        });
+      }
+      return ({
+        passwordValid: false,
+      });
+    });
+  }
+
+  validateLogin() {
+    this.setState((state) => {
+      const { emailValid, passwordValid } = state;
+      if (emailValid && passwordValid) {
+        return ({
+          loginValid: true,
+        });
+      }
+      return ({
+        loginValid: false,
+      });
+    });
   }
 
   handleChange(event) {
@@ -20,29 +71,36 @@ class Login extends React.Component {
     this.setState({
       [name]: value,
     });
+    this.validateEmail();
+    this.validatePassword();
+    this.validateLogin();
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, loginValid } = this.state;
     return (
       <div>
-        <Input
-          type="text"
-          name="email"
-          value={ email }
-          handleChange={ this.handleChange }
-        >
-          Email:
-        </Input>
-        <Input
-          type="password"
-          name="password"
-          value={ password }
-          handleChange={ this.handleChange }
-        >
-          Senha:
-        </Input>
-        <Button>Entrar</Button>
+        <form>
+          <Input
+            type="text"
+            name="email"
+            value={ email }
+            handleChange={ this.handleChange }
+          >
+            Email:
+          </Input>
+          <Input
+            type="password"
+            name="password"
+            value={ password }
+            handleChange={ this.handleChange }
+          >
+            Senha:
+          </Input>
+          <Link to="/carteira">
+            <Button loginValid={ !loginValid }>Entrar</Button>
+          </Link>
+        </form>
       </div>
     );
   }
