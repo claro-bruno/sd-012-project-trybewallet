@@ -1,5 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import changeEmailLogin from '../actions';
 import { validatorLogin } from '../utils';
 
 class Login extends React.Component {
@@ -25,12 +28,16 @@ class Login extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.setState((prevState) => ({
-      ...prevState,
-      email: '',
-      password: '',
-      redirect: true,
-    }));
+    const { setEmailToStore } = this.props;
+    this.setState((prevState) => {
+      setEmailToStore(prevState.email);
+      return ({
+        ...prevState,
+        email: '',
+        password: '',
+        redirect: true,
+      });
+    });
   }
 
   render() {
@@ -74,4 +81,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  setEmailToStore: (value) => dispatch(changeEmailLogin(value)),
+});
+
+Login.propTypes = {
+  setEmailToStore: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
