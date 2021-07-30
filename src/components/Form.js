@@ -36,6 +36,7 @@ const Form = ({ coin }) => {
             .tag.map((e) => <option value={ e } key={ e }>{e}</option>)}
         </select>
       </label>
+      <button type="button">Adicionar despesa</button>
     </form>
   );
 };

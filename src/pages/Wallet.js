@@ -10,7 +10,8 @@ const Wallet = () => {
   const fetchAPI = async () => {
     let result = await fetch('https://economia.awesomeapi.com.br/json/all');
     result = await result.json();
-    setCode(Object.keys(result));
+    const rmUSDT = Object.keys(result).filter((e) => e !== 'USDT');
+    setCode(rmUSDT);
   };
 
   useEffect(() => {
