@@ -20,11 +20,11 @@ class ExpenseForm extends React.Component {
     const { expenses, addExpense } = this.props;
     const obj = {
       id: expenses.length,
-      valor: document.querySelector('#valor').value,
-      moeda: document.querySelector('#moeda').value,
-      payment: document.querySelector('#payment').value,
+      value: document.querySelector('#valor').value,
+      currency: document.querySelector('#moeda').value,
+      method: document.querySelector('#payment').value,
       tag: document.querySelector('#tag').value,
-      descricao: document.querySelector('#descricao').value,
+      description: document.querySelector('#descricao').value,
     };
     addExpense(obj);
   }
@@ -59,7 +59,7 @@ class ExpenseForm extends React.Component {
           name="descricao"
         />
         <Button
-          text="Adicionar"
+          text="Adicionar despesa"
           name="add"
           onClick={ this.handleClick }
         />
@@ -80,11 +80,7 @@ const mapDispatchToProps = (dispatch) => ({
 ExpenseForm.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   addExpense: PropTypes.func.isRequired,
-  expenses: PropTypes.arrayOf(PropTypes.object),
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
-
-ExpenseForm.defaultProps = {
-  expenses: [],
-}
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);
