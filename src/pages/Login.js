@@ -12,6 +12,7 @@ class Login extends React.Component {
         value={}
         name="email"
         onChange={}
+        testId="email-input"
       />
       <Input
         label="Senha"
@@ -19,6 +20,7 @@ class Login extends React.Component {
         value={}
         name="senha"
         onChange={}
+        testId="password-input"
       />
     </div>
     );
