@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { func } from 'prop-types';
 import { addUser } from '../actions';
 
@@ -9,54 +10,71 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
+      btnDisable: true,
+      redirect: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.checkValid = this.checkValid.bind(this);
+  }
+
+  checkValid() {
+    const { email, password } = this.state;
+    const passwordMinLength = 6;
+    const regEx = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/i; // source regExp: https://mailtrap.io/blog/react-native-email-validation/
+    if (regEx.test(email) && password.length >= passwordMinLength) {
+      this.setState({ btnDisable: false });
+    } else {
+      this.setState({ btnDisable: true });
+    }
   }
 
   handleChange({ target }) {
     const { value, name } = target;
-    this.setState({ [name]: value });
+    this.setState({ [name]: value }, this.checkValid);
   }
 
   handleClick(e) {
     e.preventDefault();
     const { add } = this.props;
-    const passwordMinLength = 6;
-    const regExp = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/i; // source regExp: https://mailtrap.io/blog/react-native-email-validation/
-    const { email, password } = this.state;
-    if (regExp.test(email) && password.length >= passwordMinLength) {
-      add(email);
-    }
+    const { email } = this.state;
+    add(email);
+    this.setState({ redirect: true });
   }
 
   render() {
+    const { redirect, btnDisable } = this.state;
     return (
-      <form>
-        <label htmlFor="email-input">
-          Email:
-          <input
-            id="email-input"
-            name="email"
-            data-testid="email-input"
-            type="email"
-            onChange={ this.handleChange }
-          />
-        </label>
+      <>
+        {redirect && <Redirect to="/carteira" />}
+        <form>
+          <label htmlFor="email-input">
+            Email:
+            <input
+              id="email-input"
+              name="email"
+              data-testid="email-input"
+              type="email"
+              onChange={ this.handleChange }
+            />
+          </label>
 
-        <label htmlFor="pass-input">
-          Password:
-          <input
-            id="pass-input"
-            name="password"
-            data-testid="password-input"
-            type="password"
-            onChange={ this.handleChange }
-          />
-        </label>
-        <button type="button" onClick={ this.handleClick }>Entrar</button>
-      </form>
+          <label htmlFor="pass-input">
+            Password:
+            <input
+              id="pass-input"
+              name="password"
+              data-testid="password-input"
+              type="password"
+              onChange={ this.handleChange }
+            />
+          </label>
+          <button type="button" disabled={ btnDisable } onClick={ this.handleClick }>
+            Entrar
+          </button>
+        </form>
+      </>
     );
   }
 }
