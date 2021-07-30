@@ -1,18 +1,21 @@
-// Coloque aqui suas actions
-// import charAPI from "../services/charAPI";
 export const SAVE_EMAIL = 'SAVE_EMAIL';
+export const SAVE_COINS = 'SAVE_COINS';
 
 export const saveEmail = (payload) => (
   { type: SAVE_EMAIL, payload }
 );
 
-// export const searchSuccess = (state) => (
-//   { type: 'SEARCH_SUCCESS', loading: false, state }
-// );
+export const saveCoins = (payload) => (
+  { type: SAVE_COINS, payload }
+);
 
-// export const searchFailure = (state) => (
-//   { type: 'SEARCH_ERROR', loading: false, state }
-// );
+export function getCoins() {
+  return (dispatch) => (
+    fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((response) => response.json())
+      .then((json) => dispatch(saveCoins(json)))
+  );
+}
 
 // export function findCharacter(name) {
 //   return (dispatch) => {
