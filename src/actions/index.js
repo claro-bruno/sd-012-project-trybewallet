@@ -1,5 +1,5 @@
 // Coloque aqui suas actions
-import { createAction } from '@reduxjs/toolkit';
+import { createAction } from '../Helpers';
 
 export const LOGIN_ACTION = 'LOGIN_ACTION';
 export const loginAction = createAction(LOGIN_ACTION);

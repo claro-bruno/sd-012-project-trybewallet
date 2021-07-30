@@ -1,6 +1,6 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 
-import { createReducer } from '@reduxjs/toolkit';
+import { createReducer } from '../Helpers';
 
 const INITIAL_STATE = {
   currencies: [],
