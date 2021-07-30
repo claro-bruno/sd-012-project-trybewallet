@@ -1,9 +1,9 @@
-const INITIAL_STATE = {
-  user: {
-    email: '',
-  },
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
-};
+// const INITIAL_STATE = {
+//   user: {
+//     email: '',
+//   },
+//   wallet: {
+//     currencies: [],
+//     expenses: [],
+//   },
+// };
