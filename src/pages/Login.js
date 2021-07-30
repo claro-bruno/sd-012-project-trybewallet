@@ -10,23 +10,23 @@ class Login extends React.Component {
       <Input
         label="Email"
         type="text"
-        value={}
+        value=""
         name="email"
-        onChange={}
+        onChange=""
         testId="email-input"
       />
       <Input
         label="Senha"
         type="text"
-        value={}
+        value=""
         name="senha"
-        onChange={}
+        onChange=""
         testId="password-input"
       />
       <Button
         text="Entrar"
         name="login"
-        onClick={}
+        onClick=""
       />
     </div>
     );

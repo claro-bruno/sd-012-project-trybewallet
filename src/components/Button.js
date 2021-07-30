@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class Button extends React.Component {
   render() {
-    const { text, name, onClick }
+    const { text, name, onClick } = this.props;
     return (
       <button name={name} onClick={ onClick }>{ text }</button>
     );
