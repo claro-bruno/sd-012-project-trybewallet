@@ -24,7 +24,8 @@ class Login extends React.Component {
 
   handleNextPage() {
     const { history, emailValue } = this.props;
-    emailValue(this.state);
+    const { email } = this.state;
+    emailValue(email);
     history.push('/carteira');
   }
 
@@ -41,6 +42,7 @@ class Login extends React.Component {
     return (
       <div>
         <div>
+          Email:
           <input
             value={ email }
             onChange={ this.handleChange }
@@ -49,6 +51,7 @@ class Login extends React.Component {
             data-testid="email-input"
             required
           />
+          Senha:
           <input
             type="password"
             name="senha"
@@ -77,6 +80,6 @@ const mapDispatchToProps = (dispatch) => ({
   emailValue: (value) => dispatch(actionChangeEmail(value)),
 });
 
-const mapStateToProps = (state) => ({ user: state.user.user });
+// const mapStateToProps = (state) => ({ user: state.email });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login);
