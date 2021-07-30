@@ -1,0 +1,33 @@
+.Label {
+  display: block;
+  justify-content: space-around;
+  margin: 10px;
+  position: flex;
+  width: 250px;
+}
+
+.Input {
+  border-radius: 3px;
+  padding: 5px;
+  width: 100%;
+}
+
+.Input:not( .b-red , .b-green ) {
+  border: solid rgb(0, 100, 255) 1px;
+  outline-color: rgb(0, 100, 255);
+}
+
+.b-red {
+  border: solid red 1px;
+  outline-color: red;
+}
+
+.b-green {
+  border: solid rgb(0, 200, 0) 1px;
+  outline-color: rgb(0, 200, 0);
+}
+
+.wrong {
+  color: red;
+  font-size: small;
+}

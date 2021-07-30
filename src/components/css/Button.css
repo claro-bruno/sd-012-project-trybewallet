@@ -1,0 +1,17 @@
+button , [ type = 'button' ] {
+  background-color: rgb(0, 100, 255);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 20px;
+  margin: 10px;
+  padding: 5px;
+}
+
+button:disabled , [ type = 'button' ]:disabled {
+  opacity: 25%;
+}
+
+button:active , [ type = 'button' ]:active {
+  opacity: 80%;
+}
