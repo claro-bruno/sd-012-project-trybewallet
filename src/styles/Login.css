@@ -2,7 +2,6 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  font-family: Arial;
   height: 100vh;
   justify-content: center;
 }
@@ -37,7 +36,7 @@
 }
 
 .login__head h1 {
-  color: #48A46B;
+  color: #48a46b;
   cursor: default;
   font-size: calc(10px + 2vw);
   margin: 2px 0 5px 2px;
@@ -57,15 +56,11 @@
 
 .login__button {
   background: #3db498;
-  background-image: -webkit-linear-gradient(top, #43bf53, #1f892f);
-  background-image: -moz-linear-gradient(top, #43bf53, #1f892f);
-  background-image: -ms-linear-gradient(top, #43bf53, #1f892f);
-  background-image: -o-linear-gradient(top, #43bf53, #1f892f);
   background-image: linear-gradient(to bottom, #43bf53, #1f892f);
   -webkit-border-radius: 28;
   -moz-border-radius: 28;
   border-radius: 20px;
-  color: #ffffff;
+  color: white;
   cursor: pointer;
   font-family: Arial;
   font-size: 15px;
@@ -77,10 +72,6 @@
 
 .login__button:hover {
   background: #3bd420;
-  background-image: -webkit-linear-gradient(top, #3bd420, #1bb32a);
-  background-image: -moz-linear-gradient(top, #3bd420, #1bb32a);
-  background-image: -ms-linear-gradient(top, #3bd420, #1bb32a);
-  background-image: -o-linear-gradient(top, #3bd420, #1bb32a);
   background-image: linear-gradient(to bottom, #3bd420, #1bb32a);
   text-decoration: none;
 }
