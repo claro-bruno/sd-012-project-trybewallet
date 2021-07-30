@@ -54,7 +54,7 @@ class Login extends React.Component {
       return <Redirect to="/carteira" />;
     }
     return (
-      <div>
+      <form>
         <h3>Login</h3>
         <label htmlFor="email">
           E-mail
@@ -85,7 +85,7 @@ class Login extends React.Component {
         >
           Entrar
         </button>
-      </div>);
+      </form>);
   }
 }
 
