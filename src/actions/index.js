@@ -2,6 +2,7 @@ import fetchAll from '../services/api';
 
 export const USER_EMAIL = 'USER_EMAIL';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export const changeEmail = (value) => {
   return {
@@ -29,3 +30,8 @@ export const changeWallet = (value) => {
     dispatch(addExpense(expenseDetails));
   };
 };
+
+export const deleteWallet = (value) => ({
+  type: DELETE_EXPENSE,
+  payload: value,
+});
