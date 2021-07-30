@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 class Header extends React.Component {
   render() {
     const { email } = this.props;
-    console.log(email);
     return (
       <header className="header">
         <p>LOGO</p>
@@ -14,7 +13,7 @@ class Header extends React.Component {
           { email }
         </p>
         <p data-testid="total-field">0</p>
-        <p data-testid="hander-currency-field">BRL</p>
+        <p data-testid="header-currency-field">BRL</p>
       </header>
     );
   }
