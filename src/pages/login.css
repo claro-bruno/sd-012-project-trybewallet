@@ -1,0 +1,52 @@
+.login-page {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+.login-form {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+}
+
+.login-form fieldset {
+  align-items: center;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 4px 6px silver;
+  display: flex;
+  flex-direction: column;
+  height: 50vh;
+  justify-content: space-evenly;
+  width: 50vh;
+}
+
+.logo-login {
+  max-width: 15vw;
+}
+
+.fields-content {
+  display: flex;
+  flex-direction: column;
+  height: 50%;
+  justify-content: space-evenly;
+}
+
+.fields-content input {
+  border: 1px solid slategray;
+  border-radius: 5px;
+  outline: none;
+  padding: 8px;
+}
+
+.fields-content button {
+  background-color: rgb(8, 170, 94);
+  border: 1px solid slategray;
+  border-radius: 5px;
+  color: white;
+  outline: none;
+  padding: 8px;
+}
