@@ -42,23 +42,23 @@ class Form extends Component {
     const arrayCurrencies = Object.keys(currencies).filter((c) => c !== 'USDT');
     return (
       <form>
-        <label htmlFor="amount">
-          Valor
-          <input type="text" name="amount" onChange={ this.handleChange } />
+        <label htmlFor="valor">
+          Valor:
+          <input id="valor" type="text" name="amount" onChange={ this.handleChange } />
         </label>
-        <label htmlFor="description">
+        <label htmlFor="descricao">
           Descrição
-          <input type="text" name="description" onChange={ this.handleChange } />
+          <input id="descricao" type="text" name="description" onChange={ this.handleChange } />
         </label>
-        <label htmlFor="selectedCoin">
+        <label htmlFor="moeda">
           Moeda
-          <select name="selectedCoin" onChange={ this.handleChange }>
+          <select id="moeda" name="selectedCoin" onChange={ this.handleChange }>
             { arrayCurrencies.map((c, index) => <option key={ index }>{c}</option>) }
           </select>
         </label>
-        <label htmlFor="payment">
+        <label htmlFor="method">
           Método de pagamento
-          <select name="payment" onChange={ this.handleChange }>
+          <select id="method" name="payment" onChange={ this.handleChange }>
             <option>Dinheiro</option>
             <option>Cartão de crédito</option>
             <option>Cartão de débito</option>
@@ -66,7 +66,7 @@ class Form extends Component {
         </label>
         <label htmlFor="tag">
           Tag
-          <select name="tag" onChange={ this.handleChange }>
+          <select id="tag" name="tag" onChange={ this.handleChange }>
             <option>Alimentação</option>
             <option>Lazer</option>
             <option>Trabalho</option>
