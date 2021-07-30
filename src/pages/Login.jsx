@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import actionSaveEmail from '../actions';
 
 class Login extends React.Component {
   render() {
@@ -29,4 +31,8 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  saveEmail: (payload) => dispatch(actionSaveEmail(payload)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
