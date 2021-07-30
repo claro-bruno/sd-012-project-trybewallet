@@ -5,8 +5,8 @@ import { Login, Wallet, NotFound } from './pages';
 function App() {
   return (
     <Switch>
-      <Route exact path="/" component={ Login } />
-      <Route path="/wallet" component={ Wallet } />
+      <Route exact path="/" render={ (props) => (<Login { ...props } />) } />
+      <Route path="/carteira" render={ (props) => (<Wallet { ...props } />) } />
       <Route component={ NotFound } />
     </Switch>
   );

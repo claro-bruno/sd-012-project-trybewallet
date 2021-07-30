@@ -1,6 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Button from '../components/Button';
 import Input from '../components/Input';
+import { setLogin } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -8,17 +11,38 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
+      btnDisabled: true,
     };
     this.handleChange = this.handleChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.validate = this.validate.bind(this);
+  }
+
+  onSubmit() {
+    const { history, dispatchSetLogin } = this.props;
+    const { email, password } = this.state;
+    dispatchSetLogin(email, password);
+    history.push('/carteira');
   }
 
   handleChange({ target }) {
     const { name, value } = target;
-    this.setState({ [name]: value });
+    this.setState({ [name]: value }, () => (this.validate()));
+  }
+
+  validate() {
+    const { email, password } = this.state;
+    const minPassSize = 6;
+    const parseEmail = /^[a-z0-9_.-]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/;
+    if (!parseEmail.test(email) || (password.length < minPassSize)) {
+      this.setState({ btnDisabled: true });
+    } else {
+      this.setState({ btnDisabled: false });
+    }
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, btnDisabled } = this.state;
     return (
       <form>
         <h1>Login</h1>
@@ -42,6 +66,8 @@ class Login extends React.Component {
         />
         <Button
           label="Entrar"
+          onClick={ this.onSubmit }
+          disabled={ btnDisabled }
         />
       </form>
 
@@ -49,4 +75,16 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+  dispatchSetLogin: PropTypes.func.isRequired,
+
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchSetLogin: (email, pass) => (dispatch(setLogin(email, pass))),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
