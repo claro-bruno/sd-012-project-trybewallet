@@ -48,10 +48,7 @@ class ExpenseForm extends React.Component {
           </select>
         </label>
         <button type="button">
-          Editar
-        </button>
-        <button type="button">
-          Remover
+          Adicionar
         </button>
       </form>
     );
