@@ -9,17 +9,39 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
+      disable: true,
     };
 
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({ [e.target.name]: e.target.value }, () => this.formValidation());
+  }
+
+  formValidation() {
+    const { email, password } = this.state;
+    // Para pegar essa expressão regular eu recorri ao slack da turma 12 na thread do Rodrigo Merlone chamada [Projeto TrybeWallet][Regex] - sugestão da Mikaela Braga!
+    const emailFormat = /(.*)@(.*).com/;
+    const passwordMin = 6;
+    let emailValidation = false;
+    let passwordValidation = false;
+
+    if (email.match(emailFormat)) {
+      emailValidation = true;
+    }
+
+    if (password.length >= passwordMin) {
+      passwordValidation = true;
+    }
+
+    if (emailValidation && passwordValidation) {
+      this.setState({ disable: false });
+    }
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, disable } = this.state;
     return (
       <section className="login-page">
         <h1>TRYBE WALLET</h1>
@@ -40,7 +62,7 @@ class Login extends React.Component {
             value={ password }
             onChange={ this.handleChange }
           />
-          <button type="button">ENTRAR</button>
+          <button disabled={ disable } type="button">ENTRAR</button>
         </form>
       </section>
     );
