@@ -7,10 +7,45 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
 
+    this.handleChange = this.handleChange.bind(this);
+    this.handleValidation = this.handleValidation.bind(this);
+
     this.state = {
       email: '',
       senha: '',
     };
+  }
+
+  componentDidMount() {
+    const botaoEntrar = document.querySelector('button');
+    botaoEntrar.disabled = true;
+  }
+
+  componentDidUpdate() {
+    const { email, senha } = this.state;
+    // console.log(this.state);
+    if (senha && email) {
+      this.handleValidation();
+    }
+  }
+
+  handleChange(event) {
+    const { value, name } = event.target;
+    this.setState(() => ({
+      [name]: value,
+    }));
+  }
+
+  handleValidation() {
+    const botaoEntrar = document.querySelector('button');
+    botaoEntrar.disabled = true;
+    const number = 6;
+    const { email, senha } = this.state;
+    const passLenght = senha.length;
+    const emailValidation = /\S+@\S+\.\S+/.test(email);
+    if (passLenght >= number && emailValidation === true) {
+      botaoEntrar.disabled = false;
+    }
   }
 
   render() {
@@ -28,6 +63,7 @@ class Login extends React.Component {
               type="text"
               name="email"
               value={ email }
+              onChange={ this.handleChange }
             />
           </label>
           <label htmlFor="senha">
@@ -38,6 +74,7 @@ class Login extends React.Component {
               type="password"
               name="senha"
               value={ senha }
+              onChange={ this.handleChange }
             />
           </label>
           <button type="button">Entrar</button>
