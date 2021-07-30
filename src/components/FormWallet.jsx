@@ -1,33 +1,39 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import LabelValor from './LabelValor';
 
-function FormWallet() {
+function FormWallet(props) {
+  const { moeda, moedas, valor, descricao, tag, metodo, handleChange } = props;
   return (
     <form>
-      <label htmlFor="valor">
-        Valor:
-        <input id="valor" type="text" name="valor" />
-      </label>
+      <LabelValor valor={ valor } handleChange={ handleChange } />
       <label htmlFor="desc">
         Descrição:
-        <input id="desc" type="text" name="descrição" />
+        <input
+          id="desc"
+          type="text"
+          name="descricao"
+          value={ descricao }
+          onChange={ handleChange }
+        />
       </label>
       <label htmlFor="moeda">
         Moeda:
-        <select id="moeda" name="moeda">
-          {null}
+        <select id="moeda" name="moeda" value={ moeda } onChange={ handleChange }>
+          {moedas.map((m, i) => <option key={ i } value={ m }>{ m }</option>)}
         </select>
       </label>
       <label htmlFor="metodo">
         Método de pagamento:
-        <select id="metodo" name="metodo">
+        <select id="metodo" name="metodo" value={ metodo } onChange={ handleChange }>
           <option value="Dinheiro">Dinheiro</option>
           <option value="Cartão de crédito">Cartão de crédito</option>
           <option value="Cartão de débito">Cartão de débito</option>
         </select>
       </label>
-      <label htmlFor="moeda">
+      <label htmlFor="despesa">
         Tag:
-        <select id="moeda" name="moeda">
+        <select id="despesa" name="tag" value={ tag } onChange={ handleChange }>
           <option value="Alimentação">Alimentação</option>
           <option value="Lazer">Lazer</option>
           <option value="Trabalho">Trabalho</option>
@@ -40,3 +46,8 @@ function FormWallet() {
 }
 
 export default FormWallet;
+
+FormWallet.propTypes = {
+  moeda: PropTypes.string,
+  descricao: PropTypes.string,
+}.isRequired;
