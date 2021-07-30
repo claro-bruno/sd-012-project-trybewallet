@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import { validatorLogin } from '../utils';
 
 class Login extends React.Component {
   constructor(props) {
@@ -63,6 +64,7 @@ class Login extends React.Component {
           </label>
           <button
             type="submit"
+            disabled={ !validatorLogin({ email, password }) }
           >
             Entrar
           </button>
