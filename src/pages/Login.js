@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { userLogIn } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -36,10 +38,11 @@ class Login extends React.Component {
   }
 
   handleSubmit() {
-    const { history } = this.props;
+    const { history, dispatchSetValue } = this.props;
+    const { email } = this.state;
+    dispatchSetValue(email);
 
     history.push('/carteira');
-    console.log(history);
   }
 
   // requisito 2 feito baseado no código do colega Kevin Oliveira: https://github.com/tryber/sd-012-project-trybewallet/pull/6/commits/cd5c2016477fadf5dc3942979aa2cb1857eed21b
@@ -77,9 +80,14 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
+  dispatchSetValue: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
 };
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  dispatchSetValue: (email) => dispatch(userLogIn(email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
