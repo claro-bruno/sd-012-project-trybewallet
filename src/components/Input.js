@@ -1,29 +1,40 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Input extends Component {
   render() {
     const {
       label,
       type,
-      id,
       name,
       value,
       onChange,
+      dataTestId,
     } = this.props;
-    return(
-      <label>
+    return (
+      <label htmlFor={ dataTestId }>
         { label }
-        <input 
-        label={ label }
-        type={ type }
-        id={ id }
-        name={ name }
-        value={ value }
-        onChange={ onChange }
+        <input
+          data-testid={ dataTestId }
+          label={ label }
+          type={ type }
+          name={ name }
+          value={ value }
+          onChange={ onChange }
         />
       </label>
-    )
+    );
   }
 }
+
+Input.propTypes = ({
+  label: PropTypes.string,
+  type: PropTypes.string,
+  id: PropTypes.string,
+  name: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+  dataTestId: PropTypes.string,
+}).isRequired;
 
 export default Input;
