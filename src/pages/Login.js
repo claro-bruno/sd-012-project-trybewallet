@@ -1,103 +1,92 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import propTypes from 'prop-types';
 import { entryUser } from '../actions';
 
 class Login extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
+
     this.state = {
       email: '',
       password: '',
-      emailIsValid: false,
-      passwordIsValid: false,
-      shouldRedirect: false,
+      blockSubmit: true,
+      redirect: false,
     };
 
+    this.validateInputs = this.validateInputs.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  emailChecker(value) {
-    const emailRegex = new RegExp([
-      '^[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+@[a-zA-Z0-9]',
-      '(?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])',
-      '?(?:.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$'].join(''));
-    const emailIsValid = emailRegex.test(value);
-    return emailIsValid;
+  validateInputs() {
+    const { email, password } = this.state;
+    const validEmail = /\S+@\S+\.\S+/;
+    const validPassword = 6;
+    if (validEmail.test(email) && password.length >= validPassword) {
+      this.setState({ blockSubmit: false });
+    } else {
+      this.setState({ blockSubmit: true });
+    }
   }
 
-  passChecker(value) {
-    const minChars = 6;
-    const passIsValid = value.length >= minChars;
-    return passIsValid;
+  handleChange({ target: { name, value } }) {
+    this.setState({ [name]: value }, () => this.validateInputs());
   }
 
-  handleChange({ target }) {
-    const { name, value } = target;
-
-    const validation = (name === 'email') ? this
-      .emailChecker(value) : this.passChecker(value);
-
-    this.setState({
-      [name]: value,
-      [`${name}IsValid`]: validation,
-    });
-  }
-
-  handleSubmit(e) {
-    e.preventDefault();
+  handleClick() {
+    const { auth } = this.props;
     const { email } = this.state;
-    const { saveEmail } = this.props;
-
-    saveEmail(email);
-
-    this.setState({
-      shouldRedirect: true,
-    });
+    auth(email);
+    this.setState({ redirect: true });
   }
 
   render() {
-    const { email, password, emailIsValid, passwordIsValid, shouldRedirect } = this.state;
+    const { email, password, blockSubmit, redirect } = this.state;
 
-    if (shouldRedirect) return <Redirect to="/carteira" />;
+    if (redirect) {
+      return <Redirect to="/carteira" />;
+    }
 
     return (
-      <form onSubmit={ this.handleSubmit }>
-        <input
-          data-testid="email-input"
-          type="text"
-          name="email"
-          placeholder="Email"
-          value={ email }
-          onChange={ this.handleChange }
-        />
-        <input
-          data-testid="password-input"
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={ password }
-          onChange={ this.handleChange }
-        />
-        <button
-          type="submit"
-          disabled={ !(emailIsValid && passwordIsValid) }
-        >
-          Entrar
-        </button>
-      </form>
+      <main>
+        <form>
+          <input
+            name="email"
+            type="text"
+            placeholder="EMAIL"
+            data-testid="email-input"
+            value={ email }
+            onChange={ this.handleChange }
+          />
+          <input
+            name="password"
+            type="password"
+            placeholder="SENHA"
+            data-testid="password-input"
+            value={ password }
+            onChange={ this.handleChange }
+          />
+          <button
+            type="button"
+            disabled={ blockSubmit }
+            onClick={ this.handleClick }
+          >
+            Entrar
+          </button>
+        </form>
+      </main>
     );
   }
 }
 
-Login.propTypes = {
-  saveEmail: PropTypes.func.isRequired,
-};
-
 const mapDispatchToProps = (dispatch) => ({
-  saveEmail: (email) => dispatch(entryUser(email)),
+  auth: (email) => dispatch(entryUser(email)),
 });
+
+Login.propTypes = {
+  auth: propTypes.func.isRequired,
+};
 
 export default connect(null, mapDispatchToProps)(Login);
