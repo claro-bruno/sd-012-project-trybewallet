@@ -1,6 +1,8 @@
-export default function userState(a, b) {
+export const ADD_EMAIL = 'ADD_EMAIL';
+
+export default function userEmail(state) {
   return {
-    type: 'user_state',
-    payload: [a, b],
+    type: ADD_EMAIL,
+    email: state,
   };
 }

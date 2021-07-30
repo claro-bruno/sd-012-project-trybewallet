@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import userEmail from '../actions';
 
-export default class Login extends Component {
+class Login extends Component {
   constructor() {
     super();
 
@@ -21,9 +24,11 @@ export default class Login extends Component {
     });
   }
 
+  /* https://stackoverflow.com/questions/201323
+  /how-can-i-validate-an-email-address-using-a-regular-expression */
   render() {
     const { email, password, disabled } = this.state;
-
+    const { dispatchMail } = this.props;
     const validation = /^\S+@\S+\.\S+$/;
     const minLength = 6;
     const validateEmail = validation.test(email);
@@ -38,7 +43,6 @@ export default class Login extends Component {
             type="email"
             value={ email }
             onChange={ this.handleChange }
-            required
           />
           <input
             name="password"
@@ -48,21 +52,15 @@ export default class Login extends Component {
             type="password"
             value={ password }
             onChange={ this.handleChange }
-            required
           />
           <Link to="/carteira">
             {validateEmail && password.length >= minLength && disabled
               ? (
-                <button
-                  type="submit"
-                >
+                <button onClick={ () => dispatchMail(email) } type="submit">
                   Entrar
                 </button>
               ) : (
-                <button
-                  disabled
-                  type="submit"
-                >
+                <button disabled type="submit">
                   Entrar
                 </button>
               )}
@@ -72,3 +70,13 @@ export default class Login extends Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchMail: (value) => dispatch(userEmail(value)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
+
+Login.propTypes = {
+  dispatchMail: PropTypes.func.isRequired,
+};
