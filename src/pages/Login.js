@@ -17,7 +17,8 @@ class Login extends React.Component {
 
   onSubmitForm() {
     const { history, dispatchSetValue } = this.props;
-    dispatchSetValue(this.state);
+    const { email } = this.state;
+    dispatchSetValue(email);
     history.push('/carteira');
   }
 
@@ -26,6 +27,7 @@ class Login extends React.Component {
     this.setState({ [name]: value });
   }
 
+  // logica de validação de email por regex retirada de; https://www.horadecodar.com.br/2020/09/13/como-validar-email-com-javascript/
   validateEmaileSenha(email, senha) {
     const re = /\S+@\S+\.\S+/;
     const senhatamanho = 6;
