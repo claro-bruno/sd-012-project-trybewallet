@@ -1,8 +1,23 @@
-import React from 'react';
+import React, { Component } from 'react'
 
-class Login extends React.Component {
+class Login extends Component {
   render() {
-    return <div>Login</div>;
+    return (
+      <div>
+        <h2>Trybe</h2>
+        <input
+          type="text"
+          data-testid="email-input"
+          placeholder="email"
+        />
+        <input
+          type="text"
+          data-testid="password-input"
+          placeholder="password"
+        />
+        <button type="button">Entrar</button>
+      </div>
+    );
   }
 }
 
