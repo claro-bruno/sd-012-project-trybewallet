@@ -1,10 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchCurrencies } from '../actions';
 
 // const expenseCategory = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
-export default class AddExpenses extends React.Component {
+class AddExpenses extends React.Component {
+  componentDidMount() {
+    const { getCurrencies } = this.props;
+    getCurrencies();
+  }
+
   render() {
+    const { loading, currencies } = this.props;
+    const currencyLength = 3;
+    const filteredCurrencies = [...currencies]
+      .filter((currency) => currency.length === currencyLength);
+    if (loading) { return <p>CARREGANDO...</p>; }
     return (
-      <form action="#" className="expenses-form">
+      <form className="expenses-form">
         <label htmlFor="value">
           Valor
           <input type="number" id="value" />
@@ -12,8 +25,9 @@ export default class AddExpenses extends React.Component {
         <label htmlFor="currency">
           Moeda
           <select name="currency" id="currency">
-            <option value="BRL">BRL</option>
-            <option value="USD">USD</option>
+            {filteredCurrencies.map((currency) => (
+              <option key={ currency } value={ currency }>{currency}</option>
+            ))}
           </select>
         </label>
         <label htmlFor="payment">
@@ -43,3 +57,21 @@ export default class AddExpenses extends React.Component {
     );
   }
 }
+
+AddExpenses.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  getCurrencies: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  getCurrencies: () => dispatch(fetchCurrencies()),
+});
+
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+  error: state.wallet.error,
+  loading: state.wallet.isFetching,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddExpenses);
