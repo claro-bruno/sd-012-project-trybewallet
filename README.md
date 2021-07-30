@@ -622,7 +622,7 @@ O que será testado:
   - O botão deve estar dentro do último item da linha da tabela e deve possuir `data-testid="edit-btn"
   - Ao ser clicado, o botão habilita um formulário para editar a linha da tabela. Ao clicar em "Editar despesa" ela é atualizada, alterando o estado global
   ```
-
+Dale
 ---
 
 # Avisos Finais
