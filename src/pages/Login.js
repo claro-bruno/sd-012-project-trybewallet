@@ -60,6 +60,7 @@ class Login extends React.Component {
         <label htmlFor="input-password">
           Senha:
           <input
+            data-testid="password-input"
             name="password"
             onChange={ this.handleChange }
             type="password"
@@ -69,7 +70,6 @@ class Login extends React.Component {
         </label>
         <Link to="/carteira">
           <button
-            data-testid="password-input"
             type="submit"
             disabled={ buttonDisable }
             onClick={ this.emailSave }
