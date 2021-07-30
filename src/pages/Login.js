@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import loginAction from '../actions';
+import { loginAction } from '../actions';
 import trybeWalletLogo from '../images/logo-trybe-wallet.png';
 import './login.css';
 
