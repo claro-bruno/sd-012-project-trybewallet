@@ -52,7 +52,7 @@ class Login extends React.Component {
     const { email, password, isDisabled, redirect } = this.state;
 
     return (
-      <div className="card ml-auto mr-auto" style={ { width: '18rem' } }>
+      <div className="card ml-auto mr-auto mt-3" style={ { width: '27rem' } }>
         <img
           src="https://img.freepik.com/free-vector/brown-leather-wallet-with-lots-money_68708-304.jpg?size=626&ext=jpg"
           className="card-img-top"
