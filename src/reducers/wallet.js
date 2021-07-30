@@ -1,4 +1,8 @@
-import { REQUEST_CURRENCIES, REQUEST_FAILED, GET_CURRENCIES } from '../actions/types';
+import {
+  REQUEST_CURRENCIES,
+  REQUEST_FAILED,
+  GET_CURRENCIES,
+} from '../actions/types';
 
 const INITIAL_STATE = {
   currencies: [],
