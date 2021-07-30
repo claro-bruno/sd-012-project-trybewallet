@@ -9,6 +9,7 @@ class Wallet extends React.Component {
     this.state = {
       value: '',
       description: '',
+      currencyOptions: [],
       // currency: '',
       // payment: 'money',
     };
@@ -16,12 +17,26 @@ class Wallet extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentDidMount() {
+    fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((response) => response.json())
+      .then((response) => {
+        const allCurrencies = Object.keys(response);
+        const USDTdeleted = allCurrencies.filter((currency) => currency !== 'USDT');
+        const currenciesObject = USDTdeleted.map((currency) => ({
+          value: currency,
+          description: currency,
+        }));
+        this.setState({ currencyOptions: [...currenciesObject] });
+      });
+  }
+
   handleChange({ target: { name, value } }) {
     this.setState({ [name]: value });
   }
 
   render() {
-    const { value, description } = this.state;
+    const { value, description, currencyOptions } = this.state;
     return (
       <>
         <Header />
@@ -38,12 +53,12 @@ class Wallet extends React.Component {
             value={ description }
             onChange={ this.handleChange }
           />
-          <label htmlFor="currency">
-            Moeda
-            <select name="currency" id="currency" onChange={ this.handleChange }>
-              <option> </option>
-            </select>
-          </label>
+          <Select
+            text="Moeda"
+            name="currency"
+            onChange={ this.handleChange }
+            options={ currencyOptions }
+          />
           <Select
             text="Método de pagamento"
             name="payment"
