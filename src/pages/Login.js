@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addUser } from '../actions';
+import { addUser, saveCurrencyThunk } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -15,12 +15,20 @@ class Login extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange({ target: { name, value } }) {
     this.setState({
       [name]: value,
     }, this.loginValidation);
+  }
+
+  handleClick() {
+    const { email } = this.state;
+    const { addUserAction, getCurrency } = this.props;
+    addUserAction(email);
+    getCurrency();
   }
 
   loginValidation() {
@@ -43,7 +51,6 @@ class Login extends React.Component {
 
   render() {
     const { email, password, isDisabled } = this.state;
-    const { addUserAction } = this.props;
     return (
       <section>
         <input
@@ -66,7 +73,7 @@ class Login extends React.Component {
           <button
             type="button"
             disabled={ isDisabled }
-            onClick={ () => addUserAction(email) }
+            onClick={ this.handleClick }
           >
             Entrar
           </button>
@@ -78,6 +85,7 @@ class Login extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   addUserAction: (payload) => dispatch(addUser(payload)),
+  getCurrency: () => dispatch(saveCurrencyThunk()),
 });
 
 Login.propTypes = {
