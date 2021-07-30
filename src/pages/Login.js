@@ -1,14 +1,17 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Input from '../components/Input';
+import Button from '../components/Button';
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
-      senha: '',
+      password: '',
     };
     this.handleChange = this.handleChange.bind(this);
+    this.validUser = this.validUser.bind(this);
   }
 
   handleChange({ target }) {
@@ -18,8 +21,19 @@ class Login extends React.Component {
     });
   }
 
+  validUser() {
+    const { email, password } = this.state;
+    const validEmail = (/^[a-z0-9_]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/).test(email);
+    const validPassword = 6;
+
+    return !(validEmail && password.length >= validPassword);
+
+    // logica feita com ajuda do repositorio de Daniel Batista, link: https://github.com/tryber/sd-012-project-trybewallet/pull/19/commits/b891cd799dbfaa9ebed53d304933f6b56ff106f9
+  }
+
   render() {
-    const { email, senha } = this.state;
+    console.log(this.validUser());
+    const { email, password } = this.state;
     return (
       <div>
         <Input
@@ -35,12 +49,17 @@ class Login extends React.Component {
           label="Password"
           datatestid="password-input"
           type="password"
-          value={ senha }
+          value={ password }
           name="password"
           onChange={ this.handleChange }
         />
 
-        <button type="submit">Entrar</button>
+        <Link to="/carteira">
+          <Button
+            name="Entrar"
+            disabled={ this.validUser() }
+          />
+        </Link>
       </div>
     );
   }
