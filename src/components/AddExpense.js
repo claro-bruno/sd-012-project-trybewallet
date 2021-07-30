@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import { fetchExpense } from '../actions';
+import { fetchExpense, fetchCurrency } from '../actions';
 import Input from './Input';
 import Select from './Select';
 import { methodOptions, tagOptions } from '../helpers/optionsData';
@@ -14,10 +14,9 @@ class AddExpense extends React.Component {
       id: 0,
       value: 0,
       description: '',
-      currency: '',
+      currency: 'USD',
       method: 'money',
       tag: 'food',
-      currencyOptions: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -25,20 +24,8 @@ class AddExpense extends React.Component {
   }
 
   componentDidMount() {
-    fetch('https://economia.awesomeapi.com.br/json/all')
-      .then((response) => response.json())
-      .then((response) => {
-        const allCurrencies = Object.keys(response);
-        const USDTdeleted = allCurrencies.filter((currency) => currency !== 'USDT');
-        const currenciesObject = USDTdeleted.map((currency) => ({
-          value: currency,
-          description: currency,
-        }));
-        this.setState({
-          currencyOptions: [...currenciesObject],
-          currency: currenciesObject[0].value,
-        });
-      });
+    const { getCurrencies } = this.props;
+    getCurrencies();
   }
 
   handleChange({ target: { name, value } }) {
@@ -48,7 +35,6 @@ class AddExpense extends React.Component {
   handleClick() {
     const { saveExpense } = this.props;
     const teste = { ...this.state };
-    delete teste.currencyOptions;
     saveExpense(teste);
     this.setState((prevState) => ({
       id: prevState.id + 1,
@@ -58,7 +44,11 @@ class AddExpense extends React.Component {
   }
 
   render() {
-    const { value, description, currencyOptions } = this.state;
+    const { value, description } = this.state;
+    const { currencyOptions, loading } = this.props;
+    if (loading) {
+      return <div>Carregando moedas</div>;
+    }
     return (
       <section>
         <Input
@@ -101,10 +91,22 @@ class AddExpense extends React.Component {
 
 const mapDisptachToProps = (dispatch) => ({
   saveExpense: (expense) => dispatch(fetchExpense(expense)),
+  getCurrencies: () => dispatch(fetchCurrency()),
+});
+
+const mapStateToProps = (state) => ({
+  currencyOptions: state.wallet.currencies,
+  loading: state.wallet.loading,
 });
 
 AddExpense.propTypes = {
   saveExpense: propTypes.func.isRequired,
+  getCurrencies: propTypes.func.isRequired,
+  currencyOptions: propTypes.arrayOf(propTypes.shape({
+    value: propTypes.string.isRequired,
+    description: propTypes.string.isRequired,
+  })).isRequired,
+  loading: propTypes.bool.isRequired,
 };
 
-export default connect(null, mapDisptachToProps)(AddExpense);
+export default connect(mapStateToProps, mapDisptachToProps)(AddExpense);

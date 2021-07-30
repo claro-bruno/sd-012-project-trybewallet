@@ -1,10 +1,15 @@
 export const USER_LOGIN = 'USER_LOGIN';
 export const UPDATE_CURRENCY = 'UPDATE_CURRENCY';
 export const UPDATE_EXPENSE = 'UPDATE_EXPENSE';
+export const SET_LOADING = 'SET_LOADING';
 
 export const userLogin = (email) => ({
   type: USER_LOGIN,
   payload: email,
+});
+
+export const loading = () => ({
+  type: SET_LOADING,
 });
 
 export const updateCurrency = (currency) => ({
@@ -22,3 +27,18 @@ export const fetchExpense = (state) => (dispatch) => (
     .then((response) => response.json())
     .then((response) => dispatch(updateExpense({ ...state, exchangeRates: response })))
 );
+
+export const fetchCurrency = () => (dispatch) => {
+  dispatch(loading());
+  return fetch('https://economia.awesomeapi.com.br/json/all')
+    .then((response) => response.json())
+    .then((response) => {
+      const allCurrencies = Object.keys(response);
+      const USDTdeleted = allCurrencies.filter((currency) => currency !== 'USDT');
+      const currenciesObject = USDTdeleted.map((currency) => ({
+        value: currency,
+        description: currency,
+      }));
+      dispatch(updateCurrency(currenciesObject));
+    });
+};
