@@ -6,7 +6,7 @@ export const verifyEmail = (email) => {
 const MIN_LENGTH_PASSWORD = 6;
 export const verifyPassword = (password) => (password.length >= MIN_LENGTH_PASSWORD);
 
-export const validatorLogin = ({ email, password }) => (
+export const loginValidator = ({ email, password }) => (
   verifyEmail(email) && verifyPassword(password)
 );
 

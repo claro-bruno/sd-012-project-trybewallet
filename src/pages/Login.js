@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { validatorLogin } from '../helper';
+import { loginValidator } from '../helper';
 import { login as loginAction } from '../actions';
 
 class Login extends React.Component {
@@ -34,7 +34,7 @@ class Login extends React.Component {
         <Link to="/carteira" onClick={ () => login({ email, password }) }>
           <button
             type="button"
-            disabled={ !validatorLogin({ email, password }) }
+            disabled={ !loginValidator({ email, password }) }
           >
             Entrar
           </button>
