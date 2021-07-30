@@ -13,7 +13,7 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
-      idValid: false,
+      isValid: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -29,7 +29,6 @@ class Login extends Component {
   }
 
   handleSubmit() {
-    console.log(this.state);
     const { history, getEmailStore } = this.props;
     const { email } = this.state;
     getEmailStore(email);

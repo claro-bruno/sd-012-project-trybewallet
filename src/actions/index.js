@@ -1,4 +1,3 @@
-// Coloque aqui suas actions
 import { GET_EMAIL, APAGAR } from './actionTypes';
 
 export const actionGetEmail = (value) => ({ type: GET_EMAIL, payload: value });

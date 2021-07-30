@@ -1,5 +1,3 @@
-// Esse reducer será responsável por tratar as informações da pessoa usuária
-
 import { GET_EMAIL } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
