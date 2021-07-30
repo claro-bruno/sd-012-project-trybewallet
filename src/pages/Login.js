@@ -27,18 +27,16 @@ class Login extends React.Component {
 
   handleChange({ target }) {
     const { name, value } = target;
-    this.setState({ [name]: value }, () => (this.validate()));
+    this.setState({ [name]: value },
+      () => this.setState({ btnDisabled: this.validate() }));
   }
 
   validate() {
     const { email, password } = this.state;
     const minPassSize = 6;
-    const parseEmail = /^[a-z0-9_.-]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/;
-    if (!parseEmail.test(email) || (password.length < minPassSize)) {
-      this.setState({ btnDisabled: true });
-    } else {
-      this.setState({ btnDisabled: false });
-    }
+    const parseEmail = /^[a-z0-9_.-]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/; // Thanks Rodrigo Merlone - Turma 12 for sharing this 'regex' on the Slack channel.
+    if (!parseEmail.test(email) || (password.length < minPassSize)) return true;
+    return false;
   }
 
   render() {
