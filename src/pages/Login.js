@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 class Login extends React.Component {
   constructor(props) {
@@ -6,6 +9,8 @@ class Login extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.buttonHandler = this.buttonHandler.bind(this);
+    this.emailSave = this.emailSave.bind(this);
+
     this.state = {
       email: '',
       password: '',
@@ -24,13 +29,17 @@ class Login extends React.Component {
 
   buttonHandler() {
     const { email, password } = this.state;
-    const emailRegex = /^[a-z0-9_]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/;
-    const passwordRegex = /[\w\D]{4}/g;
-    if (email.match(emailRegex) && password.match(passwordRegex)) {
-      this.setState({
-        buttonDisable: false,
-      });
-    }
+    const validEmail = new RegExp(/^[\w.]+@[a-z]+.\w{2,3}$/g);
+    const validPassword = new RegExp(/[\w\D]{6}/g);
+    if (validEmail.test(email) && validPassword.test(password)) {
+      this.setState({ buttonDisable: false });
+    } else this.setState({ buttonDisable: true });
+  }
+
+  emailSave() {
+    const { saveEmail } = this.props;
+    const { email } = this.state;
+    saveEmail(email);
   }
 
   render() {
@@ -58,17 +67,28 @@ class Login extends React.Component {
             value={ password }
           />
         </label>
-        <button
-          data-testid="password-input"
-          type="submit"
-          disabled={ buttonDisable }
-        >
-          Entrar
-        </button>
+        <Link to="/carteira">
+          <button
+            data-testid="password-input"
+            type="submit"
+            disabled={ buttonDisable }
+            onClick={ this.emailSave }
+          >
+            Entrar
+          </button>
+        </Link>
       </form>
 
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  saveEmail: (payload) => dispatch({ type: 'USER_STATE', payload }),
+});
+
+Login.propTypes = {
+  saveEmail: PropTypes.func,
+}.isRequered;
+
+export default connect(null, mapDispatchToProps)(Login);
