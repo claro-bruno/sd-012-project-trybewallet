@@ -5,12 +5,19 @@ class Button extends Component {
   render() {
     const {
       loginValid,
+      handleClick,
       children,
     } = this.props;
 
     return (
       <div>
-        <button type="button" disabled={ loginValid }>{ children }</button>
+        <button
+          type="button"
+          disabled={ loginValid }
+          onClick={ handleClick }
+        >
+          { children }
+        </button>
       </div>
     );
   }
@@ -18,6 +25,7 @@ class Button extends Component {
 
 Button.propTypes = {
   loginValid: PropTypes.bool.isRequired,
+  handleClick: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
 };
 
