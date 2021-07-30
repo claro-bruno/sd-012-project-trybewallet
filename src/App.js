@@ -1,6 +1,6 @@
 import React from 'react';
 import Login from './pages/Login';
-import { Switch, Route, Router } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 class App extends React.Component {
   render() {
@@ -8,7 +8,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/">
             <Login />
-          </Route> 
+          </Route>
         </Switch>
     );
   }
