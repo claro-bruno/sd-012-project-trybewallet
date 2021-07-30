@@ -5,13 +5,15 @@ import { connect } from 'react-redux';
 import { loginAction, validLogin } from '../actions';
 import Input from '../components/Input';
 
+const INITIAL_STATE = {
+  email: '',
+  password: '',
+};
+
 class Login extends Component {
   constructor() {
     super();
-    this.state = {
-      email: '',
-      password: '',
-    };
+    this.state = INITIAL_STATE;
     this.handleChange = this.handleChange.bind(this);
     this.verifyLogin = this.verifyLogin.bind(this);
   }
@@ -42,7 +44,10 @@ class Login extends Component {
           <button
             disabled={ !canLogin }
             type="submit"
-            onClick={ () => login(email) }
+            onClick={ () => {
+              login(email);
+              this.setState(INITIAL_STATE);
+            } }
           >
             Entrar
           </button>
