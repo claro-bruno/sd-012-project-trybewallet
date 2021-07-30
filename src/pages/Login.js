@@ -1,4 +1,8 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import loginAction from '../actions';
 import trybeWalletLogo from '../images/logo-trybe-wallet.png';
 import './login.css';
 
@@ -12,6 +16,7 @@ class Login extends React.Component {
       email: '',
       password: '',
       isValid: false,
+      redirect: false,
     };
 
     this.isValid = this.isValid.bind(this);
@@ -27,8 +32,12 @@ class Login extends React.Component {
     this.setState({ isValid: checkEmail && checkPassword });
   }
 
-  handleSubmit() {
-    // será implementada logica para login
+  handleSubmit(e) {
+    e.preventDefault();
+    const { email } = this.state;
+    const { login } = this.props;
+    login(email);
+    this.setState({ redirect: true });
   }
 
   handleChange({ target: { name, value } }) {
@@ -70,7 +79,7 @@ class Login extends React.Component {
           <button
             disabled={ !isValid }
             type="submit"
-            onClick={ () => {} }
+            onClick={ this.handleSubmit }
           >
             Entrar
 
@@ -81,6 +90,8 @@ class Login extends React.Component {
   }
 
   render() {
+    const { redirect } = this.state;
+    if (redirect) return <Redirect to="/carteira" />;
     return (
       <div className="login-page">
         <form className="login-form" action="get">
@@ -91,4 +102,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  login: (email) => dispatch(loginAction(email)),
+});
+
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);

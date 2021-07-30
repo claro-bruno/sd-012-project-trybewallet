@@ -1,8 +1,8 @@
 import { LOGIN } from './types';
 
-const login = (email) => ({
+const loginAction = (email) => ({
   type: LOGIN,
   email,
 });
 
-export default login;
+export default loginAction;
