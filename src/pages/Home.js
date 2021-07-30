@@ -1,11 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { saveLogin } from '../actions/index';
 
 class Home extends React.Component {
   constructor() {
     super();
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleButton = this.handleButton.bind(this);
+    this.disabledButton = this.disabledButton.bind(this);
 
     this.state = {
       email: '',
@@ -20,11 +23,11 @@ class Home extends React.Component {
       {
         [name]: value,
       },
-      () => this.handleButton(),
+      () => this.disabledButton(),
     );
   }
 
-  handleButton() {
+  disabledButton() {
     const { email, password } = this.state;
     const jonas = 6;
     if (email.includes('@') && email.includes('.com') && password.length >= jonas) {
@@ -40,7 +43,8 @@ class Home extends React.Component {
 
   render() {
     const { email, password, disabled } = this.state;
-    // console.log(this.state);
+    const { setLoginStore, history } = this.props;
+    // console.log(this.props);
     return (
       <form>
         <label htmlFor="email">
@@ -75,6 +79,7 @@ class Home extends React.Component {
         <button
           disabled={ disabled }
           type="button"
+          onClick={ () => setLoginStore(email, password) && history.push('/carteira') }
         >
           Entrar
         </button>
@@ -83,4 +88,15 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+const mapDispatchToProps = (dispatch) => ({
+  setLoginStore: (email, password) => dispatch(saveLogin(email, password)),
+});
+
+Home.propTypes = {
+  setLoginStore: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Home);
