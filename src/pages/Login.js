@@ -5,22 +5,36 @@ class Login extends React.Component {
     super(props);
 
     this.handleChange = this.handleChange.bind(this);
-
+    this.buttonHandler = this.buttonHandler.bind(this);
     this.state = {
       email: '',
       password: '',
+      buttonDisable: true,
     };
   }
+
+  // abração ao saulo kirchmaier da turma 9 que me deu varios insights de como fazer o botão ficar desativado
 
   handleChange({ target }) {
     const { name, value } = target;
     this.setState({
       [name]: value,
-    });
+    }, () => { this.buttonHandler(); });
+  }
+
+  buttonHandler() {
+    const { email, password } = this.state;
+    const emailRegex = /^[a-z0-9_]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/;
+    const passwordRegex = /[\w\D]{4}/g;
+    if (email.match(emailRegex) && password.match(passwordRegex)) {
+      this.setState({
+        buttonDisable: false,
+      });
+    }
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, buttonDisable } = this.state;
     return (
       <form onSubmit={ (e) => e.preventDefault() }>
         <label htmlFor="input-email">
@@ -44,7 +58,13 @@ class Login extends React.Component {
             value={ password }
           />
         </label>
-        <button data-testid="password-input" type="submit" disabled>Entrar</button>
+        <button
+          data-testid="password-input"
+          type="submit"
+          disabled={ buttonDisable }
+        >
+          Entrar
+        </button>
       </form>
 
     );
