@@ -1,11 +1,13 @@
+import { SET_EMAIL } from '../actions/index';
+
 const INITIAL_STATE = {
   email: '',
 };
 
 const user = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case 'INICIAL_STATE':
-    return state;
+  case SET_EMAIL:
+    return { ...state, email: action.value };
   default:
     return state;
   }
