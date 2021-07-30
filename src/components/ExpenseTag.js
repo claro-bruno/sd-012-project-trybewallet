@@ -11,7 +11,6 @@ export default class ExpenseTag extends React.Component {
           <option value="cash">Trabalho</option>
           <option value="cash">Transporte</option>
           <option value="cash">Saúde</option>
-
         </select>
       </label>
 

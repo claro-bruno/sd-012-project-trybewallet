@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import SelectPayment from '../components/SelectPayment';
 import ExpenseTag from '../components/ExpenseTag';
+import SelectCurrency from '../components/SelectCurrency';
 
 class Wallet extends React.Component {
   render() {
@@ -21,7 +22,7 @@ class Wallet extends React.Component {
           <span data-testid="header-currency-field">BRL</span>
         </header>
         <main>
-          <form action="">
+          <form action="" onSubmit={ (e) => e.preventDefault() }>
             <label htmlFor="value">
               Valor:
               <input type="text" id="value" />
@@ -30,12 +31,10 @@ class Wallet extends React.Component {
               Descrição:
               <input type="text" id="description" />
             </label>
-            <label htmlFor="currency-select">
-              Moeda:
-              <select name="currency-select" id="currency-select" />
-            </label>
+            <SelectCurrency />
             <SelectPayment />
             <ExpenseTag />
+            <button type="submit">Adicionar Despesa</button>
           </form>
         </main>
       </>
@@ -48,9 +47,13 @@ const mapStateToProps = (state) => ({
   totalExpenses: state.wallet.expenses,
 });
 
+const mapDispatchToProps = () => ({
+
+});
+
 Wallet.propTypes = {
   userMail: PropTypes.string,
   totalExpenses: PropTypes.number,
 }.isRequired;
 
-export default connect(mapStateToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
