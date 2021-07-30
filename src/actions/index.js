@@ -21,7 +21,7 @@ const actionLoading = () => ({
   type: LOADING,
 });
 
-export const actionAddExpense = (expense) => ({
+const actionAddExpense = (expense) => ({
   type: ADD_EXPENSE,
   expense,
 });
@@ -33,7 +33,21 @@ export function fetchCurrencies() {
       .then((response) => response.json())
       .then((data) => {
         const currencies = Object.keys(data).filter((currency) => currency !== 'USDT');
+        console.log(data);
         dispatch(actionGetCurrencies(currencies));
+      })
+      .catch((error) => console.log(error));
+  };
+}
+
+export function fetchCambioRate(object) {
+  return (dispatch) => {
+    dispatch(actionLoading());
+    return fetch(URL)
+      .then((response) => response.json())
+      .then((data) => {
+        const newObject = { ...object, exchangeRates: data };
+        dispatch(actionAddExpense(newObject));
       })
       .catch((error) => console.log(error));
   };

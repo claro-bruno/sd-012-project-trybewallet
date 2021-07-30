@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Input from './Input';
 import Button from './Button';
 import Select from './Select';
-import { actionAddExpense } from '../actions';
+import { fetchCambioRate } from '../actions';
 
 const paymentMethods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const category = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
@@ -74,12 +74,17 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addExpense: (expense) => dispatch(actionAddExpense(expense)),
+  addExpense: (expense) => dispatch(fetchCambioRate(expense)),
 });
 
 ExpenseForm.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   addExpense: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object),
 };
+
+ExpenseForm.defaultProps = {
+  expenses: [],
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);
