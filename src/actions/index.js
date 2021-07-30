@@ -1,10 +1,6 @@
+export const SAVE_EMAIL = 'SAVE_EMAIL';
 // Coloque aqui suas actions
-const INITIAL_STATE = {
-  user: {
-    email: '',
-  },
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
-};
+export const user = (email) => ({
+  type: SAVE_EMAIL,
+  email,
+});

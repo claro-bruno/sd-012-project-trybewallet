@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Button from '../components/Button';
 import Input from '../components/Input';
+import { user } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -40,8 +42,10 @@ class Login extends React.Component {
   }
 
   submitForm() {
-    const { history } = this.props;
+    const { history, userAction } = this.props;
+    const { email } = this.state;
     history.push('/carteira');
+    userAction(email);
   }
 
   render() {
@@ -57,7 +61,7 @@ class Login extends React.Component {
           onChange={ this.handleInput }
         />
         <Input
-          type="text"
+          type="password"
           name="password"
           label="Insira a sua senha: "
           value={ password }
@@ -75,7 +79,14 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-  history: PropTypes.objectOf('string').isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+  userAction: PropTypes.func.isRequired,
 };
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  userAction: (email) => dispatch(user(email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
