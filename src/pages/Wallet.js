@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Input from '../components/Input';
+import Select from '../components/Select';
+import { TAGS, PAYMENT } from '../data';
 
 class Wallet extends React.Component {
   render() {
@@ -15,11 +18,19 @@ class Wallet extends React.Component {
           <p data-testid="total-field">
             Despesa Total:
             0
-            <div data-testid="header-currency-field">
+            <span data-testid="header-currency-field">
               BRL
-            </div>
+            </span>
           </p>
         </header>
+        <form>
+          <Input type="text" name="valor" text="Valor" />
+          <Select name="coin" text="Moeda" />
+          <Select name="payment" text="Método de Pagamento" content={ PAYMENT } />
+          <Input type="text" name="description" text="Descrição" />
+          <Select name="tag" text="Tag:" content={ TAGS } />
+        </form>
+
       </div>
     );
   }
