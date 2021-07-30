@@ -12,14 +12,18 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      disable: true,
     };
     this.handleChange = this.handleChange.bind(this);
+    this.validationInfo = this.validationInfo.bind(this);
   }
 
-  // a função validateInfo verifica se email e senha estão corretos
-  // validateInfo() {
-
+  // handleChange({ target: { name, value } }) {
+  //   this.setState((state) => ({
+  //     ...state,
+  //     [name]: value,
+  //   }), () => this.setState({
+  //     disable: this.validationInfo(),
+  //   }));
   // }
 
   handleChange({ target: { name, value } }) {
@@ -33,6 +37,17 @@ class Login extends React.Component {
     const { changeEmail } = this.props;
     const { email } = this.state;
     changeEmail(email);
+  }
+
+  // código de veirificação de email pego no site => https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail
+  validationInfo() {
+    const { email, password } = this.state;
+    const validEmail = /\S+@\S+\.\S+/;
+    const minLenght = 6;
+    if (validEmail.test(email) && (minLenght <= password.length)) {
+      return false;
+    }
+    return true;
   }
 
   render() {
@@ -59,8 +74,9 @@ class Login extends React.Component {
           onChange={ this.handleChange }
         />
         <Button
+          disable={ this.validationInfo() }
           name="button"
-          onClick={ this.handleSaveInfo }
+          onClick={ this.handleChange }
           label="Entrar"
         />
       </div>
