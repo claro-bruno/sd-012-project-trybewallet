@@ -1,5 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { func } from 'prop-types';
+import { saveUserEmail } from '../actions';
 import InputEmail from '../components/InputEmail';
 import InputPassword from '../components/InputPassword';
 
@@ -34,7 +37,8 @@ class Login extends React.Component {
   }
 
   render() {
-    const { disabled } = this.state;
+    const { disabled, email } = this.state;
+    const { storeUserEmail } = this.props;
     return (
       <main>
         <InputEmail
@@ -44,7 +48,11 @@ class Login extends React.Component {
           handleInput={ this.handleInput }
         />
         <Link to="/carteira">
-          <button type="submit" disabled={ disabled }>
+          <button
+            type="submit"
+            disabled={ disabled }
+            onClick={ () => storeUserEmail(email) }
+          >
             Entrar
           </button>
         </Link>
@@ -53,4 +61,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  storeUserEmail: func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  storeUserEmail: (state) => dispatch(saveUserEmail(state)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
