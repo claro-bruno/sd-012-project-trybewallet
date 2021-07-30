@@ -10,6 +10,7 @@ class Login extends React.Component {
       email: '',
       password: '',
       disable: true,
+      buttonCSS: 'button-disable',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -36,12 +37,12 @@ class Login extends React.Component {
     }
 
     if (emailValidation && passwordValidation) {
-      this.setState({ disable: false });
+      this.setState({ disable: false, buttonCSS: 'button-enable' });
     }
   }
 
   render() {
-    const { email, password, disable } = this.state;
+    const { email, password, disable, buttonCSS } = this.state;
     return (
       <section className="login-page">
         <h1>TRYBE WALLET</h1>
@@ -62,7 +63,13 @@ class Login extends React.Component {
             value={ password }
             onChange={ this.handleChange }
           />
-          <button disabled={ disable } type="button">ENTRAR</button>
+          <button
+            className={ buttonCSS }
+            disabled={ disable }
+            type="button"
+          >
+            ENTRAR
+          </button>
         </form>
       </section>
     );
