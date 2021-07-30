@@ -1,0 +1,21 @@
+.wallet-page {
+  display: grid;
+  grid-template-areas: 'headWallet headWallet' '. .' '. .' '. .';
+  grid-template-rows: 15vh  15vh 10vh 60vh;
+}
+
+.header-wallet {
+  align-items: center;
+  display: flex;
+  grid-area: headWallet;
+  justify-content: space-between;
+}
+
+.logo-wallet {
+  max-width: 10vw;
+}
+
+.info-wallet {
+  display: flex;
+  width: 40vw;
+}
