@@ -40,3 +40,5 @@ class FormWallet extends React.Component {
     )
   }
 }
+
+export default FormWallet;
