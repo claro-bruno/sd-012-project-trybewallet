@@ -33,8 +33,8 @@ class Login extends React.Component {
 
   loginValidation() {
     const { email, password } = this.state;
-    // referencia do regexValidation: https://regexr.com/3e48o
-    const regexValidation = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    // referencia do regexValidation: Mikaela Braga
+    const regexValidation = /(.*)@(.*).com/;
     const isValid = regexValidation.test(email);
     const requiredLength = 6;
 
