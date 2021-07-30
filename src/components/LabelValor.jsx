@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function LabelValor(props) {
-  const { valor, handleChange } = props;
+  const { value, handleChange } = props;
   return (
     <label htmlFor="valor">
       Valor:
@@ -10,7 +10,7 @@ function LabelValor(props) {
         id="valor"
         type="text"
         name="valor"
-        value={ valor }
+        value={ value }
         onChange={ handleChange }
       />
     </label>
@@ -20,5 +20,5 @@ function LabelValor(props) {
 export default LabelValor;
 
 LabelValor.propTypes = {
-  valor: PropTypes.string,
+  value: PropTypes.string,
 }.isRequired;

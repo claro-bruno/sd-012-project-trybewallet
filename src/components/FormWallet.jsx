@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import LabelValor from './LabelValor';
 
 function FormWallet(props) {
-  const { moeda, moedas, valor, descricao, tag, metodo, handleChange } = props;
+  const { moeda, moedas, value, descricao, tag, metodo, handleChange } = props;
   return (
     <form>
-      <LabelValor valor={ valor } handleChange={ handleChange } />
+      <LabelValor value={ value } handleChange={ handleChange } />
       <label htmlFor="desc">
         Descrição:
         <input

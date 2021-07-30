@@ -7,7 +7,7 @@ class Wallet extends React.Component {
   constructor() {
     super();
     this.state = {
-      valor: 0,
+      value: 0,
       descricao: '',
       moeda: '',
       moedas: [''],
@@ -25,7 +25,8 @@ class Wallet extends React.Component {
   async fetchMoedas() {
     const fetchMoedas = await fetch('https://economia.awesomeapi.com.br/json/all');
     const json = await fetchMoedas.json();
-    const moedas = Object.keys(json).filter((moeda) => moeda !== 'USDT');
+    const moedasKeys = Object.keys(json);
+    const moedas = moedasKeys.filter((moeda) => moeda !== 'USDT');
     this.setState({ moedas });
   }
 
@@ -36,7 +37,7 @@ class Wallet extends React.Component {
 
   render() {
     const { email } = this.props;
-    const { moeda, moedas, valor, descricao, tag, metodo } = this.state;
+    const { moeda, moedas, value, descricao, tag, metodo } = this.state;
     return (
       <div>
         <header>
@@ -47,7 +48,7 @@ class Wallet extends React.Component {
         <FormWallet
           moedas={ moedas }
           handleChange={ this.handleChange }
-          valor={ valor }
+          value={ value }
           descricao={ descricao }
           moeda={ moeda }
           metodo={ metodo }
