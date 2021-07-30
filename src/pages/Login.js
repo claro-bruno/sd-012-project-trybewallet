@@ -1,6 +1,9 @@
 import React from 'react';
-// import { connect } from 'react-redux';
+import propTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 import Input from '../components/Input';
+import actionLogin from '../actions/actionLogin';
 
 class Login extends React.Component {
   constructor() {
@@ -8,10 +11,12 @@ class Login extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.validation = this.validation.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
       email: '',
       password: '',
+      shouldRedirect: false,
     };
   }
 
@@ -32,10 +37,23 @@ class Login extends React.Component {
     }));
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+    const { email } = this.state;
+    const { emailDefault } = this.props;
+    emailDefault(email);
+    this.setState({
+      shouldRedirect: true,
+    });
+  }
+
   render() {
-    const { email, password } = this.state;
+    const { email, password, shouldRedirect } = this.state;
+
+    if (shouldRedirect) return <Redirect to="/carteira" />;
+
     return (
-      <div>
+      <form onSubmit={ this.handleSubmit }>
         <Input
           type="email"
           message="email"
@@ -48,12 +66,23 @@ class Login extends React.Component {
           message="password"
           handleChange={ this.handleChange }
         />
-        <button type="submit" disabled={ this.validation() }>
+        <button
+          type="submit"
+          disabled={ this.validation() }
+        >
           Entrar
         </button>
-      </div>
+      </form>
     );
   }
 }
 
-export default Login;
+Login.propTypes = {
+  emailDefault: propTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  emailDefault: (email) => dispatch(actionLogin(email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
