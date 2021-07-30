@@ -3,10 +3,10 @@ import React from 'react';
 class Login extends React.Component {
   constructor(){
     super()
-    this.state {
-      email: ''
-      password: ''
-      willredirect: false
+    this.state = {
+      email: '',
+      password: '',
+      willredirect: false,
     }
   }
   render() {
