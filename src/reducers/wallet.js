@@ -1,21 +1,27 @@
+import { NEW_EXPENSE, DELETE_EXPENSE } from '../actions';
+
 const INITIAL_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  currencies: [],
+  expenses: [],
 };
 
 const walletReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case 'newExpense':
+  case NEW_EXPENSE:
     return {
       ...state,
-      wallet: {
-        currencies: [...state.wallet.currencie, action.currencie],
-        expenses: [...state.wallet.expense, action.expense],
-      },
+      expenses: [
+        ...state.expenses,
+        action.newExpense,
+      ],
     };
-
+  case DELETE_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.filter((_, index) => (
+        index !== action.expenseToDelete.index
+      )),
+    };
   default:
     return state;
   }
