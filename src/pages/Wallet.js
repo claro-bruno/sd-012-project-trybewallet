@@ -4,6 +4,7 @@ import { changeWallet } from '../actions';
 import Header from '../components/Header';
 import Input from '../components/Input';
 import Select from '../components/Select';
+import ExpensesTable from '../components/ExpensesTable';
 import fetchAll from '../services/api';
 import PropTypes from 'prop-types';
 
@@ -125,6 +126,7 @@ class Wallet extends React.Component {
           Adicionar despesa
         </button>
       </form>
+      <ExpensesTable />
     </div>
     );
   }
