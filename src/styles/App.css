@@ -2,6 +2,6 @@
   display: flex;
 }
 
-@import "./Login.css" ;
+@import './Login.css' ;
 
-@import "./Wallet.css" ;
+@import './Wallet.css' ;
