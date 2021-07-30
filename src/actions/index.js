@@ -1,12 +1,17 @@
 // Coloque aqui suas actions
-import { USER_ACTION, WALLET_ACTION } from './actionsTypes';
+export const USER_ACTION = 'USER_ACTION';
+export const WALLET_ACTION = 'WALLET_ACTION';
 
-export const user = (valor) => ({
+export const userAction = (valor) => ({
   type: USER_ACTION,
-  valor,
+  payload: {
+    valor,
+  },
 });
 
-export const wallet = (valor) => ({
+export const walletAction = (valor) => ({
   type: WALLET_ACTION,
-  valor,
+  pauload: {
+    valor,
+  },
 });
