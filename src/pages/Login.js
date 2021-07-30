@@ -6,6 +6,8 @@ const ERRORS = {
   errorPassword: 'Password inválido',
 };
 
+const VALID_CARACTERES = 6;
+
 class Login extends React.Component {
   constructor() {
     super();
@@ -34,8 +36,9 @@ class Login extends React.Component {
       state: { email, password },
       handleChange,
     } = this;
-
     const { errorEmail, errorPassword } = ERRORS;
+    const emailValidation = email.includes('@' && '.com');
+    const passwordValidation = password.length >= VALID_CARACTERES;
 
     return (
       <section>
@@ -52,7 +55,7 @@ class Login extends React.Component {
               onChange={ handleChange }
               placeholder="Digite o Email"
             />
-            <span>{ errorEmail }</span>
+            { !emailValidation && <span>{ errorEmail }</span> }
           </label>
           <label htmlFor="password">
             Password:
@@ -65,10 +68,11 @@ class Login extends React.Component {
               onChange={ handleChange }
               placeholder="digite a Senha"
             />
-            <span>{ errorPassword }</span>
+            { !passwordValidation && <span>{ errorPassword }</span> }
           </label>
           <button
             type="button"
+            disabled={ !(passwordValidation && emailValidation) }
           >
             Entrar
           </button>
