@@ -1,5 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import addUserToState from '../actions/index';
 
 class Login extends React.Component {
   constructor() {
@@ -30,6 +32,9 @@ class Login extends React.Component {
 
   handleSubmit() {
     // Salva no Redux
+    const { userEmail } = this.state;
+    const { addUser } = this.props;
+    addUser(userEmail);
     this.setState({ shouldRedirect: true });
   }
 
@@ -56,7 +61,11 @@ class Login extends React.Component {
         </button>
       </div>
     );
-  }
-}
+  };
+};
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  addUser: (email) => dispatch(addUserToState(email))
+})
+
+export default connect(null, mapDispatchToProps)(Login);
