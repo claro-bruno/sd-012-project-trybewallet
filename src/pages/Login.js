@@ -28,7 +28,7 @@ class Login extends React.Component {
 
   userVerify() {
     const { userEmail, userPassword } = this.state;
-    return (userEmail !== 'isaac@gmail' || userPassword !== '123456');
+    return (userEmail !== 'alguem@email.com' || userPassword !== '123456');
   }
 
   handleSubmit() {
