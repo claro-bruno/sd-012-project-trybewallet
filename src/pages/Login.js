@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import actionSaveEmail from '../actions';
 
@@ -65,7 +66,7 @@ class Login extends React.Component {
           onClick={ () => saveEmail(email) }
           disabled={ disabled }
         >
-          Entrar
+          <Link to="/carteira">Entrar</Link>
         </button>
       </form>
     );
