@@ -1,60 +1,61 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchCurrencies } from '../actions';
+import { fetchCurrencies, addExpense } from '../actions';
+import Header from '../components/Header';
+import Valor from '../components/Valor';
+import Description from '../components/Description';
+import Currency from '../components/Currency';
+import Method from '../components/Method';
+import Tag from '../components/Tag';
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      valor: '',
+      description: '',
+      currency: '',
+      method: '',
+      tag: '',
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.addToExpenses = this.addToExpenses.bind(this);
+  }
+
   componentDidMount() {
     const { renderCurrencies } = this.props;
     renderCurrencies();
   }
 
+  handleChange({ target }) {
+    const { name, value } = target;
+    this.setState({ [name]: value });
+  }
+
+  addToExpenses() {
+    const { addExpenseChange } = this.props;
+    addExpenseChange(this.state);
+  }
+
   render() {
     const { email, currencies, loading } = this.props;
+    const { valor, description, currency, method, tag } = this.state;
     return (
       <div>
-        <header>
-          <h2>TrybeWallet</h2>
-          <div data-testid="email-field">{ `Email: ${email}` }</div>
-          <div data-testid="total-field">0</div>
-          <div data-testid="header-currency-field">BRL</div>
-        </header>
+        <Header email={ email } />
         <form>
-          <label htmlFor="valor">
-            Valor
-            <input id="valor" type="text" />
-          </label>
-          <label htmlFor="description">
-            Descrição
-            <input id="description" type="text" />
-          </label>
-          <label htmlFor="currency">
-            Moeda
-            <select id="currency">
-              { loading ? <option>Carregando...</option> : currencies.map((currency) => (
-                <option key={ currency.code }>
-                  { currency.code }
-                </option>)) }
-            </select>
-          </label>
-          <label htmlFor="payment-option">
-            Método de pagamento
-            <select id="payment-option">
-              <option>Dinheiro</option>
-              <option>Cartão de crédito</option>
-              <option>Cartão de débito</option>
-            </select>
-          </label>
-          <label htmlFor="tag">
-            Tag
-            <select id="tag">
-              <option>Alimentação</option>
-              <option>Lazer</option>
-              <option>Trabalho</option>
-              <option>Transporte</option>
-              <option>Saúde</option>
-            </select>
-          </label>
+          <Valor valor={ valor } handleChange={ this.handleChange } />
+          <Description description={ description } handleChange={ this.handleChange } />
+          <Currency
+            currency={ currency }
+            currencies={ currencies }
+            loading={ loading }
+            handleChange={ this.handleChange }
+          />
+          <Method method={ method } handleChange={ this.handleChange } />
+          <Tag tag={ tag } handleChange={ this.handleChange } />
+          <button type="button" onClick={ this.addToExpenses }>Adicionar Despesa</button>
         </form>
       </div>);
   }
@@ -65,6 +66,7 @@ Wallet.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.shape({ code: PropTypes.string })).isRequired,
   loading: PropTypes.bool.isRequired,
   renderCurrencies: PropTypes.func.isRequired,
+  addExpenseChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -75,6 +77,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   renderCurrencies: () => dispatch(fetchCurrencies()),
+  addExpenseChange: (payload) => dispatch(addExpense(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

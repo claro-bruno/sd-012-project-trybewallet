@@ -18,4 +18,7 @@ export const fetchCurrencies = () => (
       .then((r) => r.json()
         .then((json) => dispatch(getCurrencies(json))))
       .catch((error) => dispatch(failedRequest(error)));
-  });
+  }
+);
+
+export const addExpense = (payload) => ({ type: 'ADICIONAR_DESPESA', payload });
