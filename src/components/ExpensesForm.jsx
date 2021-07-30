@@ -20,7 +20,7 @@ export class ExpensesForm extends Component {
 }
 
 const mapStateToProps = (state) => ({
-
+  state,
 });
 
 const mapDispatchToProps = {
