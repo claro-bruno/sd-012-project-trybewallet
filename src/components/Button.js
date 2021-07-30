@@ -8,7 +8,7 @@ class Button extends React.Component {
       <button
         name={name}
         onClick={ onClick }
-        disabled={ isValid }
+        disabled={ !isValid }
       >
         { text }
       </button>

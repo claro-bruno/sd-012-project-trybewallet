@@ -11,6 +11,9 @@ const user = (state = INITIAL_STATE, action) => {
     case LOGIN:
       const newState = { ...state };
       newState[action.name] = action.value;
+      const emailRegex = /[\w]+@[\w]+\.[\w]+/.test(newState.email);
+      if (newState.senha.length >= 6 && emailRegex) newState.isValid = true;
+      else newState.isValid = false;
       return newState;
     default:
       return state;
