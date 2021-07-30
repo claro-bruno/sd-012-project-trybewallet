@@ -4,16 +4,16 @@ import { GET_CURRENCIES,
   ADD_EXPENSE_TO_STORE,
   REMOVE_EXPENSE,
   EDIT_EXPENSE,
+  INSERT_EDITED_EXPENSE,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
-  total: 0,
   currencyList: [],
   isLoading: false,
   error: null,
-  expenseToEdit: {},
+  expenseToEdit: undefined,
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -44,6 +44,15 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       expenseToEdit: state.expenses.find((expense) => action.payload === expense.id),
+    };
+
+  case INSERT_EDITED_EXPENSE:
+    return {
+      ...state,
+      expenses: [...state.expenses.filter(({ id }) => action.payload.id !== id),
+        action.payload,
+      ],
+      expenseToEdit: undefined,
     };
 
   default:

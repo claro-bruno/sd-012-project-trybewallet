@@ -4,11 +4,14 @@ import { connect } from 'react-redux';
 
 import AddExpense from '../components/AddExpense';
 import ExpensesTable from '../components/ExpensesTable';
+import EditExpense from '../components/EditExpense';
 import { addEmail } from '../actions';
 
 class Wallet extends React.Component {
   render() {
-    const { user: { email }, wallet: { expenses } } = this.props;
+    const { user: { email },
+      wallet: { expenses, expenseToEdit,
+      } } = this.props;
     const total = expenses.reduce((sum, { exchangeRates, currency, value }) => (
       sum + (Number(exchangeRates[currency].ask) * Number(value))
     ), 0);
@@ -17,7 +20,7 @@ class Wallet extends React.Component {
         <div data-testid="email-field">{email}</div>
         <div data-testid="header-currency-field">BRL</div>
         <div data-testid="total-field">{total}</div>
-        <AddExpense />
+        { expenseToEdit ? <EditExpense /> : <AddExpense />}
         <ExpensesTable />
       </header>
     );
@@ -30,6 +33,15 @@ Wallet.propTypes = {
   }).isRequired,
   wallet: PropTypes.shape({
     expenses: PropTypes.arrayOf(PropTypes.object),
+    expenseToEdit: PropTypes.shape({
+      id: PropTypes.number,
+      value: PropTypes.number,
+      description: PropTypes.string,
+      currency: PropTypes.string,
+      method: PropTypes.string,
+      tag: PropTypes.string,
+      exchangeRates: PropTypes.shape({ ask: PropTypes.number }),
+    }),
   }).isRequired,
 };
 

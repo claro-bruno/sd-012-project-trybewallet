@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { fetchAPI, addExpense } from '../actions';
+import { fetchAPI, insertEditedExpense } from '../actions';
 
-class AddExpense extends Component {
+class EditExpense extends Component {
   constructor(props) {
     super(props);
-
-    this.state = props;
+    this.state = props.expenseToEdit;
 
     this.handleChange = this.handleChange.bind(this);
     this.renderFormTop = this.renderFormTop.bind(this);
@@ -23,14 +22,12 @@ class AddExpense extends Component {
   }
 
   onSubmitForm() {
-    const { sendToStore, exchangeRates, getCurrencies } = this.props;
-    getCurrencies();
-    const { id } = this.state;
+    const { sendEditedExpense, exchangeRates } = this.props;
+    // getCurrencies();
     this.setState({
-      id: id + 1,
       exchangeRates,
     }, () => {
-      sendToStore(this.state);
+      sendEditedExpense(this.state);
     });
   }
 
@@ -162,21 +159,23 @@ class AddExpense extends Component {
   }
 }
 
-AddExpense.propTypes = {
-  sendToStore: PropTypes.func.isRequired,
+EditExpense.propTypes = {
+  sendEditedExpense: PropTypes.func.isRequired,
   getCurrencies: PropTypes.func.isRequired,
   exchangeRates: PropTypes.objectOf(PropTypes.object).isRequired,
   currencyList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  expenseToEdit: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 const mapStateToProps = (state) => ({
+  expenseToEdit: state.wallet.expenseToEdit,
   currencyList: state.wallet.currencyList,
   exchangeRates: state.wallet.currencies,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getCurrencies: () => dispatch(fetchAPI()),
-  sendToStore: (payload) => dispatch(addExpense(payload)),
+  sendEditedExpense: (payload) => dispatch(insertEditedExpense(payload)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddExpense);
+export default connect(mapStateToProps, mapDispatchToProps)(EditExpense);

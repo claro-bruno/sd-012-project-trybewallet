@@ -5,6 +5,7 @@ import { ADD_EMAIL_TO_STORE,
   ADD_EXPENSE_TO_STORE,
   REMOVE_EXPENSE,
   EDIT_EXPENSE,
+  INSERT_EDITED_EXPENSE,
 }
   from './actionTypes';
 
@@ -15,6 +16,9 @@ export const addExpense = (payload) => ({ type: ADD_EXPENSE_TO_STORE, payload })
 export const deleteExpense = (payload) => ({ type: REMOVE_EXPENSE, payload });
 
 export const changeExpense = (payload) => ({ type: EDIT_EXPENSE, payload });
+
+export const insertEditedExpense = (payload) => ({ type: INSERT_EDITED_EXPENSE,
+  payload });
 
 export const getCurrencies = () => ({ type: GET_CURRENCIES });
 
