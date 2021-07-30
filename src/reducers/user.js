@@ -1,10 +1,13 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
-const initialState = {};
+const initialState = {
+  email: '',
+  password: '',
+};
 
 function userReducer(state = initialState, action) {
   switch (action.type) {
-  case 'ADD':
-    return action.value;
+  case 'LOGIN':
+    return action.state;
   default:
     return state;
   }

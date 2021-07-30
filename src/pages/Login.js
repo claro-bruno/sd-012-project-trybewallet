@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { loginValidator } from '../helper';
-import { login as loginAction } from '../actions';
+import { sendUser } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -12,29 +12,56 @@ class Login extends React.Component {
       email: '',
       password: '',
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(name, value) {
+    this.setState({ [name]: value });
+  }
+
+  handleSubmit() {
+    const { userAction } = this.props;
+    const {
+      email,
+      password,
+    } = this.state;
+    const userState = {
+      email,
+      password,
+    };
+
+    userAction(userState);
   }
 
   render() {
     const { email, password } = this.state;
-    const { login } = this.props;
+    const { handleChange, handleSubmit } = this;
     return (
       <form>
         <input
           type="text"
-          onChange={ (e) => this.setState({ email: e.target.value }) }
+          onChange={ (e) => handleChange(e.target.name, e.target.value) }
           placeholder="email"
           data-testid="email-input"
+          name="email"
+          value={ email }
         />
         <input
           type="text"
-          onChange={ (e) => this.setState({ password: e.target.value }) }
+          onChange={ (e) => handleChange(e.target.name, e.target.value) }
           placeholder="password"
           data-testid="password-input"
+          name="password"
+          value={ password }
         />
-        <Link to="/carteira" onClick={ () => login({ email, password }) }>
+        <Link
+          to="/carteira"
+        >
           <button
             type="button"
             disabled={ !loginValidator({ email, password }) }
+            onClick={ handleSubmit }
           >
             Entrar
           </button>
@@ -44,11 +71,11 @@ class Login extends React.Component {
   }
 }
 Login.propTypes = {
-  login: PropTypes.func.isRequired,
+  userAction: PropTypes.func.isRequired,
 };
 // Ler
 const mapDispatchToProps = (dispatch) => ({
-  login: (e) => dispatch(loginAction(e)),
+  userAction: (state) => dispatch(sendUser(state)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
