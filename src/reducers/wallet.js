@@ -14,9 +14,17 @@ const prepareCurrencies = (payload) => {
   return currencies;
 };
 
-const prepareExpenses = (expenses, payload) => {
+const prepareExpenses = (expenses, payload, exchangeRates) => {
+  // const currencies = prepareCurrencies(json);
+  // const exchangeRates = currencies.map((currency) => ({
+  //   [currency.code]: {
+  //     code: currency.code,
+  //     name: currency.name,
+  //     ask: currency.ask,
+  //   },
+  // }));
   const idNumber = expenses.length;
-  const newExpense = { ...payload, id: idNumber };
+  const newExpense = { id: idNumber, ...payload, exchangeRates };
   return [...expenses, newExpense];
 };
 
@@ -28,8 +36,11 @@ const wallet = (state = INITIAL_STATE, action) => {
     return { ...state, currencies: prepareCurrencies(action.payload), loading: false };
   case 'FAILED_REQUEST':
     return { ...state, error: true };
-  case 'ADICIONAR_DESPESA':
-    return { ...state, expenses: prepareExpenses(state.expenses, action.payload) };
+  case 'ADD_EXPENSE':
+    return {
+      ...state,
+      expenses: prepareExpenses(state.expenses, action.payload, action.newFetch),
+    };
   default:
     return state;
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchCurrencies, addExpense } from '../actions';
+import { fetchCurrencies, fetchRates } from '../actions';
 import Header from '../components/Header';
 import Valor from '../components/Valor';
 import Description from '../components/Description';
@@ -9,16 +9,18 @@ import Currency from '../components/Currency';
 import Method from '../components/Method';
 import Tag from '../components/Tag';
 
+const INITIAL_STATE = {
+  value: '',
+  description: '',
+  currency: '',
+  method: '',
+  tag: '',
+};
+
 class Wallet extends React.Component {
   constructor() {
     super();
-    this.state = {
-      valor: '',
-      description: '',
-      currency: '',
-      method: '',
-      tag: '',
-    };
+    this.state = INITIAL_STATE;
     this.handleChange = this.handleChange.bind(this);
     this.addToExpenses = this.addToExpenses.bind(this);
   }
@@ -36,16 +38,17 @@ class Wallet extends React.Component {
   addToExpenses() {
     const { addExpenseChange } = this.props;
     addExpenseChange(this.state);
+    this.setState(INITIAL_STATE);
   }
 
   render() {
-    const { email, currencies, loading } = this.props;
-    const { valor, description, currency, method, tag } = this.state;
+    const { email, currencies, loading, expenses } = this.props;
+    const { value, description, currency, method, tag } = this.state;
     return (
       <div>
-        <Header email={ email } />
+        <Header email={ email } expenses={ expenses } />
         <form>
-          <Valor valor={ valor } handleChange={ this.handleChange } />
+          <Valor value={ value } handleChange={ this.handleChange } />
           <Description description={ description } handleChange={ this.handleChange } />
           <Currency
             currency={ currency }
@@ -67,17 +70,19 @@ Wallet.propTypes = {
   loading: PropTypes.bool.isRequired,
   renderCurrencies: PropTypes.func.isRequired,
   addExpenseChange: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
   currencies: state.wallet.currencies,
   loading: state.wallet.loading,
+  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   renderCurrencies: () => dispatch(fetchCurrencies()),
-  addExpenseChange: (payload) => dispatch(addExpense(payload)),
+  addExpenseChange: (payload) => dispatch(fetchRates(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

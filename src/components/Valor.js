@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 
 class Valor extends React.Component {
   render() {
-    const { valor, handleChange } = this.props;
+    const { value, handleChange } = this.props;
     return (
-      <label htmlFor="valor">
+      <label htmlFor="value">
         Valor
         <input
-          name="valor"
-          id="valor"
+          name="value"
+          id="value"
           type="text"
-          value={ valor }
+          value={ value }
           onChange={ handleChange }
         />
       </label>
@@ -20,7 +20,7 @@ class Valor extends React.Component {
 }
 
 Valor.propTypes = {
-  valor: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
 };
 

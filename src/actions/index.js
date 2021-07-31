@@ -3,13 +3,13 @@ export const login = (email) => ({
   email,
 });
 
-export const requestCurrencies = () => ({ type: 'REQUEST_CURRENCIES' });
+const requestCurrencies = () => ({ type: 'REQUEST_CURRENCIES' });
 
-export const getCurrencies = (json) => ({
+const getCurrencies = (json) => ({
   type: 'GET_CURRENCIES', payload: json,
 });
 
-export const failedRequest = (error) => ({ type: 'FAILED_REQUEST', payload: error });
+const failedRequest = (error) => ({ type: 'FAILED_REQUEST', payload: error });
 
 export const fetchCurrencies = () => (
   (dispatch) => {
@@ -21,4 +21,15 @@ export const fetchCurrencies = () => (
   }
 );
 
-export const addExpense = (payload) => ({ type: 'ADICIONAR_DESPESA', payload });
+const addExpense = (payload, json) => ({
+  type: 'ADD_EXPENSE',
+  payload,
+  newFetch: json,
+});
+
+export const fetchRates = (payload) => (
+  (dispatch) => fetch('https://economia.awesomeapi.com.br/json/all')
+    .then((r) => r.json()
+      .then((json) => dispatch(addExpense(payload, json))))
+    .catch((error) => dispatch(failedRequest(error)))
+);
