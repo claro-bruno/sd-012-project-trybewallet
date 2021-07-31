@@ -33,7 +33,11 @@ class HeaderWallet extends React.Component {
           <div className="expenses-wallet">
             Despesa Total:
             {' '}
-            <span data-testid="total-field">{`R$ ${totalExpenses.toFixed(2)}`}</span>
+            <span
+              data-testid="total-field"
+            >
+              {`R$ ${Math.round((totalExpenses + Number.EPSILON) * 100) / 100}`}
+            </span>
             {' '}
             <span data-testid="header-currency-field">BRL</span>
           </div>
