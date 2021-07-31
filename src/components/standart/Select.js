@@ -13,12 +13,14 @@ class Select extends React.Component {
       },
     } = this;
 
+    const NUMBER_RAMDOM = 1000;
+
     return (
       <label htmlFor={ name }>
         { labelText }
         <select id={ name } name={ name } value={ value } onChange={ handleChange }>
           { options.map((option) => (
-            <option key={ option.value } value={ option.value }>
+            <option key={ Math.random() * NUMBER_RAMDOM } value={ option.value }>
               { option.text }
             </option>
           )) }
