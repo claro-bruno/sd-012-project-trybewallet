@@ -1,11 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { func } from 'prop-types';
+import { string } from 'prop-types';
+import ExpenseForm from './ExpenseForm';
 
 class Header extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  // }
+  constructor(props) {
+    super(props);
+
+    this.handleChange = this.handleChange.bind(this);
+
+    this.state = {
+      valueEntry: '0',
+      currenty: [],
+      method: '',
+      tag: '',
+      description: '',
+    };
+  }
+
+  handleChange({ target: { name, value } }) {
+    this.setState({ [name]: value });
+  }
 
   render() {
     const { emailFromGlobalState } = this.props;
@@ -15,14 +30,18 @@ class Header extends React.Component {
           {`Email: ${emailFromGlobalState}`}
         </h3>
         <label htmlFor="despesa">
-          Despesa:
+          Valor
           <input
             data-testid="total-field"
             name="despesa"
             value="0"
+            onChange={ this.handleChange }
           />
         </label>
-        <div data-testid="header-currency-field">BRL</div>
+        <div data-testid="header-currency-field">
+          BRL
+        </div>
+        <ExpenseForm onChange={ this.handleChange } />
       </header>
     );
   }
@@ -34,6 +53,6 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, null)(Header);
 
-Header.propTypes = ({
-  emailFromGlobalState: func.isRequired,
-});
+Header.propTypes = {
+  emailFromGlobalState: string.isRequired,
+};
