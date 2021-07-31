@@ -3,6 +3,7 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 import HeaderWallet from '../components/HeaderWallet';
 import NewExpenses from '../components/NewExpense';
+import ExpenseTable from '../components/ExpenseTable';
 import './wallet.css';
 
 class Wallet extends React.Component {
@@ -11,6 +12,9 @@ class Wallet extends React.Component {
       <div className="wallet-page">
         <HeaderWallet />
         <NewExpenses />
+        <main className="main-wallet">
+          <ExpenseTable />
+        </main>
       </div>
     );
   }

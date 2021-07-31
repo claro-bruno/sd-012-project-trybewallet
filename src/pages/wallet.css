@@ -1,6 +1,6 @@
 .wallet-page {
   display: grid;
-  grid-template-areas: 'headWallet headWallet' 'newExpense newExpense' '. .';
+  grid-template-areas: 'headWallet headWallet''newExp newExp' 'mainWallet mainWallet';
   grid-template-rows: 15vh  12vh 73vh;
 }
 
@@ -26,11 +26,11 @@
 .form-newExpense {
   align-items: center;
   background-color: rgb(43, 46, 47);
-  border-bottom: 2px solid silver;
+  border-bottom: 2px solid rgb(32, 31, 31);
   border-top: 2px solid silver;
   color: white;
   display: flex;
-  grid-area: newExpense;
+  grid-area: newExp;
   justify-content: space-around;
 }
 
@@ -65,3 +65,53 @@
   margin-top: 10px;
   padding: 10px;
 }
+
+.main-wallet {
+  grid-area: mainWallet;
+  overflow-y: auto;
+}
+
+.main-wallet::-webkit-scrollbar {
+  width: 10px;
+}
+
+.main-wallet::-webkit-scrollbar-thumb {
+  background-color: rgb(43, 46, 47);
+  border: 1px solid slategray;
+  border-radius: 10px;
+}
+
+.main-wallet::-webkit-scrollbar-track {
+  background-color: rgb(221, 221, 221);
+}
+
+.expense-table {
+  border-collapse: collapse;
+  box-sizing: content-box;
+  max-height: 100%;
+  table-layout: fixed;
+  text-align: center;
+  width: 100%;
+}
+
+.expense-table thead th {
+  background-color: black;
+  border-bottom: 2px solid silver;
+  color: white;
+  height: 30px;
+  padding: 10px;
+  position: sticky;
+  top: 0;
+}
+
+.expense-table tbody td {
+  border: none;
+  color: black;
+  height: 50px;
+  padding: 10px;
+}
+
+.expense-table tbody tr:nth-child( even ) {
+  background-color: rgb(233, 233, 233);
+}
+
