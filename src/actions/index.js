@@ -4,6 +4,7 @@ export const LOADING = 'LOADING';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 export const EDIT_FORM = 'EDIT_FORM';
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
 
 const URL = 'https://economia.awesomeapi.com.br/json/all';
 
@@ -35,7 +36,12 @@ export const actionDeleteExpense = (id) => ({
 export const actionEditForm = (id) => ({
   type: EDIT_FORM,
   id,
-})
+});
+
+export const actionEditExpense = (expense) => ({
+  type: EDIT_EXPENSE,
+  expense,
+});
 
 export function fetchCurrencies() {
   return (dispatch) => {

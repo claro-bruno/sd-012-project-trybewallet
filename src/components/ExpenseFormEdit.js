@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Input from './Input';
 import Button from './Button';
 import Select from './Select';
-import { fetchCambioRate } from '../actions';
+import { actionEditExpense } from '../actions';
 
 const paymentMethods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const category = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
@@ -17,16 +17,15 @@ class ExpenseFormEdit extends React.Component {
   }
 
   handleClick() {
-    const { expenses, addExpense } = this.props;
+    const { editExpense } = this.props;
     const obj = {
-      id: expenses.length,
       value: document.querySelector('#valor').value,
       currency: document.querySelector('#moeda').value,
       method: document.querySelector('#payment').value,
       tag: document.querySelector('#tag').value,
       description: document.querySelector('#descricao').value,
     };
-    addExpense(obj);
+    editExpense(obj);
   }
 
   render() {
@@ -75,17 +74,15 @@ class ExpenseFormEdit extends React.Component {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
-  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addExpense: (expense) => dispatch(fetchCambioRate(expense)),
+  editExpense: (expense) => dispatch(actionEditExpense(expense)),
 });
 
 ExpenseFormEdit.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
-  addExpense: PropTypes.func.isRequired,
-  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  editExpense: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseFormEdit);
