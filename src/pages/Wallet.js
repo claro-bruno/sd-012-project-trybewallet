@@ -3,7 +3,7 @@ import './Wallet.css';
 
 class Wallet extends Component {
   render() {
-    return <div>TrybeWallet</div>;
+    return <div className="wallet-container">TrybeWallet</div>;
   }
 }
 
