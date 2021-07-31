@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import { Connect } from 'react-redux';
-// import { userlInfo } from '../actions';
+import { connect } from 'react-redux';
+import { userInfo } from '../actions';
 import { Input, Button } from '../components';
 import logo from '../images/logo.png';
 import './Login.css';
@@ -78,21 +78,19 @@ class Login extends Component {
           buttonText="Entrar"
           pathname="carteira"
           isDisable={ isDisable }
-          onClick={ this.sendPersonalInfo }
+          onClick={ this.loginWithUserInfo }
         />
       </div>
     );
   }
 }
 
-/* const mapDispatchToProps = (dispatch) => ({
-  handleUserInfo: (userInfo) => dispatch(loginWithUserInfo(userInfo)),
-}); */
+const mapDispatchToProps = (dispatch) => ({
+  handleUserInfo: (info) => dispatch(userInfo(info)),
+});
 
 Login.propTypes = {
   handleUserInfo: PropTypes.func.isRequired,
 };
 
-export default Login;
-
-// export default connect(null, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login);
