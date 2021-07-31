@@ -1,7 +1,4 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-
-import { createReducer } from '@reduxjs/toolkit';
-
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
@@ -9,8 +6,11 @@ const INITIAL_STATE = {
   currency: 'BRL',
 };
 
-const wallet = createReducer(INITIAL_STATE, (builder) => {
-  builder.addDefaultCase((state) => state);
-});
+const wallet = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+  default:
+    return state;
+  }
+};
 
 export default wallet;

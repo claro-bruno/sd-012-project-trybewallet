@@ -1,8 +1,13 @@
 // Coloque aqui suas actions
-import { createAction } from '@reduxjs/toolkit';
 
 export const LOGIN_ACTION = 'LOGIN_ACTION';
-export const loginAction = createAction(LOGIN_ACTION);
+export const loginAction = (payload) => ({
+  type: LOGIN_ACTION,
+  payload,
+});
 
 export const IS_VALID = 'IS_VALID';
-export const validLogin = createAction(IS_VALID);
+export const validLogin = (payload) => ({
+  type: IS_VALID,
+  payload,
+});
