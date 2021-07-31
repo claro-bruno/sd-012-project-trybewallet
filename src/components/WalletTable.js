@@ -15,6 +15,7 @@ class WalletTable extends Component {
   render() {
     const paymentOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const tagOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
+    const { loading, currencies = [] } = this.props;
     return (
       <div>
         <Input
@@ -38,6 +39,11 @@ class WalletTable extends Component {
           title="Tag"
           name="categoria"
           options={ tagOptions }
+        />
+        <Select 
+          title="Moeda"
+          name="moeda"
+          options={ currencies }
         />
         <Button name="Adicionar Despesa" />
       </div>

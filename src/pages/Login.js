@@ -37,31 +37,37 @@ class Login extends Component {
     const { email, senha } = this.state;
     const { loginSuccess } = this.props;
     return (
-      <div>
-        <Input
-          dataTestid="email-input"
-          name="email"
-          type="text"
-          placeholder="E-mail"
-          value={ email }
-          onChange={ this.handleChange }
-        />
-        <Input
-          dataTestid="password-input"
-          name="senha"
-          type="password"
-          placeholder="Senha"
-          value={ senha }
-          onChange={ this.handleChange }
-        />
-        <Link to="/carteira">
-          <Button
-            name="entrar"
-            disabled={ this.isValid() }
-            onClick={ () => loginSuccess(email) }
+      <main className="main-login">
+        <div className='login'>
+          <h1 className="login-title">TrybeWallet</h1>
+          <Input
+            dataTestid="email-input"
+            className="login-input"
+            name="email"
+            type="text"
+            placeholder="E-mail"
+            value={ email }
+            onChange={ this.handleChange }
           />
-        </Link>
-      </div>
+          <Input
+            dataTestid="password-input"
+            className="login-input"
+            name="senha"
+            type="password"
+            placeholder="Senha"
+            value={ senha }
+            onChange={ this.handleChange }
+          />
+          <Link to="/carteira">
+            <Button
+              name="Entrar"
+              className='login-button'
+              disabled={ this.isValid() }
+              onClick={ () => loginSuccess(email) }
+            />
+          </Link>
+        </div>
+      </main>
     );
   }
 }

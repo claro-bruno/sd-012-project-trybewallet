@@ -21,3 +21,58 @@
 .user-waste {
   margin-left: 1rem;
 }
+
+.main-login {
+  align-items: center;
+  background-color: rgb(32, 175, 156);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.login {
+  align-items: center;
+  background-color: rgb(52, 165, 52);
+  border-radius: 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 50vh;
+  min-width: 25vw;
+}
+
+.login-title {
+  color: rgb(187, 255, 0);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.login-input, .login-button {
+  border: none;
+  border-radius: 10px;
+  margin-bottom: 1rem;  
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.login-button {
+  background-color: rgb(187, 255, 0);
+  color: rgb(52, 165, 52);;
+  font-weight: 700;
+}
+
+.login-button:disabled {
+  opacity: 0.5;
+}
+
+.login-input:focus {
+  border: 0 none;
+  box-shadow: 0 0 0 0;
+  outline: 0;
+}
+
+.login-button:hover {
+  cursor: pointer;
+}
+
