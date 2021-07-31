@@ -1,53 +1,71 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { loginAction, validLogin } from '../actions';
-import Input from '../components/Input';
+import PropTypes from 'prop-types';
+import { authAction, loginAction } from '../actions';
 
-const INITIAL_STATE = {
-  email: '',
-  password: '',
-};
+// - A rota para esta página deve ser "/"
+// - Existe um local para que o usuário insira seu email e senha
+// - Existe um botão com o texto "Entrar"
 
-class Login extends Component {
-  constructor() {
-    super();
-    this.state = INITIAL_STATE;
+class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+    };
     this.handleChange = this.handleChange.bind(this);
-    this.verifyLogin = this.verifyLogin.bind(this);
-  }
-
-  verifyLogin() {
-    const { email, password } = this.state;
-    const { validation } = this.props;
-    const emailRegex = /^[a-z0-9_.]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/;
-    const passRegex = /^[\S*]{5,}$/;
-    validation(emailRegex.test(email) && passRegex.test(password));
+    this.authenticator = this.authenticator.bind(this);
   }
 
   handleChange({ target }) {
+    this.authenticator();
     this.setState({
       [target.name]: target.value,
     });
-    this.verifyLogin();
+  }
+
+  authenticator() {
+    const { email, password } = this.state;
+    const { authDispatch } = this.props;
+    const emailReg = /^[a-z0-9_.]+@[a-z0-9]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/;
+    const MIN_LEN = 5;
+    authDispatch(emailReg.test(email) && password.length >= MIN_LEN);
   }
 
   render() {
-    const { email } = this.state;
-    const { login, canLogin } = this.props;
+    const { email, password } = this.state;
+    const { canAuthenticate, loginDispatch } = this.props;
     return (
       <form>
-        <Input name="Email" callback={ this.handleChange } type="email" />
-        <Input name="Password" callback={ this.handleChange } type="password" />
+        <label htmlFor="email-input">
+          Email
+          <input
+            data-testid="email-input"
+            type="email"
+            name="email"
+            id="email-input"
+            value={ email }
+            onChange={ this.handleChange }
+          />
+        </label>
+        <label htmlFor="password-input">
+          Senha
+          <input
+            data-testid="password-input"
+            type="password"
+            name="password"
+            id="password-input"
+            value={ password }
+            onChange={ this.handleChange }
+          />
+        </label>
         <Link to="/carteira">
           <button
-            disabled={ !canLogin }
-            type="submit"
-            onClick={ () => {
-              login(email);
-              this.setState(INITIAL_STATE);
-            } }
+            type="button"
+            onClick={ () => loginDispatch(email) }
+            disabled={ !canAuthenticate }
           >
             Entrar
           </button>
@@ -57,19 +75,19 @@ class Login extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  login: (email) => dispatch(loginAction(email)),
-  validation: (data) => dispatch(validLogin(data)),
-});
-
 const mapStateToProps = ({ user }) => ({
-  canLogin: user.validLogin,
+  canAuthenticate: user.canAuthenticate,
 });
 
-Login.propTypes = {
-  login: PropTypes.func.isRequired,
-  validation: PropTypes.func.isRequired,
-  canLogin: PropTypes.bool.isRequired,
-};
+const mapDispatchToProps = (dispatch) => ({
+  authDispatch: (isAuth) => dispatch(authAction(isAuth)),
+  loginDispatch: (email) => dispatch(loginAction(email)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
+Login.propTypes = {
+  canAuthenticate: PropTypes.bool.isRequired,
+  authDispatch: PropTypes.func.isRequired,
+  loginDispatch: PropTypes.func.isRequired,
+};
