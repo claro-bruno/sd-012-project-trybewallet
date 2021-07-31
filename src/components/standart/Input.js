@@ -34,13 +34,16 @@ class Input extends React.Component {
   }
 }
 
-const { string, func, oneOfType, object, bool } = PropTypes;
+const { string, number, func, oneOfType, object, bool } = PropTypes;
 Input.propTypes = {
   name: string.isRequired,
   labelText: string.isRequired,
   type: string.isRequired,
   dataTestId: string,
-  value: string.isRequired,
+  value: oneOfType([
+    number,
+    string,
+  ]).isRequired,
   handleChange: func.isRequired,
   placeholder: string.isRequired,
   validation: oneOfType([

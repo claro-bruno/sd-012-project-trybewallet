@@ -24,9 +24,12 @@ class InputValor extends React.Component {
   }
 }
 
-const { string, func } = PropTypes;
+const { string, func, number, oneOfType } = PropTypes;
 InputValor.propTypes = {
-  value: string.isRequired,
+  value: oneOfType([
+    number,
+    string,
+  ]).isRequired,
   handleChange: func.isRequired,
 };
 

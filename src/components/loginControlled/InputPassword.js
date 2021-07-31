@@ -30,9 +30,12 @@ class InputPassword extends React.Component {
   }
 }
 
-const { string, func } = PropTypes;
+const { string, func, number, oneOfType } = PropTypes;
 InputPassword.propTypes = {
-  value: string.isRequired,
+  value: oneOfType([
+    number,
+    string,
+  ]).isRequired,
   handleChange: func.isRequired,
 };
 
