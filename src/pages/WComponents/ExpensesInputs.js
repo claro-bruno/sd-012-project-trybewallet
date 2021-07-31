@@ -12,16 +12,18 @@ class ExpensesInputs extends Component {
           <input
             type="number"
             id="value-input"
+            data-testid="value-input"
             name="value"
             value={ value }
             onChange={ handleChange }
           />
         </label>
-        <label htmlFor="desc-input">
+        <label htmlFor="description-input">
           Descrição
           <input
             type="text"
-            id="desc-input"
+            id="description-input"
+            data-testid="description-input"
             name="description"
             value={ description }
             onChange={ handleChange }

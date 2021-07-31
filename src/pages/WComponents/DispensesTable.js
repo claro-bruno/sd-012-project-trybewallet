@@ -12,7 +12,11 @@ class DispensesTable extends Component {
   }
 
   renderRows() {
-    const { expenses, deleteDispense: deleteDis } = this.props;
+    const {
+      expenses,
+      deleteDispense: deleteDis,
+      requestEdition,
+    } = this.props;
     return expenses.map(({
       id,
       description,
@@ -23,9 +27,8 @@ class DispensesTable extends Component {
       exchangeRates,
     }) => {
       const { name, ask } = exchangeRates[currency];
-
       return (
-        <tr key={ name }>
+        <tr key={ Math.floor(Math.random() * 100 * Date.now()) }>
           <td>{ description }</td>
           <td>{ tag }</td>
           <td>{ method }</td>
@@ -41,6 +44,13 @@ class DispensesTable extends Component {
               onClick={ () => { deleteDis(id); } }
             >
               Deletar
+            </button>
+            <button
+              data-testid="edit-btn"
+              type="button"
+              onClick={ () => { requestEdition(id); } }
+            >
+              Editar
             </button>
           </td>
         </tr>
@@ -75,10 +85,11 @@ class DispensesTable extends Component {
 DispensesTable.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   deleteDispense: PropTypes.func.isRequired,
+  requestEdition: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ wallet }) => ({ expenses: wallet.expenses });
 
-const mapDispatchToProps = { deleteDispense }; // Sintaxe diferenciada, é uma má prática utilizá-la Jensen?
+const mapDispatchToProps = { deleteDispense }; // Sintaxe diferenciada, é uma má prática utilizá-la, Jensen?
 
 export default connect(mapStateToProps, mapDispatchToProps)(DispensesTable);
