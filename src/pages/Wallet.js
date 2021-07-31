@@ -2,7 +2,6 @@ import React from 'react';
 import Header from '../components/Header';
 import Form1 from '../components/FormPart1';
 import Form2 from '../components/FormPart2';
-import '../styles/walletpage.css';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -31,10 +30,8 @@ class Wallet extends React.Component {
     return (
       <div>
         <nav>
-          <div id="form-wallet-container">
-            <Form1 coins={ coins } />
-            <Form2 coins={ coins } />
-          </div>
+          <Form1 coins={ coins } />
+          <Form2 coins={ coins } />
           <Header />
         </nav>
       </div>
