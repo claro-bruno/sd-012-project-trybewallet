@@ -4,13 +4,13 @@ const INITIAL_STATE = {
   email: '',
 };
 
-function userReducer(state = INITIAL_STATE, action) {
+function user(state = INITIAL_STATE, action) {
   switch (action.type) {
   case USER_INFO:
-    return { ...state, email: action.state.email };
+    return { ...state, email: action.email };
   default:
     return state;
   }
 }
 
-export default userReducer;
+export default user;
