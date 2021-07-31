@@ -26,11 +26,15 @@ class Select extends Component {
   }
 }
 
+Select.defaultProps = {
+  value: '',
+};
+
 Select.propTypes = {
   labelText: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   children: PropTypes.arrayOf(
     PropTypes.string.isRequired,
   ).isRequired,

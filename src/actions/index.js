@@ -3,6 +3,8 @@ import {
   GET_CURRENCIES,
   GET_CURRENCIES_SUCCESS,
   GET_CURRENCIES_ERROR,
+  ADD_EXPENSE,
+  SUM_EXPENSES,
 } from './actionTypes';
 
 export function changeEmailLogin(value) {
@@ -30,15 +32,31 @@ function getCurrenciesError(error) {
   };
 }
 
-export const fetchCurrencies = () => async (dispatch) => {
+function addExpense(expense, currencies) {
+  return ({
+    type: ADD_EXPENSE,
+    payload: {
+      expense,
+      currencies,
+    },
+  });
+}
+
+export const fetchCurrencies = (expense) => async (dispatch) => {
   dispatch(getCurrencies());
   try {
     const CURRENCIES_URL = 'https://economia.awesomeapi.com.br/json/all';
     const response = await fetch(CURRENCIES_URL);
-    const data = await response.json();
-    const currencies = Object.keys(data).filter((code) => code !== 'USDT');
-    dispatch(getCurrenciesSuccess(currencies));
+    const currencies = await response.json();
+    dispatch(
+      (expense) ? addExpense(expense, currencies) : getCurrenciesSuccess(currencies),
+    );
+    return currencies;
   } catch (error) {
     dispatch(getCurrenciesError(error));
   }
 };
+
+export const sumTotalExpenses = () => ({
+  type: SUM_EXPENSES,
+});

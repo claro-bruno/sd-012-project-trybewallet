@@ -22,7 +22,7 @@ class Wallet extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  setCurrenciesToStore: (currencies) => dispatch(fetchCurrencies(currencies)),
+  setCurrenciesToStore: () => dispatch(fetchCurrencies()),
 });
 
 Wallet.propTypes = {
