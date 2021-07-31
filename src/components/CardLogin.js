@@ -8,48 +8,46 @@ class CardLogin extends Component {
   render() {
     const { email, password, isDisabled, handleChange, handleSubmit } = this.props;
     return (
-      <main>
-        <div
-          className="card ml-auto mr-auto"
-          style={ { maxWidth: '27rem' } }
-        >
-          <img
-            src={ walletImage }
-            className="card-img-top"
-            alt="Wallet"
-          />
-          <div className="card-body">
-            <form
-              className="d-flex flex-column"
-              onSubmit={ (event) => handleSubmit(event) }
+      <div
+        className="card ml-auto mr-auto"
+        style={ { maxWidth: '27rem' } }
+      >
+        <img
+          src={ walletImage }
+          className="card-img-top"
+          alt="Wallet"
+        />
+        <div className="card-body">
+          <form
+            className="d-flex flex-column"
+            onSubmit={ (event) => handleSubmit(event) }
+          >
+            <Input
+              label="Email: "
+              id="email-input"
+              name="email"
+              type="email"
+              value={ email }
+              handleChange={ handleChange }
+            />
+            <Input
+              label="Password: "
+              id="password-input"
+              name="password"
+              type="text"
+              value={ password }
+              handleChange={ handleChange }
+            />
+            <button
+              className="btn btn-primary mt-3"
+              type="submit"
+              disabled={ isDisabled }
             >
-              <Input
-                label="Email: "
-                id="email-input"
-                name="email"
-                type="email"
-                value={ email }
-                handleChange={ handleChange }
-              />
-              <Input
-                label="Password: "
-                id="password-input"
-                name="password"
-                type="text"
-                value={ password }
-                handleChange={ handleChange }
-              />
-              <button
-                className="btn btn-primary mt-3"
-                type="submit"
-                disabled={ isDisabled }
-              >
-                Entrar
-              </button>
-            </form>
-          </div>
+              Entrar
+            </button>
+          </form>
         </div>
-      </main>
+      </div>
     );
   }
 }
