@@ -2,10 +2,8 @@
 import { USER_SET } from '../actions/index';
 
 const initialState = {
-  user: {
-    email: '',
-    password: '',
-  },
+  email: '',
+  password: '',
 };
 
 function user(state = initialState, action) {
@@ -13,7 +11,7 @@ function user(state = initialState, action) {
   case USER_SET:
     return {
       ...state,
-      user: { ...state.user, email: action.payload },
+      email: action.payload,
     };
   default:
     return state;

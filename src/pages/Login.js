@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { userSet } from '../actions/index';
 
@@ -68,14 +69,16 @@ class Login extends React.Component {
                 onChange={ this.handleChange }
               />
             </div>
-            <button
-              type="submit"
-              className="btn btn-danger col-12"
-              onClick={ this.onSubmitForm }
-              disabled={ disabled }
-            >
-              Entrar
-            </button>
+            <Link to="/carteira">
+              <button
+                type="submit"
+                className="btn btn-danger col-12"
+                onClick={ this.onSubmitForm }
+                disabled={ disabled }
+              >
+                Entrar
+              </button>
+            </Link>
           </form>
         </div>
       </div>
@@ -88,8 +91,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  email: state.user.user.email,
-  password: state.user.user.password,
+  email: state.user.email,
+  password: state.user.password,
 });
 
 Login.propTypes = {
