@@ -73,7 +73,7 @@ class Login extends React.Component {
 Login.propTypes = {
   userAction: PropTypes.func.isRequired,
 };
-// Ler
+// Escrever
 const mapDispatchToProps = (dispatch) => ({
   userAction: (state) => dispatch(sendUser(state)),
 });
