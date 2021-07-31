@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { setLoginValue } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -57,9 +59,10 @@ class Login extends React.Component {
   }
 
   handleSubmit(event) {
-    const { history } = this.props;
-    console.log(this.state);
+    const { history, setLoginValueProps } = this.props;
+    const { email } = this.state;
     event.preventDefault();
+    setLoginValueProps(email);
     history.push('/carteira');
   }
 
@@ -104,6 +107,11 @@ class Login extends React.Component {
 Login.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired }).isRequired,
+  setLoginValueProps: PropTypes.func.isRequired,
 };
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  setLoginValueProps: (email) => dispatch(setLoginValue(email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
