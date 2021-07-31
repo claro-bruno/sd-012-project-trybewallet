@@ -21,7 +21,7 @@ class Header extends React.Component {
       </header>
     );
   }
-};
+}
 
 const mapStateToProps = (state) => ({
   userEmail: state.user.email,
