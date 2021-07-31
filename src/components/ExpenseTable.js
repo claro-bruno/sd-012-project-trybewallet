@@ -4,7 +4,11 @@ import PropTypes from 'prop-types';
 import headerTable from '../helpers/headerTable';
 
 class ExpenseTable extends React.Component {
-  renderEditTrashBtn() {
+  deleteExpense(id) {
+    console.log(id);
+  }
+
+  renderEditTrashBtn(id) {
     return (
       <td>
         <button
@@ -14,8 +18,10 @@ class ExpenseTable extends React.Component {
           <i className="bi bi-pencil-square" />
         </button>
         <button
+          className="delete-expense"
+          data-testid="delete-btn"
           type="button"
-          onClick={ () => {} }
+          onClick={ () => { console.log(id); } }
         >
           <i className="bi bi-trash-fill" />
         </button>
@@ -62,7 +68,7 @@ class ExpenseTable extends React.Component {
                     ) + Number.EPSILON) * 100) / 100 }
                 </td>
                 <td>Real</td>
-                {this.renderEditTrashBtn()}
+                {this.renderEditTrashBtn(id)}
               </tr>
             )) }
         </tbody>

@@ -4,6 +4,7 @@ import {
   REQUEST_FETCH,
   REQUEST_FAILED,
   GET_QUOTATIONS,
+  EXPENSE_REMOVE,
 } from './types';
 
 const CURRENCIES_URL = 'https://economia.awesomeapi.com.br/json/all';
@@ -28,6 +29,11 @@ const requestFailed = (error) => ({
 const getQuotations = (expense) => ({
   type: GET_QUOTATIONS,
   expense,
+});
+
+export const expenseRemove = (id) => ({
+  type: EXPENSE_REMOVE,
+  id,
 });
 
 export const fetchCurrencies = () => (async (dispatch) => {
