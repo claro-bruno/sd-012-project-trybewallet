@@ -51,4 +51,4 @@ Input.defaultProps = {
   validation: null,
 };
 
-export default input;
+export default Input;
