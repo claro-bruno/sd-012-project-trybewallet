@@ -16,7 +16,7 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { userEmail } = this.props;
+    const { userEmail } = this.props; // vem do Provider ou connect
     const { totalExpenses, current } = this.state;
     return (
       <section>
