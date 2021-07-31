@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 class HeaderWallet extends Component {
@@ -15,7 +16,7 @@ class HeaderWallet extends Component {
             {
               email
                 ? <span data-testid="email-field">{email}</span>
-                : <span>Não loggado</span>
+                : <Link to="/">Entrar</Link>
             }
             <span data-testid="total-field">
               {total}
