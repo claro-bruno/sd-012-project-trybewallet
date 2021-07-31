@@ -11,7 +11,7 @@ class Header extends React.Component {
       return acc;
     }, 0);
 
-    const roundedTotal = Math.round(total * 100) / 100;
+    const roundedTotal = (Math.round(total * 100) / 100).toFixed(2);
 
     return (
       <header>
