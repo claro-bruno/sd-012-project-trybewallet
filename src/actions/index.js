@@ -33,3 +33,5 @@ export const fetchRates = (payload) => (
       .then((json) => dispatch(addExpense(payload, json))))
     .catch((error) => dispatch(failedRequest(error)))
 );
+
+export const deleteExpense = (id) => ({ type: 'DELETE_EXPENSE', id });

@@ -15,15 +15,12 @@ const prepareCurrencies = (payload) => {
 };
 
 const prepareExpenses = (expenses, payload, exchangeRates) => {
-  // const currencies = prepareCurrencies(json);
-  // const exchangeRates = currencies.map((currency) => ({
-  //   [currency.code]: {
-  //     code: currency.code,
-  //     name: currency.name,
-  //     ask: currency.ask,
-  //   },
-  // }));
-  const idNumber = expenses.length;
+  if (expenses.length === 0) {
+    const idNumber = 0;
+    const newExpense = { id: idNumber, ...payload, exchangeRates };
+    return [...expenses, newExpense];
+  }
+  const idNumber = expenses[expenses.length - 1].id + 1;
   const newExpense = { id: idNumber, ...payload, exchangeRates };
   return [...expenses, newExpense];
 };
@@ -40,6 +37,11 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       expenses: prepareExpenses(state.expenses, action.payload, action.newFetch),
+    };
+  case 'DELETE_EXPENSE':
+    return {
+      ...state,
+      expenses: state.expenses.filter((expense) => expense.id !== action.id),
     };
   default:
     return state;
