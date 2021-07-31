@@ -2,10 +2,13 @@ const INITIAL_STATE = {
   email: '',
 };
 
+// prettier-ignore
 function userReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    default:
-      return state;
+  case 'CHANGE_USER':
+    return { email: action.value };
+  default:
+    return state;
   }
 }
 

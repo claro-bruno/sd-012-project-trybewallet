@@ -1,6 +1,6 @@
-const logIn = (user) => ({
+const changeUser = (email) => ({
   type: 'CHANGE_USER',
-  user: user,
+  value: email,
 });
 
-export default logIn;
+export default changeUser;
