@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../components/standart/Header';
 import InputValor from '../components/WalletControlled/InputValor';
+import InputDescricao from '../components/WalletControlled/InputDescricao';
 
 class Wallet extends React.Component {
   constructor() {
@@ -27,17 +28,23 @@ class Wallet extends React.Component {
 
   render() {
     const {
-      state: { expenseAmount },
+      state: { expenseAmount, descricao },
       handleChange,
     } = this;
 
     return (
       <>
         <Header />
-        <InputValor
-          value={ expenseAmount }
-          handleChange={ handleChange }
-        />
+        <form>
+          <InputValor
+            value={ expenseAmount }
+            handleChange={ handleChange }
+          />
+          <InputDescricao
+            value={ descricao }
+            handleChange={ handleChange }
+          />
+        </form>
       </>
 
     );
