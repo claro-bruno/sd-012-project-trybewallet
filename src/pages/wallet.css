@@ -1,0 +1,28 @@
+.header-section {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.header-section h1 {
+  font-size: 30px;
+  text-shadow: 4px 4px 3px rgba(56, 56, 56, 0.5);
+}
+
+.header-info-section {
+  align-items: center;
+  display: flex;
+  font-size: 15px;
+  justify-content: space-around;
+  width: 45%;
+}
+
+.expense-info {
+  display: flex;
+  width: fit-content;
+}
+
+.expense-info p {
+  margin-left: 5px;
+}
