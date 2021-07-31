@@ -16,9 +16,11 @@ class Wallet extends React.Component {
       payment: 'Dinheiro',
       description: '',
       tag: 'Alimentação',
+      exchangeRates: {},
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.getCurrentQuote = this.getCurrentQuote.bind(this);
     this.getStateValues = this.getStateValues.bind(this);
   }
 
@@ -27,7 +29,14 @@ class Wallet extends React.Component {
     setCoins();
   }
 
-  getStateValues() {
+  getCurrentQuote() {
+    return fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((response) => response.json())
+      .then((coins) => this.setState({ exchangeRates: coins }));
+  }
+
+  async getStateValues() {
+    await this.getCurrentQuote();
     const { sendValues } = this.props;
     sendValues(this.state);
     this.setState({
@@ -36,6 +45,7 @@ class Wallet extends React.Component {
       payment: 'Dinheiro',
       description: '',
       tag: 'Alimentação',
+      exchangeRates: {},
     });
   }
 
