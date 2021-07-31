@@ -13,12 +13,12 @@ class InputDescricao extends React.Component {
 
     return (
       <Input
-        name="expenseAmount"
+        name="descricao"
         labelText="Descrição:"
         type="text"
         value={ value }
         handleChange={ handleChange }
-        placeholder="Digite a Descrição da Despesa"
+        placeholder="Digite a Descrição"
       />
     );
   }
