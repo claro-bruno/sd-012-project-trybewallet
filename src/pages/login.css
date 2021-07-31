@@ -39,6 +39,7 @@
   margin: 8px 0;
   padding: 4px;
   transition: background-color 0.2s;
+  width: 100%;
 }
 
 .login-container button:hover {
