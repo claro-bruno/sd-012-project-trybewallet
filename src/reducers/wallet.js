@@ -1,4 +1,4 @@
-import { GET_WALLET } from '../actions/actionTypes';
+import { GET_WALLET } from '../redux/actions/actionTypes';
 
 const INTIIAL_STATE = {
   wallet: {

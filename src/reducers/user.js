@@ -1,4 +1,4 @@
-import { GET_USER_LOGIN } from '../actions/actionTypes';
+import { GET_USER_LOGIN } from '../redux/actions/actionTypes';
 
 const INTIIAL_STATE = {
   user: {
