@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { func } from 'prop-types';
 import { saveUserEmail } from '../actions';
-import InputEmail from '../components/InputEmail';
-import InputPassword from '../components/InputPassword';
+import InputEmail from '../components/LoginInputs/InputEmail';
+import InputPassword from '../components/LoginInputs/InputPassword';
 
 class Login extends React.Component {
   constructor(props) {
