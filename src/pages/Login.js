@@ -1,6 +1,9 @@
 import React from 'react';
 import '../App.css';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { addEmailAction } from '../actions';
 
 const ERRORS = {
   errorEmail: 'Email inválido',
@@ -35,8 +38,8 @@ class Login extends React.Component {
   }
 
   handleClick() {
-    const { state: { email } } = this;
-    console.log(email);
+    const { state: { email }, props: { emailDispatch } } = this;
+    emailDispatch(email);
     this.setState((state) => ({ ...state, shouldRedirect: true }));
   }
 
@@ -91,4 +94,13 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  emailDispatch: (email) => dispatch(addEmailAction(email)),
+});
+
+const { func } = PropTypes;
+Login.propTypes = {
+  emailDispatch: func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
