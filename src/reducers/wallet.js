@@ -14,7 +14,12 @@ function wallet(state = INITIAL_STATE, action) {
     return { ...state };
 
   case GET_COINS_SUCCESS:
-    return { ...state, error: null, currencies: Object.keys(payload) };
+    return {
+      ...state,
+      error: null,
+      currencies: Object.entries(payload)
+        .filter((coin) => coin[0] !== 'USDT'),
+    };
 
   case GET_COINS_ERROR:
     return { ...state, error };
