@@ -42,9 +42,8 @@ class NewExpenses extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { expenses, saveNewExpense, currencies } = this.props;
-    const newExpense = { id: expenses.length, ...this.state };
-    saveNewExpense(newExpense);
+    const { saveNewExpense, currencies } = this.props;
+    saveNewExpense(this.state);
     this.setState({
       value: '',
       description: '',
@@ -117,7 +116,6 @@ class NewExpenses extends React.Component {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
-  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -129,7 +127,6 @@ NewExpenses.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   getCurrencies: PropTypes.func.isRequired,
   saveNewExpense: PropTypes.func.isRequired,
-  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewExpenses);

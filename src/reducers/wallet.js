@@ -41,7 +41,11 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       isFetching: false,
       failed: false,
-      expenses: [...state.expenses, action.expense],
+      expenses: !state.expenses.length
+        ? [{ ...action.expense, id: 0 }]
+        : [...state.expenses.map((expense, index) => (
+          { ...expense, id: index })),
+        { ...action.expense, id: state.expenses.length }],
     };
   case EXPENSE_REMOVE:
     return {

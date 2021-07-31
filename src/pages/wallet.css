@@ -115,6 +115,7 @@ button:active {
   padding: 10px;
   position: sticky;
   top: 0;
+  z-index: 999;
 }
 
 .expense-table tbody td {
