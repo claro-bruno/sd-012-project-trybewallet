@@ -10,6 +10,7 @@ class Wallet extends React.Component {
 
     this.state = {
       expenseAmount: 0,
+      descricao: '',
     };
   }
 
