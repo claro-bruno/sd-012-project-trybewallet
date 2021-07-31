@@ -1,18 +1,18 @@
-@import 'base';
+// @import 'base';
 
-.header {
-  width: calc(100% - 40px);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  height: 35px;
-  background-color: rgb(31, 31, 31);
-  color: $grey-main;
+// .header {
+//   width: calc(100% - 40px);
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   padding: 20px;
+//   height: 35px;
+//   background-color: rgb(31, 31, 31);
+//   color: $grey-main;
 
-  .logo {
-    height: 35px;
-    width: 35px;
-    cursor: pointer;
-  }
-}
+//   .logo {
+//     height: 35px;
+//     width: 35px;
+//     cursor: pointer;
+//   }
+// }
