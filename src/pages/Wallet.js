@@ -12,18 +12,20 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { coins } = this.props;
+    const { coins, registeredEmail } = this.props;
+
     return (
       <>
-        <Header />
+        <Header registeredEmail={ registeredEmail } />
         <FormExpenses coins={ coins } />
       </>
     );
   }
 }
 
-const mapStateToProps = ({ wallet }) => ({
-  coins: wallet.coins,
+const mapStateToProps = ({ wallet, user }) => ({
+  coins: wallet.currencies,
+  registeredEmail: user.email,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -33,6 +35,11 @@ const mapDispatchToProps = (dispatch) => ({
 Wallet.propTypes = {
   coins: PropTypes.arrayOf(PropTypes.string).isRequired,
   fetchCurrency: PropTypes.func.isRequired,
+  registeredEmail: PropTypes.string.isRequired,
 };
+
+// Wallet.defaultProps = {
+//   coins: [],
+// };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

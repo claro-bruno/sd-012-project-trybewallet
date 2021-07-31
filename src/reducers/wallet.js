@@ -3,14 +3,14 @@
 import { COINS_SUCCESS, COINS_ERROR } from '../actions';
 
 const INITIAL_STATE = {
-  coins: [],
+  currencies: [''],
   error: '',
 };
 
 const walletReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case COINS_SUCCESS:
-    return { ...state, coins: action.state, error: '' };
+    return { ...state, currencies: action.state, error: '' };
   case COINS_ERROR:
     return { ...state, error: 'Ocorreu um erro de comunicação com API' };
   default:

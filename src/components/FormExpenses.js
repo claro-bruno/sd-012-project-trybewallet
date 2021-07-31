@@ -6,6 +6,7 @@ import { inputs, selects } from '../dataInputsSelects';
 
 const FormExpenses = (props) => {
   const { coins } = props;
+
   return (
     <form>
       {inputs.map(({ labelContent, placeholder, type, name, id }) => (<Input

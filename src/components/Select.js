@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 
 const Select = (props) => {
   const { labelContent, id, value, change, name, options } = props;
-  console.log(options);
-  console.log(labelContent);
   return (
     <label htmlFor={ id }>
       {labelContent}
