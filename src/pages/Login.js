@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import Input from '../components/Input';
 import { login as loginAction } from '../actions';
+import walletImage from '../wallet.png';
 
 class Login extends React.Component {
   constructor() {
@@ -52,9 +53,9 @@ class Login extends React.Component {
     const { email, password, isDisabled, redirect } = this.state;
 
     return (
-      <div className="card ml-auto mr-auto mt-3" style={ { width: '27rem' } }>
+      <div className="card ml-auto mr-auto" style={ { maxWidth: '27rem' } }>
         <img
-          src="https://img.freepik.com/free-vector/brown-leather-wallet-with-lots-money_68708-304.jpg?size=626&ext=jpg"
+          src={ walletImage }
           className="card-img-top"
           alt="Wallet"
         />
