@@ -1,0 +1,11 @@
+.form {
+  align-items: center;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.inputs {
+  align-items: center;
+  display: flex;
+  flex-flow: column nowrap;
+}
