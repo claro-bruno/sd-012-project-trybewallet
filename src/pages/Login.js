@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { getUserLogin } from '../redux/actions';
 // import './Login.css'
 
@@ -7,14 +8,16 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: '',
+      emailstate: '',
+      passwordstate: '',
     };
   }
 
-render() {
+  render() {
     const { email, password } = this.props;
-    console.log(this.props);
+    console.log(email, password);
+    const { emailstate, passwordstate } = this.state;
+    console.log(emailstate, passwordstate);
     return (
       <div>
         <h1>LOGIN</h1>
@@ -46,5 +49,10 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getUser: (user) => dispatch(getUserLogin(user)),
 });
+
+Login.propTypes = {
+  email: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
