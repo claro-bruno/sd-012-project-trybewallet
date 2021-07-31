@@ -25,7 +25,7 @@ class Button extends Component {
   }
 
   render() {
-    const { className, buttonText, pathname } = this.props;
+    const { className, buttonText, pathname, isDisable } = this.props;
     const { redirect } = this.state;
     return (
       ((redirect) ? (
@@ -35,6 +35,7 @@ class Button extends Component {
           className={ className }
           type="button"
           onClick={ this.handleClick }
+          disabled={ isDisable }
         >
           { buttonText }
         </button>
@@ -48,6 +49,7 @@ Button.propTypes = {
   buttonText: PropTypes.string.isRequired,
   pathname: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
+  isDisable: PropTypes.bool.isRequired,
 };
 
 export default Button;
