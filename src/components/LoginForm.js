@@ -54,7 +54,7 @@ class LoginForm extends React.Component {
           />
           <input
             name="senha"
-            type="senha"
+            type="password"
             placeholder="senha"
             data-testid="password-input"
             onChange={ this.handleChangeSenha }
