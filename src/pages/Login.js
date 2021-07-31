@@ -1,20 +1,25 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { saveUser } from '../actions';
 
-class Login extends React.Component {
+class Login extends Component {
   constructor() {
     super();
+
     this.state = {
       email: '',
-      senha: '',
+      password: '',
       disable: true,
     };
 
-    this.handleChange = this.handleChange.bind(this);
+    this.HandleChange = this.HandleChange.bind(this);
     this.FormValidate = this.FormValidate.bind(this);
+    this.OnSubmitUser = this.OnSubmitUser.bind(this);
   }
 
-  handleChange({ target }) {
+  HandleChange({ target }) {
     const { name, value } = target;
     this.setState({
       [name]: value,
@@ -22,11 +27,17 @@ class Login extends React.Component {
     this.FormValidate();
   }
 
+  OnSubmitUser() {
+    const { email } = this.state;
+    const { SetUserStore } = this.props;
+    SetUserStore(email);
+  }
+
   FormValidate() {
-    const { email, senha } = this.state;
+    const { email, password } = this.state;
     const lengthMin = 5;
     const validEmail = /^[a-z0-9_.-]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/; // Regex criada por Rodrigo Merlone e disponibilizada no slack;
-    if (validEmail.test(email) && senha.length >= lengthMin) {
+    if (validEmail.test(email) && password.length >= lengthMin) {
       this.setState({ disable: false });
     } else {
       this.setState({ disable: true });
@@ -34,10 +45,10 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, senha, disable } = this.state;
+    const { email, password, disable } = this.state;
     return (
       <div>
-        TrybeWallet
+        TrybeLogin
         <form>
           <label htmlFor="email">
             email:
@@ -48,28 +59,42 @@ class Login extends React.Component {
               name="email"
               value={ email }
               placeholder="Digite seu email"
-              onChange={ this.handleChange }
+              onChange={ this.HandleChange }
             />
           </label>
-          <label htmlFor="senha">
+          <label htmlFor="password">
             senha:
             <input
               data-testid="password-input"
               type="password"
-              id="senha"
-              name="senha"
-              value={ senha }
+              id="password"
+              name="password"
+              value={ password }
               placeholder="Digite sua senha"
-              onChange={ this.handleChange }
+              onChange={ this.HandleChange }
             />
           </label>
         </form>
         <Link to="/carteira">
-          <button type="button" disabled={ disable }>Entrar</button>
+          <button
+            type="button"
+            disabled={ disable }
+            onClick={ this.OnSubmitUser }
+          >
+            Entrar
+          </button>
         </Link>
       </div>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  SetUserStore: (user) => dispatch(saveUser(user)),
+});
+
+Login.propTypes = {
+  SetUserStore: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
