@@ -2,9 +2,10 @@ import React from 'react';
 // Usando Material-UI
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 class Login extends React.Component {
   constructor(props) {
@@ -15,7 +16,6 @@ class Login extends React.Component {
       disabled: true,
     };
     this.handleChange = this.handleChange.bind(this);
-    // this.handleChangeSubmit = this.handleChangeSubmit.bind(this);
   }
 
   handleChange({ target }) {
@@ -23,25 +23,6 @@ class Login extends React.Component {
     this.setState({ [name]: value });
   }
 
-  validation() {
-    const { email, password } = this.setState;
-    const Regex = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
-    const number = 5;
-    const disabled = !(Regex.test(email) && password.length > number);
-    this.setState({ disabled });
-  }
-
-  /*
-  onSubmitForm=(e)=>{
-    e.preventDefaut();
-    console.log('clicou!')
-  }
-  */
-  /*
-  handleChangeSubmit(){
-  .push('/carteira')
-  }
-*/
   render() {
     const { email, password, disabled, userEmail } = this.state;
     return (
@@ -50,11 +31,8 @@ class Login extends React.Component {
           <div className="text-center">
             <Typography className="mt-3" variant="h6">Login Trybe Wallet</Typography>
           </div>
-          <TextField
+          <input
             data-testid="email-input"
-            variant="outlined"
-            fullWidth
-            required
             id="email"
             label="Email"
             type="email"
@@ -62,12 +40,9 @@ class Login extends React.Component {
             value={ email }
             onChange={ this.handleChange }
           />
-          <TextField
+          <input
             data-testid="password-input"
-            variant="outlined"
-            margin="normal"
             required
-            fullWidth
             id="password"
             label="Senha"
             type="password"
@@ -91,7 +66,14 @@ class Login extends React.Component {
     );
   }
 }
-// const mapDispatchToProps = () => ({});
+const mapDispatchToProps = (dispatch) => ({
 
-// export default connect(null, mapDispatchToProps)(Login);
-export default Login;
+  stateSave: (payload) => dispatch({ type: 'USER_STATE', payload }),
+});
+
+Login.propTypes = {
+  stateSave: PropTypes.func,
+}.isRequered;
+
+export default connect(null, mapDispatchToProps)(Login);
+// export default Login;
