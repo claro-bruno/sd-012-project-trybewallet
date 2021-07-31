@@ -10,11 +10,11 @@ class Header extends React.Component {
     this.handleChange = this.handleChange.bind(this);
 
     this.state = {
-      valueEntry: '0',
-      currenty: [],
-      method: '',
-      tag: '',
-      description: '',
+    //   valueEntry: '0',
+    //   currenty: [],
+    //   method: '',
+    //   tag: '',
+    //   description: '',
     };
   }
 
