@@ -10,7 +10,7 @@ class ExpenseCurrencyInput extends Component {
   }
 
   render() {
-    const { currencies } = this.props;
+    const { currencies, handleChange } = this.props;
     return (
       <label
         htmlFor="currencies"
@@ -18,6 +18,8 @@ class ExpenseCurrencyInput extends Component {
         Moeda
         <select
           id="currencies"
+          name="currency"
+          onChange={ handleChange }
         >
           { currencies.map((currencie) => (
             <option
@@ -35,6 +37,7 @@ class ExpenseCurrencyInput extends Component {
 ExpenseCurrencyInput.propTypes = {
   getCurrencies: func.isRequired,
   currencies: arrayOf(string).isRequired,
+  handleChange: func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({

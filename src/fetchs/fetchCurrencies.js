@@ -9,7 +9,6 @@ const fetchCurrencies = () => async (dispatch) => {
   const currenciesAbbreviation = Object.keys(currencies);
   const currenciesFiltered = currenciesAbbreviation
     .filter((currencie) => currencie !== 'USDT');
-
   dispatch(requestCurrenciesSuccess(currenciesFiltered));
 };
 

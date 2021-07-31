@@ -1,4 +1,9 @@
-import { REQUEST_CURRENCIES_SUCCESS, REQUEST_CURRENCIES_ERROR } from '../actions/index';
+import {
+  REQUEST_CURRENCIES_SUCCESS,
+  REQUEST_CURRENCIES_ERROR,
+  REQUEST_CURRENCIESII_SUCCESS,
+  REQUEST_CURRENCIESII_ERROR,
+} from '../actions/index';
 
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 
@@ -14,6 +19,12 @@ function walletReducer(state = INITIAL_STATE, action) {
     return { ...state, currencies: action.payload, error: '' };
 
   case REQUEST_CURRENCIES_ERROR:
+    return { ...state, error: 'Erro ao obter currencies' };
+
+  case REQUEST_CURRENCIESII_SUCCESS:
+    return { ...state, expenses: [...state.expenses, action.payload], error: '' };
+
+  case REQUEST_CURRENCIESII_ERROR:
     return { ...state, error: 'Erro ao obter currencies' };
 
   default:

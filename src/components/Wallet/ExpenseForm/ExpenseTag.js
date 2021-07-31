@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { func } from 'prop-types';
 
 class ExpenseTag extends Component {
   render() {
+    const { handleChange } = this.props;
     const expensesTags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     return (
       <label
@@ -10,6 +12,8 @@ class ExpenseTag extends Component {
         Tag
         <select
           id="payment-tags"
+          name="tag"
+          onChange={ handleChange }
         >
           { expensesTags.map((tag) => (
             <option
@@ -23,5 +27,9 @@ class ExpenseTag extends Component {
     );
   }
 }
+
+ExpenseTag.propTypes = {
+  handleChange: func.isRequired,
+};
 
 export default ExpenseTag;

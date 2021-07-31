@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { func } from 'prop-types';
 
 class ExpensePaymentMethodInput extends Component {
   render() {
+    const { handleChange } = this.props;
     const paymentMethods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     return (
       <label
@@ -10,6 +12,8 @@ class ExpensePaymentMethodInput extends Component {
         Método de pagamento
         <select
           id="paymento-method"
+          name="method"
+          onChange={ handleChange }
         >
           { paymentMethods.map((method) => (
             <option
@@ -23,5 +27,8 @@ class ExpensePaymentMethodInput extends Component {
     );
   }
 }
+ExpensePaymentMethodInput.propTypes = {
+  handleChange: func.isRequired,
+};
 
 export default ExpensePaymentMethodInput;
