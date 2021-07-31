@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-import Input from '../components/Input';
 import { login as loginAction } from '../actions';
-import walletImage from '../wallet.png';
+import CardLogin from '../components/CardLogin';
 
 class Login extends React.Component {
   constructor() {
@@ -19,6 +18,7 @@ class Login extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.isValid = this.isValid.bind(this);
   }
 
@@ -53,46 +53,17 @@ class Login extends React.Component {
     const { email, password, isDisabled, redirect } = this.state;
 
     return (
-      <div className="card ml-auto mr-auto" style={ { maxWidth: '27rem' } }>
-        <img
-          src={ walletImage }
-          className="card-img-top"
-          alt="Wallet"
+      <main className="pt-3 pl-2 pr-2 pb-5">
+        <CardLogin
+          email={ email }
+          password={ password }
+          isDisabled={ isDisabled }
+          redirect={ redirect }
+          handleChange={ this.handleChange }
+          handleSubmit={ this.handleSubmit }
         />
-        <div className="card-body">
-          <form
-            className="d-flex flex-column"
-            onSubmit={ (event) => this.handleSubmit(event) }
-          >
-            <Input
-              label="Email: "
-              id="email-input"
-              name="email"
-              type="email"
-              value={ email }
-              handleChange={ this.handleChange }
-              isValid={ this.isValid }
-            />
-            <Input
-              label="Password: "
-              id="password-input"
-              name="password"
-              type="text"
-              value={ password }
-              handleChange={ this.handleChange }
-              isValid={ this.isValid }
-            />
-            <button
-              className="btn btn-primary mt-3"
-              type="submit"
-              disabled={ isDisabled }
-            >
-              Entrar
-            </button>
-            {redirect ? <Redirect to="/carteira" /> : ''}
-          </form>
-        </div>
-      </div>
+        {redirect ? <Redirect to="/carteira" /> : ''}
+      </main>
     );
   }
 }
