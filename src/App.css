@@ -48,17 +48,17 @@
   text-align: center;
 }
 
-.login-input, .login-button {
+.login-input , .login-button {
   border: none;
   border-radius: 10px;
-  margin-bottom: 1rem;  
+  margin-bottom: 1rem;
   padding: 0.5rem;
   width: 100%;
 }
 
 .login-button {
   background-color: rgb(187, 255, 0);
-  color: rgb(52, 165, 52);;
+  color: rgb(52, 165, 52);
   font-weight: 700;
 }
 

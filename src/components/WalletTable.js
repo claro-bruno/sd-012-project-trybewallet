@@ -15,7 +15,7 @@ class WalletTable extends Component {
   render() {
     const paymentOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const tagOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
-    const { loading, currencies = [] } = this.props;
+    const { currencies = [] } = this.props;
     return (
       <div>
         <Input
@@ -40,7 +40,7 @@ class WalletTable extends Component {
           name="categoria"
           options={ tagOptions }
         />
-        <Select 
+        <Select
           title="Moeda"
           name="moeda"
           options={ currencies }
@@ -56,12 +56,12 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  loading: state.wallet.loading,
   currencies: state.wallet.currencies,
 });
 
 WalletTable.propTypes = {
   getCurrency: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WalletTable);

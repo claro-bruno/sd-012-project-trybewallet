@@ -38,7 +38,7 @@ class Login extends Component {
     const { loginSuccess } = this.props;
     return (
       <main className="main-login">
-        <div className='login'>
+        <div className="login">
           <h1 className="login-title">TrybeWallet</h1>
           <Input
             dataTestid="email-input"
@@ -61,7 +61,7 @@ class Login extends Component {
           <Link to="/carteira">
             <Button
               name="Entrar"
-              className='login-button'
+              className="login-button"
               disabled={ this.isValid() }
               onClick={ () => loginSuccess(email) }
             />
