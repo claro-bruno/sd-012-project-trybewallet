@@ -1,11 +1,11 @@
-body {
+.login-screen {
   align-items: center;
   display: flex;
   height: 100vh;
   justify-content: center;
 }
 
-.login-div {
+.login-box {
   align-items: center;
   border: 1px solid black;
   display: flex;
@@ -31,4 +31,26 @@ body {
   border-radius: 5px;
   height: 30px;
   margin-top: 10px;
+}
+
+.wallet-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-things {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.moneyº-º {
+  display: flex;
+  margin-left: 10px;
 }

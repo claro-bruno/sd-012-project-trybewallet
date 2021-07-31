@@ -47,34 +47,36 @@ class Login extends React.Component {
     const { email, senha, shouldRedirect, disabled } = this.state;
     if (shouldRedirect) return <Redirect to="/carteira" />;
     return (
-      <div className="login-div">
-        <p className="login-title">TRYBE WALLET</p>
-        <form className="form">
-          <input
-            type="text"
-            name="email"
-            value={ email }
-            onChange={ this.handleChange }
-            className="login-input"
-            data-testid="email-input"
-          />
-          <input
-            type="password"
-            name="senha"
-            value={ senha }
-            onChange={ this.handleChange }
-            className="login-input"
-            data-testid="password-input"
-          />
-          <button
-            type="button"
-            onClick={ this.submit }
-            className="login-button"
-            disabled={ disabled }
-          >
-            Entrar
-          </button>
-        </form>
+      <div className="login-screen">
+        <div className="login-box">
+          <p className="login-title">TRYBE WALLET</p>
+          <form className="form">
+            <input
+              type="text"
+              name="email"
+              value={ email }
+              onChange={ this.handleChange }
+              className="login-input"
+              data-testid="email-input"
+            />
+            <input
+              type="password"
+              name="senha"
+              value={ senha }
+              onChange={ this.handleChange }
+              className="login-input"
+              data-testid="password-input"
+            />
+            <button
+              type="button"
+              onClick={ this.submit }
+              className="login-button"
+              disabled={ disabled }
+            >
+              Entrar
+            </button>
+          </form>
+        </div>
       </div>
     );
   }
