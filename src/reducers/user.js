@@ -2,7 +2,7 @@
 import { ADD_EMAIL } from '../actions/userActions';
 
 const INITIAL_STATE = {
-  email: [],
+  email: '',
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -10,7 +10,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
   case ADD_EMAIL: {
     return {
       ...state,
-      email: [...state.email, action.payload],
+      email: action.payload,
     };
   }
   default: return state;
