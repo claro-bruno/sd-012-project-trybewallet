@@ -3,6 +3,8 @@ export const SAVE_COINS = 'SAVE_COINS';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 export const UPDATE_STATE = 'UPDATE_STATE';
+export const START_EDIT = 'START_EDIT';
+export const EDIT_ITEM = 'EDIT_ITEM';
 
 export const saveEmail = (payload) => (
   { type: SAVE_EMAIL, payload }
@@ -24,6 +26,14 @@ export const updateState = () => (
   { type: UPDATE_STATE }
 );
 
+export const startEdit = (payload) => (
+  { type: START_EDIT, payload }
+);
+
+export const editItem = (payload) => (
+  { type: EDIT_ITEM, payload }
+);
+
 export function getCoins() {
   return (dispatch) => (
     fetch('https://economia.awesomeapi.com.br/json/all')
@@ -34,12 +44,3 @@ export function getCoins() {
       })
   );
 }
-
-// export function findCharacter(name) {
-//   return (dispatch) => {
-//     dispatch(searchBegin(name));
-//     return charAPI(name)
-//       .then((json) => dispatch(searchSuccess(json)))
-//       .catch((error) => dispatch(searchFailure(error.message)));
-//   };
-// };
