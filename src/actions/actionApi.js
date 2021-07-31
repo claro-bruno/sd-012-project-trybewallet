@@ -12,7 +12,7 @@ const getApi = () => ({
 
 const getApiSucess = (response) => ({
   type: GET_API_SUCESS,
-  payload: response,
+  currencies: response,
 });
 
 const getApiError = (error) => ({
