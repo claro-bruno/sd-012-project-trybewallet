@@ -16,7 +16,7 @@
 
 .login-input {
   background-color: transparent;
-  border: solid 2px rgb(220, 220, 220);
+  border: solid 2px gainsboro;
   border-radius: 4px;
   color: rgb(120, 120, 120);
   font-size: 15px;
@@ -31,8 +31,8 @@
   outline-width: 0;
 }
 
-#login-button {
-  background-color: rgb(40, 165,65);
+.login-button {
+  background-color: rgb(40, 165, 65);
   border: transparent;
   color: white;
   font-size: 15px;
@@ -42,6 +42,6 @@
   width: 13.5em;
 }
 
-#login-button:disabled {
+.login-button:disabled {
   background-color: rgb(110, 200, 130);
 }

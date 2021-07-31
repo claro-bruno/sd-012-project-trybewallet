@@ -55,7 +55,7 @@ class Login extends Component {
           onChange={ this.handleChange }
         />
         <Button
-          id="login-button"
+          className="login-button"
           buttonText="Entrar"
           pathname="carteira"
           onClick={ this.sendPersonalInfo }

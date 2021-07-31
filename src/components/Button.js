@@ -25,14 +25,14 @@ class Button extends Component {
   }
 
   render() {
-    const { id, buttonText, pathname } = this.props;
+    const { className, buttonText, pathname } = this.props;
     const { redirect } = this.state;
     return (
       ((redirect) ? (
         <Redirect to={ pathname } />
       ) : (
         <button
-          id={ id }
+          className={ className }
           type="button"
           onClick={ this.handleClick }
         >
@@ -44,7 +44,7 @@ class Button extends Component {
 }
 
 Button.propTypes = {
-  id: PropTypes.string.isRequired,
+  className: PropTypes.string.isRequired,
   buttonText: PropTypes.string.isRequired,
   pathname: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
