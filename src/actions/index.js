@@ -18,7 +18,10 @@ export function getCoins() {
   return (dispatch) => (
     fetch('https://economia.awesomeapi.com.br/json/all')
       .then((response) => response.json())
-      .then((json) => dispatch(saveCoins(json)))
+      .then((json) => {
+        dispatch(saveCoins(json));
+        return json;
+      })
   );
 }
 
