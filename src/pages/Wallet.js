@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Select from '../components/Select';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -18,30 +19,35 @@ class Wallet extends React.Component {
     const { userEmail } = this.props;
     const { totalExpenses, current } = this.state;
     return (
-      <header>
-        <span>
-          <h3 data-testid="email-field">
-            { userEmail }
-          </h3>
-        </span>
-        <span>
-          <h3 data-testid="total-field">
-            { totalExpenses }
-          </h3>
-        </span>
-        <span>
-          <h3 data-testid="header-currency-field">
-            { current }
-          </h3>
-        </span>
-      </header>
+      <section>
+        <header>
+          <span>
+            <p data-testid="email-field">{userEmail}</p>
+            <p data-testid="total-field">{totalExpenses}</p>
+            <p data-testid="header-currency-field">{current}</p>
+          </span>
+        </header>
+        <section>
+          <form>
+            <label htmlFor="value-expenses">
+              Valor
+              <input id="value-expenses" />
+            </label>
+            <label htmlFor="description">
+              Descrição
+              <input id="description" />
+            </label>
+            <Select />
+          </form>
+        </section>
+      </section>
     );
   }
 }
 
-Wallet.propTypes = ({
+Wallet.propTypes = {
   userEmail: PropTypes.string,
-}).isRequired;
+}.isRequired;
 
 const mapStateToProps = (state) => ({
   userEmail: state.user.email,
