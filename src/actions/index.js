@@ -1,7 +1,5 @@
 export const actionSaveEmail = (email) => ({ type: 'EMAIL', value: email });
 
-export const actionSaveExpense = (expense) => ({ type: 'EXPENSE', value: expense });
-
 export const actionGetCurrencies = () => ({ type: 'GET_CURRENCIES' });
 
 export function actionGetCurrenciesSuccess(currencies) {
@@ -19,3 +17,5 @@ export const fetchAPI = () => async (dispatch) => {
   const currencies = Object.keys(obj).filter((currency) => currency !== 'USDT');
   dispatch(actionGetCurrenciesSuccess(currencies));
 };
+
+export const actionSaveExpense = (expense) => ({ type: 'EXPENSE', value: expense });

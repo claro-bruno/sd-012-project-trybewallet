@@ -6,7 +6,9 @@ const INITIAL_STATE = {
 function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
   case 'GET_CURRENCIES_SUCCESS':
-    return { currencies: [...action.value] };
+    return { ...state, currencies: [...action.value] };
+  case 'EXPENSE':
+    return { ...state, expenses: [...state.expenses, action.value] };
   default:
     return state;
   }
