@@ -12,7 +12,7 @@ class Login extends Component {
 
     this.state = {
       email: '',
-      senha: '',
+      password: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -27,14 +27,15 @@ class Login extends Component {
   }
 
   isValid() {
-    const { email, senha } = this.state;
-    const senhaLength = 6;
+    const { email, password } = this.state;
+    const passwordLength = 6;
+    const validPassword = password.length >= passwordLength;
     const validEmail = (/^[a-z0-9_]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/i).test(email);
-    return !(validEmail && senha.length >= senhaLength);
+    return !(validEmail && validPassword);
   }
 
   render() {
-    const { email, senha } = this.state;
+    const { email, password } = this.state;
     const { loginSuccess } = this.props;
     return (
       <main className="main-login">
@@ -52,10 +53,10 @@ class Login extends Component {
           <Input
             dataTestid="password-input"
             className="login-input"
-            name="senha"
+            name="password"
             type="password"
             placeholder="Senha"
-            value={ senha }
+            value={ password }
             onChange={ this.handleChange }
           />
           <Link to="/carteira">
