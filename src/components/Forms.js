@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getAPIThunk } from '../actions/wallet';
 
 class Forms extends Component {
+  componentDidMount() {
+    const { getCurrency } = this.props;
+    getCurrency();
+  }
+
   value() {
     return (
       <label htmlFor="input-value">
@@ -28,6 +36,7 @@ class Forms extends Component {
   }
 
   currency() {
+    const { currencies } = this.props;
     return (
       <label htmlFor="input-currency">
         Moeda
@@ -35,7 +44,11 @@ class Forms extends Component {
           name="name"
           id="input-currency"
         >
-          <option value="brl">BRL</option>
+          {currencies.filter((curr) => curr !== 'USDT').map((currency) => (
+            <option key={ currency } value={ currency }>
+              { currency }
+            </option>
+          ))}
         </select>
       </label>
     );
@@ -88,4 +101,17 @@ class Forms extends Component {
   }
 }
 
-export default Forms;
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getCurrency: () => dispatch(getAPIThunk()),
+});
+
+Forms.propTypes = {
+  getCurrency: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Forms);
