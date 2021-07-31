@@ -26,6 +26,6 @@ Select.propTypes = {
 
 Select.defaultProps = {
   testId: '',
-}
+};
 
 export default Select;

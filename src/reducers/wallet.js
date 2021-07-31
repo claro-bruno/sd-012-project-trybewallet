@@ -31,19 +31,18 @@ const wallet = (state = INITIAL_STATE, action) => {
   case EDIT_FORM:
     return { ...state, edit: true, id: action.id };
   case EDIT_EXPENSE: {
-    const newArray = [ ...state.expenses ];
+    const newArray = [...state.expenses];
     newArray.forEach((expense) => {
-      if(expense.id === state.id) {
-        expense.value = action.expense.value
-        expense.currency = action.expense.currency
-        expense.method = action.expense.method
-        expense.tag = action.expense.tag
-        expense.description = action.expense.description
+      if (expense.id === state.id) {
+        expense.value = action.expense.value;
+        expense.currency = action.expense.currency;
+        expense.method = action.expense.method;
+        expense.tag = action.expense.tag;
+        expense.description = action.expense.description;
       }
     });
     return { ...state, expenses: newArray, edit: false };
   }
-    
   default:
     return state;
   }

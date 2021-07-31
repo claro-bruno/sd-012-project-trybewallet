@@ -38,6 +38,7 @@ const mapDispatchToProps = (dispatch) => ({
 Wallet.propTypes = {
   setCurrencies: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
+  edit: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
