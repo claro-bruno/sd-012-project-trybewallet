@@ -2,10 +2,6 @@ import { LOGIN_DONE } from '../actions/actionLogin';
 
 const INITIAL_STATE = {
   email: '',
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
 };
 
 const user = (state = INITIAL_STATE, action) => {

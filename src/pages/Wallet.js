@@ -1,30 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Select from '../components/Select';
-
-const payment = {
-  optionsArray: ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'],
-  id: 'select-payment',
-  textLabel: 'Método de pagamento',
-  value: ['cash', 'credit', 'debit'],
-};
-
-const tag = {
-  optionsArray: ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'],
-  id: 'select-tag',
-  textLabel: 'Tag',
-  value: ['food', 'leisure', 'work', 'transport', 'health'],
-};
-
-const currency = {
-  optionsArray: ['doletas', 'eurozitos', 'fake', 'libre'],
-  id: 'select-currency',
-  textLabel: 'Moeda',
-  value: 'currency',
-};
+import fetchApi from '../actions/fetchApi';
+import ExpenseInput from '../components/ExpenseInput';
 
 class Wallet extends React.Component {
+  componentDidMount() {
+    const { setFetchApi } = this.props;
+    setFetchApi();
+  }
+
   render() {
     const { email } = this.props;
 
@@ -36,19 +21,7 @@ class Wallet extends React.Component {
           <p data-testid="header-currency-field">BRL</p>
         </header>
         <main>
-          <form>
-            <label htmlFor="input-value">
-              Valor
-              <input type="text" name="value" id="input-value" />
-            </label>
-            <label htmlFor="input-description">
-              Descrição
-              <input type="text" name="description" id="input-description" />
-            </label>
-            <Select options={ tag } />
-            <Select options={ payment } />
-            <Select options={ currency } />
-          </form>
+          <ExpenseInput />
         </main>
       </>
 
@@ -56,12 +29,17 @@ class Wallet extends React.Component {
   }
 }
 
-const mapStateToPrps = (state) => ({
+const mapStateToPrpos = (state) => ({
   email: state.user.email,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setFetchApi: () => dispatch(fetchApi()),
 });
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
+  setFetchApi: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToPrps)(Wallet);
+export default connect(mapStateToPrpos, mapDispatchToProps)(Wallet);
