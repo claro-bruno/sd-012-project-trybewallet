@@ -38,8 +38,8 @@ button:active {
 
 .form-newExpense {
   align-items: center;
-  background-color: rgb(43, 46, 47);
-  border-bottom: 2px solid rgb(32, 31, 31);
+  background-color: black;
+  border-bottom: 2px solid silver;
   border-top: 2px solid silver;
   color: white;
   display: flex;
@@ -108,7 +108,7 @@ button:active {
 }
 
 .expense-table thead th {
-  background-color: black;
+  background-color: rgb(43, 46, 47);
   border-bottom: 2px solid silver;
   color: white;
   height: 30px;
