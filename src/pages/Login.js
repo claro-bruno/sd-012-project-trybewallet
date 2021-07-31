@@ -1,37 +1,41 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 
 class Login extends React.Component {
   constructor() {
     super();
     // Não chame this.setState() aqui!
-    this.verify = this.verify.bind(this);
-    this.enablebutton = this.enablebutton.bind(this);
+    this.handleChang = this.handleChang.bind(this);
+    this.enableButton = this.enableButton.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      lokedButton: 'true',
+      redirect: false,
       emailText: '',
       passwordText: '',
     };
   }
 
-  componentDidUpdate(){
-    enablebutton() {
-      this.setState({ lokedButton: 'false' });
-    }
+  handleSubmit() {
+    this.setState({ redirect: true });
   }
 
-  verify({ target }) {
+  handleChang({ target }) {
     const { name, value } = target;
-    const { emailText, passwordText } = this.state;
     this.setState({ [name]: value });
-    const validName = 'alguem@email.com';
-    const validPassword = '123456';
-    //if (emailText === validName && passwordText === validPassword) {
-     // this.enablebutton();
-    //}
+  }
+
+  enableButton() {
+    const { emailText, passwordText } = this.state;
+    const passwordmin = 6;
+    if (passwordText.length >= passwordmin) {
+      const formatvalid = /^[a-z0-9_.-]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/;
+      if (formatvalid.test(emailText)) return true;
+    }
+    return false;
   }
 
   render() {
-    const { lokedButton } = this.state;
+    const { redirect } = this.state;
     return (
       <div>
         <input
@@ -39,21 +43,23 @@ class Login extends React.Component {
           data-testid="email-input"
           placeholder="email"
           name="emailText"
-          onChange={ this.verify }
+          onChange={ this.handleChang }
         />
         <input
           type="password"
           data-testid="password-input"
           placeholder="senha"
           name="passwordText"
-          onChange={ this.verify, this.enablebutton }
+          onChange={ this.handleChang }
         />
         <button
-          disabled={ lokedButton }
+          onClick={ this.handleSubmit }
+          disabled={ !this.enableButton() }
           type="button"
         >
           Entrar
         </button>
+        {redirect && <Redirect to="/carteira" /> }
       </div>
     );
   }
