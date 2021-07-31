@@ -5,6 +5,7 @@ import Button from '../components/Button';
 import InputLogin from '../components/InputLogin';
 import { verifyEmail, verifyPassword } from '../helper/helpers';
 import { userAction } from '../actions';
+import './pages.css';
 
 class Login extends Component {
   constructor() {
@@ -50,7 +51,7 @@ class Login extends Component {
       typeText: 'password',
     };
     return (
-      <form>
+      <form className="form-page">
         <InputLogin
           obj={ objEmail }
           handleChange={ this.handleChange }

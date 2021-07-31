@@ -9,3 +9,32 @@
   display: flex;
   flex-flow: column nowrap;
 }
+
+.form-page {
+  align-items: stretch;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.send {
+  margin: auto;
+  padding: 10px;
+  width: 25%;
+}
+
+.header-top {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+}
+
+.email-currency {
+  display: flex;
+  gap: 80px;
+  padding: 10px 35px;
+}
+
+.currency-status {
+  display: flex;
+  gap: 10px;
+}
