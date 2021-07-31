@@ -1,0 +1,10 @@
+#form-wallet-container {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    margin: 50px;
+    background-color: rgb(143, 143, 143);
+    padding: 50px;
+}
+
+
