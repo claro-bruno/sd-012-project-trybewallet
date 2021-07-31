@@ -5,6 +5,7 @@ import {
   GET_CURRENCIES_ERROR,
   ADD_EXPENSE,
   SUM_EXPENSES,
+  REMOVE_EXPENSE,
 } from './actionTypes';
 
 export function changeEmailLogin(value) {
@@ -59,4 +60,9 @@ export const fetchCurrencies = (expense) => async (dispatch) => {
 
 export const sumTotalExpenses = () => ({
   type: SUM_EXPENSES,
+});
+
+export const removeExpense = (id) => ({
+  type: REMOVE_EXPENSE,
+  id,
 });
