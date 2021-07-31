@@ -13,19 +13,37 @@ class NewExpenses extends React.Component {
       value: 0,
       description: '',
       currency: '',
-      payMethod: '',
-      tag: '',
+      payMethod: 'Dinheiro',
+      tag: 'Alimentação',
     };
     this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
+    this.getCurrencies();
+  }
+
+  async getCurrencies() {
     const { getCurrencies } = this.props;
-    getCurrencies();
+    await getCurrencies();
+    const { currencies } = this.props;
+    this.setState({ currency: currencies[0] || '' });
   }
 
   handleChange({ target: { name, value } }) {
     this.setState({ [name]: value });
+  }
+
+  renderButton() {
+    return (
+      <button
+        className="btn-addExpense"
+        type="submit"
+        onClick={ this.handleSubmit }
+      >
+        Adicionar despesa
+      </button>
+    );
   }
 
   render() {
@@ -74,6 +92,7 @@ class NewExpenses extends React.Component {
           value={ tag }
           options={ tags }
         />
+        {this.renderButton()}
       </form>
     );
   }

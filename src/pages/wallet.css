@@ -1,7 +1,7 @@
 .wallet-page {
   display: grid;
-  grid-template-areas: 'headWallet headWallet' 'newExpense newExpense' '. .' '. .';
-  grid-template-rows: 15vh  10vh 10vh 65vh;
+  grid-template-areas: 'headWallet headWallet' 'newExpense newExpense' '. .';
+  grid-template-rows: 15vh  12vh 73vh;
 }
 
 .header-wallet {
@@ -35,24 +35,34 @@
 }
 
 .form-newExpense label {
-  align-items: center;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  width: 17vw;
+  width: 16%;
 }
 
 .form-newExpense input {
   border-radius: 5px;
-  margin-left: 2px;
   outline: none;
   padding: 5px;
+  width: 100%;
 }
 
 .form-newExpense select {
   border-radius: 5px;
   cursor: pointer;
-  margin-left: 2px;
   outline: none;
   padding: 5px;
-  width: 70%;
+  width: 100%;
+}
+
+.btn-addExpense {
+  align-self: flex-end;
+  background-color: rgb(8, 170, 94);
+  border: 1px solid slategray;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 12px;
+  padding: 8px;
 }
