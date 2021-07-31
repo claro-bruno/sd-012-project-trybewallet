@@ -21,14 +21,14 @@ class ButtonEntrar extends React.Component {
   }
 }
 
-const { string, func } = PropTypes;
+const { bool, func } = PropTypes;
 ButtonEntrar.propTypes = {
   handleClick: func.isRequired,
-  disabled: string,
+  disabled: bool,
 };
 
 ButtonEntrar.defaultProps = {
-  disabled: null,
+  disabled: false,
 };
 
 export default ButtonEntrar;

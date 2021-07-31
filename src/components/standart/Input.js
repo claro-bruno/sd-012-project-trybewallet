@@ -34,7 +34,7 @@ class Input extends React.Component {
   }
 }
 
-const { string, func } = PropTypes;
+const { string, func, oneOfType, object, bool } = PropTypes;
 Input.propTypes = {
   name: string.isRequired,
   labelText: string.isRequired,
@@ -43,12 +43,15 @@ Input.propTypes = {
   value: string.isRequired,
   handleChange: func.isRequired,
   placeholder: string.isRequired,
-  validation: string,
+  validation: oneOfType([
+    object,
+    bool,
+  ]),
 };
 
 Input.defaultProps = {
-  dataTestId: null,
-  validation: null,
+  dataTestId: undefined,
+  validation: true,
 };
 
 export default Input;

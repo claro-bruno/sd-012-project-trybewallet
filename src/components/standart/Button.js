@@ -23,15 +23,15 @@ class Button extends React.Component {
   }
 }
 
-const { string, func } = PropTypes;
+const { string, func, bool } = PropTypes;
 Button.propTypes = {
   buttonText: string.isRequired,
   handleClick: func.isRequired,
-  disabled: string,
+  disabled: bool,
 };
 
 Button.defaultProps = {
-  disabled: null,
+  disabled: false,
 };
 
 export default Button;
