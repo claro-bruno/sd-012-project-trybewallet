@@ -66,7 +66,7 @@ describe('6 - Desenvolva um formulário para adicionar uma despesa contendo as s
     expect(valueInput).toBeInTheDocument();
   });
 
-  test.skip('Um campo para selecionar em qual moeda será registrada a despesa', async () => {
+  test('Um campo para selecionar em qual moeda será registrada a despesa', async () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const currencyInput = await screen.findByRole('combobox', {
       name: /moeda/i,
@@ -75,7 +75,7 @@ describe('6 - Desenvolva um formulário para adicionar uma despesa contendo as s
     expect(currencyInput).toBeInTheDocument();
   });
 
-  test.skip('Um campo para selecionar qual método de pagamento será utilizado', async () => {
+  test('Um campo para selecionar qual método de pagamento será utilizado', async () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const methodInput = await screen.findByRole('combobox', {
       name: /método de pagamento/i,
@@ -91,7 +91,7 @@ describe('6 - Desenvolva um formulário para adicionar uma despesa contendo as s
     expect(debitOption).toBeInTheDocument();
   });
 
-  test.skip('Um campo para selecionar uma categoria (tag) para a despesa.', async () => {
+  test('Um campo para selecionar uma categoria (tag) para a despesa.', async () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const tagInput = await screen.findByRole('combobox', {
       name: /tag/i,
@@ -110,7 +110,7 @@ describe('6 - Desenvolva um formulário para adicionar uma despesa contendo as s
     expect(healthOption).toBeInTheDocument();
   });
 
-  test.skip('Um campo para adicionar a descrição da despesa', async () => {
+  test('Um campo para adicionar a descrição da despesa', async () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const descriptionInput = await screen.findByRole('textbox', {
       name: /descrição/i,
@@ -121,7 +121,7 @@ describe('6 - Desenvolva um formulário para adicionar uma despesa contendo as s
 });
 
 describe('7 - Implemente a lógica para preencher as opções do campo "Moedas", buscando as siglas das moedas da API', () => {
-  test.skip('Um campo para selecionar em qual moeda será registrada a despesa', async () => {
+  test('Um campo para selecionar em qual moeda será registrada a despesa', async () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const currencyInput = await screen.findByRole('combobox', {
       name: /moeda/i,
@@ -144,7 +144,7 @@ describe('7 - Implemente a lógica para preencher as opções do campo "Moedas",
 });
 
 describe('8 - Desenvolva a opção de "Adicionar despesa" na sua tabela de gastos', () => {
-  test.skip('Crie um botão com o texto \'Adicionar despesa\' que salva as informações da despesa no estado global e atualiza a soma de despesas no header', async () => {
+  test('Crie um botão com o texto \'Adicionar despesa\' que salva as informações da despesa no estado global e atualiza a soma de despesas no header', async () => {
     const { store } = renderWithRouterAndStore(<Wallet />, '/carteira');
 
     const addButton = await screen.findByRole('button', {
