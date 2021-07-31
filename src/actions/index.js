@@ -1,6 +1,7 @@
 // Coloque aqui suas actions
 export const USER_LOGIN = 'USER_LOGIN';
 export const GET_COINS = 'GET_COINS';
+export const SEND_VALUES = 'SEND_VALUES';
 
 export const actionUserData = (credentials) => ({ type: USER_LOGIN, credentials });
 
@@ -15,3 +16,5 @@ export const fetchCoins = () => (
       .then((currencies) => dispatch(getCoins(currencies)))
   )
 );
+
+export const sendValuesToStore = (values) => ({ type: SEND_VALUES, values });
