@@ -14,7 +14,7 @@ function wallet(state = INITIAL_STATE, action) {
     return { ...state, isLoading: true };
 
   case GET_COINS_SUCCESS:
-    return { ...state, error: null, characters: payload, isLoading: false };
+    return { ...state, error: null, currencies: payload, isLoading: false };
 
   case GET_COINS_ERROR:
     return { ...state, error, isLoading: false };

@@ -1,10 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from '../components/standart/Header';
 import InputValor from '../components/WalletControlled/InputValor';
 import InputDescricao from '../components/WalletControlled/InputDescricao';
 import SelectMoeda from '../components/WalletControlled/SelectMoeda';
 import SelectMetodoPagto from '../components/WalletControlled/SelectMetodoPagto';
 import SelectCategoria from '../components/WalletControlled/SelectCategoria';
+import { fetchAPI } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
@@ -19,6 +22,11 @@ class Wallet extends React.Component {
       paymentMethod: '',
       category: '',
     };
+  }
+
+  componentDidMount() {
+    const { getCoins } = this.props;
+    getCoins();
   }
 
   handleChange({ target: { name, type, value, checked } }) {
@@ -69,4 +77,13 @@ class Wallet extends React.Component {
   }
 }
 
-export default Wallet;
+const mapDispatchToProps = (dispatch) => ({
+  getCoins: () => dispatch(fetchAPI()),
+});
+
+const { func } = PropTypes;
+Wallet.propTypes = {
+  getCoins: func.isRequired,
+}.isRequired;
+
+export default connect(null, mapDispatchToProps)(Wallet);
