@@ -13,6 +13,6 @@ export const fetchAPI = () => async (dispatch) => {
   const END_POINT = 'https://economia.awesomeapi.com.br/json/all';
   fetch(END_POINT)
     .then((data) => data.json())
-    .then(({ results }) => dispatch(getCoinsSuccess(results)))
+    .then((results) => dispatch(getCoinsSuccess(results)))
     .catch((error) => dispatch(getCoinsError(error)));
 };

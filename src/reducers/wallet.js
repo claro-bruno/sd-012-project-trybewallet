@@ -4,20 +4,20 @@ const INITIAL_STATE = {
   currencies: [],
   expenses: [],
   error: null,
-  isLoading: false,
 };
 
 function wallet(state = INITIAL_STATE, action) {
   const { type, payload, error } = action;
+
   switch (type) {
   case GET_COINS:
-    return { ...state, isLoading: true };
+    return { ...state };
 
   case GET_COINS_SUCCESS:
-    return { ...state, error: null, currencies: payload, isLoading: false };
+    return { ...state, error: null, currencies: Object.keys(payload) };
 
   case GET_COINS_ERROR:
-    return { ...state, error, isLoading: false };
+    return { ...state, error };
 
   default:
     return state;
