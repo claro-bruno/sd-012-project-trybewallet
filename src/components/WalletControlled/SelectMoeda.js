@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Select from '../standart/Select';
 
 class SelectMoeda extends React.Component {
@@ -8,12 +9,14 @@ class SelectMoeda extends React.Component {
       props: {
         value,
         handleChange,
+        coins,
       },
     } = this;
 
-    const optionsArray = [
-      { value: '', text: '' },
-    ];
+    const optionsArray = coins.map((coin) => {
+      const { code } = coin;
+      return { value: code, text: code };
+    });
 
     return (
       <Select
@@ -27,10 +30,15 @@ class SelectMoeda extends React.Component {
   }
 }
 
-const { string, func } = PropTypes;
+const mapStateToProps = (state) => ({
+  coins: state.wallet.currencies,
+});
+
+const { string, func, array } = PropTypes;
 SelectMoeda.propTypes = {
   value: string.isRequired,
   handleChange: func.isRequired,
-};
+  coins: array.isRequired,
+}.isRequired;
 
-export default SelectMoeda;
+export default connect(mapStateToProps, null)(SelectMoeda);
