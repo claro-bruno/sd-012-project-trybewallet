@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { loginAction } from '../actions/index';
 
 class Login extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       email: '',
@@ -12,6 +15,7 @@ class Login extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleGetEmail = this.handleGetEmail.bind(this);
     this.validEntries = this.validEntries.bind(this);
   }
 
@@ -33,6 +37,13 @@ class Login extends Component {
         button: true,
       });
     }
+  }
+
+  handleGetEmail() {
+    // e.preventDefault();
+    const { email } = this.state;
+    const { getEmail } = this.props;
+    getEmail(email);
   }
 
   render() {
@@ -71,6 +82,7 @@ class Login extends Component {
               id="button"
               type="button"
               disabled={ button }
+              onClick={ this.handleGetEmail }
             >
               Entrar
             </button>
@@ -81,4 +93,12 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  getEmail: (emailInput) => dispatch(loginAction(emailInput)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
+
+Login.propTypes = {
+  getEmail: PropTypes.func,
+}.isRequired;
