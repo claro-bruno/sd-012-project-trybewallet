@@ -8,8 +8,6 @@ import ButtonEntrar from '../components/LoginControlled/ButtonEntrar';
 import InputEmail from '../components/LoginControlled/InputEmail';
 import InputPassword from '../components/LoginControlled/InputPassword';
 
-const VALID_CARACTERES = 6;
-
 class Login extends React.Component {
   constructor() {
     super();
@@ -36,14 +34,23 @@ class Login extends React.Component {
   }
 
   handleClick() {
-    const { state: { email }, props: { emailDispatch } } = this;
+    const {
+      state: { email },
+      props: { emailDispatch },
+    } = this;
+
     emailDispatch(email);
     this.setState((state) => ({ ...state, shouldRedirect: true }));
   }
 
   render() {
-    const { handleChange, handleClick } = this;
-    const { email, password, shouldRedirect } = this.state;
+    const {
+      state: { email, password, shouldRedirect },
+      handleChange,
+      handleClick,
+    } = this;
+
+    const VALID_CARACTERES = 6;
     const emailValidation = email.includes('@' && '.com');
     const passwordValidation = password.length >= VALID_CARACTERES;
 
