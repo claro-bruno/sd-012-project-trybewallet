@@ -4,6 +4,7 @@ import { USER_SET } from '../actions/index';
 const initialState = {
   user: {
     email: '',
+    password: '',
   },
 };
 

@@ -9,8 +9,9 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
+      disabled: true,
     };
-    this.emailHandleChange = this.emailHandleChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.onSubmitForm = this.onSubmitForm.bind(this);
   }
 
@@ -20,18 +21,25 @@ class Login extends React.Component {
     dispatchSetValue(email);
   }
 
-  emailHandleChange({ target }) {
-    const { value } = target;
-    this.setState({ email: value });
+  handleChange({ target }) {
+    const { name, value } = target;
+    this.setState({ [name]: value });
+    this.buttonDisabled();
   }
 
-  passwordHandleChange({ target }) {
-    const { value } = target;
-    this.setState({ password: value });
+  buttonDisabled() {
+    const { email, password } = this.state;
+    const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+    const five = 5;
+    if ((emailRegex.test(email)) && password.length >= five) {
+      this.setState({
+        disabled: false,
+      });
+    }
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, disabled } = this.state;
     return (
       <div className="align-self-center ml-auto mr-auto col-4 mt-5 pt-5">
         <div className="form-container mr-5">
@@ -46,7 +54,7 @@ class Login extends React.Component {
                 id="email-input"
                 placeholder="Email"
                 data-testid="email-input"
-                onChange={ this.emailHandleChange }
+                onChange={ this.handleChange }
               />
               <input
                 type="password"
@@ -57,14 +65,14 @@ class Login extends React.Component {
                 aria-describedby="emailHelp"
                 placeholder="Senha"
                 data-testid="password-input"
-                onChange={ this.passwordHandleChange }
+                onChange={ this.handleChange }
               />
             </div>
             <button
               type="submit"
               className="btn btn-danger col-12"
               onClick={ this.onSubmitForm }
-              // disabled
+              disabled={ disabled }
             >
               Entrar
             </button>
@@ -81,6 +89,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   email: state.user.user.email,
+  password: state.user.user.password,
 });
 
 Login.propTypes = {
