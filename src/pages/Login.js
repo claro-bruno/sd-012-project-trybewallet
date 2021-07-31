@@ -47,35 +47,44 @@ class Login extends React.Component {
       return <Redirect to="/carteira" />
     }
     return (
-      <form>
-        <h1>Login</h1>
-        <input
-        data-testid="email-input"
-        type="email"
-        placeholder="e-mail"
-        value={ email }
-        name="email"
-        onChange={ this.handleChange }
-        required
-        />
-        <input
-        data-testid="password-input"
-        type="password"
-        placeholder="senha"
-        name="password"
-        minLength="6"
-        value={ password }
-        onChange={ this.handleChange }
-        required
-        />
-        <button
-        disabled={ this.disableBtn() }
-        type="submit"
-        onClick={ this.loginBtn }
-        >
-          Entrar
-        </button>
-      </form>
+      <div>
+        <header className="header">
+          <h1 className="logo">Fluxo_</h1>
+        </header>
+         <form className="login">
+          <h1>Login</h1>
+          <input
+          className="log-input"
+          data-testid="email-input"
+          type="email"
+          placeholder="e-mail"
+          value={ email }
+          name="email"
+          onChange={ this.handleChange }
+          required
+          />
+          <input
+          className="log-input"
+          data-testid="password-input"
+          type="password"
+          placeholder="senha"
+          name="password"
+          minLength="6"
+          value={ password }
+          onChange={ this.handleChange }
+          required
+          />
+          <button
+          className="btn-log"
+          disabled={ this.disableBtn() }
+          type="submit"
+          onClick={ this.loginBtn }
+          >
+            Entrar
+          </button>
+        </form>
+      </div>
+     
     )
   }
 }
