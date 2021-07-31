@@ -2,16 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import headerTable from '../helpers/headerTable';
+import { expenseRemove } from '../actions/index';
 
 class ExpenseTable extends React.Component {
-  deleteExpense(id) {
-    console.log(id);
+  handleRemove(id) {
+    const { deleteExpense } = this.props;
+    deleteExpense(id);
   }
 
   renderEditTrashBtn(id) {
     return (
       <td>
         <button
+          className="edit-expense"
           type="button"
           onClick={ () => {} }
         >
@@ -21,9 +24,9 @@ class ExpenseTable extends React.Component {
           className="delete-expense"
           data-testid="delete-btn"
           type="button"
-          onClick={ () => { console.log(id); } }
+          onClick={ () => { this.handleRemove(id); } }
         >
-          <i className="bi bi-trash-fill" />
+          <i className="bi bi-trash" />
         </button>
       </td>
     );
@@ -81,8 +84,13 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  deleteExpense: (id) => dispatch(expenseRemove(id)),
+});
+
 ExpenseTable.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  deleteExpense: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(ExpenseTable);
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseTable);

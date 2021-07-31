@@ -4,6 +4,19 @@
   grid-template-rows: 15vh  12vh 73vh;
 }
 
+button {
+  box-shadow: 0 0 4px 2px rgb(7, 6, 6);
+  opacity: 0.9;
+}
+
+button:hover {
+  opacity: 1;
+}
+
+button:active {
+  box-shadow: none;
+}
+
 .header-wallet {
   align-items: center;
   display: flex;
@@ -115,3 +128,27 @@
   background-color: rgb(233, 233, 233);
 }
 
+.edit-expense {
+  background-color: rgb(255, 187, 0);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 20px;
+  height: 30px;
+  margin-right: 5px;
+  padding: 5px;
+  width: 30px;
+}
+
+.delete-expense {
+  background-color: rgb(219, 27, 27);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+  height: 30px;
+  margin-left: 5px;
+  padding: 5px;
+  width: 30px;
+}

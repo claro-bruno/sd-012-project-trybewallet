@@ -47,8 +47,7 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       expenses: [...state.expenses
-        .filter((expense) => expense.id !== action.id)
-        .map((expense, index) => ({ ...expense, id: index }))],
+        .filter((expense) => expense.id !== action.id)],
     };
   default:
     return state;
