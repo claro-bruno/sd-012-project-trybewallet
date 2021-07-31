@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import HeaderWallet from '../components/HeaderWallet';
+
 class Wallet extends React.Component {
   constructor() {
     super();
@@ -17,23 +19,7 @@ class Wallet extends React.Component {
     const { total, moeda } = this.state;
 
     return (
-      <header className="bg-dark text-light">
-        <div className="container d-flex justify-content-between">
-          <h1>Logo</h1>
-          <div className="d-flex flex-column">
-            {
-              email
-                ? <span data-testid="email-field">{email}</span>
-                : <span>Não loggado</span>
-            }
-            <span data-testid="total-field">
-              {total}
-              {' '}
-              <span data-testid="header-currency-field">{moeda}</span>
-            </span>
-          </div>
-        </div>
-      </header>
+      <HeaderWallet email={ email } total={ total } moeda={ moeda } />
     );
   }
 }
