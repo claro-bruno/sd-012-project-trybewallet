@@ -1,8 +1,9 @@
 import {
   GET_CURRENCIES,
   LOGIN,
-  REQUEST_CURRENCIES,
+  REQUEST_FETCH,
   REQUEST_FAILED,
+  GET_QUOTATION,
 } from './types';
 
 const CURRENCIES_URL = 'https://economia.awesomeapi.com.br/json/all';
@@ -12,9 +13,7 @@ export const loginAction = (email) => ({
   email,
 });
 
-const requestCurrencies = () => ({
-  type: REQUEST_CURRENCIES,
-});
+const requestFetch = () => ({ type: REQUEST_FETCH });
 
 const getCurrencies = (currencies) => ({
   type: GET_CURRENCIES,
@@ -28,7 +27,7 @@ const requestFailed = (error) => ({
 
 export const fetchCurrencies = () => (async (dispatch) => {
   try {
-    dispatch(requestCurrencies());
+    dispatch(requestFetch());
     const response = await fetch(CURRENCIES_URL);
     const json = await response.json();
     const currencies = Object.keys(json).filter((currency) => currency !== 'USDT');

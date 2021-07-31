@@ -17,6 +17,7 @@ class NewExpenses extends React.Component {
       tag: 'Alimentação',
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -32,6 +33,12 @@ class NewExpenses extends React.Component {
 
   handleChange({ target: { name, value } }) {
     this.setState({ [name]: value });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const { expenses } = this.props;
+    const newExpense = { id: expenses.length, ...this.state };
   }
 
   renderButton() {
@@ -100,6 +107,7 @@ class NewExpenses extends React.Component {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -109,6 +117,7 @@ const mapDispatchToProps = (dispatch) => ({
 NewExpenses.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   getCurrencies: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewExpenses);

@@ -1,5 +1,5 @@
 import {
-  REQUEST_CURRENCIES,
+  REQUEST_FETCH,
   REQUEST_FAILED,
   GET_CURRENCIES,
 } from '../actions/types';
@@ -14,7 +14,7 @@ const INITIAL_STATE = {
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case REQUEST_CURRENCIES:
+  case REQUEST_FETCH:
     return {
       ...state,
       isFetching: true,

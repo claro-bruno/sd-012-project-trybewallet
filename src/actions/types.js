@@ -1,4 +1,6 @@
 export const LOGIN = 'LOGIN';
-export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
+export const GET_QUOTATION = 'GET_QUOTATION';
+
 export const REQUEST_FAILED = 'REQUEST_FAILED';
+export const REQUEST_FETCH = 'REQUEST_FETCH';
