@@ -14,14 +14,16 @@ class Header extends React.Component {
             { emailUser}
           </span>
           <span
-            data-testid="total-field"
-          >
-            { total }
-          </span>
-          <span
+            className="navbar-brand mb-0 h1"
             data-testid="header-currency-field"
           >
             { currency }
+          </span>
+          <span
+            className="navbar-brand mb-0 h1"
+            data-testid="header-currency-field"
+          >
+            { total }
           </span>
         </div>
       </nav>
