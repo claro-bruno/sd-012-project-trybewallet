@@ -10,7 +10,7 @@ class Login extends React.Component {
           Insira seu e-mail:
           <input
             id="input-email"
-            type="text"
+            type="email"
             data-testid="email-input"
           />
         </label>
@@ -20,6 +20,7 @@ class Login extends React.Component {
             id="input-password"
             type="password"
             data-testid="password-input"
+            minLength="6"
           />
         </label>
         <button
