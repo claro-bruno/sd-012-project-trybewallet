@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { addEmail } from '../actions/userActions';
 
@@ -10,6 +11,7 @@ class Login extends React.Component {
       email: '',
       password: '',
       isValid: false,
+      redirect: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -17,14 +19,18 @@ class Login extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit() {
+  handleSubmit(event) {
+    event.preventDefault();
+
     const { setEmailStore } = this.props;
     const { email } = this.state;
+
     setEmailStore(email);
     this.setState((state) => ({
       ...state,
       email: '',
       password: '',
+      redirect: true,
     }));
   }
 
@@ -44,9 +50,10 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, password, isValid } = this.state;
+    const { email, password, isValid, redirect } = this.state;
+    if (redirect) { return <Redirect to="/carteira" />; }
     return (
-      <form>
+      <form onSubmit={ this.handleSubmit }>
         <label htmlFor="email">
           <span>Email: </span>
           <input
@@ -68,9 +75,8 @@ class Login extends React.Component {
           />
         </label>
         <button
-          type="button"
+          type="submit"
           disabled={ !isValid }
-          onClick={ this.handleSubmit }
         >
           Entrar
         </button>
