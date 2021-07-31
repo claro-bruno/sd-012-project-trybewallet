@@ -65,7 +65,7 @@ class LoginForm extends React.Component {
                 onChange={ this.handleChangeSenha }
               />
             </Form.Group>
-            <Link to="/wallet">
+            <Link to="/carteira">
               <Button
                 disabled={ !this.validateEmail(email, senha) }
                 variant="primary"
