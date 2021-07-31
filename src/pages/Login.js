@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { loginValidator } from '../helper';
 import { sendUser } from '../actions';
+import InputCard from '../components/InputCard';
 
 class Login extends React.Component {
   constructor(props) {
@@ -39,20 +40,22 @@ class Login extends React.Component {
     const { handleChange, handleSubmit } = this;
     return (
       <form>
-        <input
+        <InputCard
+          id="email"
           type="text"
-          onChange={ (e) => handleChange(e.target.name, e.target.value) }
           placeholder="email"
           data-testid="email-input"
           name="email"
+          onChange={ (e) => handleChange(e.target.name, e.target.value) }
           value={ email }
         />
-        <input
+        <InputCard
+          id="password"
           type="password"
-          onChange={ (e) => handleChange(e.target.name, e.target.value) }
           placeholder="password"
           data-testid="password-input"
           name="password"
+          onChange={ (e) => handleChange(e.target.name, e.target.value) }
           value={ password }
         />
         <Link
