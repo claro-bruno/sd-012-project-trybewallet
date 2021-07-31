@@ -1,7 +1,9 @@
 import React from 'react';
 import './login.css';
-// import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import propTypes from 'prop-types';
+import { userLogin } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -9,6 +11,7 @@ class Login extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleValidation = this.handleValidation.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
       email: '',
@@ -23,7 +26,6 @@ class Login extends React.Component {
 
   componentDidUpdate() {
     const { email, senha } = this.state;
-    // console.log(this.state);
     if (senha && email) {
       this.handleValidation();
     }
@@ -34,6 +36,10 @@ class Login extends React.Component {
     this.setState(() => ({
       [name]: value,
     }));
+  }
+
+  handleSubmit({ target }) {
+    target.preventDefault();
   }
 
   handleValidation() {
@@ -50,11 +56,12 @@ class Login extends React.Component {
 
   render() {
     const { email, senha } = this.state;
+    const { userEmail } = this.props;
     return (
       <div>
         <h1>TrybeWallet</h1>
         <h2>Login</h2>
-        <form>
+        <form onSubmit={ this.handleSubmit }>
           <label htmlFor="email">
             Email:
             <input
@@ -77,11 +84,21 @@ class Login extends React.Component {
               onChange={ this.handleChange }
             />
           </label>
-          <button type="button">Entrar</button>
+          <Link to="/carteira">
+            <button type="submit" onClick={ () => userEmail(email) }>Entrar</button>
+          </Link>
         </form>
       </div>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  userEmail: (value) => dispatch(userLogin(value)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
+
+Login.propTypes = {
+  userEmail: propTypes.func.isRequired,
+};
