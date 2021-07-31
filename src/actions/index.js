@@ -1,6 +1,6 @@
-const getEmail = (value) => ({
-  type: 'GET_EMAIL',
+const saveEmail = (value) => ({
+  type: 'SAVE_EMAIL',
   value,
 });
 
-export default getEmail;
+export default saveEmail;

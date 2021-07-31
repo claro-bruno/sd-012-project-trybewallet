@@ -4,8 +4,8 @@ const INICIAL_STATE = {
 
 function user(state = INICIAL_STATE, action) {
   switch (action.type) {
-  case 'GET_EMAIL':
-    return { state: action.value };
+  case 'SAVE_EMAIL':
+    return { email: action.value };
   default:
     return state;
   }
