@@ -4,9 +4,9 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addEmailAction } from '../actions';
-import ButtonEntrar from '../components/LoginControlled/ButtonEntrar';
-import InputEmail from '../components/LoginControlled/InputEmail';
-import InputPassword from '../components/LoginControlled/InputPassword';
+import ButtonEntrar from '../components/loginControlled/ButtonEntrar';
+import InputEmail from '../components/loginControlled/InputEmail';
+import InputPassword from '../components/loginControlled/InputPassword';
 
 class Login extends React.Component {
   constructor() {
