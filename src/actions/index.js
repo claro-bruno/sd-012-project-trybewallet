@@ -1,3 +1,3 @@
-const actionSaveEmail = (email) => ({ type: 'EMAIL', value: email });
+export const actionSaveEmail = (email) => ({ type: 'EMAIL', value: email });
 
-export default actionSaveEmail;
+export const actionSaveExpense = (expense) => ({ type: 'EXPENSE', value: expense });
