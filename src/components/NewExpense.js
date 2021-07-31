@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { payMethods, tags } from '../helpers/optionsSelects';
-import { fetchCurrencies } from '../actions';
+import { fetchCurrencies, saveExpense } from '../actions';
 import Input from './Input';
 import Select from './Select';
 
@@ -10,10 +10,10 @@ class NewExpenses extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: 0,
+      value: '',
       description: '',
       currency: '',
-      payMethod: 'Dinheiro',
+      method: 'Dinheiro',
       tag: 'Alimentação',
     };
     this.handleChange = this.handleChange.bind(this);
@@ -31,14 +31,25 @@ class NewExpenses extends React.Component {
     this.setState({ currency: currencies[0] || '' });
   }
 
-  handleChange({ target: { name, value } }) {
-    this.setState({ [name]: value });
+  handleChange({ target }) {
+    const value = target.name === 'value'
+      ? (target.value).match(/^(\d*(,?|\.?)?\d*)/)[0]
+      : target.value;
+    this.setState({ [target.name]: value });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const { expenses } = this.props;
+    const { expenses, saveNewExpense, currencies } = this.props;
     const newExpense = { id: expenses.length, ...this.state };
+    saveNewExpense(newExpense);
+    this.setState({
+      value: '',
+      description: '',
+      currency: currencies[0],
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+    });
   }
 
   renderButton() {
@@ -54,15 +65,13 @@ class NewExpenses extends React.Component {
   }
 
   render() {
-    const { value, description, currency, payMethod, tag } = this.state;
+    const { value, description, currency, method, tag } = this.state;
     const { currencies } = this.props;
     return (
       <form className="form-newExpense" method="get">
         <Input
           textLabel="Valor"
           id="value"
-          type="number"
-          step="0.01"
           name="value"
           onChange={ this.handleChange }
           value={ value }
@@ -70,7 +79,6 @@ class NewExpenses extends React.Component {
         <Input
           textLabel="Descrição"
           id="description"
-          type="text"
           name="description"
           onChange={ this.handleChange }
           value={ description }
@@ -86,9 +94,9 @@ class NewExpenses extends React.Component {
         <Select
           textLabel="Método de pagamento"
           id="pay-method"
-          name="payMethod"
+          name="method"
           onChange={ this.handleChange }
-          value={ payMethod }
+          value={ method }
           options={ payMethods }
         />
         <Select
@@ -112,11 +120,13 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getCurrencies: () => dispatch(fetchCurrencies()),
+  saveNewExpense: (expense) => dispatch(saveExpense(expense)),
 });
 
 NewExpenses.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   getCurrencies: PropTypes.func.isRequired,
+  saveNewExpense: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 

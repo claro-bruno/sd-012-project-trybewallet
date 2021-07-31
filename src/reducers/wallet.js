@@ -2,6 +2,7 @@ import {
   REQUEST_FETCH,
   REQUEST_FAILED,
   GET_CURRENCIES,
+  GET_QUOTATIONS,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -33,6 +34,13 @@ const wallet = (state = INITIAL_STATE, action) => {
       isFetching: false,
       failed: true,
       error: action.error,
+    };
+  case GET_QUOTATIONS:
+    return {
+      ...state,
+      isFetching: false,
+      failed: false,
+      expenses: [...state.expenses, action.expense],
     };
   default:
     return state;

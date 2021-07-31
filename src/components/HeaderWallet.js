@@ -5,7 +5,16 @@ import trybeWalletLogo from '../images/logo-trybe-wallet.png';
 
 class HeaderWallet extends React.Component {
   render() {
-    const { email } = this.props;
+    const { email, expenses } = this.props;
+    const totalExpenses = expenses
+      .reduce((total, expense) => {
+        const { currency } = expense;
+        const converter = Number((expense.value)
+          .replace(',', '.')) * Number(expense
+          .exchangeRates[currency].ask);
+        total += converter;
+        return total;
+      }, 0);
     return (
       <header className="header-wallet">
         <img
@@ -24,7 +33,7 @@ class HeaderWallet extends React.Component {
           <div className="expenses-wallet">
             Despesa Total:
             {' '}
-            <span data-testid="total-field">{0}</span>
+            <span data-testid="total-field">{totalExpenses.toFixed(2)}</span>
             {' '}
             <span data-testid="header-currency-field">BRL</span>
           </div>
@@ -37,10 +46,12 @@ class HeaderWallet extends React.Component {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  expenses: state.wallet.expenses,
 });
 
 HeaderWallet.propTypes = {
   email: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps)(HeaderWallet);

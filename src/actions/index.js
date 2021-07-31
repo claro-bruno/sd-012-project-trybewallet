@@ -3,7 +3,7 @@ import {
   LOGIN,
   REQUEST_FETCH,
   REQUEST_FAILED,
-  GET_QUOTATION,
+  GET_QUOTATIONS,
 } from './types';
 
 const CURRENCIES_URL = 'https://economia.awesomeapi.com.br/json/all';
@@ -25,6 +25,11 @@ const requestFailed = (error) => ({
   error,
 });
 
+const getQuotations = (expense) => ({
+  type: GET_QUOTATIONS,
+  expense,
+});
+
 export const fetchCurrencies = () => (async (dispatch) => {
   try {
     dispatch(requestFetch());
@@ -32,6 +37,18 @@ export const fetchCurrencies = () => (async (dispatch) => {
     const json = await response.json();
     const currencies = Object.keys(json).filter((currency) => currency !== 'USDT');
     dispatch(getCurrencies(currencies));
+  } catch (error) {
+    dispatch(requestFailed(error));
+  }
+});
+
+export const saveExpense = (expense) => (async (dispatch) => {
+  try {
+    dispatch(requestFetch());
+    const response = await fetch(CURRENCIES_URL);
+    const quotations = await response.json();
+    const newExpense = { ...expense, exchangeRates: quotations };
+    dispatch(getQuotations(newExpense));
   } catch (error) {
     dispatch(requestFailed(error));
   }
