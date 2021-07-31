@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 class ExpenseIpunt extends Component {
   constructor() {
@@ -7,7 +9,7 @@ class ExpenseIpunt extends Component {
     this.state = {
       valueExpense: 0,
       description: '',
-      currency: '',
+      currency: 'USD',
       payment: 'cash',
       tag: 'food',
     };
@@ -15,7 +17,7 @@ class ExpenseIpunt extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.inputValue = this.inputValue.bind(this);
     this.inputDescription = this.inputDescription.bind(this);
-    // this.selectCurrency = this.selectCurrency.bind(this);
+    this.selectCurrency = this.selectCurrency.bind(this);
     this.selectPayment = this.selectPayment.bind(this);
     this.selectTag = this.selectTag.bind(this);
   }
@@ -57,8 +59,11 @@ class ExpenseIpunt extends Component {
   }
 
   selectCurrency() {
-    // const { currencies } = this.props;
-    const currencies = [];
+    const { currencies } = this.props;
+
+    const currenciesFiltered = Object.keys(currencies)
+      .filter((currency) => currency !== 'USDT');
+
     return (
       <label htmlFor="currency">
         Moeda
@@ -67,7 +72,7 @@ class ExpenseIpunt extends Component {
           name="currency"
           onChange={ this.handleChange }
         >
-          { currencies.map((currency) => (
+          { currenciesFiltered.map((currency) => (
             <option key={ currency } value={ currency }>{ currency }</option>
           ))}
         </select>
@@ -128,4 +133,12 @@ class ExpenseIpunt extends Component {
   }
 }
 
-export default ExpenseIpunt;
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+ExpenseIpunt.propTypes = ({
+  currencies: PropTypes.arrayOf(Object).isRequired,
+});
+
+export default connect(mapStateToProps)(ExpenseIpunt);
