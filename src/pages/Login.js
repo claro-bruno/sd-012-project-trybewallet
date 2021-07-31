@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 // import { Connect } from 'react-redux';
-// import { userlInfo } from '../redux/actions';
+// import { userlInfo } from '../actions';
 import { Input, Button } from '../components';
 import logo from '../images/logo.png';
 import './Login.css';
