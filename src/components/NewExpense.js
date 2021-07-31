@@ -6,7 +6,7 @@ import { fetchCurrencies, saveExpense } from '../actions';
 import Input from './Input';
 import Select from './Select';
 
-const REGEX_VALUE = /^\d+(,?|\.?)?\d+/;
+const REGEX_VALUE = /^(\d*(,?|\.?)?\d{0,2})/;
 
 class NewExpenses extends React.Component {
   constructor(props) {
@@ -33,14 +33,11 @@ class NewExpenses extends React.Component {
     this.setState({ currency: currencies[0] || '' });
   }
 
-  handleChange({ target: { name, value } }) {
-    let newValue = value;
-    if (name === 'value') {
-      newValue = REGEX_VALUE.test(value)
-        ? value.match(REGEX_VALUE)[0]
-        : '';
-    }
-    this.setState({ [name]: newValue });
+  handleChange({ target }) {
+    const value = target.name === 'value'
+      ? (target.value).match(REGEX_VALUE)[0]
+      : target.value;
+    this.setState({ [target.name]: value });
   }
 
   handleSubmit(e) {
