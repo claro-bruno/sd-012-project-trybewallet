@@ -19,8 +19,8 @@ class Wallet extends React.Component {
     this.state = {
       valueEntry: '0',
       currency: [],
-      method: [],
-      tag: '',
+      // method: [],
+      // tag: '',
       description: '',
     };
   }
@@ -43,7 +43,7 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { valueEntry } = this.state;
+    const { valueEntry, description } = this.state;
     const { emailSetted } = this.props;
     return (
       <div>
@@ -54,14 +54,37 @@ class Wallet extends React.Component {
         </header>
         <div>
           <Input
-            type="valor"
+            type="text"
+            dataTestid="valor"
             message="Valor:"
             value={ valueEntry }
             handleChange={ this.handleChange }
           />
-          <Currencies />
-          <Method />
-          <Tag />
+          <label htmlFor="moeda">
+            Moeda
+            <select id="moeda">
+              <Currencies />
+            </select>
+          </label>
+          <label htmlFor="metodo">
+            Método de pagamento
+            <select id="metodo">
+              <Method />
+            </select>
+          </label>
+          <label htmlFor="tag">
+            Tag
+            <select id="tag">
+              <Tag />
+            </select>
+          </label>
+          <Input
+            type="text"
+            dataTestid="descricao"
+            message="Descrição"
+            value={ description }
+            handleChange={ this.handleChange }
+          />
         </div>
       </div>
     );

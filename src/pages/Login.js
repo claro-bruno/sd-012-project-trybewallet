@@ -57,11 +57,13 @@ class Login extends React.Component {
         <Input
           type="email"
           message="email"
+          dataTestid="email"
           value={ email }
           handleChange={ this.handleChange }
         />
         <Input
           type="password"
+          dataTestid="password"
           value={ password }
           message="password"
           handleChange={ this.handleChange }

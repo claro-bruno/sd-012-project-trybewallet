@@ -3,16 +3,16 @@ import propTypes from 'prop-types';
 
 class Input extends Component {
   render() {
-    const { type, message, handleChange, value } = this.props;
+    const { type, message, handleChange, value, dataTestid } = this.props;
     return (
       <div>
-        <label htmlFor={ type }>
+        <label htmlFor={ dataTestid }>
+          { message }
           <input
-            data-testid={ ` ${message}-input ` }
+            data-testid={ `${dataTestid}-input` }
             type={ type }
-            name={ type }
+            id={ dataTestid }
             value={ value }
-            placeholder={ message }
             onChange={ handleChange }
           />
         </label>
@@ -22,6 +22,7 @@ class Input extends Component {
 }
 
 Input.propTypes = {
+  dataTestid: propTypes.string.isRequired,
   type: propTypes.string.isRequired,
   value: propTypes.string.isRequired,
   message: propTypes.string.isRequired,

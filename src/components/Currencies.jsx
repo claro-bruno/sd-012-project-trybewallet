@@ -6,17 +6,11 @@ class Currencies extends Component {
   render() {
     const { options } = this.props;
     return (
-      <label htmlFor="moeda">
-        <select data-testid="moeda">
-          {
-            options.map((currency, index) => (
-              <option key={ currency[index] } value={ currency }>
-                { currency }
-              </option>
-            ))
-          }
-        </select>
-      </label>
+      options.map((currency, index) => (
+        <option key={ index } value={ currency }>
+          { currency }
+        </option>
+      ))
     );
   }
 }
