@@ -1,0 +1,3 @@
+export const GET_USER_LOGIN = 'GET_USER_LOGIN';
+export const GET_CURRENCY_DATA = 'GET_CURRENCY_DATA';
+export const GET_WALLET = 'GET_WALLET';
