@@ -47,6 +47,7 @@ class Login extends React.Component {
         <h2>TrybeWallet</h2>
         <form>
           <Input
+            labelContent="Login"
             placeholder="E-mail"
             type="email"
             id="email-input"
@@ -55,6 +56,7 @@ class Login extends React.Component {
             change={ this.handleChange }
           />
           <Input
+            labelContent="Senha"
             placeholder="Senha"
             type="password"
             id="password-input"
