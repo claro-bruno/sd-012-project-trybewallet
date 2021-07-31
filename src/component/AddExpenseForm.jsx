@@ -1,17 +1,15 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 class AddExpenseForm extends React.Component {
   render() {
+    const { currencies } = this.props;
+    currencies.splice(1, 1);
     return (
       <form>
         <label htmlFor="valor">
           Valor:
-          <input
-            id="valor"
-            type="text"
-            name="valor"
-          />
+          <input id="valor" type="text" name="valor" />
         </label>
         <label htmlFor="descricao">
           Descrição:
@@ -23,7 +21,12 @@ class AddExpenseForm extends React.Component {
         </label>
         <label htmlFor="moeda">
           Moeda:
-          <select name="moeda" id="moeda"><option>Helo</option></select>
+          <select name="moeda" id="moeda">
+            {currencies.map((curr) => (
+              <option key={ curr.code }>
+                { curr.codein !== 'BRLT' && curr.code }
+              </option>))}
+          </select>
         </label>
         <label htmlFor="método de pagamento">
           Método de Pagamento:
@@ -48,7 +51,8 @@ class AddExpenseForm extends React.Component {
   }
 }
 
-// AddExpenseForm.propTypes = {
-// }.isRequired;
+AddExpenseForm.propTypes = {
+  currencies: PropTypes.arrayOf(PropTypes.object),
+}.isRequired;
 
 export default AddExpenseForm;
