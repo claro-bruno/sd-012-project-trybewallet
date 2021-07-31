@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { actionDeleteExpense } from '../actions';
+import { actionDeleteExpense, actionEditForm } from '../actions';
 import Button from './Button';
 
 class ExpenseTable extends React.Component {
@@ -9,12 +9,18 @@ class ExpenseTable extends React.Component {
     super(props);
 
     this.handleClickDelete = this.handleClickDelete.bind(this);
+    this.handleClickEdit = this.handleClickEdit.bind(this);
     this.renderTableTitles = this.renderTableTitles.bind(this);
   }
 
   handleClickDelete(index) {
     const { deleteExpense } = this.props;
     deleteExpense(index);
+  }
+
+  handleClickEdit(id) {
+    const { editForm } = this.props;
+    editForm(id);
   }
 
   renderTableTitles() {
@@ -61,7 +67,11 @@ class ExpenseTable extends React.Component {
               <td>{ Number(ask * value).toFixed(2) }</td>
               <td>{ regex ? regex[2] : 'Real' }</td>
               <td>
-                <button type="button">Teste</button>
+                <Button
+                  text="Editar"
+                  testeId="edit-btn"
+                  onClick={ () => this.handleClickEdit(id) }
+                />
                 /
                 <Button
                   text="Deletar"
@@ -95,6 +105,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   deleteExpense: (id) => dispatch(actionDeleteExpense(id)),
+  editForm: (id) => dispatch(actionEditForm(id)),
 });
 
 ExpenseTable.propTypes = {

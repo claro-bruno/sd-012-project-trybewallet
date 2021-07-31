@@ -3,11 +3,13 @@ import {
   LOADING,
   ADD_EXPENSE,
   DELETE_EXPENSE,
+  EDIT_FORM,
 } from '../actions';
 
 const INITIAL_STATE = {
   currentCurrency: 'BRL',
   loading: false,
+  edit: false,
   currencies: [],
   expenses: [],
 };
@@ -24,6 +26,8 @@ const wallet = (state = INITIAL_STATE, action) => {
     const newArray = state.expenses.filter((expense) => expense.id !== action.id);
     return { ...state, expenses: newArray };
   }
+  case EDIT_FORM:
+    return { ...state, edit: true };
   default:
     return state;
   }

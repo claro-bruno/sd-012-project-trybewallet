@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import ExpenseForm from '../components/ExpenseForm';
 import { fetchCurrencies } from '../actions';
 import ExpenseTable from '../components/ExpenseTable';
+import ExpenseFormEdit from '../components/ExpenseFormEdit';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -13,11 +14,12 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { loading } = this.props;
+    const { loading, edit } = this.props;
     return (
       <div>
         <Header />
-        { loading ? <p>Carregando...</p> : <ExpenseForm /> }
+        { loading && <p>Carregando...</p> }
+        { !edit ? <ExpenseForm /> : <ExpenseFormEdit /> }
         <ExpenseTable />
       </div>
     );
@@ -26,6 +28,7 @@ class Wallet extends React.Component {
 
 const mapStateToProps = (state) => ({
   loading: state.wallet.loading,
+  edit: state.wallet.edit,
 });
 
 const mapDispatchToProps = (dispatch) => ({
