@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getCoins, addExpense } from '../actions';
+import Table from '../components/Table';
 
 const initialState = {
   currency: '',
@@ -87,7 +88,7 @@ class Wallet extends React.Component {
         <p>
           Despesa Total: R$
           <span data-testid="total-field">
-            { allExpenses }
+            { Math.round(allExpenses * 100) / 100 }
           </span>
           <span data-testid="header-currency-field">BRL</span>
         </p>
@@ -192,6 +193,7 @@ class Wallet extends React.Component {
           { this.descricao() }
           <button onClick={ this.handleClick } type="button">Adicionar despesa</button>
         </form>
+        <Table />
       </div>
     );
   }
