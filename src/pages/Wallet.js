@@ -8,11 +8,12 @@ import Description from '../components/Description';
 import Currency from '../components/Currency';
 import Method from '../components/Method';
 import Tag from '../components/Tag';
+import Table from '../components/Table';
 
 const INITIAL_STATE = {
   value: '',
   description: '',
-  currency: '',
+  currency: 'USD',
   method: '',
   tag: '',
 };
@@ -59,6 +60,7 @@ class Wallet extends React.Component {
           <Method method={ method } handleChange={ this.handleChange } />
           <Tag tag={ tag } handleChange={ this.handleChange } />
           <button type="button" onClick={ this.addToExpenses }>Adicionar Despesa</button>
+          <Table expenses={ expenses } />
         </form>
       </div>);
   }
