@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import deleteDispense from '../../reducers/wallet/actions/deleteDispense';
+
 class DispensesTable extends Component {
   constructor() {
     super();
@@ -10,8 +12,9 @@ class DispensesTable extends Component {
   }
 
   renderRows() {
-    const { expenses } = this.props;
+    const { expenses, deleteDispense: deleteDis } = this.props;
     return expenses.map(({
+      id,
       description,
       tag,
       method,
@@ -31,7 +34,15 @@ class DispensesTable extends Component {
           <td>{ Number(ask).toFixed(2) }</td>
           <td>{ (value * ask).toFixed(2) }</td>
           <td>Real</td>
-          <td>Editar/Excluir</td>
+          <td>
+            <button
+              data-testid="delete-btn"
+              type="button"
+              onClick={ () => { deleteDis(id); } }
+            >
+              Deletar
+            </button>
+          </td>
         </tr>
       );
     });
@@ -63,8 +74,11 @@ class DispensesTable extends Component {
 
 DispensesTable.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  deleteDispense: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ wallet }) => ({ expenses: wallet.expenses });
 
-export default connect(mapStateToProps)(DispensesTable);
+const mapDispatchToProps = { deleteDispense }; // Sintaxe diferenciada, é uma má prática utilizá-la Jensen?
+
+export default connect(mapStateToProps, mapDispatchToProps)(DispensesTable);
