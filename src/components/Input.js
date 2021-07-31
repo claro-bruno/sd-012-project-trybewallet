@@ -10,6 +10,7 @@ class Input extends React.Component {
       onChange,
       placeHolder,
       name,
+      id,
     } = this.props;
 
     return (
@@ -20,18 +21,28 @@ class Input extends React.Component {
         data-testid={ testID }
         value={ value }
         onChange={ onChange }
+        id={ id }
       />
     );
   }
 }
 
+Input.defaultProps = {
+  id: '',
+  type: 'text',
+  testID: '',
+  placeHolder: '',
+  name: '',
+};
+
 Input.propTypes = {
-  type: PropTypes.string.isRequired,
-  testID: PropTypes.string.isRequired,
+  type: PropTypes.string,
+  testID: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   onChange: PropTypes.func.isRequired,
-  placeHolder: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
+  placeHolder: PropTypes.string,
+  name: PropTypes.string,
+  id: PropTypes.string,
 };
 
 export default Input;
