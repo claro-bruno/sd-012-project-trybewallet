@@ -53,7 +53,7 @@ class Login extends React.Component {
     const { email, password, isDisabled, redirect } = this.state;
 
     return (
-      <main className="pt-3 pl-2 pr-2 pb-5">
+      <main className="pt-3 pb-5 container">
         <CardLogin
           email={ email }
           password={ password }
