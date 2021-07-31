@@ -3,7 +3,7 @@
 import { GET_CURRENCY, GET_TOTAL } from '../actions/index';
 
 const initialState = {
-  total: 0.00,
+  total: 0,
   currency: 'BRL',
 };
 
