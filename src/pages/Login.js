@@ -4,11 +4,9 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addEmailAction } from '../actions';
-
-const ERRORS = {
-  errorEmail: 'Email inválido',
-  errorPassword: 'Password inválido',
-};
+import ButtonEntrar from '../components/LoginControlled/ButtonEntrar';
+import InputEmail from '../components/LoginControlled/InputEmail';
+import InputPassword from '../components/LoginControlled/InputPassword';
 
 const VALID_CARACTERES = 6;
 
@@ -46,7 +44,6 @@ class Login extends React.Component {
   render() {
     const { handleChange, handleClick } = this;
     const { email, password, shouldRedirect } = this.state;
-    const { errorEmail, errorPassword } = ERRORS;
     const emailValidation = email.includes('@' && '.com');
     const passwordValidation = password.length >= VALID_CARACTERES;
 
@@ -55,39 +52,18 @@ class Login extends React.Component {
         { shouldRedirect && <Redirect to="/carteira" /> }
         <h1>Login</h1>
         <form>
-          <label htmlFor="email">
-            Email:
-            <input
-              type="email"
-              id="email"
-              name="email"
-              data-testid="email-input"
-              value={ email }
-              onChange={ handleChange }
-              placeholder="Digite o Email"
-            />
-            { !emailValidation && <span>{ errorEmail }</span> }
-          </label>
-          <label htmlFor="password">
-            Password:
-            <input
-              type="password"
-              id="password"
-              name="password"
-              data-testid="password-input"
-              value={ password }
-              onChange={ handleChange }
-              placeholder="digite a Senha"
-            />
-            { !passwordValidation && <span>{ errorPassword }</span> }
-          </label>
-          <button
-            type="button"
+          <InputEmail
+            value={ email }
+            handleChange={ handleChange }
+          />
+          <InputPassword
+            value={ password }
+            handleChange={ handleChange }
+          />
+          <ButtonEntrar
             disabled={ !(passwordValidation && emailValidation) }
-            onClick={ handleClick }
-          >
-            Entrar
-          </button>
+            handleClick={ handleClick }
+          />
         </form>
       </section>
     );
