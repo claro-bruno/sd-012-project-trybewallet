@@ -1,17 +1,19 @@
 // Coloque aqui suas actions
 export const ADD_USER = 'ADD_USER';
 export const ADD_CURRENCIES = 'ADD_CURRENCIES';
+export const ADD_EXPENSE = 'ADD_EXPENSE';
 
 export const addUser = (email) => ({ type: ADD_USER, email });
 export const addCurrencies = (currencies) => ({ type: ADD_CURRENCIES, currencies });
+export const addExpense = (expense) => ({ type: ADD_EXPENSE, expense });
 
 export const fetchCurrencies = () => (
   async (dispatch) => {
     try {
       const request = await fetch('https://economia.awesomeapi.com.br/json/all');
       const obj = await request.json();
-      const currencies = Object.keys(obj);
-      dispatch(addCurrencies(currencies.filter((elem) => elem !== 'USDT')));
+      delete obj.USDT;
+      dispatch(addCurrencies(obj));
     } catch (e) {
       console.log(e);
     }
