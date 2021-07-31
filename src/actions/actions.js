@@ -2,7 +2,7 @@ export const SAVE_EMAIL = 'SAVE_EMAIL';
 export const SAVE_PASSWORD = 'SAVE_PASSWORD';
 
 export const addEmail = (state) => ({
-  type: SAVE_EMAIL, email: state,
+  type: SAVE_EMAIL, payload: state,
 });
 
 // export const addPassword = (payload) => ({
