@@ -1,12 +1,33 @@
 import React from 'react';
 
 class Form extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      moedas: [],
+    };
+  }
+
+  componentDidMount() {
+    fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((res) => res.json())
+      .then((res) => {
+        const todasMoedas = Object.keys(res);
+        const filtrado = todasMoedas.filter((moeda) => moeda !== 'USDT');
+        this.setState({
+          moedas: filtrado,
+        });
+      });
+  }
+
   render() {
+    const { moedas } = this.state;
     return (
       <form>
         <label htmlFor="valor">
           Valor:
-          <input id="valor" type="text" name="valor" />
+          <input id="valor" type="number" name="valor" />
         </label>
         <label htmlFor="decribe">
           Descrição:
@@ -16,7 +37,7 @@ class Form extends React.Component {
         <label htmlFor="moeda">
           Moeda:
           <select id="moeda" type="text" name="name">
-            <option>a</option>
+            {moedas.map((moeda) => <option key={ moeda }>{ moeda }</option>)}
           </select>
         </label>
         <label htmlFor="metodo">
