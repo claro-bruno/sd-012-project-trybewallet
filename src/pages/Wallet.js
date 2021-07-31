@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
+import ExpensesForm from '../components/ExpensesForm';
 
 class Wallet extends React.Component {
   render() {
@@ -9,6 +10,9 @@ class Wallet extends React.Component {
     return (
       <section>
         <Header myUserState={ myUserState } />
+        <form>
+          <ExpensesForm />
+        </form>
       </section>
     );
   }

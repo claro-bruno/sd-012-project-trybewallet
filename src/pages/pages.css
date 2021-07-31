@@ -38,3 +38,10 @@
   display: flex;
   gap: 10px;
 }
+
+.form-expenses {
+  align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-evenly;
+}
