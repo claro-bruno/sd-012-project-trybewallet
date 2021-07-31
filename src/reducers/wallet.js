@@ -1,5 +1,5 @@
-// import { SET_LOGIN_VALUE } from "../actions";
-// Esse reducer será responsável por tratar as informações da pessoa usuária
+import { REQUEST_CURRENCIES, GET_CURRENCIES } from '../actions';
+
 const ESTADO_INICIAL = {
   wallet: {
     currencies: [],
@@ -7,6 +7,15 @@ const ESTADO_INICIAL = {
   },
 };
 
-const wallet = (state = ESTADO_INICIAL) => (state);
+const wallet = (state = ESTADO_INICIAL, action) => {
+  switch (action.type) {
+  case REQUEST_CURRENCIES:
+    return { ...state };
+  case GET_CURRENCIES:
+    return { ...state, currencies: action.value };
+  default:
+    return state;
+  }
+};
 
 export default wallet;
