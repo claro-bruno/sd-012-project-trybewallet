@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../components/standart/Header';
 import InputValor from '../components/WalletControlled/InputValor';
 import InputDescricao from '../components/WalletControlled/InputDescricao';
+import SelectMoeda from '../components/WalletControlled/SelectMoeda';
 
 class Wallet extends React.Component {
   constructor() {
@@ -12,6 +13,7 @@ class Wallet extends React.Component {
     this.state = {
       expenseAmount: 0,
       descricao: '',
+      currency: '',
     };
   }
 
@@ -28,7 +30,7 @@ class Wallet extends React.Component {
 
   render() {
     const {
-      state: { expenseAmount, descricao },
+      state: { expenseAmount, descricao, currency },
       handleChange,
     } = this;
 
@@ -42,6 +44,10 @@ class Wallet extends React.Component {
           />
           <InputDescricao
             value={ descricao }
+            handleChange={ handleChange }
+          />
+          <SelectMoeda
+            value={ currency }
             handleChange={ handleChange }
           />
         </form>
