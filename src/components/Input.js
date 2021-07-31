@@ -11,6 +11,7 @@ class Input extends React.Component {
       placeHolder,
       name,
       id,
+      className,
     } = this.props;
 
     return (
@@ -22,6 +23,7 @@ class Input extends React.Component {
         value={ value }
         onChange={ onChange }
         id={ id }
+        className={ className }
       />
     );
   }
@@ -33,6 +35,7 @@ Input.defaultProps = {
   testID: '',
   placeHolder: '',
   name: '',
+  className: '',
 };
 
 Input.propTypes = {
@@ -43,6 +46,7 @@ Input.propTypes = {
   placeHolder: PropTypes.string,
   name: PropTypes.string,
   id: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default Input;

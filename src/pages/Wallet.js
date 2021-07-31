@@ -6,22 +6,23 @@ import './wallet.css';
 class Wallet extends React.Component {
   renderForm() {
     return (
-      <form>
+      <form className="form-section">
         <label htmlFor="value-id">
           Valor:
           <input
-            type="text"
+            type="number"
             id="value-id"
             name="value"
+            className="form-item"
           />
         </label>
         <label htmlFor="currency-id">
           Moeda:
-          <select aria-label="Moeda" id="currency-id" />
+          <select className="form-item-currency" aria-label="Moeda" id="currency-id" />
         </label>
         <label htmlFor="method-id">
           Método de pagamento:
-          <select id="method-id">
+          <select className="form-item" id="method-id">
             <option>Dinheiro</option>
             <option>Cartão de crédito</option>
             <option>Cartão de débito</option>
@@ -29,7 +30,7 @@ class Wallet extends React.Component {
         </label>
         <label htmlFor="tag-id">
           Tag:
-          <select id="tag-id">
+          <select className="form-item" id="tag-id">
             <option>Alimentação</option>
             <option>Lazer</option>
             <option>Trabalho</option>
@@ -43,6 +44,7 @@ class Wallet extends React.Component {
             type="text"
             id="description-id"
             name="description"
+            className="form-item"
           />
         </label>
       </form>

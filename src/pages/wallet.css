@@ -7,7 +7,6 @@
 
 .header-section h1 {
   font-size: 30px;
-  text-shadow: 4px 4px 3px rgba(56, 56, 56, 0.5);
 }
 
 .header-info-section {
@@ -25,4 +24,25 @@
 
 .expense-info p {
   margin-left: 5px;
+}
+
+.form-section {
+  align-items: center;
+  background-color: rgb(43, 43, 43);
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+.form-item {
+  height: 30px;
+  margin-left: 10px;
+  width: 150px;
+}
+
+.form-item-currency {
+  height: 30px;
+  margin-left: 10px;
+  width: 60px;
 }
