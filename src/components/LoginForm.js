@@ -10,11 +10,11 @@ class LoginForm extends React.Component {
     super(props);
     this.state = {
       email: '',
-      password: '',
+      senha: '',
     };
 
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
-    this.handleChangePassword = this.handleChangePassword.bind(this);
+    this.handleChangeSenha = this.handleChangeSenha.bind(this);
     this.validateEmail = this.validateEmail.bind(this);
   }
 
@@ -24,16 +24,16 @@ class LoginForm extends React.Component {
     });
   }
 
-  handleChangePassword(e) {
+  handleChangeSenha(e) {
     this.setState({
-      password: e.target.value,
+      senha: e.target.value,
     });
   }
 
   validateEmail(email, password) {
     const re = /\S+@\S+\.\S+/;
     const NUMBER_SIX = 6;
-    if (re.test(email) && password.length > NUMBER_SIX) {
+    if (re.test(email) && password.length >= NUMBER_SIX) {
       return true;
     }
     return false;
@@ -41,7 +41,7 @@ class LoginForm extends React.Component {
 
   render() {
     const { emailDispatch } = this.props;
-    const { email, password } = this.state;
+    const { email, senha } = this.state;
 
     return (
       <div>
@@ -58,16 +58,16 @@ class LoginForm extends React.Component {
             </Form.Group>
             <Form.Group controlId="formBasicPassword">
               <Form.Control
-                name="password"
-                type="password"
-                placeholder="Password"
+                name="senha"
+                type="senha"
+                placeholder="senha"
                 data-testid="password-input"
-                onChange={ this.handleChangePassword }
+                onChange={ this.handleChangeSenha }
               />
             </Form.Group>
             <Link to="/wallet">
               <Button
-                disabled={ !this.validateEmail(email, password) }
+                disabled={ !this.validateEmail(email, senha) }
                 variant="primary"
                 type="button"
                 onClick={ emailDispatch(email) }
