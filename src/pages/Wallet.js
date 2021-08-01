@@ -11,9 +11,10 @@ class Wallet extends React.Component {
   constructor() {
     super();
     this.state = {
-      valor: '',
-      coin: 'USD',
-      payment: 'Dinheiro',
+      id: 0,
+      value: '',
+      currency: 'USD',
+      method: 'Dinheiro',
       description: '',
       tag: 'Alimentação',
       exchangeRates: {},
@@ -39,14 +40,15 @@ class Wallet extends React.Component {
     await this.getCurrentQuote();
     const { sendValues } = this.props;
     sendValues(this.state);
-    this.setState({
-      valor: '',
-      coin: 'USD',
-      payment: 'Dinheiro',
+    this.setState(({ id }) => ({
+      id: id + 1,
+      value: '',
+      currency: 'USD',
+      method: 'Dinheiro',
       description: '',
       tag: 'Alimentação',
       exchangeRates: {},
-    });
+    }));
   }
 
   handleChange({ target }) {
@@ -58,30 +60,30 @@ class Wallet extends React.Component {
 
   render() {
     const { currencies } = this.props;
-    const { valor, coin, payment, description, tag } = this.state;
+    const { valor, currency, method, description, tag } = this.state;
     return (
       <div>
         <form>
           <Header />
           <Input
-            name="valor"
+            name="value"
             text="Valor"
             handleChange={ this.handleChange }
             value={ valor }
           />
           <Select
-            name="coin"
+            name="currency"
             text="Moeda"
             content={ currencies }
             handleChange={ this.handleChange }
-            value={ coin }
+            value={ currency }
           />
           <Select
-            name="payment"
+            name="method"
             text="Método de Pagamento"
             content={ PAYMENT }
             handleChange={ this.handleChange }
-            value={ payment }
+            value={ method }
           />
           <Input
             name="description"
