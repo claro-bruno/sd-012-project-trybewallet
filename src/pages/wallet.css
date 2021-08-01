@@ -25,6 +25,7 @@ button:active {
 }
 
 .logo-wallet {
+  filter: contrast(150%);
   max-height: 90%;
   max-width: 10vw;
 }

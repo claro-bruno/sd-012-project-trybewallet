@@ -27,6 +27,7 @@
 }
 
 .logo-login {
+  filter: contrast(150%);
   max-width: 15vw;
 }
 

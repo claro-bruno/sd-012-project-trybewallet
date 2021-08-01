@@ -1,9 +1,8 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { loginAction } from '../actions';
-import trybeWalletLogo from '../images/logo-trybe-wallet.png';
+import trybeWallet from '../images/trybe-wallet.gif';
 import './login.css';
 
 const EMAIL_REGEX = /^(\.|-|_|[a-z]|\d)+@([a-z]|\d)+\.[a-z]{2,3}(\.[a-z]{2})?$/;
@@ -16,7 +15,6 @@ class Login extends React.Component {
       email: '',
       password: '',
       isValid: false,
-      redirect: false,
     };
 
     this.isValid = this.isValid.bind(this);
@@ -35,9 +33,9 @@ class Login extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const { email } = this.state;
-    const { login } = this.props;
+    const { login, history: { push } } = this.props;
     login(email);
-    this.setState({ redirect: true });
+    push('/carteira');
   }
 
   handleChange({ target: { name, value } }) {
@@ -50,7 +48,7 @@ class Login extends React.Component {
       <fieldset>
         <img
           className="logo-login"
-          src={ trybeWalletLogo }
+          src={ trybeWallet }
           alt="trybe-wallet-logo"
         />
         <div className="fields-content">
@@ -90,8 +88,6 @@ class Login extends React.Component {
   }
 
   render() {
-    const { redirect } = this.state;
-    if (redirect) return <Redirect to="/carteira" />;
     return (
       <div className="login-page">
         <form className="login-form" method="get">
@@ -108,6 +104,9 @@ const mapDispatchToProps = (dispatch) => ({
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Login);

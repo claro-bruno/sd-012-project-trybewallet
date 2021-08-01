@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import trybeWalletLogo from '../images/logo-trybe-wallet.png';
+import trybeWalletLogo from '../images/trybe-wallet.gif';
 
 class HeaderWallet extends React.Component {
   render() {
