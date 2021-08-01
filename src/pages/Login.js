@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import './Login.css';
 import Input from '../components/Input';
 import { userAction } from '../actions';
 
