@@ -44,7 +44,6 @@ class Login extends React.Component {
   render() {
     const { handleChange, btnClick } = this;
     const { emailInput, passwordInput, disableBtn, redirect } = this.state;
-    console.log(this.props);
     return (
       <div>
         { redirect && <Redirect to="/carteira" />}
