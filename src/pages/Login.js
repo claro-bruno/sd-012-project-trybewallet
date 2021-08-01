@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { getUserEmail } from '../redux/actions';
 // import './Login.css'
 
@@ -9,9 +9,10 @@ class Login extends React.Component {
   constructor() {
     super();
     this.state = {
-      inputEmail: '',
-      inputPassword: '',
+      emailInput: '',
+      passwordInput: '',
       disableBtn: true,
+      redirect: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.btnStats = this.btnStats.bind(this);
@@ -25,38 +26,41 @@ class Login extends React.Component {
   }
 
   btnStats() {
-    const { inputEmail, inputPassword, disableBtn } = this.state;
+    const { emailInput, passwordInput, disableBtn } = this.state;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const minPasswordL = 6;
-    const disable = !(emailRegex.test(inputEmail)
-    && inputPassword.length >= minPasswordL);
+    const minPasswordLenght = 6;
+    const disable = !(emailRegex.test(emailInput)
+      && passwordInput.length >= minPasswordLenght);
     if (disableBtn !== disable) this.setState({ disableBtn: disable });
   }
 
   btnClick() {
     const { emailInput } = this.state;
-    getUserEmail(emailInput);
-    return (<Redirect to="/carteira" />);
+    const { getUser } = this.props;
+    getUser(emailInput);
+    this.setState({ redirect: true });
   }
 
   render() {
     const { handleChange, btnClick } = this;
-    const { inputEmail, inputPassword, disableBtn } = this.state;
+    const { emailInput, passwordInput, disableBtn, redirect } = this.state;
+    console.log(this.props);
     return (
       <div>
+        { redirect && <Redirect to="/carteira" />}
         <h1>LOGIN</h1>
         <input
           type="text"
-          name="inputEmail"
-          value={ inputEmail }
+          name="emailInput"
+          value={ emailInput }
           placeholder="E-MAIL DO USUÁRIO"
           data-testid="email-input"
           onChange={ handleChange }
         />
         <input
-          type="text"
-          name="inputPassword"
-          value={ inputPassword }
+          type="password"
+          name="passwordInput"
+          value={ passwordInput }
           placeholder="SENHA"
           data-testid="password-input"
           onChange={ handleChange }
@@ -73,8 +77,12 @@ class Login extends React.Component {
   }
 }
 
+Login.propTypes = {
+  getUser: PropTypes.func.isRequired,
+};
+
 const mapDispatchToProps = (dispatch) => ({
-  getUser: (user) => dispatch(getUserEmail(user)),
+  getUser: (email) => dispatch(getUserEmail(email)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);

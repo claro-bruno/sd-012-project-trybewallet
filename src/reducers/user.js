@@ -7,7 +7,7 @@ const INTIIAL_STATE = {
 const users = (state = INTIIAL_STATE, action) => {
   switch (action.type) {
   case GET_USER_EMAIL:
-    return { user: { email: action.email } };
+    return { email: action.email };
 
   default:
     return state;

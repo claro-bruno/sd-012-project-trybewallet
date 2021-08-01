@@ -1,6 +1,6 @@
 import { GET_USER_EMAIL, GET_CURRENCY_DATA } from './actionTypes';
 
-export const getUserEmail = (user) => ({ type: GET_USER_EMAIL, user });
+export const getUserEmail = (email) => ({ type: GET_USER_EMAIL, email });
 
 export const getCurrencyData = (currency) => ({
   type: GET_CURRENCY_DATA,
