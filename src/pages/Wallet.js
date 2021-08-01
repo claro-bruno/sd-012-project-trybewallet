@@ -18,11 +18,13 @@ class Wallet extends React.Component {
       description: '',
       tag: 'Alimentação',
       exchangeRates: {},
+      totalExpense: 0,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.getCurrentQuote = this.getCurrentQuote.bind(this);
     this.getStateValues = this.getStateValues.bind(this);
+    this.sumExpenses = this.sumExpenses.bind(this);
   }
 
   componentDidMount() {
@@ -39,16 +41,18 @@ class Wallet extends React.Component {
   async getStateValues() {
     await this.getCurrentQuote();
     const { sendValues } = this.props;
-    sendValues(this.state);
-    this.setState(({ id }) => ({
-      id: id + 1,
-      value: '',
+    const { id, value, currency, method, description, tag, exchangeRates } = this.state;
+    sendValues({ id, value, currency, method, description, tag, exchangeRates });
+    this.setState((oldState) => ({
+      id: oldState.id + 1,
+      value: 0,
       currency: 'USD',
       method: 'Dinheiro',
       description: '',
       tag: 'Alimentação',
       exchangeRates: {},
     }));
+    this.sumExpenses();
   }
 
   handleChange({ target }) {
@@ -58,18 +62,28 @@ class Wallet extends React.Component {
     });
   }
 
+  sumExpenses() {
+    const { expenses } = this.props;
+    const expense = expenses.reduce((acc, { value, currency, exchangeRates }) => {
+      const bill = value * (exchangeRates[currency].ask);
+      acc += bill;
+      return acc;
+    }, 0);
+    return this.setState(({ totalExpense: expense }));
+  }
+
   render() {
     const { currencies } = this.props;
-    const { valor, currency, method, description, tag } = this.state;
+    const { value, currency, method, description, tag, totalExpense } = this.state;
     return (
       <div>
         <form>
-          <Header />
+          <Header totalExpense={ totalExpense } />
           <Input
             name="value"
             text="Valor"
             handleChange={ this.handleChange }
-            value={ valor }
+            value={ value }
           />
           <Select
             name="currency"
@@ -112,10 +126,12 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
 });
 
 Wallet.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.obj).isRequired,
   sendValues: PropTypes.func.isRequired,
   setCoins: PropTypes.func.isRequired,
 };

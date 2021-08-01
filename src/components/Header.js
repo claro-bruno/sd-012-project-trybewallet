@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 class Header extends React.Component {
   render() {
-    const { userEmail } = this.props;
+    const { userEmail, totalExpense } = this.props;
     return (
       <header>
         <p data-testid="email-field">
@@ -13,8 +13,8 @@ class Header extends React.Component {
         </p>
         <p data-testid="total-field">
           Despesa Total:
-          0
           <span data-testid="header-currency-field">
+            { totalExpense }
             BRL
           </span>
         </p>
@@ -29,6 +29,7 @@ const mapStateToProps = (state) => ({
 
 Header.propTypes = {
   userEmail: PropTypes.string.isRequired,
+  totalExpense: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps)(Header);
