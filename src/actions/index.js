@@ -17,4 +17,4 @@ export const requestCurrenciesIISuccess = (payload) => ({
   type: REQUEST_CURRENCIESII_SUCCESS, payload,
 });
 
-export const requesCurrenciesIIError = ({ type: REQUEST_CURRENCIESII_ERROR });
+export const requestCurrenciesIIError = ({ type: REQUEST_CURRENCIESII_ERROR });

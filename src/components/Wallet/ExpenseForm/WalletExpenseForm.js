@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { func } from 'prop-types';
 import ExpenseValueInput from './ExpenseValueInput';
 import ExpenseDescriptionInput from './ExpenseDescriptionInput';
 import ExpenseCurrencyInput from './ExpenseCurrencyInput';
 import ExpensePaymentMethodInput from './ExpensePaymentMethodInput';
 import ExpenseTag from './ExpenseTag';
 import AddExpenseButton from './AddExpenseButton';
+import fetchCurrenciesForExpenses from '../../../fetchs/fetchCurrenciesForExpenses';
 
 class WalletExpenseForm extends Component {
   constructor(props) {
@@ -12,6 +15,7 @@ class WalletExpenseForm extends Component {
     this.state = {
     };
     this.handleChange = this.handleChange.bind(this);
+    this.storeData = this.storeData.bind(this);
   }
 
   handleChange({ target }) {
@@ -19,6 +23,12 @@ class WalletExpenseForm extends Component {
     this.setState({
       [name]: value,
     });
+  }
+
+  storeData() {
+    const { state } = this;
+    const { storeExpenseData } = this.props;
+    storeExpenseData(state);
   }
 
   render() {
@@ -39,10 +49,20 @@ class WalletExpenseForm extends Component {
         <ExpenseTag
           handleChange={ this.handleChange }
         />
-        <AddExpenseButton />
+        <AddExpenseButton
+          storeDataFunc={ this.storeData }
+        />
       </form>
     );
   }
 }
 
-export default WalletExpenseForm;
+WalletExpenseForm.propTypes = {
+  storeExpenseData: func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  storeExpenseData: (data) => dispatch(fetchCurrenciesForExpenses(data)),
+});
+
+export default connect(null, mapDispatchToProps)(WalletExpenseForm);

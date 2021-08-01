@@ -22,7 +22,12 @@ function walletReducer(state = INITIAL_STATE, action) {
     return { ...state, error: 'Erro ao obter currencies' };
 
   case REQUEST_CURRENCIESII_SUCCESS:
-    return { ...state, expenses: [...state.expenses, action.payload], error: '' };
+    return {
+      ...state,
+      expenses: [
+        ...state.expenses, { id: state.expenses.length, ...action.payload },
+      ],
+      error: '' };
 
   case REQUEST_CURRENCIESII_ERROR:
     return { ...state, error: 'Erro ao obter currencies' };
