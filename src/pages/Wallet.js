@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Input from '../components/Input';
 import Select from '../components/Select';
+import Table from '../components/Table';
 import { TAGS, PAYMENT } from '../data';
 import { fetchCoins, sendValuesToStore } from '../actions';
 
@@ -114,6 +115,7 @@ class Wallet extends React.Component {
           />
           <button type="button" onClick={ this.getStateValues }>Adicionar Despesa</button>
         </form>
+        <Table />
       </div>
     );
   }
