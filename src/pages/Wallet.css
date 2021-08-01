@@ -53,6 +53,45 @@ header p {
   border: 1px black solid;
 }
 
+.value-input {
+  width: 100px;
+}
+
+.description-input {
+  width: 400px;
+}
+
+.edit-form {
+  background-color: #41A3B3;
+  display: flex;
+  color: white;
+  padding: 20px;
+}
+
+.edit-form label {
+  margin-right: 15px;
+}
+
+.edit-form input, select {
+  background-color: white;
+  border-radius: 4px;
+  margin: 5px;
+  padding: 5px 10px;
+}
+
+.edit-form button {
+  background-color: #E8A87C;
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left:  auto;
+  padding: 10px 30px;
+}
+
+.edit-form button:hover {
+  border: 1px black solid;
+}
+
 table {
   background-color: black;
   border: 1px solid black;
@@ -83,4 +122,22 @@ td {
   background-color: gainsboro;
   padding: 7px;
   text-align: center;
+}
+
+.edit-button {
+  background-color: orange;
+  border: 0;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  padding: 5px 20px;
+}
+
+.delete-button {
+  background-color: red;
+  border: 0;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  padding: 5px 20px;
 }

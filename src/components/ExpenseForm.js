@@ -37,6 +37,7 @@ class ExpenseForm extends React.Component {
           label="Valor"
           type="number"
           name="valor"
+          clss="value-input"
         />
         <Select
           label="Moeda"
@@ -57,6 +58,7 @@ class ExpenseForm extends React.Component {
           label="Descrição"
           type="text"
           name="descricao"
+          clss="description-input"
         />
         <Button
           text="Adicionar despesa"

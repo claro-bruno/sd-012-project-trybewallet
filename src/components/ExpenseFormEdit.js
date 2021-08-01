@@ -31,12 +31,13 @@ class ExpenseFormEdit extends React.Component {
   render() {
     const { currencies } = this.props;
     return (
-      <form>
+      <form className="edit-form">
         <Input
           label="Valor"
           type="text"
           name="valor"
           testId="value-input"
+          clss="value-input"
         />
         <Select
           label="Moeda"
@@ -61,6 +62,7 @@ class ExpenseFormEdit extends React.Component {
           type="text"
           name="descricao"
           testId="description-input"
+          clss="description-input"
         />
         <Button
           text="Editar despesa"
