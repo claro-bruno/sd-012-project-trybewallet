@@ -37,6 +37,13 @@ const addEditedExpense = (expenses, payload, id) => {
   return expenses;
 };
 
+const editPlusDelete = (editing, id) => {
+  if (editing === id) {
+    return 'none';
+  }
+  return editing;
+};
+
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case 'REQUEST_CURRENCIES':
@@ -54,6 +61,7 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       expenses: state.expenses.filter((expense) => expense.id !== action.id),
+      editing: editPlusDelete(state.editing, action.id),
     };
   case 'TOGGLE_EDIT':
     return { ...state, editing: action.id };
