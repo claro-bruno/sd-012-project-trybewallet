@@ -97,3 +97,9 @@ code {
   color: white;
   margin-left: 30px;
 }
+
+.btn-add:hover {
+  box-shadow: 3px 3px 22px 0px rgba(255,254,254,0.75);
+-webkit-box-shadow: 3px 3px 22px 0px rgba(255,254,254,0.75);
+-moz-box-shadow: 3px 3px 22px 0px rgba(255,254,254,0.75);
+}
