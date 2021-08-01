@@ -32,7 +32,7 @@ class Login extends React.Component {
     const emailPattern = /^[a-z0-9_.-]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/;
     this.setState({
       emailInputText: event.target.value,
-      emailIsValid: emailPattern.test(String(event.target.value)),
+      emailIsValid: emailPattern.test(event.target.value),
     }, () => (this.checkEnableSubmit()));
   }
 
