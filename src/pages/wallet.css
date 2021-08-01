@@ -19,6 +19,6 @@ header {
   background-color: rgb(238, 236, 236);
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-around;
   height: 90px;
+  justify-content: space-around;
 }
