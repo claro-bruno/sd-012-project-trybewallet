@@ -3,15 +3,15 @@ body {
   justify-content: center;
 }
 
-#login-form {
+.login-form {
+  align-items: center;
+  border: 5px solid black;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  align-items: center;
-  border: 5px solid black;
+  margin-top: 80px;
   padding-bottom: 20px;
   width: 500px;
-  margin-top: 80px;
 }
 
 .login-label {
@@ -20,13 +20,13 @@ body {
 }
 
 .login-input {
-  margin-top: 10px;
   display: block;
+  margin-top: 10px;
 }
 
-#login-button {
-  width: 100px;
+.login-button {
   height: 30px;
   justify-self: center;
   margin-top: 10px;
+  width: 100px;
 }

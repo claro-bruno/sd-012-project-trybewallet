@@ -7,14 +7,8 @@ const INITIAL_STATE = {
   test: 0,
 };
 
-const prepareCurrencies = (payload) => {
-  const currencies = [];
-  const keys = Object.keys(payload).filter((key) => key !== 'USDT');
-  keys.forEach((key) => {
-    currencies.push(payload[key].code);
-  });
-  return currencies;
-};
+const prepareCurrencies = (payload) => Object.keys(payload)
+  .filter((key) => key !== 'USDT');
 
 const prepareExpenses = (expenses, payload, exchangeRates) => {
   if (expenses.length === 0) {
@@ -28,13 +22,13 @@ const prepareExpenses = (expenses, payload, exchangeRates) => {
 };
 
 const addEditedExpense = (expenses, payload, id) => {
-  const keys = Object.keys(payload);
-  const index = expenses
-    .findIndex((element) => element.id === id);
-  keys.forEach((key) => {
-    expenses[index][key] = payload[key];
+  const newExpenses = expenses.map((expense) => {
+    if (expense.id === id) {
+      return { id, ...payload, exchangeRates: expense.exchangeRates };
+    }
+    return expense;
   });
-  return expenses;
+  return newExpenses;
 };
 
 const editPlusDelete = (editing, id) => {

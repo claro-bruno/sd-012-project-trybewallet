@@ -55,7 +55,7 @@ class Login extends React.Component {
       return <Redirect to="/carteira" />;
     }
     return (
-      <form id="login-form">
+      <form className="login-form">
         <h2>Login</h2>
         <label className="login-label" htmlFor="email">
           E-mail
@@ -82,7 +82,7 @@ class Login extends React.Component {
           />
         </label>
         <button
-          id="login-button"
+          className="login-button"
           type="button"
           disabled={ !this.handleChecked() }
           onClick={ this.handleSubmit }
