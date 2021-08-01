@@ -4,6 +4,6 @@ import rootReducer from '../reducers';
 
 const extension = window.devToolsExtension() || ((f) => f);
 
-const store = createStore(rootReducer, compose(extension, applyMiddleware(thunk)));
+const store = createStore(rootReducer, compose(applyMiddleware(thunk), extension));
 
 export default store;
