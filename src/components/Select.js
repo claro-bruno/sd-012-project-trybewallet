@@ -19,24 +19,6 @@ class Select extends Component {
             {currentyCodes.map((code, index) => <option key={ index }>{ code }</option>)}
           </select>
         </label>
-        <label htmlFor="method-payment">
-          Método de pagamento
-          <select id="method-payment">
-            <option>Dinheiro</option>
-            <option>Cartão de crédito</option>
-            <option>Cartão de débito</option>
-          </select>
-        </label>
-        <label htmlFor="expenses">
-          tag
-          <select id="expenses">
-            <option>Alimentação</option>
-            <option>Lazer</option>
-            <option>Trabalho</option>
-            <option>Transporte</option>
-            <option>Saúde</option>
-          </select>
-        </label>
       </div>
     );
   }

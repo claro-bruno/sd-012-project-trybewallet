@@ -2,42 +2,70 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Select from '../components/Select';
+import InputDescrition from '../components/InputDescription';
+import InputExpense from '../components/InputExpense';
+import SelectPayment from '../components/SelectPayment';
+import InputTag from '../components/InputTag';
 
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      totalExpenses: 0,
+      total: 0,
+      value: '',
       current: 'BRL',
-      // currencies: [],
-      // expenses: [],
+      description: '',
+      // currency: '',
+      // method: '',
+      // tag: '',
+      // exchangeRates: '',
     };
+  }
+
+  handleChange(e) {
+    const { name, value } = e.target;
+    this.setState({
+      [name]: value,
+    });
   }
 
   render() {
     const { userEmail } = this.props; // vem do Provider ou connect
-    const { totalExpenses, current } = this.state;
+    const {
+      total,
+      value,
+      current,
+      description,
+      // currency,
+      // method,
+      // tag,
+    } = this.state;
     return (
       <section>
         <header>
           <span>
-            <p data-testid="email-field">{userEmail}</p>
-            <p data-testid="total-field">{totalExpenses}</p>
-            <p data-testid="header-currency-field">{current}</p>
+            <p data-testid="email-field">{ `Email: ${userEmail}` }</p>
+            <p data-testid="total-field">{`Valor: ${total}`}</p>
+            <p data-testid="header-currency-field">
+              { `Moeda: ${current}` }
+            </p>
           </span>
         </header>
         <section>
           <form>
-            <label htmlFor="value-expenses">
-              Valor
-              <input id="value-expenses" />
-            </label>
-            <label htmlFor="description">
-              Descrição
-              <input id="description" />
-            </label>
+            <InputExpense
+              value={ value }
+              onChange={ this.handleChange }
+            />
+            <InputDescrition
+              value={ description }
+              onChange={ this.handleChange }
+            />
             <Select />
+            <InputTag />
+            <SelectPayment />
+            <button type="submit">Adicionar despesa</button>
           </form>
         </section>
       </section>
