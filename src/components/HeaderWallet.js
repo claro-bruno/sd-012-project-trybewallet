@@ -34,13 +34,12 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-// HeaderWallet.defaultProps = {
-//   email: '',
-//   expenses: '0',
-// };
+HeaderWallet.defaultProps = {
+  email: '',
+};
 
 HeaderWallet.propTypes = {
-  email: string.isRequired,
+  email: string,
   expenses: arrayOf(
     shape({
       id: number,
