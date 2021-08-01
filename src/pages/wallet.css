@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+}
+
+header {
+  background-color: #fffffe;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.logo {
+  font-size: 20px;
+  margin-left: 16px;
+}
+
+.user-info {
+  display: flex;
+  margin-right: 16px;
+}
+
+.user-info .user-email {
+  margin-right: 16px;
+}
+
+.user-info p {
+  margin: 0 6px;
+}
