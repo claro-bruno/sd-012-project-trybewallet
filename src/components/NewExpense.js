@@ -8,14 +8,28 @@ class NewExpense extends React.Component {
     super(props);
 
     this.state = {
+      currencies: [],
       value: '',
       description: '',
-      currency: '',
+      currency: 'USD',
       payment: 'Dinheiro',
       tag: 'Alimentação',
     };
 
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchCurrency();
+  }
+
+  async fetchCurrency() {
+    const endpoint = 'https://economia.awesomeapi.com.br/json/all';
+    const response = await fetch(endpoint);
+    const data = await response.json();
+    const currencies = Object.keys(data)
+      .filter((currency) => currency !== 'USDT');
+    this.setState({ currencies });
   }
 
   handleChange({ target }) {
@@ -56,6 +70,7 @@ class NewExpense extends React.Component {
 
   renderSelects() {
     const {
+      currencies,
       currency,
       payment,
       tag,
@@ -64,7 +79,7 @@ class NewExpense extends React.Component {
     return (
       <div>
         <Select
-          options={ [] }
+          options={ currencies }
           labelText="Moeda:"
           name="currency"
           value={ currency }
