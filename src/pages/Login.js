@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Input from '../components/Input';
@@ -10,6 +11,7 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
+      shouldRedirect: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -26,10 +28,18 @@ class Login extends Component {
     const { email } = this.state;
     const { userStateToRedux } = this.props;
     userStateToRedux(email);
+    this.setState({
+      shouldRedirect: true,
+    });
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, shouldRedirect } = this.state;
+    const pwLength = 6;
+    const emailFirstValidation = !email.includes('@');
+    const emailSecondValidation = !email.includes('.');
+    const emailThirdValidation = !email.includes('com');
+
     return (
       <main id="mainSection">
         <form id="loginForm">
@@ -54,8 +64,16 @@ class Login extends Component {
             onChange={ this.handleChange }
           />
           <div>
-            <button type="button" onClick={ this.handleClick }>Entrar</button>
+            <button
+              type="button"
+              onClick={ this.handleClick }
+              disabled={ password.length < pwLength
+                || emailFirstValidation || emailSecondValidation || emailThirdValidation }
+            >
+              Entrar
+            </button>
           </div>
+          { shouldRedirect ? <Redirect to="/carteira" /> : null }
         </form>
       </main>
     );
