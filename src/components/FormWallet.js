@@ -77,6 +77,7 @@ class FormWallet extends React.Component {
             <option value="Saúde">Saúde</option>
           </select>
         </label>
+        <button type="button">Adicionar despesa</button>
       </form>
     );
   }
