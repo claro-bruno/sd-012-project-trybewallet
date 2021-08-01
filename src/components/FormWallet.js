@@ -33,6 +33,7 @@ class FormWallet extends React.Component {
   render() {
     const { currencies } = this.props;
     const { valor, descricao, moeda, metodo, categoria } = this.state;
+    const categorias = ['Alimentação', 'Laser', 'Trabalho', 'Transporte', 'Saúde'];
     return (
       <form>
         <label htmlFor="valor">
@@ -70,11 +71,7 @@ class FormWallet extends React.Component {
         <label htmlFor="categoria">
           Tag
           <select name="categoria" value={ categoria } onChange={ this.handleChange }>
-            <option value="Alimentação">Alimentação</option>
-            <option value="Lazer">Lazer</option>
-            <option value="Trabalho">Trabalho</option>
-            <option value="Transporte">Transporte</option>
-            <option value="Saúde">Saúde</option>
+            { categorias.map((e) => <option value={ e } key={ e }>{ e }</option>) }
           </select>
         </label>
         <button type="button">Adicionar despesa</button>
