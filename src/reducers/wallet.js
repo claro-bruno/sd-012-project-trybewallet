@@ -11,6 +11,7 @@ import {
 import {
   addExpense,
   removeExpense,
+  getExpenseEditable,
   saveEditedExpense,
 } from '../helpers/handleExpense';
 
@@ -21,7 +22,7 @@ const INITIAL_STATE = {
   failed: false,
   error: '',
   edit: false,
-  idExpense: undefined,
+  expenseEdit: {},
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -55,13 +56,16 @@ const wallet = (state = INITIAL_STATE, action) => {
       expenses: [...removeExpense(state.expenses, action.id)],
     };
   case EXPENSE_EDIT:
-    return { ...state, edit: true, idExpense: action.id };
+    return {
+      ...state,
+      edit: true,
+      expenseEdit: { ...getExpenseEditable(state.expenses, action.id) } };
   case SAVE_EDITED_EXPENSE:
     return {
       ...state,
       expenses: [...saveEditedExpense(state.expenses, action.expense)],
       edit: false,
-      idExpense: undefined,
+      expenseEdit: {},
     };
   default:
     return state;

@@ -5,6 +5,7 @@ class Select extends Component {
   render() {
     const {
       id,
+      dataTestId,
       name,
       classNameLabel,
       classNameSelect,
@@ -23,6 +24,7 @@ class Select extends Component {
         { textLabel }
 
         <select
+          data-testid={ dataTestId }
           id={ id }
           name={ name }
           value={ value }
@@ -43,6 +45,7 @@ class Select extends Component {
 
 Select.propTypes = {
   id: PropTypes.string.isRequired,
+  dataTestId: PropTypes.string,
   name: PropTypes.string,
   classNameLabel: PropTypes.string,
   classNameSelect: PropTypes.string,
@@ -53,6 +56,7 @@ Select.propTypes = {
 };
 
 Select.defaultProps = {
+  dataTestId: '',
   name: '',
   classNameLabel: '',
   classNameSelect: '',

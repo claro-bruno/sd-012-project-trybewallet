@@ -2,21 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import headerTable from '../helpers/headerTable';
-import { expenseRemove } from '../actions/index';
+import { expenseRemove, expenseEdit } from '../actions/index';
 
 class ExpenseTable extends React.Component {
-  handleRemove(id) {
-    const { deleteExpense } = this.props;
-    deleteExpense(id);
-  }
-
-  renderEditTrashBtn(id) {
+  renderEditAndTrashBtn(id) {
+    const { deleteExpense, editExpense, edit } = this.props;
     return (
       <td>
         <button
           className="edit-expense"
+          data-testid="edit-btn"
           type="button"
-          onClick={ () => {} }
+          onClick={ () => { editExpense(id); } }
+          disabled={ edit }
         >
           <i className="bi bi-pencil-square" />
         </button>
@@ -24,7 +22,7 @@ class ExpenseTable extends React.Component {
           className="delete-expense"
           data-testid="delete-btn"
           type="button"
-          onClick={ () => { this.handleRemove(id); } }
+          onClick={ () => { deleteExpense(id); } }
         >
           <i className="bi bi-trash" />
         </button>
@@ -59,10 +57,7 @@ class ExpenseTable extends React.Component {
                 </td>
                 <td>{ exchangeRates[currency].name }</td>
                 <td>
-                  {Math
-                    .round(
-                      (Number(exchangeRates[currency].ask) + Number.EPSILON) * 100,
-                    ) / 100 }
+                  {Number(exchangeRates[currency].ask).toFixed(2) }
                 </td>
                 <td>
                   {Math
@@ -71,7 +66,7 @@ class ExpenseTable extends React.Component {
                     ) + Number.EPSILON) * 100) / 100 }
                 </td>
                 <td>Real</td>
-                {this.renderEditTrashBtn(id)}
+                {this.renderEditAndTrashBtn(id)}
               </tr>
             )) }
         </tbody>
@@ -82,15 +77,23 @@ class ExpenseTable extends React.Component {
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
+  edit: state.wallet.edit,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   deleteExpense: (id) => dispatch(expenseRemove(id)),
+  editExpense: (id) => dispatch(expenseEdit(id)),
 });
 
 ExpenseTable.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   deleteExpense: PropTypes.func.isRequired,
+  editExpense: PropTypes.func.isRequired,
+  edit: PropTypes.bool,
+};
+
+ExpenseTable.defaultProps = {
+  edit: false,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseTable);

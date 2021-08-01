@@ -8,8 +8,12 @@ export const removeExpense = (expenses, idExpense) => (
     .filter((expense) => expense.id !== idExpense)]
 );
 
+export const getExpenseEditable = (expenses, idExpense) => ({
+  ...expenses.find((expense) => expense.id === idExpense),
+});
+
 export const saveEditedExpense = (expenses, newExpense) => (
   [...expenses.map((expense) => (
-    expense.id === newExpense.id ? newExpense : expense
+    expense.id === newExpense.id ? { ...expense, ...newExpense } : expense
   ))]
 );
