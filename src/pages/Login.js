@@ -1,5 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { emailAction } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -18,6 +21,7 @@ class Login extends React.Component {
 
   componentDidUpdate() {
     this.activeButton();
+    this.makeProps();
   }
 
   handleChange({ target }) {
@@ -25,6 +29,13 @@ class Login extends React.Component {
     this.setState({
       [name]: value,
     });
+  }
+
+  makeProps() {
+    const { emailValue } = this.props;
+    const { email } = this.state;
+
+    emailValue(email);
   }
 
   activeButton() {
@@ -75,7 +86,6 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, password } = this.state;
     return (
       <div>
         <input
@@ -92,14 +102,25 @@ class Login extends React.Component {
           onChange={ (enteredPassword) => this.validateEntry(enteredPassword) }
         />
 
-        { email && password
+        <button disabled type="button">
+          <Link to="/carteira">ENTRAR</Link>
+        </button>
+        { /* { email && password
           ? (
             <button type="button">
-              <Link to="/wallet">ENTRAR</Link>
+              <Link to="/carteira">ENTRAR</Link>
             </button>)
-          : <button type="button" disabled>ENTRAR</button> }
+          : <button type="button" disabled>ENTRAR</button> } */ }
       </div>);
   }
 }
 
-export default Login;
+Login.propTypes = {
+  emailValue: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  emailValue: (value) => dispatch(emailAction(value)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
