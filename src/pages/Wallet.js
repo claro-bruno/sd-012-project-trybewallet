@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Input from '../components/Input';
 import SelectInput from '../components/SelectInput';
+import { fetchAPI } from '../actions';
 
 const CATEGORIES = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 const PAYMENT_METHOD = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
@@ -15,7 +16,6 @@ class Wallet extends React.Component {
       currency: 'BRL',
       exValue: '0',
       desc: '',
-      currencies: [],
       payment: '',
       category: '',
       expenseCurrency: '',
@@ -24,6 +24,11 @@ class Wallet extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.renderHeader = this.renderHeader.bind(this);
     this.renderForms = this.renderForms.bind(this);
+  }
+
+  componentDidMount() {
+    const { getCurrencies } = this.props;
+    getCurrencies();
   }
 
   handleChange(event) {
@@ -53,11 +58,11 @@ class Wallet extends React.Component {
     const {
       exValue,
       desc,
-      currencies,
       payment,
       category,
       expenseCurrency,
     } = this.state;
+    const { currencies } = this.props;
     return (
       <form>
         <Input name="exValue" value={ exValue } handleChange={ this.handleChange }>
@@ -106,10 +111,17 @@ class Wallet extends React.Component {
 
 const mapStateToProps = (state) => ({
   userEmail: state.user.email,
+  currencies: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getCurrencies: () => dispatch(fetchAPI()),
 });
 
 Wallet.propTypes = {
   userEmail: PropTypes.string.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  getCurrencies: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
