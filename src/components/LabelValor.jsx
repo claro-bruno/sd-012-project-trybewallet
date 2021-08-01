@@ -9,7 +9,7 @@ function LabelValor(props) {
       <input
         id="valor"
         type="text"
-        name="valor"
+        name="value"
         value={ value }
         onChange={ handleChange }
       />

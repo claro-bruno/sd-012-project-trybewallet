@@ -1,4 +1,4 @@
-import { EXPENSE_SUBMIT } from '../actions';
+import { EXPENSE_SUBMIT, EXPENSE_FAIL } from '../actions';
 
 const inicialState = {
   expenses: [],
@@ -7,7 +7,17 @@ const inicialState = {
 const wallet = (state = inicialState, action) => {
   switch (action.type) {
   case EXPENSE_SUBMIT:
-    return ({ expenses: [...action.state] });
+    return ({
+      ...state,
+      expenses: [
+        ...state.expenses,
+        { id: state.expenses.length, ...action.state },
+      ],
+    });
+
+  case EXPENSE_FAIL:
+    return { ...state, error: 'Ocorreu um erro' };
+
   default:
     return state;
   }
