@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import { actionOnChange } from '../actions';
+import image from '../images/wallet.png';
+import './Login.css';
 
 class Login extends React.Component {
   constructor(props) {
@@ -22,33 +24,36 @@ class Login extends React.Component {
   render() {
     const { email, senha, isValid } = this.props;
     return (
-      <div>
-        <img src="" alt="" />
-        <Input
-          label="Email"
-          type="text"
-          value={ email }
-          name="email"
-          onChange={ this.handleChange }
-          testId="email-input"
-        />
-        <Input
-          label="Senha"
-          type="text"
-          value={ senha }
-          name="senha"
-          onChange={ this.handleChange }
-          testId="password-input"
-        />
-        <Link to="/carteira">
-          <Button
-            text="Entrar"
-            name="login"
-            onClick={ () => {} }
-            isValid={ isValid }
+      <main className="main-container">
+        <h1>Trybe Wallet</h1>
+        <div className="login-container">
+          <img src={ image } alt="wallet pic" />
+          <Input
+            label="Email"
+            type="text"
+            value={ email }
+            name="email"
+            onChange={ this.handleChange }
+            testId="email-input"
           />
-        </Link>
-      </div>
+          <Input
+            label="Senha"
+            type="text"
+            value={ senha }
+            name="senha"
+            onChange={ this.handleChange }
+            testId="password-input"
+          />
+          <Link to="/carteira">
+            <Button
+              text="Entrar"
+              name="login"
+              onClick={ () => {} }
+              isValid={ isValid }
+            />
+          </Link>
+        </div>
+      </main>
     );
   }
 }
