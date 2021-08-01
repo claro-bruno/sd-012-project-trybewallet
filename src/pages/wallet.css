@@ -1,0 +1,18 @@
+#wallet-header {
+  background-color: rgb(113, 226, 215);
+}
+
+h1, h3 {
+  text-align: center;
+}
+
+h3 {
+  font-weight: 500;
+}
+
+header {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
