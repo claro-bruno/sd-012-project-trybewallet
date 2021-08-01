@@ -2,7 +2,6 @@ import USER from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   email: '',
-  password: '',
 };
 
 const user = (state = INITIAL_STATE, action) => {
@@ -10,7 +9,6 @@ const user = (state = INITIAL_STATE, action) => {
   case USER:
     return {
       email: action.state.email,
-      password: action.state.password,
     };
   default: return state;
   }

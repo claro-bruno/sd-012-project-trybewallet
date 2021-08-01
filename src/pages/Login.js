@@ -47,16 +47,14 @@ class Login extends React.Component {
 
   submitStore() {
     const { submit } = this.props;
-    const { email, password } = this.state;
+    const { email } = this.state;
     submit({
       email,
-      password,
     });
   }
 
   form(e) {
     e.preventDefault();
-    this.submitStore();
     this.setState({
       email: '',
       password: '',
@@ -89,6 +87,7 @@ class Login extends React.Component {
             <button
               type="submit"
               disabled={ !buttonOn }
+              onClick={ this.submitStore }
             >
               Entrar
             </button>
