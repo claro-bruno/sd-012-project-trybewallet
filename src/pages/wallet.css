@@ -8,19 +8,17 @@ h3 {
 
 header {
   align-items: center;
+  background-color: rgb(113, 226, 215);
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
-  background-color: rgb(113, 226, 215);
 }
 
 .wallet-form {
   align-items: center;
+  background-color: rgb(238, 236, 236);
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
-  background-color: rgb(238, 236, 236);
   height: 90px;
 }
-
-
