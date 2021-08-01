@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchApi } from '../actions';
 
 class ExpenseForm extends Component {
   constructor() {
@@ -8,6 +11,11 @@ class ExpenseForm extends Component {
     this.renderCurrencySelect = this.renderCurrencySelect.bind(this);
     this.renderPaymentMethod = this.renderPaymentMethod.bind(this);
     this.renderTagCategory = this.renderTagCategory.bind(this);
+  }
+
+  componentDidMount() {
+    const { getData } = this.props;
+    getData();
   }
 
   renderValueInput() {
@@ -29,11 +37,19 @@ class ExpenseForm extends Component {
   }
 
   renderCurrencySelect() {
+    const { getDataCurrencies } = this.props;
     return (
       <label htmlFor="input-select-currency">
         Moeda
         <select id="input-select-currency">
-          <option>teste</option>
+          { Object.keys(getDataCurrencies).map((currencies, index) => (
+            <option
+              key={ index }
+              value={ currencies }
+            >
+              { currencies }
+            </option>
+          )) }
         </select>
       </label>
     );
@@ -80,4 +96,17 @@ class ExpenseForm extends Component {
   }
 }
 
-export default ExpenseForm;
+const mapDispatchToProps = (dispatch) => ({
+  getData: (state) => dispatch(fetchApi(state)),
+});
+
+const mapStateToProps = (state) => ({
+  getDataCurrencies: state.wallet.currencies,
+});
+
+ExpenseForm.propTypes = {
+  getData: PropTypes.func.isRequired,
+  getDataCurrencies: PropTypes.shape().isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);
