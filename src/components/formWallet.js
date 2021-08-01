@@ -1,9 +1,16 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchCurrencies } from '../actions';
+import Currencies from './currencies';
 
 class FormWallet extends React.Component {
-  selectCurrencyFunction() {
+  componentDidMount() {
+    const { fetchApi } = this.props;
+    fetchApi();
+  }
+
+  selectCurrenciesFunction() {
     return (
       <label htmlFor="currency">
         Moeda:
@@ -14,7 +21,7 @@ class FormWallet extends React.Component {
           data-testid="currency-input"
           className="formInputs"
         >
-          <option value="valor1">Valor 1</option>
+          <Currencies />
         </select>
       </label>
     );
@@ -74,7 +81,7 @@ class FormWallet extends React.Component {
               id="value"
             />
           </label>
-          {this.selectCurrencyFunction()}
+          {this.selectCurrenciesFunction()}
           {this.selectPaymentFunction()}
           {this.selectTagFunction()}
           <label htmlFor="description">
@@ -93,4 +100,12 @@ class FormWallet extends React.Component {
   }
 }
 
-export default FormWallet;
+const mapDispatchToProps = (dispatch) => ({
+  fetchApi: () => dispatch(fetchCurrencies()),
+});
+
+export default connect(null, mapDispatchToProps)(FormWallet);
+
+FormWallet.propTypes = {
+  fetchApi: PropTypes.func.isRequired,
+};

@@ -1,30 +1,33 @@
+import { GET_CURRENCIES, GET_CURRENCIES_SUCCESS, GET_CURRENCIES_ERROR, GET_EMAIL }
+  from './actionTypes';
+
 export const RETURN_EMAIL = 'RETURN_EMAIL';
 
 export const loginAction = (payload) => ({
-  type: RETURN_EMAIL,
+  type: GET_EMAIL,
   payload,
 });
 
-export const getCurrencys = () => ({ type: GET_CURRENCIES });
+export const getCurrencies = () => ({ type: GET_CURRENCIES });
 
 export const getCurrenciesSuccess = (payload) => ({
   type: GET_CURRENCIES_SUCCESS,
   payload,
 });
 
-export const getCurrencysError = (error) => ({
+export const getCurrenciesError = (error) => ({
   type: GET_CURRENCIES_ERROR,
   error,
 });
 
-export const fetchAPI = () => async (dispatch) => {
-  dispatch(getCurrencys());
+export const fetchCurrencies = () => async (dispatch) => {
+  dispatch(getCurrencies());
   try {
     const endpoint = 'https://economia.awesomeapi.com.br/json/all';
     const data = await fetch(endpoint);
     const dataCurrencies = await data.json();
     dispatch(getCurrenciesSuccess(dataCurrencies));
-  } catch (err) {
-    dispatch(getCurrencysError(err));
+  } catch (error) {
+    dispatch(getCurrenciesError(error));
   }
 };
