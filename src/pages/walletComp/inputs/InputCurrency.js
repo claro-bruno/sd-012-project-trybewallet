@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default class InputMoney extends React.Component {
+export default class InputCurrency extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,13 +23,24 @@ export default class InputMoney extends React.Component {
 
   render() {
     const { moedas } = this.state;
+    const { currency, onChange } = this.props;
     return (
       <label htmlFor="coin">
         Moeda:
-        <select name="moeda" id="coin">
+        <select
+          name="currency"
+          id="coin"
+          value={ currency }
+          onChange={ onChange }
+        >
           { moedas.map((moeda) => <option key={ moeda }>{ moeda }</option>)}
         </select>
       </label>
     );
   }
 }
+
+InputCurrency.propTypes = {
+  currency: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};

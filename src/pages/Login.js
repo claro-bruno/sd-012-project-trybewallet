@@ -21,7 +21,7 @@ class Login extends React.Component {
   handleChange({ target }) {
     const { name, value } = target;
     this.setState({ [name]: value });
-    this.verifyLogin();
+    this.verifyLogin(name, value);
   }
 
   submit() {
@@ -31,12 +31,13 @@ class Login extends React.Component {
     this.setState({ shouldRedirect: true });
   }
 
-  verifyLogin() {
-    const { email, senha } = this.state;
+  verifyLogin(name, value) {
+    let { email, senha } = this.state;
     const regexEmail = /^[a-z0-9._]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/;
     const cinco = 5;
-    const test = regexEmail.test(email);
-    if (test && senha.length >= cinco) {
+    if (name === 'email') { email = value; }
+    if (name === 'password') { senha = value; }
+    if (regexEmail.test(email) && senha.length >= cinco) {
       this.setState({ disabled: false });
     } else {
       this.setState({ disabled: true });
