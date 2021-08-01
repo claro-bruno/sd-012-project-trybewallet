@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Proptypes from 'prop-types';
 import Header from '../components/Header';
+import NewExpense from '../components/NewExpense';
 
 class Wallet extends React.Component {
   render() {
@@ -13,6 +14,7 @@ class Wallet extends React.Component {
           total={ 0 }
           currency="BRL"
         />
+        <NewExpense />
       </div>
     );
   }
