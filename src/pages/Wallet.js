@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Header, Menu, Table } from '../components';
+import { Header } from '../components';
+import Menu from '../components/Menu';
+import Table from '../components/Table';
 // import { userInfo, walletInfo } from '../actions';
 import options from '../data';
 import './Wallet.css';
