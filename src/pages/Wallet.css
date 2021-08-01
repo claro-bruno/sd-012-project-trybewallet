@@ -1,3 +1,104 @@
 .wallet-container {
   display: flex;
+  flex-direction: column;
+}
+
+.header-container {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.wallet-logo {
+  margin: 0.5em 2em;
+  max-width: 15%;
+}
+
+.header-information {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 32em;
+}
+
+.menu-container {
+  align-items: center;
+  background-color: rgb(50, 55, 60);
+  color: rgb(210, 210, 210);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 0.5em;
+}
+
+.wallet-input {
+  color: rgb(145, 145, 145);
+  font-size: 14px;
+  font-weight: 600;
+  height: 1.5em;
+  margin: 0.5em 0;
+}
+
+.wallet-value {
+  margin: 0 0.5em;
+  width: 5em;
+}
+
+.wallet-exchange-currency {
+  height: 2em;
+  margin: 0 0.5em;
+  width: 5em;
+}
+
+.wallet-payment-method {
+  height: 2em;
+  margin: 0 0.5em;
+  width: 10em;
+}
+
+.wallet-tag {
+  height: 2em;
+  margin: 0 0.5em;
+  width: 8em;
+}
+
+.wallet-description {
+  height: 1.5em;
+  margin: 0 0.5em;
+  width: 12em;
+}
+
+.add-expense {
+  background-color: rgb(0, 120, 255);
+  border: transparent;
+  border-radius: 4px;
+  color: rgb(200, 230, 255);
+  font-size: 12px;
+  font-weight: 600;
+  height: 2.2em;
+
+}
+
+.table-container {
+  background-color: rgb(55, 65, 65);
+  color: rgb(210, 210, 210);
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  height: 3em;
+  justify-content: center;
+}
+
+.table-header {
+  color: rgb(225, 230, 230);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.collumn-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 2em;
 }

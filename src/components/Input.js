@@ -5,20 +5,35 @@ class Input extends Component {
   render() {
     const { labelText, type, id, className, name, value, onChange } = this.props;
     return (
-      <div className={ `${id}-conatiner` }>
+      (type === 'number' ? (
         <label htmlFor={ id }>
           { labelText }
           <input
             type={ type }
             id={ id }
             data-testid={ id }
-            className={ className }
+            className={ `${className} ${id}` }
+            name={ name }
+            value={ value }
+            step="0.01"
+            min="0"
+            onChange={ onChange }
+          />
+        </label>
+      ) : (
+        <label htmlFor={ id }>
+          { labelText }
+          <input
+            type={ type }
+            id={ id }
+            data-testid={ id }
+            className={ `${className} ${id}` }
             name={ name }
             value={ value }
             onChange={ onChange }
           />
         </label>
-      </div>
+      ))
     );
   }
 }

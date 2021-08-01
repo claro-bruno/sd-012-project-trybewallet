@@ -4,9 +4,6 @@ body {
 }
 
 .App {
-  align-content: center;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding-top: 20%;
+  flex-direction: column;
 }

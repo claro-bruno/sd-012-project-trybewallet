@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { userInfo } from '../actions';
 import { Input, Button } from '../components';
-import logo from '../images/logo.png';
+import logoPath from '../images/logo.png';
 import './Login.css';
 
 const PASSWORD_MINLENGTH = 6;
@@ -54,7 +54,7 @@ class Login extends Component {
     const { email, password, isDisable } = this.state;
     return (
       <div className="login-container">
-        <img className="login-logo" src={ logo } alt="trybewallet" />
+        <img className="login-logo" src={ logoPath } alt="trybewallet" />
         <Input
           labelText=""
           type="email"
