@@ -6,20 +6,21 @@ import InputDescrition from '../components/InputDescription';
 import InputExpense from '../components/InputExpense';
 import SelectPayment from '../components/SelectPayment';
 import InputTag from '../components/InputTag';
+import { totalExpense } from '../actions/actions';
 
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      id: 0,
       total: 0,
       value: '',
       current: 'BRL',
       description: '',
-      // currency: '',
-      // method: '',
-      // tag: '',
-      // exchangeRates: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
   }
 
@@ -33,13 +34,14 @@ class Wallet extends React.Component {
   render() {
     const { userEmail } = this.props; // vem do Provider ou connect
     const {
+      id,
       total,
       value,
       current,
       description,
-      // currency,
-      // method,
-      // tag,
+      currency,
+      method,
+      tag,
     } = this.state;
     return (
       <section>
@@ -65,7 +67,11 @@ class Wallet extends React.Component {
             <Select />
             <InputTag />
             <SelectPayment />
-            <button type="submit">Adicionar despesa</button>
+            <button
+              type="button"
+            >
+              Adicionar despesa
+            </button>
           </form>
         </section>
       </section>
@@ -77,8 +83,14 @@ Wallet.propTypes = {
   userEmail: PropTypes.string,
 }.isRequired;
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatchExpenses: (value) => dispatch(totalExpense(value))
+  }
+}
+
 const mapStateToProps = (state) => ({
   userEmail: state.user.email,
 });
 
-export default connect(mapStateToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
