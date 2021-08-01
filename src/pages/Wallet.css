@@ -1,0 +1,23 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  height: 60px;
+}
+
+.headerRightDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 40%;
+  padding-right: 25px;
+}
+
+.headerLeftDiv {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.headerImg { 
+  height: 50px;
+}

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Input from '../components/Input';
 import { userAction } from '../actions';
+import Button from '../components/Button';
 
 class Login extends Component {
   constructor() {
@@ -64,14 +65,12 @@ class Login extends Component {
             onChange={ this.handleChange }
           />
           <div>
-            <button
-              type="button"
+            <Button
               onClick={ this.handleClick }
               disabled={ password.length < pwLength
                 || emailFirstValidation || emailSecondValidation || emailThirdValidation }
-            >
-              Entrar
-            </button>
+              buttonTxt="Entrar"
+            />
           </div>
           { shouldRedirect ? <Redirect to="/carteira" /> : null }
         </form>
