@@ -31,7 +31,7 @@ class Login extends Component {
     const passwordLength = 6;
     const validPassword = password.length >= passwordLength;
     const validEmail = (/^[a-z0-9_]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/i).test(email);
-    return !(validEmail && validPassword);
+    return (validEmail && validPassword);
   }
 
   render() {
@@ -63,7 +63,7 @@ class Login extends Component {
             <Button
               name="Entrar"
               className="login-button"
-              disabled={ this.isValid() }
+              disabled={ !this.isValid() }
               onClick={ () => loginSuccess(email) }
             />
           </Link>

@@ -1,6 +1,7 @@
 export const LOGIN = 'LOGIN';
 export const SUCCESS_REQUEST = 'SUCCESS_REQUEST';
 export const REQUEST_API = 'REQUEST_API';
+export const ADD_EXPENSE = 'ADD_EXPENSE';
 const API_URL = 'https://economia.awesomeapi.com.br/json/all';
 
 export const login = (email) => ({
@@ -20,12 +21,19 @@ export function getAPI(data) {
   };
 }
 
+export function addExpenseToStore(expense) {
+  return {
+    type: ADD_EXPENSE,
+    payload: expense,
+  };
+}
+
 export function fetchAPI() {
   return (dispatch) => {
     dispatch(requestAPI());
     return fetch(API_URL)
       .then((response) => response.json())
-      .then((json) => Object.keys(json).filter(((code) => code !== 'USDT')))
+      .then((json) => Object.values(json))
       .then((data) => dispatch(getAPI(data)));
   };
 }

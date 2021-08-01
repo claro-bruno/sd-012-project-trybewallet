@@ -1,9 +1,8 @@
-import { LOGIN } from '../actions';
+import { LOGIN, ADD_EXPENSE } from '../actions';
 
 const INITIAL_STATE = {
-  user: {
-    email: '',
-  },
+  email: '',
+  totalExpense: 0,
 };
 
 const userLogin = (state = INITIAL_STATE, action) => {
@@ -12,6 +11,11 @@ const userLogin = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       email: action.payload,
+    };
+  case ADD_EXPENSE:
+    return {
+      ...state,
+      totalExpense: state.totalExpense + action.payload.total,
     };
   default:
     return state;

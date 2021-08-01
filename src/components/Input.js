@@ -8,7 +8,7 @@ class Input extends Component {
       placeholder,
       onChange,
       dataTestid,
-      type,
+      type = 'text',
       title,
       className,
     } = this.props;
