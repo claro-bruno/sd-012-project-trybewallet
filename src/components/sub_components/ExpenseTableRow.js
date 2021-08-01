@@ -26,7 +26,8 @@ class ExpenseTableRow extends React.Component {
               * parseFloat(expense.exchangeRates[expense.currency].ask),
           )}
         </td>
-        <td>{expense.exchangeRates[expense.currency].name.split('/')[1]}</td>
+        {/* <td>{expense.exchangeRates[expense.currency].name.split('/')[1]}</td> */}
+        <td>Real</td>
       </tr>
     );
   }
