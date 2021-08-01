@@ -13,6 +13,6 @@ header {
   justify-content: space-around;
 }
 
-#wallet-header {
+.wallet-header {
   background-color: rgb(113, 226, 215);
 }
