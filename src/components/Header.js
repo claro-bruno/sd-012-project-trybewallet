@@ -13,18 +13,20 @@ class Header extends React.Component {
           >
             { emailUser}
           </span>
-          <span
-            className="navbar-brand mb-0 h1"
-            data-testid="header-currency-field"
-          >
-            { currency }
-          </span>
-          <span
-            className="navbar-brand mb-0 h1"
-            data-testid="total-field"
-          >
-            { total }
-          </span>
+          <div>
+            <span
+              className="navbar-brand mb-0 h1"
+              data-testid="total-field"
+            >
+              { total }
+            </span>
+            <span
+              className="navbar-brand mb-0 h1"
+              data-testid="header-currency-field"
+            >
+              { currency }
+            </span>
+          </div>
         </div>
       </nav>
     );

@@ -2,12 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
+import WalletForm from '../components/WalletForm';
 
 class Wallet extends React.Component {
   render() {
     const { email, currency, total } = this.props;
     return (
-      <Header emailUser={ email } currency={ currency } total={ total } />
+      <>
+        <Header emailUser={ email } currency={ currency } total={ total } />
+        <WalletForm />
+      </>
     );
   }
 }
