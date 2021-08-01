@@ -1,7 +1,5 @@
 import React from 'react';
 // Usando Material-UI
-import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -51,45 +49,45 @@ class Login extends React.Component {
     const { email, password, button } = this.state;
     return (
       <form>
-        <Container component="main" maxWidth="xs">
-          <div className="text-center">
-            <Typography className="mt-3" variant="h6">Login Trybe Wallet</Typography>
-          </div>
-          <label htmlFor="input-email">
-            E-mail:
-            <input
-              data-testid="email-input"
-              id="input-email"
-              label="Email"
-              type="email"
-              name="email"
-              value={ email }
-              onChange={ this.handleChange }
-            />
-          </label>
-          <label htmlFor="input-password">
-            Senha:
-            <input
-              data-testid="password-input"
-              required
-              id="input-password"
-              label="Senha"
-              type="password"
-              name="password"
-              value={ password }
-              onChange={ this.handleChange }
-            />
-          </label>
-          <Link to="/carteira">
-            <button
-              type="submit"
-              onClick={ this.saveStateEmailStore() }
-              disabled={ button }
-            >
-              Entrar
-            </button>
-          </Link>
-        </Container>
+
+        <div className="text-center">
+          <h1>Login Trybe Wallet</h1>
+        </div>
+        <label htmlFor="input-email">
+          E-mail:
+          <input
+            data-testid="email-input"
+            id="input-email"
+            label="Email"
+            type="email"
+            name="email"
+            value={ email }
+            onChange={ this.handleChange }
+          />
+        </label>
+        <label htmlFor="input-password">
+          Senha:
+          <input
+            data-testid="password-input"
+            required
+            id="input-password"
+            label="Senha"
+            type="password"
+            name="password"
+            value={ password }
+            onChange={ this.handleChange }
+          />
+        </label>
+        <Link to="/carteira">
+          <button
+            type="submit"
+            onClick={ this.saveStateEmailStore() }
+            disabled={ button }
+          >
+            Entrar
+          </button>
+        </Link>
+
       </form>
 
     );
