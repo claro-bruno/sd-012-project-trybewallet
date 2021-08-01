@@ -5,8 +5,8 @@ header {
 }
 
 .headerRightDiv {
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: space-between;
   padding-right: 25px;
   width: 40%;
