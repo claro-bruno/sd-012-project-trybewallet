@@ -15,8 +15,8 @@ class Currency extends React.Component {
           onChange={ handleChange }
         >
           { loading ? <option>Carregando...</option> : currencies.map((getCurrency) => (
-            <option key={ getCurrency.code }>
-              { getCurrency.code }
+            <option key={ getCurrency }>
+              { getCurrency }
             </option>)) }
         </select>
       </label>
@@ -28,7 +28,7 @@ Currency.propTypes = {
   currency: PropTypes.string.isRequired,
   loading: PropTypes.bool.isRequired,
   handleChange: PropTypes.func.isRequired,
-  currencies: PropTypes.arrayOf(PropTypes.shape({ code: PropTypes.string })).isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default Currency;

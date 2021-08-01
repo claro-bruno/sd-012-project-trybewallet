@@ -11,7 +11,7 @@ const prepareCurrencies = (payload) => {
   const currencies = [];
   const keys = Object.keys(payload).filter((key) => key !== 'USDT');
   keys.forEach((key) => {
-    currencies.push(payload[key]);
+    currencies.push(payload[key].code);
   });
   return currencies;
 };
@@ -31,7 +31,9 @@ const addEditedExpense = (expenses, payload, id) => {
   const keys = Object.keys(payload);
   const index = expenses
     .findIndex((element) => element.id === id);
-  keys.forEach((key) => { expenses[index][key] = payload[key]; });
+  keys.forEach((key) => {
+    expenses[index][key] = payload[key];
+  });
   return expenses;
 };
 
