@@ -2,7 +2,7 @@
 const USER_STATE = 'USER_STATE';
 
 const INITIAL_USER_STATE = {
-  email: '',
+  email: 'pacoca@hotmail.com',
 };
 
 const user = (state = INITIAL_USER_STATE, action) => {

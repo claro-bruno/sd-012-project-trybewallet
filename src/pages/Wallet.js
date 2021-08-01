@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import SelectPayment from '../components/SelectPayment';
 import ExpenseTag from '../components/ExpenseTag';
 import SelectCurrency from '../components/SelectCurrency';
+import wallet from '../images/wallet.png';
+import '../styles/Wallet.css';
 
 class Wallet extends React.Component {
   render() {
@@ -16,13 +18,21 @@ class Wallet extends React.Component {
     }
     return (
       <>
-        <header>
-          <span data-testid="email-field">{userMail}</span>
-          <span data-testid="total-field">{totalExpenses}</span>
-          <span data-testid="header-currency-field">BRL</span>
+        <header className="wallet-header">
+          <div className="logo-container">
+            <img src={ wallet } alt="" />
+            <h1>Trybewallet</h1>
+          </div>
+          <span data-testid="email-field">
+            {userMail}
+          </span>
+          <div className="info-container">
+            <span data-testid="total-field">{totalExpenses}</span>
+            <span data-testid="header-currency-field">BRL</span>
+          </div>
         </header>
-        <main>
-          <form action="" onSubmit={ (e) => e.preventDefault() }>
+        <form action="" onSubmit={ (e) => e.preventDefault() }>
+          <div className="add=expenses-container">
             <label htmlFor="value">
               Valor:
               <input type="text" id="value" />
@@ -35,8 +45,8 @@ class Wallet extends React.Component {
             <SelectPayment />
             <ExpenseTag />
             <button type="submit">Adicionar Despesa</button>
-          </form>
-        </main>
+          </div>
+        </form>
       </>
     );
   }
