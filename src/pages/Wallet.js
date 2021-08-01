@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FormWallet from '../components/FormWallet';
 import fetchExpense from '../servises/fetchExpense';
+import TableExpend from '../components/TableExpend';
 
 class Wallet extends React.Component {
   constructor() {
@@ -90,6 +91,7 @@ class Wallet extends React.Component {
           tag={ tag }
           submit={ this.onSubmitExpense }
         />
+        <TableExpend />
       </div>
     );
   }
