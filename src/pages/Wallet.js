@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import fetchApi from '../actions/fetchApi';
 import ExpenseInput from '../components/ExpenseInput';
+import ExpensesTable from '../components/ExpensesTable';
 
 class Wallet extends React.Component {
   constructor() {
@@ -39,6 +40,7 @@ class Wallet extends React.Component {
         </header>
         <main>
           <ExpenseInput />
+          <ExpensesTable />
         </main>
       </>
 
