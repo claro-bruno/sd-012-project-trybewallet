@@ -1,5 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { saveEmail } from '../actions';
 import './login.css';
 
 class Login extends React.Component {
@@ -14,6 +17,7 @@ class Login extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.formCheck = this.formCheck.bind(this);
+    this.saveEmail = this.saveEmail.bind(this);
   }
 
   handleChange({ target: { name, value } }) {
@@ -34,9 +38,14 @@ class Login extends React.Component {
     }
   }
 
+  saveEmail() {
+    const { changeEmail } = this.props;
+    const { email } = this.state;
+    changeEmail(email);
+  }
+
   render() {
     const { email, password, disabled } = this.state;
-
     return (
       <div className="login-container">
         <form>
@@ -58,7 +67,11 @@ class Login extends React.Component {
             placeholder="Senha"
           />
           <Link to="/carteira">
-            <button disabled={ disabled } type="button">
+            <button
+              onClick={ () => this.saveEmail() }
+              disabled={ disabled }
+              type="button"
+            >
               Entrar
             </button>
           </Link>
@@ -68,4 +81,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  changeEmail: (value) => dispatch(saveEmail(value)),
+});
+
+Login.propTypes = {
+  changeEmail: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
