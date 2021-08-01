@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import image from '../images/wallet.png';
 
 class Header extends React.Component {
   render() {
@@ -15,9 +16,9 @@ class Header extends React.Component {
     return (
       <header>
         <div>
-          <img src="" alt="" />
+          <img className="wallet-img" src={ image } alt="wallet" />
         </div>
-        <div>
+        <div className="header-info">
           <p data-testid="email-field">{ `Email: ${email}` }</p>
           <p data-testid="total-field">{` Valor: ${total.toFixed(2)} `}</p>
           <p data-testid="header-currency-field">{ `Moeda: ${currentCurrency}` }</p>

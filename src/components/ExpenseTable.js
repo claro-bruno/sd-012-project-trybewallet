@@ -25,7 +25,7 @@ class ExpenseTable extends React.Component {
 
   renderTableTitles() {
     return (
-      <tr>
+      <tr className="table-headers">
         <th>Descrição</th>
         <th>Tag</th>
         <th>Método de pagamento</th>
@@ -95,7 +95,13 @@ class ExpenseTable extends React.Component {
         </table>
       );
     }
-    return null;
+    return (
+      <table>
+        <tbody>
+          { this.renderTableTitles() }
+        </tbody>
+      </table>
+    );
   }
 }
 

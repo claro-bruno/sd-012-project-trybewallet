@@ -6,6 +6,7 @@ import ExpenseForm from '../components/ExpenseForm';
 import { fetchCurrencies } from '../actions';
 import ExpenseTable from '../components/ExpenseTable';
 import ExpenseFormEdit from '../components/ExpenseFormEdit';
+import './Wallet.css';
 
 class Wallet extends React.Component {
   componentDidMount() {

@@ -1,0 +1,86 @@
+header {
+  align-items: center;
+  background-color: #6DA2D9;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 15px;
+  height: 150px;
+}
+
+header p {
+  margin-right: 20px;
+}
+
+.header-info{
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.wallet-img {
+  height: 80px;
+  margin-left: 20px;
+}
+
+.add-form {
+  background-color: rgb(63, 63, 77);
+  display: flex;
+  color: white;
+  padding: 20px;
+}
+
+.add-form label {
+  margin-right: 15px;
+}
+
+.add-form input, select {
+  background-color: white;
+  border-radius: 4px;
+  margin: 5px;
+  padding: 5px 10px;
+}
+
+.add-form button {
+  background-color: #F64C72;
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left:  auto;
+  padding: 10px 30px;
+}
+
+.add-form button:hover {
+  border: 1px black solid;
+}
+
+table {
+  background-color: black;
+  border: 1px solid black;
+  border-collapse: collapse;
+  border-spacing: 0 0.5rem;
+  width: 100%;
+}
+
+tbody {
+  background-color: gainsboro;
+}
+
+th {
+  padding: 10px;
+}
+
+.table-headers {
+	background:#000;
+  color: white;
+  padding: 10px;
+}
+
+tr {
+  border: 1px solid black;
+}
+
+td {
+  background-color: gainsboro;
+  padding: 7px;
+  text-align: center;
+}

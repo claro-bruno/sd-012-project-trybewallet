@@ -32,10 +32,10 @@ class ExpenseForm extends React.Component {
   render() {
     const { currencies } = this.props;
     return (
-      <form>
+      <form className="add-form">
         <Input
           label="Valor"
-          type="text"
+          type="number"
           name="valor"
         />
         <Select
