@@ -10,6 +10,7 @@ class Valor extends React.Component {
         <input
           name="value"
           id="value"
+          data-testid="value-input"
           type="text"
           value={ value }
           onChange={ handleChange }

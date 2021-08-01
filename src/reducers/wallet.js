@@ -3,6 +3,8 @@ const INITIAL_STATE = {
   expenses: [],
   loading: false,
   error: false,
+  editing: 'none',
+  test: 0,
 };
 
 const prepareCurrencies = (payload) => {
@@ -25,6 +27,14 @@ const prepareExpenses = (expenses, payload, exchangeRates) => {
   return [...expenses, newExpense];
 };
 
+const addEditedExpense = (expenses, payload, id) => {
+  const keys = Object.keys(payload);
+  const index = expenses
+    .findIndex((element) => element.id === id);
+  keys.forEach((key) => { expenses[index][key] = payload[key]; });
+  return expenses;
+};
+
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case 'REQUEST_CURRENCIES':
@@ -42,6 +52,14 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       expenses: state.expenses.filter((expense) => expense.id !== action.id),
+    };
+  case 'TOGGLE_EDIT':
+    return { ...state, editing: action.id };
+  case 'EDIT_EXPENSE':
+    return {
+      ...state,
+      expenses: addEditedExpense(state.expenses, action.payload, action.id),
+      editing: 'none',
     };
   default:
     return state;

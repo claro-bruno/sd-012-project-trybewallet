@@ -10,6 +10,7 @@ class Currency extends React.Component {
         <select
           name="currency"
           id="currency"
+          data-testid="currency-input"
           value={ currency }
           onChange={ handleChange }
         >

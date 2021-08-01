@@ -35,3 +35,7 @@ export const fetchRates = (payload) => (
 );
 
 export const deleteExpense = (id) => ({ type: 'DELETE_EXPENSE', id });
+
+export const toggleEdit = (id) => ({ type: 'TOGGLE_EDIT', id });
+
+export const editExpense = (payload, id) => ({ type: 'EDIT_EXPENSE', payload, id });

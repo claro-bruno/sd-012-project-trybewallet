@@ -7,7 +7,13 @@ class Tag extends React.Component {
     return (
       <label htmlFor="tag">
         Tag
-        <select name="tag" id="tag" value={ tag } onChange={ handleChange }>
+        <select
+          name="tag"
+          id="tag"
+          data-testid="tag-input"
+          value={ tag }
+          onChange={ handleChange }
+        >
           <option>Alimentação</option>
           <option>Lazer</option>
           <option>Trabalho</option>

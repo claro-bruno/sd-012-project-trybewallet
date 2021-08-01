@@ -1,7 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchCurrencies, fetchRates, deleteExpense } from '../actions';
+import {
+  fetchCurrencies,
+  fetchRates,
+  deleteExpense,
+  toggleEdit,
+  editExpense,
+} from '../actions';
 import Header from '../components/Header';
 import Valor from '../components/Valor';
 import Description from '../components/Description';
@@ -11,11 +17,11 @@ import Tag from '../components/Tag';
 import Table from '../components/Table';
 
 const INITIAL_STATE = {
-  value: '',
   description: '',
+  tag: 'Alimentação',
+  method: 'Dinheiro',
+  value: '',
   currency: 'USD',
-  method: '',
-  tag: '',
 };
 
 class Wallet extends React.Component {
@@ -25,6 +31,7 @@ class Wallet extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.addToExpenses = this.addToExpenses.bind(this);
     this.deleteFromExpenses = this.deleteFromExpenses.bind(this);
+    this.addEditedToExpenses = this.addEditedToExpenses.bind(this);
   }
 
   componentDidMount() {
@@ -48,8 +55,21 @@ class Wallet extends React.Component {
     deleteExpenseChange(id);
   }
 
+  addEditedToExpenses(id) {
+    const { editExpenseChange } = this.props;
+    editExpenseChange(this.state, id);
+    this.setState(INITIAL_STATE);
+  }
+
   render() {
-    const { email, currencies, loading, expenses } = this.props;
+    const {
+      email,
+      currencies,
+      loading,
+      expenses,
+      editing,
+      toggleEditChange,
+    } = this.props;
     const { value, description, currency, method, tag } = this.state;
     return (
       <div>
@@ -65,9 +85,26 @@ class Wallet extends React.Component {
           />
           <Method method={ method } handleChange={ this.handleChange } />
           <Tag tag={ tag } handleChange={ this.handleChange } />
-          <button type="button" onClick={ this.addToExpenses }>Adicionar Despesa</button>
-          <Table expenses={ expenses } deleteFromExpenses={ this.deleteFromExpenses } />
+          { editing !== 'none' ? (
+            <button
+              type="button"
+              onClick={ () => this.addEditedToExpenses(editing) }
+            >
+              Editar despesa
+            </button>)
+            : (
+              <button
+                type="button"
+                onClick={ this.addToExpenses }
+              >
+                Adicionar Despesa
+              </button>) }
         </form>
+        <Table
+          expenses={ expenses }
+          deleteFromExpenses={ this.deleteFromExpenses }
+          toggleEditChange={ toggleEditChange }
+        />
       </div>);
   }
 }
@@ -80,6 +117,9 @@ Wallet.propTypes = {
   addExpenseChange: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   deleteExpenseChange: PropTypes.func.isRequired,
+  editing: PropTypes.oneOf([PropTypes.string, PropTypes.number]).isRequired,
+  toggleEditChange: PropTypes.func.isRequired,
+  editExpenseChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -87,12 +127,15 @@ const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   loading: state.wallet.loading,
   expenses: state.wallet.expenses,
+  editing: state.wallet.editing,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   renderCurrencies: () => dispatch(fetchCurrencies()),
   addExpenseChange: (payload) => dispatch(fetchRates(payload)),
   deleteExpenseChange: (payload) => dispatch(deleteExpense(payload)),
+  toggleEditChange: (id) => dispatch(toggleEdit(id)),
+  editExpenseChange: (state, id) => dispatch(editExpense(state, id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

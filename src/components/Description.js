@@ -10,6 +10,7 @@ class Description extends React.Component {
         <input
           name="description"
           id="description"
+          data-testid="description-input"
           type="text"
           value={ description }
           onChange={ handleChange }

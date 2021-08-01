@@ -10,6 +10,7 @@ class Method extends React.Component {
         <select
           name="method"
           id="payment-option"
+          data-testid="method-input"
           value={ method }
           onChange={ handleChange }
         >
