@@ -1,10 +1,11 @@
 import { LOADING, API_SUCESS, API_ERROR } from '../actions/fetchApi';
+import { ADD_EXPENSE } from '../actions/addExpenses';
 
 const INITIAL_STATE = {
   loading: false,
   currencies: [],
   error: '',
-  // expenses: [],
+  expenses: [],
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -15,6 +16,8 @@ const wallet = (state = INITIAL_STATE, action) => {
     return { ...state, currencies: action.payload, loading: false };
   case API_ERROR:
     return { ...state, error: action.payload, loading: false };
+  case ADD_EXPENSE:
+    return { ...state, expenses: [...state.expenses, action.payload] };
   default:
     return state;
   }

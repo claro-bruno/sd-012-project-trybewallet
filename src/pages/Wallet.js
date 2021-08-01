@@ -5,9 +5,26 @@ import fetchApi from '../actions/fetchApi';
 import ExpenseInput from '../components/ExpenseInput';
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+
+    this.calculateExpenses = this.calculateExpenses.bind(this);
+  }
+
   componentDidMount() {
     const { setFetchApi } = this.props;
     setFetchApi();
+  }
+
+  calculateExpenses() {
+    const { expenses } = this.props;
+
+    const totalExpense = expenses.reduce((acc, { value, currency, exchangeRates }) => {
+      const { ask } = exchangeRates[currency];
+      return acc + (value * ask);
+    }, 0);
+
+    return totalExpense.toFixed(2);
   }
 
   render() {
@@ -17,7 +34,7 @@ class Wallet extends React.Component {
       <>
         <header>
           <p data-testid="email-field">{ email }</p>
-          <p data-testid="total-field">{ `R$${0}`}</p>
+          <p data-testid="total-field">{ `R$${this.calculateExpenses()}`}</p>
           <p data-testid="header-currency-field">BRL</p>
         </header>
         <main>
@@ -31,6 +48,7 @@ class Wallet extends React.Component {
 
 const mapStateToPrpos = (state) => ({
   email: state.user.email,
+  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -39,6 +57,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayOf(Object).isRequired,
   setFetchApi: PropTypes.func.isRequired,
 };
 
