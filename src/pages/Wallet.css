@@ -1,17 +1,17 @@
 header {
   align-items: center;
-  background-color: #6DA2D9;
+  background-color: #6da2d9;
   display: flex;
+  height: 150px;
   justify-content: space-between;
   padding: 0 15px;
-  height: 150px;
 }
 
 header p {
   margin-right: 20px;
 }
 
-.header-info{
+.header-info {
   align-items: center;
   display: flex;
   justify-content: center;
@@ -24,8 +24,8 @@ header p {
 
 .add-form {
   background-color: rgb(63, 63, 77);
-  display: flex;
   color: white;
+  display: flex;
   padding: 20px;
 }
 
@@ -33,7 +33,7 @@ header p {
   margin-right: 15px;
 }
 
-.add-form input, select {
+.add-form input , select {
   background-color: white;
   border-radius: 4px;
   margin: 5px;
@@ -41,16 +41,12 @@ header p {
 }
 
 .add-form button {
-  background-color: #F64C72;
+  background-color: #f64c72;
   border: 0;
   border-radius: 4px;
   cursor: pointer;
-  margin-left:  auto;
+  margin-left: auto;
   padding: 10px 30px;
-}
-
-.add-form button:hover {
-  border: 1px black solid;
 }
 
 .value-input {
@@ -62,9 +58,9 @@ header p {
 }
 
 .edit-form {
-  background-color: #41A3B3;
-  display: flex;
+  background-color: #41a3b3;
   color: white;
+  display: flex;
   padding: 20px;
 }
 
@@ -72,7 +68,7 @@ header p {
   margin-right: 15px;
 }
 
-.edit-form input, select {
+.edit-form input , select {
   background-color: white;
   border-radius: 4px;
   margin: 5px;
@@ -80,12 +76,16 @@ header p {
 }
 
 .edit-form button {
-  background-color: #E8A87C;
+  background-color: #e8a87c;
   border: 0;
   border-radius: 4px;
   cursor: pointer;
-  margin-left:  auto;
+  margin-left: auto;
   padding: 10px 30px;
+}
+
+.add-form button:hover {
+  border: 1px black solid;
 }
 
 .edit-form button:hover {
@@ -109,7 +109,7 @@ th {
 }
 
 .table-headers {
-	background:#000;
+	background: black;
   color: white;
   padding: 10px;
 }
