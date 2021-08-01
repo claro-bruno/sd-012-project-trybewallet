@@ -53,6 +53,11 @@
   width: 70%;
 }
 
+.fields-content input:focus {
+  border: 1px solid cyan;
+  box-shadow: 0 0 0 2px cyan;
+}
+
 .fields-content button {
   background-color: rgb(8, 170, 94);
   border: 1px solid slategray;
