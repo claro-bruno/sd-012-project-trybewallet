@@ -1,6 +1,6 @@
-import { GET_USER_LOGIN, GET_CURRENCY_DATA } from './actionTypes';
+import { GET_USER_EMAIL, GET_CURRENCY_DATA } from './actionTypes';
 
-export const getUserLogin = (user) => ({ type: GET_USER_LOGIN, user });
+export const getUserEmail = (user) => ({ type: GET_USER_EMAIL, user });
 
 export const getCurrencyData = (currency) => ({
   type: GET_CURRENCY_DATA,

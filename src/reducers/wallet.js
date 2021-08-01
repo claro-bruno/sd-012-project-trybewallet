@@ -1,10 +1,9 @@
 import { GET_WALLET } from '../redux/actions/actionTypes';
 
 const INTIIAL_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  } };
+  currencies: [],
+  expenses: [],
+};
 
 const wallet = (state = INTIIAL_STATE, action) => {
   switch (action.type) {

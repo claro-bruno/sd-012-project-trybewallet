@@ -1,14 +1,12 @@
-import { GET_USER_LOGIN } from '../redux/actions/actionTypes';
+import { GET_USER_EMAIL } from '../redux/actions/actionTypes';
 
 const INTIIAL_STATE = {
-  user: {
-    email: '',
-    password: '',
-  } };
+  email: '',
+};
 
 const users = (state = INTIIAL_STATE, action) => {
   switch (action.type) {
-  case GET_USER_LOGIN:
+  case GET_USER_EMAIL:
     return { user: { email: action.email } };
 
   default:
