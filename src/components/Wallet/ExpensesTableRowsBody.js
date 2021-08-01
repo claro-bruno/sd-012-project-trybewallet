@@ -10,8 +10,33 @@ class ExpensesTableRowsBody extends React.Component {
     setTotalExpenseInStore();
   }
 
+  renderEditButton(expense) {
+    const { editExpenseInStore } = this.props;
+    return (
+      <button
+        type="button"
+        data-testid="edit-btn"
+        onClick={ () => editExpenseInStore(expense, true) }
+      >
+        Editar
+      </button>
+    );
+  }
+
+  renderRemoveButton(id) {
+    return (
+      <button
+        type="button"
+        data-testid="delete-btn"
+        onClick={ () => this.handleRemoveClick(id) }
+      >
+        Deletar
+      </button>
+    );
+  }
+
   render() {
-    const { expenses, editExpenseInStore } = this.props;
+    const { expenses } = this.props;
 
     return (
       <tbody>
@@ -26,31 +51,24 @@ class ExpensesTableRowsBody extends React.Component {
             exchangeRates: { [currency]: { name, ask } },
           } = expense;
 
+          const [actualCurrency] = name.split('/');
+          const exchange = (+ask).toFixed(2);
+          const convertedValue = (value * ask).toFixed(2);
+          const conversionCurrency = 'Real';
+
           return (
             <tr key={ id }>
               <td>{ description }</td>
               <td>{ tag }</td>
               <td>{ method }</td>
               <td>{ value }</td>
-              <td>{ name }</td>
-              <td>{ (+ask).toFixed(2) }</td>
-              <td>{ (value * +ask).toFixed(2) }</td>
-              <td>Real</td>
+              <td>{ actualCurrency }</td>
+              <td>{ exchange }</td>
+              <td>{ convertedValue }</td>
+              <td>{ conversionCurrency }</td>
               <td>
-                <button
-                  type="button"
-                  data-testid="edit-btn"
-                  onClick={ () => editExpenseInStore(expense, true) }
-                >
-                  Editar
-                </button>
-                <button
-                  type="button"
-                  data-testid="delete-btn"
-                  onClick={ () => this.handleRemoveClick(id) }
-                >
-                  Deletar
-                </button>
+                {this.renderEditButton(expense)}
+                {this.renderRemoveButton(id)}
               </td>
             </tr>
           );
