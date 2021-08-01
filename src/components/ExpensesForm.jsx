@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class ExpensesForm extends Component {
   render() {
+    const { myWallet } = this.props;
+    const { currencies } = myWallet;
     return (
       <div className="form-expenses">
         <label htmlFor="expenses">
@@ -11,7 +15,12 @@ class ExpensesForm extends Component {
         <label htmlFor="currency">
           Moeda
           <select id="currency">
-            <option>Teste</option>
+            { currencies.map(
+              (currency, index) => (
+                <option key={ index }>
+                  { currency }
+                </option>),
+            )}
           </select>
         </label>
         <label htmlFor="payment">
@@ -41,4 +50,14 @@ class ExpensesForm extends Component {
   }
 }
 
-export default ExpensesForm;
+ExpensesForm.propTypes = {
+  myWallet: PropTypes.objectOf(
+    PropTypes.string, PropTypes.array, PropTypes.bool,
+  ).isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  myWallet: state.wallet,
+});
+
+export default connect(mapStateToProps)(ExpensesForm);

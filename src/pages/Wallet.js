@@ -3,13 +3,19 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import ExpensesForm from '../components/ExpensesForm';
+import { fetchCurrency } from '../actions';
 
 class Wallet extends React.Component {
+  componentDidMount() {
+    const { getCurrencies } = this.props;
+    getCurrencies();
+  }
+
   render() {
     const { myUserState } = this.props;
     return (
       <section>
-        <Header myUserState={ myUserState } />
+        <Header myUserState={ myUserState.user } />
         <form>
           <ExpensesForm />
         </form>
@@ -20,10 +26,15 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   myUserState: PropTypes.shape(PropTypes.string.isRequired).isRequired,
+  getCurrencies: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  myUserState: state.user,
+const mapDispatchToProps = (dispatch) => ({
+  getCurrencies: () => dispatch(fetchCurrency()),
 });
 
-export default connect(mapStateToProps)(Wallet);
+const mapStateToProps = (state) => ({
+  myUserState: state,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
