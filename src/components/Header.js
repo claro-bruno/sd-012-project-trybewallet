@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function Header(props) {
-  const { registeredEmail } = props;
+  const { registeredEmail, somTotal } = props;
   return (
     <header>
       <span data-testid="email-field">{ registeredEmail }</span>
-      <span data-testid="total-field">0</span>
+      <span data-testid="total-field">{somTotal()}</span>
       <span data-testid="header-currency-field">BRL</span>
 
     </header>
@@ -15,6 +15,7 @@ function Header(props) {
 
 Header.propTypes = {
   registeredEmail: PropTypes.string.isRequired,
+  somTotal: PropTypes.func.isRequired,
 };
 
 export default Header;

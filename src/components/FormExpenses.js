@@ -5,7 +5,7 @@ import Select from './Select';
 import { inputs, selects } from '../dataInputsSelects';
 
 const FormExpenses = (props) => {
-  const { coins } = props;
+  const { coins, submit, currency, handleChange } = props;
 
   return (
     <form>
@@ -15,15 +15,15 @@ const FormExpenses = (props) => {
         type={ type }
         name={ name }
         key={ name }
-        // change={ handleChange }
+        change={ handleChange }
         id={ id }
       />))}
       <Select
         labelContent="Moeda"
         id="currency-input"
         name="currency"
-        // value={ currency }
-        // change={ handleChange }
+        value={ currency }
+        change={ handleChange }
         options={ coins }
       />
       {selects.map(({ labelContent, options, id, name }) => (<Select
@@ -31,16 +31,20 @@ const FormExpenses = (props) => {
         id={ id }
         name={ name }
         value={ props[name] }
-        // change={ handleChange }
+        change={ handleChange }
         options={ options }
         key={ id }
       />))}
+      <button type="button" onClick={ submit }>Adicionar despesa</button>
     </form>
   );
 };
 
 FormExpenses.propTypes = {
   coins: PropTypes.arrayOf(PropTypes.string).isRequired,
+  submit: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  currency: PropTypes.string.isRequired,
 };
 
 export default FormExpenses;
