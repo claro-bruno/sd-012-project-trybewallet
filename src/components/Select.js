@@ -11,6 +11,7 @@ class Select extends Component {
           id={ id }
           name={ name }
           value={ value }
+          data-testid={ id }
           onChange={ onChange }
         >
           { children.map((item, index) => (

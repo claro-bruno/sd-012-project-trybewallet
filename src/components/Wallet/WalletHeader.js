@@ -10,7 +10,7 @@ class WalletHeader extends React.Component {
         <h1>Trybe Wallet</h1>
         <p>
           Email:
-          <span data-testid="email-field">{`${email}`}</span>
+          <span data-testid="email-field">{` ${email}`}</span>
         </p>
         <p>
           Despesa Total: R$

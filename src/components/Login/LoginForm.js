@@ -29,6 +29,7 @@ class LoginForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const { setEmailToStore } = this.props;
+
     this.setState((prevState) => {
       setEmailToStore(prevState.email);
       return ({

@@ -12,6 +12,7 @@ class Input extends React.Component {
           name={ name }
           type={ type }
           value={ value }
+          data-testid={ id }
           onChange={ onChange }
         />
       </label>
