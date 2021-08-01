@@ -27,7 +27,7 @@ class Login extends React.Component {
       <main className="main-container">
         <h1>Trybe Wallet</h1>
         <div className="login-container">
-          <img src={ image } alt="wallet pic" />
+          <img className="login-img" src={ image } alt="wallet pic" />
           <Input
             label="Email"
             type="text"
@@ -35,6 +35,8 @@ class Login extends React.Component {
             name="email"
             onChange={ this.handleChange }
             testId="email-input"
+            clss="login-input"
+            lclass="login-label"
           />
           <Input
             label="Senha"
@@ -43,6 +45,8 @@ class Login extends React.Component {
             name="senha"
             onChange={ this.handleChange }
             testId="password-input"
+            clss="login-input"
+            lclass="login-label"
           />
           <Link to="/carteira">
             <Button
@@ -50,6 +54,7 @@ class Login extends React.Component {
               name="login"
               onClick={ () => {} }
               isValid={ isValid }
+              bclass="login-button"
             />
           </Link>
         </div>

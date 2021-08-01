@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 class Input extends React.Component {
   render() {
-    const { label, type, name, value, onChange, testId } = this.props;
+    const { label, type, name, value, onChange, testId, clss, lclass } = this.props;
     return (
-      <label htmlFor={ name }>
+      <label htmlFor={ name } className={ lclass }>
         { label }
         <input
           id={ name }
@@ -14,6 +14,7 @@ class Input extends React.Component {
           value={ value }
           onChange={ onChange }
           data-testid={ testId }
+          className={ clss }
         />
       </label>
     );
@@ -27,6 +28,8 @@ Input.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
   testId: PropTypes.string,
+  clss: PropTypes.string,
+  lclass: PropTypes.string,
 };
 
 Input.defaultProps = {
@@ -34,6 +37,8 @@ Input.defaultProps = {
   testId: '',
   value: undefined,
   onChange: undefined,
+  clss: '',
+  lclass: '',
 };
 
 export default Input;
