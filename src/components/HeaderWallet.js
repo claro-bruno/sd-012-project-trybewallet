@@ -27,13 +27,14 @@ class HeaderWallet extends React.Component {
           <div className="email-wallet">
             Email:
             {' '}
-            <span data-testid="email-field">{email}</span>
+            <span className="email" data-testid="email-field">{email}</span>
           </div>
 
           <div className="expenses-wallet">
             Despesa Total:
             {' '}
             <span
+              className="total"
               data-testid="total-field"
             >
               {`R$ ${Math.round((totalExpenses + Number.EPSILON) * 100) / 100}`}
