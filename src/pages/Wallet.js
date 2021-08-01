@@ -15,6 +15,7 @@ import Currency from '../components/Currency';
 import Method from '../components/Method';
 import Tag from '../components/Tag';
 import Table from '../components/Table';
+import '../CSS/Wallet.css';
 
 const INITIAL_STATE = {
   description: '',

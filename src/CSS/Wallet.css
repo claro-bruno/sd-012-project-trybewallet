@@ -1,0 +1,16 @@
+form {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.table-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+span {
+  text-align: center;
+  width: 100px;
+}

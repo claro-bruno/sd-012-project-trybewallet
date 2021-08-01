@@ -5,8 +5,8 @@ class Table extends React.Component {
   render() {
     const { expenses, deleteFromExpenses, toggleEditChange } = this.props;
     return (
-      <div role="table">
-        <div role="row">
+      <div id="table" role="table">
+        <div className="table-row" role="row">
           <span role="columnheader">Descrição</span>
           <span role="columnheader">Tag</span>
           <span role="columnheader">Método de pagamento</span>
@@ -18,7 +18,7 @@ class Table extends React.Component {
           <span role="columnheader">Editar/Excluir</span>
         </div>
         { expenses.map((expense) => (
-          <div key={ expense.id } role="row">
+          <div key={ expense.id } className="table-row" role="row">
             <span role="cell">{ expense.description }</span>
             <span role="cell">{ expense.tag }</span>
             <span role="cell">{ expense.method }</span>
