@@ -9,7 +9,7 @@ import {
 } from '../actions';
 
 // regex fornecido pelo grande Merlone
-const EMAIL_VALIDATOR = /(.*)@(.*)\.com/i;
+const EMAIL_VALIDATOR = /^[a-z0-9_]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/;
 
 class Login extends React.Component {
   render() {

@@ -1,9 +1,38 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import Header from '../components/Header';
+import WalletForm from '../components/WalletForm';
 
 class Wallet extends React.Component {
   render() {
-    return <div>TrybeWallet</div>;
+    const { email } = this.props;
+    return (
+      <div>
+        <Header
+          email={ email }
+        />
+        <hr />
+        <section>
+          <WalletForm />
+        </section>
+      </div>
+    );
   }
 }
 
-export default Wallet;
+Wallet.propTypes = {
+  email: PropTypes.string,
+};
+
+Wallet.defaultProps = {
+  email: 'email@email.com',
+};
+
+const mapStateToProps = ({
+  user: { email },
+}) => ({
+  email,
+});
+
+export default connect(mapStateToProps)(Wallet);
