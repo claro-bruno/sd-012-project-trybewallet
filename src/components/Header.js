@@ -21,7 +21,7 @@ class Header extends React.Component {
           </span>
           <span
             className="navbar-brand mb-0 h1"
-            data-testid="header-currency-field"
+            data-testid="total-field"
           >
             { total }
           </span>
