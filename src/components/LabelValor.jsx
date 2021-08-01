@@ -21,4 +21,5 @@ export default LabelValor;
 
 LabelValor.propTypes = {
   value: PropTypes.string,
+  handleChange: PropTypes.func,
 }.isRequired;
