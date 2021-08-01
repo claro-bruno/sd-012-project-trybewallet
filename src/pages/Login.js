@@ -45,7 +45,7 @@ class Login extends React.Component {
             onChange={ this.handleChange }
           />
         </label>
-        <label htmlFor="email">
+        <label htmlFor="password">
           Senha:
           <input
             type="text"

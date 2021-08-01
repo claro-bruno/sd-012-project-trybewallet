@@ -1,6 +1,6 @@
 import React from 'react';
-// import { connect } from 'react-redux';
-// import { func } from 'prop-types';
+import { connect } from 'react-redux';
+import { arrayOf, string } from 'prop-types';
 
 class ExpenseForm extends React.Component {
   // constructor(props) {
@@ -8,28 +8,28 @@ class ExpenseForm extends React.Component {
   // }
 
   render() {
+    const { apiResponse } = this.props;
     return (
       <form>
         <label htmlFor="valor">
           Valor
-          <input
-            id="valor"
-            type="text"
-          />
+          <input id="valor" type="text" />
         </label>
 
         <label htmlFor="descricao">
           Descrição
-          <input
-            id="descricao"
-            type="text"
-          />
+          <input id="descricao" type="text" />
         </label>
 
         <label htmlFor="moeda">
           Moedas
           <select id="moeda">
-            <option>a</option>
+            {
+              apiResponse.map(
+                (moeda,
+                  index) => (<option key={ index } value={ moeda }>{moeda}</option>),
+              )
+            }
           </select>
         </label>
 
@@ -57,14 +57,12 @@ class ExpenseForm extends React.Component {
   }
 }
 
-// const mapStateToProps = (state) => ({
-//   emailFromGlobalState: state.user.email,
-// });
+const mapStateToProps = (state) => ({
+  apiResponse: state.wallet.currencies,
+});
 
-// export default connect(mapStateToProps, null)(ExpenseForm);
+ExpenseForm.propTypes = ({
+  apiResponse: arrayOf(string).isRequired,
+});
 
-// ExpenseForm.propTypes = ({
-//   emailFromGlobalState: func.isRequired,
-// });
-
-export default ExpenseForm;
+export default connect(mapStateToProps, null)(ExpenseForm);

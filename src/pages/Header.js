@@ -25,24 +25,21 @@ class Header extends React.Component {
   render() {
     const { emailFromGlobalState } = this.props;
     return (
-      <header>
-        <h3 data-testid="email-field">
-          {`Email: ${emailFromGlobalState}`}
-        </h3>
-        <label htmlFor="despesa">
-          Valor
-          <input
-            data-testid="total-field"
-            name="despesa"
-            value="0"
-            onChange={ this.handleChange }
-          />
-        </label>
-        <div data-testid="header-currency-field">
-          BRL
-        </div>
+      <div>
+        <header>
+          <p data-testid="email-field">
+            {`Email: ${emailFromGlobalState}`}
+          </p>
+          <p data-testid="total-field">
+            0
+          </p>
+          <p data-testid="header-currency-field">
+            BRL
+          </p>
+        </header>
+
         <ExpenseForm onChange={ this.handleChange } />
-      </header>
+      </div>
     );
   }
 }
