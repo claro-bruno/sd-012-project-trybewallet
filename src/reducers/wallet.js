@@ -4,7 +4,15 @@ import {
   GET_CURRENCIES,
   GET_QUOTATIONS,
   EXPENSE_REMOVE,
+  EXPENSE_EDIT,
+  SAVE_EDITED_EXPENSE,
 } from '../actions/types';
+
+import {
+  addExpense,
+  removeExpense,
+  saveEditedExpense,
+} from '../helpers/handleExpense';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -12,16 +20,14 @@ const INITIAL_STATE = {
   isFetching: false,
   failed: false,
   error: '',
+  edit: false,
+  idExpense: undefined,
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case REQUEST_FETCH:
-    return {
-      ...state,
-      isFetching: true,
-      failed: false,
-    };
+    return { ...state, isFetching: true };
   case GET_CURRENCIES:
     return {
       ...state,
@@ -41,17 +47,21 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       isFetching: false,
       failed: false,
-      expenses: !state.expenses.length
-        ? [{ ...action.expense, id: 0 }]
-        : [...state.expenses.map((expense, index) => (
-          { ...expense, id: index })),
-        { ...action.expense, id: state.expenses.length }],
+      expenses: [...addExpense(state.expenses, action.expense)],
     };
   case EXPENSE_REMOVE:
     return {
       ...state,
-      expenses: [...state.expenses
-        .filter((expense) => expense.id !== action.id)],
+      expenses: [...removeExpense(state.expenses, action.id)],
+    };
+  case EXPENSE_EDIT:
+    return { ...state, edit: true, idExpense: action.id };
+  case SAVE_EDITED_EXPENSE:
+    return {
+      ...state,
+      expenses: [...saveEditedExpense(state.expenses, action.expense)],
+      edit: false,
+      idExpense: undefined,
     };
   default:
     return state;

@@ -5,6 +5,8 @@ import {
   REQUEST_FAILED,
   GET_QUOTATIONS,
   EXPENSE_REMOVE,
+  EXPENSE_EDIT,
+  SAVE_EDITED_EXPENSE,
 } from './types';
 
 const CURRENCIES_URL = 'https://economia.awesomeapi.com.br/json/all';
@@ -35,6 +37,16 @@ export const expenseRemove = (id) => ({
   type: EXPENSE_REMOVE,
   id,
 });
+
+export const expenseEdit = (id) => ({
+  type: EXPENSE_EDIT,
+  id,
+});
+
+export const saveEditedExpense = ((expense) => ({
+  type: SAVE_EDITED_EXPENSE,
+  expense,
+}));
 
 export const fetchCurrencies = () => (async (dispatch) => {
   try {
