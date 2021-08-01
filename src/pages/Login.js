@@ -1,7 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import '../styles/Login.css';
+import wallet from '../images/wallet.png';
+import svg from '../images/svg.svg';
 
 class Login extends React.Component {
   constructor(props) {
@@ -45,7 +48,13 @@ class Login extends React.Component {
   render() {
     const { email, password, buttonDisable } = this.state;
     return (
-      <form onSubmit={ (e) => e.preventDefault() }>
+      <form onSubmit={ (e) => e.preventDefault() } className="login-form">
+        <div className="title">
+          <h1>Trybewallet</h1>
+          <img src={ wallet } alt="" />
+          {/* all credits from 'wallet' image to https://www.flaticon.com/authors/freepik */}
+        </div>
+        <img src={ svg } alt="investment illustration" className="illustration" />
         <label htmlFor="input-email">
           E-mail:
           <input
@@ -55,6 +64,7 @@ class Login extends React.Component {
             type="email"
             id="input-email"
             value={ email }
+            className="login-input"
           />
         </label>
         <label htmlFor="input-password">
@@ -66,13 +76,15 @@ class Login extends React.Component {
             type="password"
             id="input-password"
             value={ password }
+            className="login-input"
           />
         </label>
-        <Link to="/carteira">
+        <Link to="/carteira" className="button-container">
           <button
             type="submit"
             disabled={ buttonDisable }
             onClick={ this.emailSave }
+            className={ buttonDisable ? 'disabled-button' : 'enabled-button' }
           >
             Entrar
           </button>
