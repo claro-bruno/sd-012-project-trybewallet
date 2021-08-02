@@ -9,11 +9,17 @@ const wallet = (state = initialState, action) => {
   case ADD_EXPENSE:
     return { ...state, expenses: [...state.expenses, { ...action.payload }] };
   case DELETE_EXPENSE:
-    return { ...state, expenses: [...state.expenses.filter((item) => item.id !== action.payload)] };
+    return { ...state,
+      expenses: [...state.expenses.filter(
+        (item) => item.id !== action.payload,
+      ),
+      ] };
   case EDIT_EXPENSE:
-    return { ...state, expenses: [...state.expenses.map((item) => {
-      return item.id === action.payload.id ? action.payload : item;
-    })]};
+    return { ...state,
+      expenses: [...state.expenses.map(
+        (item) => (item.id === action.payload.id ? action.payload : item),
+      ),
+      ] };
   default:
     return state;
   }

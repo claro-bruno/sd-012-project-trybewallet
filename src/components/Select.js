@@ -14,7 +14,13 @@ class Select extends React.Component {
     return (
       <label htmlFor={ name }>
         { labelName }
-        <select data-testid={ dataTestId } value={ value } id={ name } onChange={ onChange } name={ name }>
+        <select
+          data-testid={ dataTestId }
+          value={ value }
+          id={ name }
+          onChange={ onChange }
+          name={ name }
+        >
           { options.map((item) => <option key={ item } value={ item }>{ item }</option>) }
         </select>
       </label>
@@ -33,6 +39,10 @@ Select.propTypes = {
   onChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   dataTestId: PropTypes.string,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
 };
 
 export default Select;

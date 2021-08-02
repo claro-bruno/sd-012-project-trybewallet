@@ -32,7 +32,7 @@ class ExpensesTable extends React.Component {
       description,
       tag,
       method,
-      (Math.round(value * 100)/100),
+      (Math.round(value * 100) / 100),
       name,
       (Math.round(ask * 100) / 100).toFixed(2),
       (Math.round((ask * value) * 100) / 100).toFixed(2),
@@ -52,7 +52,7 @@ class ExpensesTable extends React.Component {
         key={ id }
       >
         Editar
-      </button>
+      </button>,
     ];
 
     return info;
