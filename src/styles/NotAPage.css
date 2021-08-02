@@ -1,6 +1,6 @@
 .NotAPage {
   align-items: center;
-  background-color: #48A46B;
+  background-color: #48a46b;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -27,7 +27,7 @@
   font-size: 15px;
   font-weight: 600;
   margin: 10px;
-  padding: 8px 25px 8px 25px;
+  padding: 8px 25px;
   text-decoration: none;
 }
 
