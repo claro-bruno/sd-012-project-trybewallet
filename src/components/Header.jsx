@@ -9,10 +9,11 @@ class Header extends React.Component {
       <section>
 
         <header>
-          <p data-testid="email-field">
-            Usuário:
+          <span data-testid="email-field">
+
             { email }
-          </p>
+
+          </span>
         </header>
 
       </section>
