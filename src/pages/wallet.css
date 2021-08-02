@@ -28,13 +28,13 @@ header {
 }
 
 .email {
+  color: #001e1d;
   font-weight: 600;
   margin-left: 8px;
-  color: #001e1d;
 }
 
 .total-sum {
-  margin-left: 8px;
   color: #001e1d;
   font-weight: 600;
+  margin-left: 8px;
 }
