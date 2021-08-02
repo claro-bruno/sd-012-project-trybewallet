@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import '../Styles/login.css';
-import PropTypes from 'prop-types';
 import paturso from '../Images/Paturso.png';
+import userSubmit from '../Redux/Actions/userSubmit';
 
 class Login extends React.Component {
   constructor() {
@@ -16,14 +16,19 @@ class Login extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
   }
 
   componentDidUpdate() {
-    // fonte https://regexr.com/3bfsi
+    // fonte https://ui.dev/validate-email-address-javascript/
     const lenNumber = 6;
     const { email, password, login } = this.state;
-    const emailRegex = new RegExp(/[\w]+\\@[a-z]+\.[a-z]+[\\.]?[a-z]+/g).test(email);
+    const emailRegex = new RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(email);
     const passwordRegex = password.length >= lenNumber;
+    this.handleUpdate(login, emailRegex, passwordRegex);
+  }
+
+  handleUpdate(login, emailRegex, passwordRegex) {
     if (login) {
       return (emailRegex && passwordRegex) ? this.setState({ login: false }) : login;
     }
@@ -38,7 +43,6 @@ class Login extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { userSubmit } = this.props;
     userSubmit(this.state);
     this.setState({ redirect: true });
   }
@@ -81,9 +85,6 @@ class Login extends React.Component {
     );
   }
 }
-Login.propTypes = {
-  userSubmit: PropTypes.func.isRequired,
-};
 
 const mapDispatchToProps = { userSubmit };
 
