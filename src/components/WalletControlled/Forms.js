@@ -8,6 +8,7 @@ import SelectMetodoPagto from './SelectMetodoPagto';
 import SelectCategoria from './SelectCategoria';
 import ButtonAddDespesa from './ButtonAddDespesa';
 import { fetchAPI } from '../../actions/getApiCoins';
+import { addDataForms } from '../../actions';
 
 class Forms extends React.Component {
   constructor(props) {
@@ -19,7 +20,7 @@ class Forms extends React.Component {
     this.increaseCounter = this.increaseCounter.bind(this);
 
     this.state = {
-      value: 0,
+      value: '',
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
@@ -55,26 +56,26 @@ class Forms extends React.Component {
     this.setState((state) => ({ ...state, [name]: newValue() }));
   }
 
-  handleClick() {
+  async handleClick() {
     const {
       state: { value, description, currency, method, tag, counter },
-      props: { getCoins },
-      exchangeRates,
+      props: { getCoins, addFormsStore, coins },
       increaseCounter,
     } = this;
 
-    getCoins();
+    await getCoins();
 
     const dataForm = {
       id: counter,
-      value,
+      value: `${value}`,
       description,
       currency,
       method,
       tag,
-      exchangeRates: exchangeRates(),
+      exchangeRates: coins,
     };
-    console.log(dataForm);
+
+    addFormsStore(dataForm);
     increaseCounter();
   }
 
@@ -127,7 +128,7 @@ class Forms extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   getCoins: () => dispatch(fetchAPI()),
-  // saveDataStore: (state) => dispatch(saveDataForms(state)),
+  addFormsStore: (state) => dispatch(addDataForms(state)),
 });
 
 const mapStateToProps = (state) => ({
@@ -137,7 +138,7 @@ const mapStateToProps = (state) => ({
 const { func, array } = PropTypes;
 Forms.propTypes = {
   getCoins: func.isRequired,
-  saveDataStore: func.isRequired,
+  addFormsStore: func.isRequired,
   coins: array.isRequired,
 }.isRequired;
 
