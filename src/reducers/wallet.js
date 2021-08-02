@@ -6,7 +6,7 @@ import {
 } from '../actions';
 
 const INITIAL_STATE = {
-  currencies: [],
+  currencies: {},
   expenses: [],
   error: null,
 };
@@ -23,8 +23,7 @@ function wallet(state = INITIAL_STATE, action) {
     return {
       ...state,
       error: null,
-      currencies: Object.entries(payload)
-        .filter((coin) => coin[0] !== 'USDT'),
+      currencies: payload,
     };
 
   case GET_COINS_ERROR:
