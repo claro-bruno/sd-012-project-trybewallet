@@ -114,10 +114,12 @@ class FormWallet extends Component {
 }
 
 FormWallet.propTypes = {
-  // currencies: PropTypes.objectOf(PropTypes.string).isRequired,
   currencies: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.string).isRequired,
-    // PropTypes.objectOf(PropTypes.string).isRequired,
+    PropTypes.arrayOf(PropTypes.string),
+    PropTypes.objectOf(PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object,
+    ])),
   ]).isRequired,
   addExpense: PropTypes.func.isRequired,
   getCurrencies: PropTypes.func.isRequired,
