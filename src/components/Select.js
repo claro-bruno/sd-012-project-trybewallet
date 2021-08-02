@@ -12,6 +12,7 @@ class Select extends Component {
           <select
             className="form-control"
             id={ id }
+            name={ id }
             value={ value }
             onChange={ (event) => handleChange(event) }
           >
@@ -37,7 +38,9 @@ Select.propTypes = {
   id: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
-  options: PropTypes.arrayOf.isRequired,
+  options: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  })).isRequired,
 };
 
 export default Select;
