@@ -6,7 +6,7 @@ import Input from '../components/Input';
 import Select from '../components/Select';
 import Table from '../components/Table';
 import { TAGS, PAYMENT } from '../data';
-import { fetchCoins, sendValuesToStore } from '../actions';
+import { fetchCoins, sendValuesToStore, sumExpenses } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
@@ -64,22 +64,23 @@ class Wallet extends React.Component {
   }
 
   sumExpenses() {
-    const { expenses } = this.props;
+    const { expenses, sendTotalValue } = this.props;
     const expense = expenses.reduce((acc, { value, currency, exchangeRates }) => {
       const bill = value * (exchangeRates[currency].ask);
       acc += bill;
       return acc;
     }, 0);
-    return this.setState(({ totalExpense: expense }));
+    this.setState(({ totalExpense: expense }));
+    sendTotalValue(expense);
   }
 
   render() {
     const { currencies } = this.props;
-    const { value, currency, method, description, tag, totalExpense } = this.state;
+    const { value, currency, method, description, tag } = this.state;
     return (
       <div>
         <form>
-          <Header totalExpense={ totalExpense } />
+          <Header />
           <Input
             name="value"
             text="Valor"
@@ -124,6 +125,7 @@ class Wallet extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   setCoins: () => dispatch(fetchCoins()),
   sendValues: (values) => dispatch(sendValuesToStore(values)),
+  sendTotalValue: (totalValue) => dispatch(sumExpenses(totalValue)),
 });
 
 const mapStateToProps = (state) => ({

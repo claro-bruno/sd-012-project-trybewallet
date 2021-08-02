@@ -1,11 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { removeValue, decreaseTotalExpenses } from '../actions';
+import TableRow from './TableRow';
 
 class Table extends React.Component {
   constructor() {
     super();
     this.createExpenseRow = this.createExpenseRow.bind(this);
+    this.deleteExpense = this.deleteExpense.bind(this);
+  }
+
+  deleteExpense(id, value) {
+    const { removeRow, decreaseValue } = this.props;
+    decreaseValue(value);
+    removeRow(id);
   }
 
   createExpenseRow() {
@@ -21,21 +30,17 @@ class Table extends React.Component {
           tag,
           value } = expense;
         return (
-          <tr key={ id }>
-            <td>{description}</td>
-            <td>{tag}</td>
-            <td>{method}</td>
-            <td>
-              {value}
-            </td>
-            {/* RegEx vista no link shorturl.at/vPS57 */}
-            <td>{(exchangeRates[currency].name).match((/[^/]+/))}</td>
-            <td>{Math.round(exchangeRates[currency].ask * 100) / 100}</td>
-            <td>
-              {value * exchangeRates[currency].ask}
-            </td>
-            <td>Real</td>
-          </tr>
+          <TableRow
+            key={ id }
+            currency={ currency }
+            description={ description }
+            exchangeRates={ exchangeRates }
+            method={ method }
+            tag={ tag }
+            value={ value }
+            id={ id }
+            deleteExpense={ this.deleteExpense }
+          />
         );
       });
     }
@@ -65,8 +70,14 @@ Table.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.obj).isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  expenses: state.wallet.expenses,
+const mapDispatchToProps = (dispatch) => ({
+  removeRow: (id) => dispatch(removeValue(id)),
+  decreaseValue: (value) => dispatch(decreaseTotalExpenses(value)),
 });
 
-export default connect(mapStateToProps)(Table);
+const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses,
+  totalExpenses: state.wallet.totalExpense,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
