@@ -5,7 +5,7 @@ import { loginAction } from '../actions';
 import trybeWallet from '../images/trybe-wallet.gif';
 import './login.css';
 
-const EMAIL_REGEX = /^(\.|-|_|[a-z]|\d)+@([a-z]|\d)+\.[a-z]{2,3}(\.[a-z]{2})?$/;
+const EMAIL_REGEX = /^[a-z0-9](\.|-|_|[a-z]|\d)+@([a-z]|\d)+\.[a-z]{2,3}(\.[a-z]{2})?$/;
 const MIN_PASSWORD_LENGTH = 6;
 
 class Login extends React.Component {
