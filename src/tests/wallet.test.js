@@ -1,7 +1,11 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
 import { fireEvent, screen, waitFor, within } from '@testing-library/react';
-import { response as mockData, initialStateHeader, initialStateWithExpenses } from './mockData';
+import {
+  response as mockData,
+  initialStateHeader,
+  initialStateWithExpenses,
+} from './mockData';
 import App from '../App';
 import Wallet from '../pages/Wallet';
 
@@ -12,12 +16,14 @@ const apiResponse = Promise.resolve({
   ok: true,
 });
 
-const mockedExchange = jest.spyOn(global, 'fetch').mockImplementation(() => apiResponse);
+const mockedExchange = jest
+  .spyOn(global, 'fetch')
+  .mockImplementation(() => apiResponse);
 
 afterEach(() => jest.clearAllMocks());
 
-describe('4 - Crie uma página para sua carteira com as seguintes características:', () => {
-  test('A rota para esta página deve ser \'/carteira\'', () => {
+describe.only('4 - Crie uma página para sua carteira com as seguintes características:', () => {
+  test("A rota para esta página deve ser '/carteira'", () => {
     const { history } = renderWithRouterAndStore(<App />);
     history.push('/carteira');
     const email = screen.queryByTestId('email-input');
@@ -34,7 +40,11 @@ describe('5 - Crie um header para a página de carteira contendo as seguintes ca
   const initial = initialStateHeader;
 
   test('Um elemento que exiba o email do usuário que fez login.', () => {
-    const { store } = renderWithRouterAndStore(<Wallet />, '/carteira', initial);
+    const { store } = renderWithRouterAndStore(
+      <Wallet />,
+      '/carteira',
+      initial
+    );
     const emailField = screen.getByTestId('email-field');
 
     expect(emailField.innerHTML).not.toBe('');
@@ -49,7 +59,7 @@ describe('5 - Crie um header para a página de carteira contendo as seguintes ca
     expect(totalField).toContainHTML(INITIAL_VALUE);
   });
 
-  test('Crie um campo que mostre que qual câmbio está sendo utilizado, que será neste caso \'BRL\'', () => {
+  test("Crie um campo que mostre que qual câmbio está sendo utilizado, que será neste caso 'BRL'", () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const exchangeField = screen.getByTestId('header-currency-field');
 
@@ -82,8 +92,12 @@ describe('6 - Desenvolva um formulário para adicionar uma despesa contendo as s
     });
 
     const moneyOption = screen.getByRole('option', { name: /dinheiro/i });
-    const creditOption = screen.getByRole('option', { name: /cartão de crédito/i });
-    const debitOption = screen.getByRole('option', { name: /cartão de débito/i });
+    const creditOption = screen.getByRole('option', {
+      name: /cartão de crédito/i,
+    });
+    const debitOption = screen.getByRole('option', {
+      name: /cartão de débito/i,
+    });
 
     expect(methodInput).toBeInTheDocument();
     expect(moneyOption).toBeInTheDocument();
@@ -131,20 +145,34 @@ describe('7 - Implemente a lógica para preencher as opções do campo "Moedas",
     const coinOptionsValues = coinOptions.map((coinOption) => coinOption.value);
 
     const expectedCoinOptions = [
-      'USD', 'CAD', 'EUR', 'GBP', 'ARS', 'BTC', 'LTC',
-      'JPY', 'CHF', 'AUD', 'CNY', 'ILS', 'ETH', 'XRP',
+      'USD',
+      'CAD',
+      'EUR',
+      'GBP',
+      'ARS',
+      'BTC',
+      'LTC',
+      'JPY',
+      'CHF',
+      'AUD',
+      'CNY',
+      'ILS',
+      'ETH',
+      'XRP',
     ];
 
     expect(coinOptionsValues).toEqual(expectedCoinOptions);
 
     expect(mockedExchange).toBeCalled();
-    expect(mockedExchange).toBeCalledWith('https://economia.awesomeapi.com.br/json/all');
+    expect(mockedExchange).toBeCalledWith(
+      'https://economia.awesomeapi.com.br/json/all'
+    );
     expect(currencyInput).toBeInTheDocument();
   });
 });
 
 describe('8 - Desenvolva a opção de "Adicionar despesa" na sua tabela de gastos', () => {
-  test('Crie um botão com o texto \'Adicionar despesa\' que salva as informações da despesa no estado global e atualiza a soma de despesas no header', async () => {
+  test("Crie um botão com o texto 'Adicionar despesa' que salva as informações da despesa no estado global e atualiza a soma de despesas no header", async () => {
     const { store } = renderWithRouterAndStore(<Wallet />, '/carteira');
 
     const addButton = await screen.findByRole('button', {
@@ -187,7 +215,9 @@ describe('8 - Desenvolva a opção de "Adicionar despesa" na sua tabela de gasto
       },
     ];
 
-    expect(store.getState().wallet.expenses).toStrictEqual(expectedStateExpense);
+    expect(store.getState().wallet.expenses).toStrictEqual(
+      expectedStateExpense
+    );
 
     userEvent.type(valueInput, '20');
     userEvent.selectOptions(currencyInput, 'EUR');
@@ -221,7 +251,9 @@ describe('8 - Desenvolva a opção de "Adicionar despesa" na sua tabela de gasto
       },
     ];
 
-    expect(store.getState().wallet.expenses).toStrictEqual(expectedStateExpense2);
+    expect(store.getState().wallet.expenses).toStrictEqual(
+      expectedStateExpense2
+    );
 
     const totalField = screen.getByTestId('total-field');
     expect(totalField).toContainHTML('187.12');
@@ -235,13 +267,23 @@ describe('9 - Desenvolva uma tabela com os gastos contendo as seguintes caracter
     renderWithRouterAndStore(<Wallet />, '/carteira', initial);
     const thDescricao = screen.getByRole('columnheader', { name: 'Descrição' });
     const thTag = screen.getByRole('columnheader', { name: 'Tag' });
-    const thMetodo = screen.getByRole('columnheader', { name: 'Método de pagamento' });
+    const thMetodo = screen.getByRole('columnheader', {
+      name: 'Método de pagamento',
+    });
     const thValor = screen.getByRole('columnheader', { name: 'Valor' });
     const thMoeda = screen.getByRole('columnheader', { name: 'Moeda' });
-    const thCambio = screen.getByRole('columnheader', { name: 'Câmbio utilizado' });
-    const thValorConvertido = screen.getByRole('columnheader', { name: 'Valor convertido' });
-    const thMoedaConversao = screen.getByRole('columnheader', { name: 'Moeda de conversão' });
-    const thEditarExcluir = screen.getByRole('columnheader', { name: 'Editar/Excluir' });
+    const thCambio = screen.getByRole('columnheader', {
+      name: 'Câmbio utilizado',
+    });
+    const thValorConvertido = screen.getByRole('columnheader', {
+      name: 'Valor convertido',
+    });
+    const thMoedaConversao = screen.getByRole('columnheader', {
+      name: 'Moeda de conversão',
+    });
+    const thEditarExcluir = screen.getByRole('columnheader', {
+      name: 'Editar/Excluir',
+    });
 
     expect(thDescricao).toBeInTheDocument();
     expect(thTag).toBeInTheDocument();
@@ -256,23 +298,51 @@ describe('9 - Desenvolva uma tabela com os gastos contendo as seguintes caracter
 
   test('A tabela deve ser alimentada pelo estado da aplicação, que estará disponível na chave expenses que vem do reducer wallet.', () => {
     renderWithRouterAndStore(<Wallet />, '/carteira', initial);
-    expect(screen.getAllByRole('cell', { name: 'Dez dólares' })[0]).toBeInTheDocument();
-    expect(screen.getAllByRole('cell', { name: 'Lazer' })[0]).toBeInTheDocument();
-    expect(screen.getAllByRole('cell', { name: 'Cartão de crédito' })[0]).toBeInTheDocument();
+    expect(
+      screen.getAllByRole('cell', { name: 'Dez dólares' })[0]
+    ).toBeInTheDocument();
+    expect(
+      screen.getAllByRole('cell', { name: 'Lazer' })[0]
+    ).toBeInTheDocument();
+    expect(
+      screen.getAllByRole('cell', { name: 'Cartão de crédito' })[0]
+    ).toBeInTheDocument();
     expect(screen.getAllByRole('cell', { name: '10' })[0]).toBeInTheDocument();
-    expect(screen.getAllByRole('cell', { name: 'Dólar Comercial' })[0]).toBeInTheDocument();
-    expect(screen.getAllByRole('cell', { name: '5.58' })[0]).toBeInTheDocument();
-    expect(screen.getAllByRole('cell', { name: '55.75' })[0]).toBeInTheDocument();
-    expect(screen.getAllByRole('cell', { name: 'Real' })[0]).toBeInTheDocument();
+    expect(
+      screen.getAllByRole('cell', { name: 'Dólar Comercial' })[0]
+    ).toBeInTheDocument();
+    expect(
+      screen.getAllByRole('cell', { name: '5.58' })[0]
+    ).toBeInTheDocument();
+    expect(
+      screen.getAllByRole('cell', { name: '55.75' })[0]
+    ).toBeInTheDocument();
+    expect(
+      screen.getAllByRole('cell', { name: 'Real' })[0]
+    ).toBeInTheDocument();
 
-    expect(screen.getAllByRole('cell', { name: 'Vinte euros' })[0]).toBeInTheDocument();
-    expect(screen.getAllByRole('cell', { name: 'Trabalho' })[0]).toBeInTheDocument();
-    expect(screen.getAllByRole('cell', { name: 'Dinheiro' })[0]).toBeInTheDocument();
+    expect(
+      screen.getAllByRole('cell', { name: 'Vinte euros' })[0]
+    ).toBeInTheDocument();
+    expect(
+      screen.getAllByRole('cell', { name: 'Trabalho' })[0]
+    ).toBeInTheDocument();
+    expect(
+      screen.getAllByRole('cell', { name: 'Dinheiro' })[0]
+    ).toBeInTheDocument();
     expect(screen.getAllByRole('cell', { name: '20' })[0]).toBeInTheDocument();
-    expect(screen.getAllByRole('cell', { name: 'Euro' })[0]).toBeInTheDocument();
-    expect(screen.getAllByRole('cell', { name: '6.57' })[0]).toBeInTheDocument();
-    expect(screen.getAllByRole('cell', { name: '131.37' })[0]).toBeInTheDocument();
-    expect(screen.getAllByRole('cell', { name: 'Real' })[1]).toBeInTheDocument();
+    expect(
+      screen.getAllByRole('cell', { name: 'Euro' })[0]
+    ).toBeInTheDocument();
+    expect(
+      screen.getAllByRole('cell', { name: '6.57' })[0]
+    ).toBeInTheDocument();
+    expect(
+      screen.getAllByRole('cell', { name: '131.37' })[0]
+    ).toBeInTheDocument();
+    expect(
+      screen.getAllByRole('cell', { name: 'Real' })[1]
+    ).toBeInTheDocument();
   });
 });
 
@@ -285,11 +355,17 @@ describe('10 - Crie um botão para deletar uma despesa da tabela contendo as seg
   });
 
   test('Ao ser clicado, o botão deleta a linha da tabela, alterando o estado global.', () => {
-    const { store } = renderWithRouterAndStore(<Wallet />, '/carteira', initial);
+    const { store } = renderWithRouterAndStore(
+      <Wallet />,
+      '/carteira',
+      initial
+    );
     const deleteBtn = screen.getAllByTestId('delete-btn')[0];
     fireEvent.click(deleteBtn);
 
-    expect(screen.getByRole('cell', { name: 'Vinte euros' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('cell', { name: 'Vinte euros' })
+    ).toBeInTheDocument();
     expect(screen.getByRole('cell', { name: 'Trabalho' })).toBeInTheDocument();
     expect(screen.getByRole('cell', { name: 'Dinheiro' })).toBeInTheDocument();
     expect(screen.getByRole('cell', { name: '20' })).toBeInTheDocument();
@@ -313,7 +389,11 @@ describe('10 - Crie um botão para deletar uma despesa da tabela contendo as seg
   });
 
   test('Ao clicar no botão para remover uma despesa, o valor correspondente deve ser subtraído e a despesa total deve ser atualizada no header', () => {
-    const { store } = renderWithRouterAndStore(<Wallet />, '/carteira', initial);
+    const { store } = renderWithRouterAndStore(
+      <Wallet />,
+      '/carteira',
+      initial
+    );
     const deleteBtn = screen.getAllByTestId('delete-btn')[0];
 
     fireEvent.click(deleteBtn);
