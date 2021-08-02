@@ -14,7 +14,7 @@ class Login extends React.Component {
     };
 
     this.validateEmail = this.validateEmail.bind(this);
-    this.handleOnChange = this.handleOnChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   validateEmail() {
@@ -31,7 +31,7 @@ class Login extends React.Component {
     return true;
   }
 
-  handleOnChange({ target }) {
+  handleChange({ target }) {
     const { name, value } = target;
 
     this.setState({
@@ -50,7 +50,7 @@ class Login extends React.Component {
           name="email"
           value={ email }
           placeholder="Email"
-          onChange={ this.handleOnChange }
+          onChange={ this.handleChange }
         />
         <input
           data-testid="password-input"
@@ -58,7 +58,7 @@ class Login extends React.Component {
           name="password"
           value={ password }
           placeholder="Senha"
-          onChange={ this.handleOnChange }
+          onChange={ this.handleChange }
         />
         <Link to="/carteira">
           <button
