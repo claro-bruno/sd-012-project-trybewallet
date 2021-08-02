@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchCurrencies, fetchRates } from '../redux/actions';
+import { fetchCurrencies, fetchRates, removeItem } from '../redux/actions';
 import WalletHeader from '../components/WalletHeader';
 // import './Login.css'
 
@@ -21,6 +21,7 @@ class Wallet extends React.Component {
     this.expenseForm = this.expenseForm.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.expensesTable = this.expensesTable.bind(this);
+    this.removeExpenseClick = this.removeExpenseClick.bind(this);
   }
 
   componentDidMount() {
@@ -33,6 +34,12 @@ class Wallet extends React.Component {
     const { value, description, currency, method, tag } = this.state;
     const expense = { id: expenses.length, value, description, currency, method, tag };
     addExpense(expense).then(this.setState(initialState));
+  }
+
+  removeExpenseClick({ target: { name } }) {
+    const { removeExpense } = this.props;
+    console.log(name);
+    removeExpense(name);
   }
 
   handleChange({ target: { id, value } }) {
@@ -99,12 +106,13 @@ class Wallet extends React.Component {
   }
 
   expensesTable() {
+    const { expenses } = this.props;
+    const { removeExpenseClick } = this;
     const tableHeader = ['Descrição', 'Tag', 'Método de pagamento', 'Valor', 'Moeda',
       'Câmbio utilizado', 'Valor convertido', 'Moeda de conversão', 'Editar/Excluir'];
     const formatter = new Intl.NumberFormat('en-US', {
       maximumFractionDigits: 2,
     });
-    const { expenses } = this.props;
     return (
       <table>
         <thead>
@@ -114,12 +122,20 @@ class Wallet extends React.Component {
         </thead>
         <tbody>
           { expenses.map((expense, i) => {
-            const { description, tag, method, value, currency } = expense;
+            const { id, description, tag, method, value, currency } = expense;
             const { ask, name } = expense.exchangeRates[currency];
             const convertCurrency = name.split('/')[0];
             const actualCurrency = 'Real';
             const convertedValue = formatter.format(Number(ask) * Number(value));
-            const editOrRemove = '';
+            const editOrRemove = (
+              <button
+                type="button"
+                name={ id }
+                data-testid="delete-btn"
+                onClick={ removeExpenseClick }
+              >
+                X
+              </button>);
             const columnValues = [description, tag, method, formatter.format(value),
               convertCurrency, formatter.format(ask), convertedValue,
               actualCurrency, editOrRemove];
@@ -158,6 +174,7 @@ Wallet.propTypes = {
   error: PropTypes.string,
   getCurrencies: PropTypes.func.isRequired,
   addExpense: PropTypes.func.isRequired,
+  removeExpense: PropTypes.func.isRequired,
 };
 
 Wallet.defaultProps = {
@@ -177,6 +194,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getCurrencies: () => dispatch(fetchCurrencies()),
   addExpense: (expense) => dispatch(fetchRates(expense)),
+  removeExpense: (id) => dispatch(removeItem(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

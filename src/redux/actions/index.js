@@ -30,6 +30,11 @@ export const getRatesError = (error) => ({
   error,
 });
 
+export const removeItem = (id) => ({
+  type: actionTypes.REMOVE_ITEM,
+  id,
+});
+
 const handleErrors = (response) => {
   if (!response.ok) throw Error(`${response.status} ${response.statusText}`);
   return response.json();

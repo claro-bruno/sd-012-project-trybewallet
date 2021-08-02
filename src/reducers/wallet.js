@@ -23,6 +23,11 @@ const wallet = (state = INTIIAL_STATE, action) => {
       ...state, expenses: [...state.expenses, action.expense], onLoadingRates: false };
   case actionTypes.GET_RATES_ERROR:
     return { ...state, error: String(action.error), onLoadingRates: false };
+  case actionTypes.REMOVE_ITEM:
+    return {
+      ...state,
+      expenses: state.expenses.filter(({ id }) => Number(id) !== Number(action.id)),
+    };
 
   default:
     return state;
