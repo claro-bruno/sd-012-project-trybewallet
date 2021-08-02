@@ -5,6 +5,8 @@ export const getCurrencies = (currencies) => ({ type: 'REQUEST_CURRENCIES', curr
 
 export const addExpenses = (newExpense, ID) => ({ type: 'ADD_EXPENSE', newExpense, ID });
 
+export const removeExpenses = (ID) => ({ type: 'REMOVE_EXPENSE', ID });
+
 export const fetchCurrencies = () => (dispatch) => (
   fetch('https://economia.awesomeapi.com.br/json/all')
     .then((data) => data.json())

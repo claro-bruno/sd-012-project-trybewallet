@@ -15,6 +15,10 @@ function wallet(state = INITIAL_STATE, action) {
       expenses: [...state.expenses, action.newExpense],
       nextId: action.ID + 1 };
 
+  case 'REMOVE_EXPENSE':
+    return { ...state,
+      expenses: state.expenses.filter((expense) => expense.id !== action.ID) };
+
   default:
     return state;
   }
