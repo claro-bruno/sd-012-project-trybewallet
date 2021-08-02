@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import changeUser from '../actions';
 
 // prettier-ignore
 class LoginForm extends React.Component {
@@ -29,9 +30,9 @@ class LoginForm extends React.Component {
   }
 
   handleClick() {
-    const { changeUser, callback } = this.props;
+    const { changeEmail, callback } = this.props;
     const { typedEmail } = this.state;
-    changeUser(typedEmail);
+    changeEmail(typedEmail);
     callback();
   }
 
@@ -92,8 +93,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeUser: (value) => {
-    dispatch({ type: 'CHANGE_USER', value });
+  changeEmail: (value) => {
+    dispatch(changeUser(value));
   },
 });
 
@@ -101,5 +102,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
 
 LoginForm.propTypes = {
   callback: PropTypes.func.isRequired,
-  changeUser: PropTypes.func.isRequired,
+  changeEmail: PropTypes.func.isRequired,
 };
