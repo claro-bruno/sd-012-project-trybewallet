@@ -14,7 +14,7 @@ class SelectMoeda extends React.Component {
     } = this;
 
     const optionsArray = coins.map((coin) => {
-      const { code } = coin;
+      const { code } = coin[1];
       return { value: code, text: code };
     });
 

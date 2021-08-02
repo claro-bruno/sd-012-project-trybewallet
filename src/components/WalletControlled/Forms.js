@@ -42,7 +42,28 @@ class Forms extends React.Component {
   }
 
   handleClick() {
-    console.log('clicou!');
+    const {
+      state: { expenseAmount, descricao, currency, paymentMethod, category },
+      props: { coins },
+    } = this;
+
+    const dataAPI = coins.reduce(
+      (accumulator, coin) => ({
+        ...accumulator,
+        [coin[0]]: coin[1],
+      }),
+      {},
+    );
+
+    const data = {
+      value: expenseAmount,
+      description: descricao,
+      currency,
+      method: paymentMethod,
+      tag: category,
+      exchangeRates: dataAPI,
+    };
+    console.log(data);
   }
 
   render() {
@@ -83,11 +104,18 @@ class Forms extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   getCoins: () => dispatch(fetchAPI()),
+  // saveDataStore: (state) => dispatch(saveDataForms(state)),
 });
 
-const { func } = PropTypes;
+const mapStateToProps = (state) => ({
+  coins: state.wallet.currencies,
+});
+
+const { func, array } = PropTypes;
 Forms.propTypes = {
   getCoins: func.isRequired,
+  saveDataStore: func.isRequired,
+  coins: array.isRequired,
 }.isRequired;
 
-export default connect(mapDispatchToProps)(Forms);
+export default connect(mapStateToProps, mapDispatchToProps)(Forms);

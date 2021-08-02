@@ -18,8 +18,7 @@ function wallet(state = INITIAL_STATE, action) {
       ...state,
       error: null,
       currencies: Object.entries(payload)
-        .filter((coin) => coin[0] !== 'USDT')
-        .map((coin) => coin[1]),
+        .filter((coin) => coin[0] !== 'USDT'),
     };
 
   case GET_COINS_ERROR:
