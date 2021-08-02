@@ -29,14 +29,13 @@ class Wallet extends Component {
   }
 
   render() {
-    const { expenses, email } = this.props;
+    const { emailState } = this.props;
     const { currenciesKeys } = this.state;
-    console.log(currenciesKeys);
     return (
       <>
         <header>
-          <h3 data-testid="email-field">{ email }</h3>
-          <h3 data-testid="total-field" label="Valor">{ expenses }</h3>
+          <h3 data-testid="email-field">{ emailState }</h3>
+          <h3 data-testid="total-field" label="Valor">0</h3>
           <h3 data-testid="header-currency-field">BRL</h3>
         </header>
         <form>
@@ -52,11 +51,12 @@ class Wallet extends Component {
 }
 
 Wallet.propTypes = {
-  expenses: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
+  emailState: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = () => ({});
+const mapStateToProps = (state) => ({
+  emailState: state.user.email,
+});
 
 const mapDispatchToProps = () => ({});
 

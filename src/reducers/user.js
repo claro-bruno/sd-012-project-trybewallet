@@ -5,7 +5,7 @@ const INITIAL_USER_STATE = {
   email: '',
 };
 
-const user = (state = INITIAL_USER_STATE, action) => {
+const userReducer = (state = INITIAL_USER_STATE, action) => {
   switch (action.type) {
   case SAVE_EMAIL:
     return ({
@@ -16,4 +16,4 @@ const user = (state = INITIAL_USER_STATE, action) => {
   }
 };
 
-export default user;
+export default userReducer;
