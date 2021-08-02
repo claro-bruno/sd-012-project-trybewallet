@@ -23,15 +23,16 @@ class Table extends Component {
         <tbody>
           { expenses.map((e) => {
             const { id, tag, description, exchangeRates, value, currency, method } = e;
-            const conValue = parseFloat(value * exchangeRates[currency].ask).toFixed(2);
+            const conValue = (value * exchangeRates[currency].ask).toFixed(2);
+            const cambio = parseFloat(exchangeRates[currency].ask).toFixed(2);
             return (
               <tr key={ id }>
                 <td>{ tag }</td>
                 <td>{ description }</td>
                 <td>{ method }</td>
                 <td>{ value }</td>
-                <td>{ currency }</td>
                 <td>{ exchangeRates[currency].name }</td>
+                <td>{ cambio }</td>
                 <td>{ conValue }</td>
                 <td>Real</td>
                 <td>
