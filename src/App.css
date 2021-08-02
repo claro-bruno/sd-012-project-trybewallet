@@ -43,7 +43,7 @@
   text-align: center;
 }
 
-.wallet-header input, label, select {
+.wallet-header input , label , select {
   margin: 0.3rem;
   padding: 0.3rem;
 }
@@ -125,21 +125,21 @@
 
 .btn-add , .delete-btn , .edit-btn {
   border: none;
-  border-radius:10px;
+  border-radius: 10px;
   font-weight: 700;
   padding: 0.5rem;
   transition: 500ms;
-}
-
-.delete-btn:hover , .btn-add:hover , .edit-btn:hover , .logout:hover {
-  cursor: pointer;
-  transform: scale(1.05);
 }
 
 .logout {
   align-self: center;
   font-weight: 700;
   transition: 500ms;
+}
+
+.delete-btn:hover , .btn-add:hover , .edit-btn:hover , .logout:hover {
+  cursor: pointer;
+  transform: scale(1.05);
 }
 
 th , thead , td , tr {
