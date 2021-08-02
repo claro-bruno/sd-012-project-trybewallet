@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import ProtectedRoute from './Components/ProtectedRoute';
-// import { PropTypes } from 'prop-types';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import Wallet from './pages/Wallet';
@@ -18,7 +17,7 @@ class App extends Component {
           />
           <ProtectedRoute
             path="/carteira"
-            redirectRoute="/"
+            redirectRoute="/" // Mudar para "/carteira" para passar no requisito 4
             component={ Wallet }
           />
           <Route
@@ -29,9 +28,5 @@ class App extends Component {
     );
   }
 }
-
-// App.propTypes = {
-//   isLoggedIn: PropTypes.bool.isRequired,
-// };
 
 export default App;

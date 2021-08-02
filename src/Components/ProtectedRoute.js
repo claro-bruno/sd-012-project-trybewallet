@@ -5,7 +5,13 @@ import PropTypes from 'prop-types';
 
 class ProtectedRoute extends React.Component {
   render() {
-    const { isLoggedIn, component: Component, redirectRoute, ...rest } = this.props;
+    const {
+      isLoggedIn,
+      component: Component,
+      redirectRoute,
+      ...rest
+    } = this.props;
+
     return (
       <Route
         { ...rest }
