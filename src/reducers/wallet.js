@@ -8,7 +8,7 @@ const INICIAL_STATE = {
 const wallet = (state = INICIAL_STATE, action) => {
   switch (action.type) {
   case SAVE_EXPENSES:
-    return { ...state, expenses: [...state.expenses, action.payload] };
+    return { ...state, expenses: [action.payload] };
   default:
     return state;
   }

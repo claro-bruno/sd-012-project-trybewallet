@@ -54,9 +54,3 @@
   display: flex;
   margin-left: 10px;
 }
-
-.table-div {
-  display: flex;
-  justify-content: space-evenly;
-  margin-top: 10px;
-}
