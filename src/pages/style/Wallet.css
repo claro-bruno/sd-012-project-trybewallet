@@ -1,0 +1,12 @@
+header {
+  justify-content: space-between;
+}
+
+form {
+  padding: 3px;
+  padding: 6px 0;
+}
+
+.col-auto {
+  margin: 0;
+}

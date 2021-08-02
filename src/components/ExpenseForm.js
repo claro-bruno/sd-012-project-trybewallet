@@ -14,7 +14,6 @@ class ExpenseForm extends React.Component {
       tag: '',
       nowEditing: false,
     };
-
     this.handleChange = this.handleChange.bind(this);
     this.saveClick = this.saveClick.bind(this);
     this.replaceClick = this.replaceClick.bind(this);
@@ -91,6 +90,7 @@ class ExpenseForm extends React.Component {
       <label htmlFor="currency-input">
         Moeda
         <select
+          className="form-select"
           name="currency"
           data-testid="currency-input"
           id="currency-input"
@@ -108,6 +108,7 @@ class ExpenseForm extends React.Component {
       <label htmlFor="method-input">
         Método de pagamento
         <select
+          className="form-select"
           name="method"
           data-testid="method-input"
           id="method-input"
@@ -127,6 +128,7 @@ class ExpenseForm extends React.Component {
       <label htmlFor="tag-input">
         Tag
         <select
+          className="form-select"
           name="tag"
           id="tag-input"
           value={ tag }
@@ -147,11 +149,15 @@ class ExpenseForm extends React.Component {
     const { nowEditing } = this.state;
     if (nowEditing) {
       return (
-        <button type="submit" onClick={ this.replaceClick }>Editar despesa</button>
+        <button className="btn btn-primary" type="submit" onClick={ this.replaceClick }>
+          Editar despesa
+        </button>
       );
     }
     return (
-      <button type="submit" onClick={ this.saveClick }>Adicionar despesa</button>
+      <button className="btn btn-primary" type="submit" onClick={ this.saveClick }>
+        Adicionar despesa
+      </button>
     );
   }
 
@@ -159,44 +165,48 @@ class ExpenseForm extends React.Component {
     const { currencies } = this.props;
     const { value, description, currency, method, tag } = this.state;
     return (
-      <form action="">
-        <label htmlFor="valor-input">
-          Valor
-          <input
-            data-testid="value-input"
-            type="number"
-            name="value"
-            id="valor-input"
-            value={ value }
-            onChange={ this.handleChange }
-          />
-        </label>
-        <label htmlFor="description-input">
-          Descrição
-          <input
-            type="text"
-            data-testid="description-input"
-            name="description"
-            id="description-input"
-            value={ description }
-            onChange={ this.handleChange }
-          />
-        </label>
-        {this.currenciesSelect(currencies, currency)}
-        {this.methodSelect(method)}
-        {this.tagSelect(tag)}
-        {this.sendBtn()}
+      <form className="row gy-2 gx-3 align-items-end justify-content-center">
+        <div className="col-auto">
+          <label htmlFor="valor-input">
+            Valor
+            <input
+              className="form-control"
+              data-testid="value-input"
+              type="number"
+              name="value"
+              id="valor-input"
+              value={ value }
+              onChange={ this.handleChange }
+            />
+          </label>
+        </div>
+        <div className="col-auto">
+          <label htmlFor="description-input">
+            Descrição
+            <input
+              className="form-control"
+              type="text"
+              data-testid="description-input"
+              name="description"
+              id="description-input"
+              value={ description }
+              onChange={ this.handleChange }
+            />
+          </label>
+        </div>
+        <div className="col-auto">{this.currenciesSelect(currencies, currency)}</div>
+        <div className="col-auto">{this.methodSelect(method)}</div>
+        <div className="col-auto">{this.tagSelect(tag)}</div>
+        <div className="col-auto">{this.sendBtn()}</div>
       </form>
     );
   }
 }
-
 ExpenseForm.defaultProps = {
   expenses: [],
   editing: { edit: false, expense: {} },
   currenciesResp: {},
 };
-
 ExpenseForm.propTypes = {
   fetchCurrencies: func.isRequired,
   addExpense: func.isRequired,
@@ -221,18 +231,15 @@ ExpenseForm.propTypes = {
     }),
   }),
 };
-
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   currenciesResp: state.wallet.currenciesResp,
   expenses: state.wallet.expenses,
   editing: state.wallet.editing,
 });
-
 const mapDispatchToProps = (dispatch) => ({
   fetchCurrencies: () => dispatch(fetchCurrencies()),
   addExpense: (expense) => dispatch(addExpense(expense)),
   replace: (expense) => dispatch(replaceExpense(expense)),
 });
-
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);

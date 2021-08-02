@@ -20,10 +20,16 @@ class HeaderWallet extends React.Component {
       0,
     );
     return (
-      <header>
-        <span data-testid="email-field">{email}</span>
-        <span data-testid="total-field">{fmt.format(total)}</span>
-        <span data-testid="header-currency-field">BRL</span>
+      <header
+        className="d-flex flex-column flex-md-row
+        align-items-center p-2 mb-3 border-bottom shadow-sm"
+      >
+        <h1 className="my-0 mr-md-auto font-weight-normal">TrybeWallet</h1>
+        <div>
+          <span className="p-1" data-testid="email-field">{email}</span>
+          <span className="p-1" data-testid="total-field">{fmt.format(total)}</span>
+          <span className="p-1" data-testid="header-currency-field">BRL</span>
+        </div>
       </header>
     );
   }

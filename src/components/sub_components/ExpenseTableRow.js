@@ -31,12 +31,14 @@ class ExpenseTableRow extends React.Component {
         <td>
           <input
             data-testid="delete-btn"
+            className="btn btn-danger"
             type="button"
             value="X"
             onClick={ () => rmv(expense.id) }
           />
           <input
             data-testid="edit-btn"
+            className="btn btn-warning"
             type="button"
             value="Editar"
             onClick={ () => edt(expense) }

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { func } from 'prop-types';
 import { addUser } from '../actions';
+import './style/Login.css';
 
 class Login extends React.Component {
   constructor() {
@@ -49,6 +50,7 @@ class Login extends React.Component {
       <>
         {redirect && <Redirect to="/carteira" />}
         <form className="login-form">
+          <h1>TrybeWallet</h1>
           <label htmlFor="email-input" className="form-label">
             Email:
             <input
