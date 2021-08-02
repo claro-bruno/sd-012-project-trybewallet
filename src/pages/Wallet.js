@@ -8,7 +8,6 @@ class Wallet extends React.Component {
     super(props);
     this.fetchCurrencies = this.fetchCurrencies.bind(this);
     this.showCurrencies = this.showCurrencies.bind(this);
-    this.renderHeader = this.renderHeader.bind(this);
     this.renderPage = this.renderPage.bind(this);
   }
 
@@ -46,25 +45,20 @@ class Wallet extends React.Component {
     );
   }
 
-  renderHeader() {
+  renderPage() {
+    const { currencies } = this.props;
     const { email } = this.props;
     return (
-      <header>
-        <p>
-          Email:
-          <span data-testid="email-field">{` ${email} `}</span>
-          Despesa Total: R$
-          <span data-testid="total-field">{0}</span>
-          <span data-testid="header-currency-field"> BRL</span>
-        </p>
-      </header>
-    );
-  }
-
-  renderPage() {
-    return (
       <div>
-        {this.renderHeader()}
+        <header>
+          <p>
+            Email:
+            <span data-testid="email-field">{` ${email} `}</span>
+            Despesa Total: R$
+            <span data-testid="total-field">{0}</span>
+            <span data-testid="header-currency-field">BRL</span>
+          </p>
+        </header>
         <form>
           <label htmlFor="input-value">
             Valor
@@ -74,7 +68,7 @@ class Wallet extends React.Component {
             Descrição
             <input id="input-description" type="text" />
           </label>
-          {this.showCurrencies()}
+          {(currencies.length === 0) ? null : this.showCurrencies()}
           <label htmlFor="input-payment">
             Método de pagamento
             <select id="input-payment" aria-label="Método de pagamento">
@@ -99,10 +93,9 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { currencies } = this.props;
     return (
       <div>
-        { (currencies.length === 0) ? <p>Carregando</p> : this.renderPage()}
+        {this.renderPage()}
       </div>
     );
   }
