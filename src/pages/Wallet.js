@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import './wallet.css';
+import { thunkCurrencies } from '../actions';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -13,6 +14,17 @@ class Wallet extends React.Component {
     this.state = {
 
     };
+  }
+
+  componentDidMount() {
+    this.getCurrencies();
+  }
+
+  async getCurrencies() {
+    const { currenciesRequest } = this.props;
+    const currencies = await currenciesRequest();
+    const listaMoedas = Object.keys(currencies);
+    return listaMoedas;
   }
 
   renderMetPag() {
@@ -86,8 +98,13 @@ const mapStateToProps = (state) => ({
   userEmail: state.user.email,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  currenciesRequest: () => dispatch(thunkCurrencies()),
+});
+
 Wallet.propTypes = {
   userEmail: propTypes.string.isRequired,
+  currenciesRequest: propTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, null)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

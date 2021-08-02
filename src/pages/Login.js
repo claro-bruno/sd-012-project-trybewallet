@@ -12,6 +12,7 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleValidation = this.handleValidation.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleUserInfo = this.handleUserInfo.bind(this);
 
     this.state = {
       email: '',
@@ -42,6 +43,11 @@ class Login extends React.Component {
     target.preventDefault();
   }
 
+  handleUserInfo(email, senha) {
+    const { dispatchUserInfo } = this.props;
+    dispatchUserInfo(email, senha);
+  }
+
   handleValidation() {
     const botaoEntrar = document.querySelector('button');
     botaoEntrar.disabled = true;
@@ -56,7 +62,6 @@ class Login extends React.Component {
 
   render() {
     const { email, senha } = this.state;
-    const { userEmail } = this.props;
     return (
       <div>
         <h1>TrybeWallet</h1>
@@ -85,7 +90,14 @@ class Login extends React.Component {
             />
           </label>
           <Link to="/carteira">
-            <button type="submit" onClick={ () => userEmail(email) }>Entrar</button>
+            <button
+              type="submit"
+              onClick={
+                () => this.handleUserInfo(email, senha)
+              }
+            >
+              Entrar
+            </button>
           </Link>
         </form>
       </div>
@@ -94,11 +106,11 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  userEmail: (value) => dispatch(userLogin(value)),
+  dispatchUserInfo: (email, senha) => dispatch(userLogin(email, senha)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
 
 Login.propTypes = {
-  userEmail: propTypes.func.isRequired,
+  dispatchUserInfo: propTypes.func.isRequired,
 };
