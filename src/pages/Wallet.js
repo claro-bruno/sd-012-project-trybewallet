@@ -22,29 +22,14 @@ class Wallet extends React.Component {
     const url = 'https://economia.awesomeapi.com.br/json/all';
     const response = await fetch(url);
     const result = await response.json();
+    console.log(result);
     const moneyInitials = Object.keys(result).filter((initials) => initials !== 'USDT');
     this.setState({ moneyInitials });
   }
 
-  renderForm() {
-    const { moneyInitials } = this.state;
+  renderFormHelper() {
     return (
-      <form className="form-section">
-        <label htmlFor="value-id">
-          Valor:
-          <input
-            type="number"
-            id="value-id"
-            name="value"
-            className="form-item"
-          />
-        </label>
-        <label htmlFor="currency-id">
-          Moeda:
-          <select className="form-item-currency" aria-label="Moeda" id="currency-id">
-            { moneyInitials.map((init) => <option key={ init }>{ init }</option>) }
-          </select>
-        </label>
+      <div>
         <label htmlFor="method-id">
           Método de pagamento:
           <select className="form-item" id="method-id">
@@ -72,6 +57,30 @@ class Wallet extends React.Component {
             className="form-item"
           />
         </label>
+      </div>
+    );
+  }
+
+  renderForm() {
+    const { moneyInitials } = this.state;
+    return (
+      <form className="form-section">
+        <label htmlFor="value-id">
+          Valor:
+          <input
+            type="number"
+            id="value-id"
+            name="value"
+            className="form-item"
+          />
+        </label>
+        <label htmlFor="currency-id">
+          Moeda:
+          <select className="form-item-currency" aria-label="Moeda" id="currency-id">
+            { moneyInitials.map((init) => <option key={ init }>{ init }</option>) }
+          </select>
+        </label>
+        { this.renderFormHelper() }
       </form>
     );
   }
