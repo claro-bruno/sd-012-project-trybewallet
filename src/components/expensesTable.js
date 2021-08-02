@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { removeExpense, editExpense } from '../actions';
 import expenseTableHead from '../data/expenseTableHead';
 
-const ExpenseTable = (props) => {
+const expenseTable = (props) => {
   const { expenses, removeExpenseValue, editExpenseValue } = props;
 
   return (
@@ -63,14 +63,14 @@ const mapDispatchToProps = (dispatch) => ({
   editExpenseValue: (payload) => dispatch(editExpense(payload)),
 });
 
-ExpenseTable.propTypes = {
+expenseTable.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object),
   removeExpenseValue: PropTypes.func.isRequired,
   editExpenseValue: PropTypes.func.isRequired,
 };
 
-ExpenseTable.defaultProps = {
+expenseTable.defaultProps = {
   expenses: [],
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ExpenseTable);
+export default connect(mapStateToProps, mapDispatchToProps)(expenseTable);

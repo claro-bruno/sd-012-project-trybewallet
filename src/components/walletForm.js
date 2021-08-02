@@ -1,26 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import valueInput from './formComponents/valueInput';
-import descriptionInput from './formComponents/descriptionInput';
-import currencySelect from './formComponents/currencySelect';
-import methodSelect from './formComponents/methodSelect';
-import tagSelect from './formComponents/tagSelect';
-import editExpensesButton from './formComponents/editExpensesButton';
-import addExpensesButton from './formComponents/addExpensesButton';
+import ValueInput from './formComponents/ValueInput';
+import DescriptionInput from './formComponents/DescriptionInput';
+import CurrencySelect from './formComponents/CurrencySelect';
+import MethodSelect from './formComponents/MethodSelect';
+import TagSelect from './formComponents/TagSelect';
+import EditExpensesButton from './formComponents/EditExpensesButton';
+import AddExpensesButton from './formComponents/AddExpensesButton';
 
-const WalletForm = (props) => {
+const walletForm = (props) => {
   const { editor } = props;
   return (
     <form>
-      <valueInput />
-      <descriptionInput />
-      <currencySelect />
-      <methodSelect />
-      <tagSelect />
+      <ValueInput />
+      <DescriptionInput />
+      <CurrencySelect />
+      <MethodSelect />
+      <TagSelect />
       { (editor)
-        ? <editExpensesButton />
-        : <addExpensesButton /> }
+        ? <EditExpensesButton />
+        : <AddExpensesButton /> }
     </form>
   );
 };
@@ -29,12 +29,12 @@ const mapStateToProps = (state) => ({
   editor: state.wallet.editor,
 });
 
-WalletForm.propTypes = {
+walletForm.propTypes = {
   editor: PropTypes.bool,
 };
 
-WalletForm.defaultProps = {
+walletForm.defaultProps = {
   editor: false,
 };
 
-export default connect(mapStateToProps)(WalletForm);
+export default connect(mapStateToProps)(walletForm);

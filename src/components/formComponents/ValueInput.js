@@ -10,6 +10,7 @@ const valueInput = (props) => {
       Valor:
       <input
         type="number"
+        id="value"
         name="value"
         value={ value }
         data-testid="value-input"
