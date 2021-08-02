@@ -2,23 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class Form1 extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.state = {
-      value: '',
-      description: '',
-      coin: '',
-    };
-  }
-
-  handleChange({ target: { name, value } }) {
-    this.setState({ [name]: value });
-  }
-
   render() {
-    const { value, description, coin } = this.state;
-    const { coins } = this.props;
+    const { coins, value, description, currency, handleChange } = this.props;
     return (
       <form>
         <label htmlFor="Valor">
@@ -28,7 +13,7 @@ class Form1 extends React.Component {
             type="text"
             value={ value }
             name="value"
-            onChange={ this.handleChange }
+            onChange={ handleChange }
           />
         </label>
         <label htmlFor="Descrição">
@@ -38,16 +23,16 @@ class Form1 extends React.Component {
             type="text"
             value={ description }
             name="description"
-            onChange={ this.handleChange }
+            onChange={ handleChange }
           />
         </label>
         <label htmlFor="Moeda">
           Moeda
           <select
             id="Moeda"
-            value={ coin }
-            name="coin"
-            onChange={ this.handleChange }
+            value={ currency }
+            name="currency"
+            onChange={ handleChange }
           >
             {coins.map((c, index) => <option value={ c } key={ index }>{ c }</option>) }
           </select>
@@ -60,5 +45,9 @@ class Form1 extends React.Component {
 export default Form1;
 
 Form1.propTypes = {
-  coins: PropTypes.func.isRequired,
-};
+  coins: PropTypes.func,
+  value: PropTypes.string,
+  description: PropTypes.string,
+  currency: PropTypes.string,
+  handleChange: PropTypes.func,
+}.isRequired;

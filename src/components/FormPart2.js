@@ -1,30 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Form2 extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.state = {
-      payment: '',
-      tag: '',
-    };
-  }
-
-  handleChange({ target: { name, value } }) {
-    this.setState({ [name]: value });
-  }
-
   render() {
-    const { payment, tag } = this.state;
+    const { method, tag, handleChange } = this.props;
     return (
       <form>
         <label htmlFor="Método de pagamento">
           Método de pagamento
           <select
             id="Método de pagamento"
-            value={ payment }
-            name="payment"
-            onChange={ this.handleChange }
+            value={ method }
+            name="method"
+            onChange={ handleChange }
           >
             <option>Dinheiro</option>
             <option>Cartão de crédito</option>
@@ -33,7 +21,7 @@ class Form2 extends React.Component {
         </label>
         <label htmlFor="Tag">
           Tag
-          <select id="Tag" value={ tag } name="tag" onChange={ this.handleChange }>
+          <select id="Tag" value={ tag } name="tag" onChange={ handleChange }>
             <option>Alimentação</option>
             <option>Lazer</option>
             <option>Trabalho</option>
@@ -47,3 +35,9 @@ class Form2 extends React.Component {
 }
 
 export default Form2;
+
+Form2.propTypes = {
+  method: PropTypes.string,
+  tag: PropTypes.string,
+  handleChange: PropTypes.func,
+}.isRequired;
