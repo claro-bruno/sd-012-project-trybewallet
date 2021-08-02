@@ -1,13 +1,7 @@
-import { createStore, combineReducers, compose } from 'redux';
-import UserReducer from '../Reducers/UserReducer';
-import WalletReducer from '../Reducers/WalletReducer';
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import rootReducer from '../../reducers';
 
-const rootReducer = combineReducers({
-  UserReducer,
-  WalletReducer,
-});
-
-const extension = window.devToolsExtension() || ((f) => f);
-const store = createStore(rootReducer, compose(extension));
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware()));
 
 export default store;
