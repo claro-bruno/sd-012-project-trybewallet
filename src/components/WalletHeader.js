@@ -7,8 +7,13 @@ class WalletHeader extends React.Component {
   render() {
     const { userMail } = this.props;
     let { totalExpenses } = this.props;
-    if (totalExpenses > 0) {
-      totalExpenses.reduce((acc, init) => init + acc);
+
+    let pacoca = 0;
+
+    if (totalExpenses.length > 0) {
+      totalExpenses.forEach((expense) => {
+        pacoca += Number(expense.value);
+      });
     } else {
       totalExpenses = 0;
     }
@@ -23,7 +28,7 @@ class WalletHeader extends React.Component {
           {userMail}
         </span>
         <div className="info-container">
-          <span data-testid="total-field">{totalExpenses}</span>
+          <span data-testid="total-field">{pacoca}</span>
           <span data-testid="header-currency-field">BRL</span>
         </div>
       </header>
