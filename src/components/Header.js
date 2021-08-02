@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 class Header extends React.Component {
   constructor() {
     super();
-    this.teste = this.teste.bind(this);
+    this.calculateTotalValue = this.calculateTotalValue.bind(this);
   }
 
-  teste() {
+  calculateTotalValue() {
     const { expenses } = this.props;
     const expense = expenses.reduce((acc, { value, currency, exchangeRates }) => {
       const bill = value * (exchangeRates[currency].ask);
@@ -29,7 +29,7 @@ class Header extends React.Component {
         <p data-testid="total-field">
           Despesa Total:
           <span data-testid="header-currency-field">
-            { this.teste().toFixed(2) }
+            { this.calculateTotalValue().toFixed(2) }
             BRL
           </span>
         </p>
