@@ -1,22 +1,39 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getCurrencies } from '../actions';
+import { editExpense, getCurrencies } from '../actions';
 
 class EditForm extends Component {
   constructor(props) {
     super(props);
     const { selectedExpense: {
-      method, tag, value, description, currency,
+      id, method, tag, value, description, currency,
     } } = this.props;
+    console.log(value);
     this.state = {
-      method, tag, value, description, currency,
+      id, method, tag, value, description, currency,
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.renderSelects = this.renderSelects.bind(this);
   }
 
   componentDidMount() {
     const { fetcher } = this.props;
     fetcher();
+  }
+
+  handleChange({ target }) {
+    this.setState({
+      [target.name]: target.value,
+    });
+  }
+
+  handleSubmit(e) {
+    const { id } = this.state;
+    e.preventDefault();
+    const { edit } = this.props;
+    edit(this.state, id);
   }
 
   renderSelects() {
@@ -29,6 +46,7 @@ class EditForm extends Component {
             name="method"
             id="method-input"
             value={ method }
+            data-testid="method-input"
             onChange={ this.handleChange }
           >
             <option value="Dinheiro">Dinheiro</option>
@@ -41,6 +59,7 @@ class EditForm extends Component {
           <select
             name="tag"
             id="tag-input"
+            data-testid="tag-input"
             value={ tag }
             onChange={ this.handleChange }
           >
@@ -65,6 +84,7 @@ class EditForm extends Component {
           Valor
           <input
             type="number"
+            data-testid="value-input"
             name="value"
             id="value-input"
             value={ value }
@@ -77,6 +97,7 @@ class EditForm extends Component {
             type="text"
             name="description"
             id="desc-input"
+            data-testid="description-input"
             value={ description }
             onChange={ this.handleChange }
           />
@@ -87,6 +108,7 @@ class EditForm extends Component {
             name="currency"
             id="currency-input"
             value={ currency }
+            data-testid="currency-input"
             onChange={ this.handleChange }
           >
             {currencieNames && currencieNames
@@ -109,14 +131,16 @@ EditForm.defaultProps = {
 
 EditForm.propTypes = {
   selectedExpense: PropTypes.shape({
-    value: PropTypes.number,
+    value: PropTypes.string,
     description: PropTypes.string,
     method: PropTypes.string,
     currency: PropTypes.string,
     tag: PropTypes.string,
+    id: PropTypes.number,
   }).isRequired,
   fetcher: PropTypes.func.isRequired,
   currencieNames: PropTypes.arrayOf(PropTypes.string),
+  edit: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ wallet }) => ({
@@ -126,6 +150,7 @@ const mapStateToProps = ({ wallet }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetcher: () => dispatch(getCurrencies()),
+  edit: (expense, id) => dispatch(editExpense(expense, id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditForm);

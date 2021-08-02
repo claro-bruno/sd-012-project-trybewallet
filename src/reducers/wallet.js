@@ -5,6 +5,7 @@ import {
   ADD_EXPENSE_ACTION,
   REMOVE_EXPENSE_ACTION,
   SELECT_EXPENSE,
+  EDIT_EXPENSE,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -53,6 +54,17 @@ const wallet = (state = INITIAL_STATE, action) => {
       selected: action.payload,
       status: 'edit',
     });
+  case EDIT_EXPENSE: {
+    return ({
+      ...state,
+      selected: null,
+      status: 'add',
+      expenses: [...state.expenses
+        .filter((exp) => exp.id !== action.payload.id), { id: action.payload.id,
+        ...action.payload.expense,
+        exchangeRates: state.currencies }].sort((a, b) => a.id - b.id),
+    });
+  }
   default:
     return state;
   }

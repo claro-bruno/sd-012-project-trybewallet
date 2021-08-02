@@ -52,3 +52,12 @@ export const selectExpense = (payload) => ({
   type: SELECT_EXPENSE,
   payload,
 });
+
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
+export const editExpense = (expense, id) => ({
+  type: EDIT_EXPENSE,
+  payload: {
+    id,
+    expense,
+  },
+});

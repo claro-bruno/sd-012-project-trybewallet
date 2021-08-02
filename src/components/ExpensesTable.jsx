@@ -21,7 +21,6 @@ class ExpensesTable extends Component {
       removeExpense(payload);
     }
     if (target.name === 'edit') {
-      console.log('edit');
       selectExpenseAct(payload);
     }
   }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import ExpensesForm from '../components/ExpensesForm';
 import ExpensesTable from '../components/ExpensesTable';
@@ -21,6 +22,14 @@ class Wallet extends React.Component {
 
 const mapStateToProps = ({ wallet }) => ({
   status: wallet.status,
+});
+
+Wallet.defaultProps = ({
+  status: undefined,
+});
+
+Wallet.propTypes = ({
+  status: PropTypes.string,
 });
 
 export default connect(mapStateToProps)(Wallet);
