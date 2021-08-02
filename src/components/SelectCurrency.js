@@ -8,7 +8,7 @@ class SelectCurrency extends Component {
       <label htmlFor={ name }>
         {title}
         <select name={ name } id={ name } value={ value } onChange={ onChange }>
-          {options.filter((option) => option.codein !== 'BRLT')
+          {Object.values(options).filter((option) => option.codein !== 'BRLT')
             .map((option) => <option key={ option.code }>{option.code}</option>)}
         </select>
       </label>

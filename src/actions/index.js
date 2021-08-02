@@ -33,7 +33,7 @@ export function fetchAPI() {
     dispatch(requestAPI());
     return fetch(API_URL)
       .then((response) => response.json())
-      .then((json) => Object.values(json))
+      .then((json) => (json))
       .then((data) => dispatch(getAPI(data)));
   };
 }

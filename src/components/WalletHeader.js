@@ -14,10 +14,11 @@ class WalletHeader extends Component {
     this.state = {
       id: 0,
       value: '',
-      description: '',
-      payment: 'Dinheiro',
-      category: 'Alimentação',
       currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+      description: '',
+      exchangeRates: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -45,21 +46,20 @@ class WalletHeader extends Component {
   }
 
   newExpense(currencies) {
-    const { value, currency } = this.state;
-    const { ask } = currencies.find((currCurrency) => currCurrency.code === currency);
+    const { getCurrency } = this.props;
+    getCurrency();
     this.updateState();
     return {
-      expenseDetails: this.state,
-      exchangeRates: [...currencies],
-      total: value * ask,
+      ...this.state,
+      exchangeRates: { ...currencies },
     };
   }
 
   render() {
-    const paymentOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+    const methodOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const tagOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     const { currencies = [], addExpense } = this.props;
-    const { value, description, category, payment, currency } = this.state;
+    const { value, description, tag, method, currency } = this.state;
     return (
       <div>
         <Input
@@ -78,15 +78,15 @@ class WalletHeader extends Component {
         />
         <Select
           title="Método de pagamento"
-          name="payment"
-          value={ payment }
-          options={ paymentOptions }
+          name="method"
+          value={ method }
+          options={ methodOptions }
           onChange={ this.handleChange }
         />
         <Select
           title="Tag"
-          name="category"
-          value={ category }
+          name="tag"
+          value={ tag }
           options={ tagOptions }
           onChange={ this.handleChange }
         />
