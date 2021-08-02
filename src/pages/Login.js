@@ -1,18 +1,33 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import newUser from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
+    const INITIAL_STATE = {
       email: '',
       senha: '',
-      required: 'alguem@alguem.com',
       disabled: true,
+      redirect: false,
     };
+
+    this.state = INITIAL_STATE;
 
     this.handleChange = this.handleChange.bind(this);
     this.validation = this.validation.bind(this);
+    this.onClick = this.onClick.bind(this);
+  }
+
+  onClick() {
+    const { email } = this.state;
+    const { changeUser } = this.props;
+    changeUser(email);
+    this.setState({
+      redirect: true,
+    });
   }
 
   handleChange({ target }) {
@@ -35,7 +50,12 @@ class Login extends React.Component {
   }
 
   render() {
-    const { disabled, email, senha, required } = this.state;
+    const { disabled, email, senha, redirect } = this.state;
+
+    if (redirect) {
+      return <Redirect to="/carteira" />;
+    }
+
     return (
       <form>
         Login
@@ -45,8 +65,8 @@ class Login extends React.Component {
             value={ email }
             type="email"
             name="email"
-            placeholder="email"
-            required={ required }
+            placeholder="Email"
+            required
             onChange={ this.handleChange }
           />
         </label>
@@ -62,10 +82,24 @@ class Login extends React.Component {
             onChange={ this.handleChange }
           />
         </label>
-        <button type="submit" disabled={ disabled }>Entrar</button>
+        <button
+          type="submit"
+          disabled={ disabled }
+          onClick={ this.onClick }
+        >
+          Entrar
+        </button>
       </form>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  changeUser: (value) => dispatch(newUser(value)),
+});
+
+Login.propTypes = {
+  changeUser: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
