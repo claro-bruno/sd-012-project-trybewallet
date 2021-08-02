@@ -11,7 +11,7 @@ class ExpenseInput extends React.Component {
     this.state = {
       amount: 0,
       description: '',
-      currency: '',
+      currency: {},
       paymentMethod: '',
       tag: '',
     };
@@ -20,8 +20,12 @@ class ExpenseInput extends React.Component {
   }
 
   handleChange({ target }) {
+    const { currenciesFromStore } = this.props;
     this.setState({
-      [target.id]: target.value,
+      [target.id]: target.id === 'currency'
+        ? currenciesFromStore
+          .find((currencyFromStore) => currencyFromStore.code === target.value)
+        : target.value,
     });
   }
 
@@ -33,6 +37,7 @@ class ExpenseInput extends React.Component {
 
   render() {
     const { amount, description, currency, paymentMethod, tag } = this.state;
+    const { currenciesFromStore } = this.props;
     return (
       <form onSubmit={ this.handleSubmit }>
         <label htmlFor="amount">
@@ -57,10 +62,16 @@ class ExpenseInput extends React.Component {
           Moeda
           <select
             id="currency"
-            value={ currency }
+            value={ currency.code }
             onChange={ this.handleChange }
           >
-            <option value="laranja">Laranja</option>
+            { currenciesFromStore.map((currencyFromStore) => (
+              <option
+                key={ currencyFromStore.code }
+                value={ currencyFromStore.code }
+              >
+                {currencyFromStore.code}
+              </option>)) }
           </select>
         </label>
         <label htmlFor="paymentMethod">
@@ -103,12 +114,17 @@ class ExpenseInput extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  currenciesFromStore: state.wallet.currencies,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   dispatchFormToStore: (expense) => dispatch(addExpense(expense)),
 });
 
-export default connect(null, mapDispatchToProps)(ExpenseInput);
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseInput);
 
 ExpenseInput.propTypes = {
   dispatchFormToStore: PropTypes.func.isRequired,
+  currenciesFromStore: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
