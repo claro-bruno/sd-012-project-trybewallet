@@ -31,18 +31,35 @@
   background-color: rgb(43, 43, 43);
   color: white;
   display: flex;
+  font-size: 14px;
   justify-content: space-around;
-  padding: 20px;
+  padding: 15px;
+}
+
+.form-section-helper {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+}
+
+.form-section-helper button {
+  height: 31px;
 }
 
 .form-item {
   height: 25px;
-  margin-left: 10px;
+  margin: 0 5px;
   width: 120px;
+}
+
+.form-item-value {
+  height: 25px;
+  margin: 0 5px;
+  width: 60px;
 }
 
 .form-item-currency {
   height: 25px;
-  margin-left: 10px;
+  margin: 0 5px;
   width: 60px;
 }

@@ -68,20 +68,7 @@ class Wallet extends React.Component {
 
   renderFormHelper() {
     return (
-      <div>
-        <label htmlFor="method-id">
-          Método de pagamento:
-          <select
-            className="form-item"
-            id="method-id"
-            name="method"
-            onChange={ this.handleChange }
-          >
-            <option>Dinheiro</option>
-            <option>Cartão de crédito</option>
-            <option>Cartão de débito</option>
-          </select>
-        </label>
+      <div className="form-section-helper">
         <label htmlFor="tag-id">
           Tag:
           <select
@@ -122,7 +109,7 @@ class Wallet extends React.Component {
             type="number"
             id="value-id"
             name="value"
-            className="form-item"
+            className="form-item-value"
             onChange={ this.handleChange }
           />
         </label>
@@ -136,6 +123,19 @@ class Wallet extends React.Component {
             onChange={ this.handleChange }
           >
             { moneyInitials.map((init) => <option key={ init }>{ init }</option>) }
+          </select>
+        </label>
+        <label htmlFor="method-id">
+          Método de pagamento:
+          <select
+            className="form-item"
+            id="method-id"
+            name="method"
+            onChange={ this.handleChange }
+          >
+            <option>Dinheiro</option>
+            <option>Cartão de crédito</option>
+            <option>Cartão de débito</option>
           </select>
         </label>
         { this.renderFormHelper() }
