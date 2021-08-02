@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import { login } from '../actions';
-import './Login.css';
+import './login.css';
 
 class Login extends React.Component {
   constructor(props) {
