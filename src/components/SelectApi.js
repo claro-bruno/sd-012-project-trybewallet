@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 class Select extends Component {
   render() {
-    const { name, label, endpoint } = this.props;
+    const { name, label, endpoint, value } = this.props;
     return (
       <label htmlFor={ name }>
         { label }
-        <select>
+        <select value={ value }>
           { endpoint.map((currency) => (
             <option
               key={ currency }
@@ -24,6 +24,7 @@ class Select extends Component {
 Select.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
   endpoint: PropTypes.objectOf('string').isRequired,
 };
 

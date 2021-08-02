@@ -7,7 +7,7 @@ class SelectPayment extends Component {
     return (
       <label htmlFor={ name }>
         { label }
-        <select>
+        <select id={ name } name={ name }>
           <option>Dinheiro</option>
           <option>Cartão de crédito</option>
           <option>Cartão de débito</option>

@@ -7,7 +7,7 @@ class SelectTag extends Component {
     return (
       <label htmlFor={ name }>
         { label }
-        <select>
+        <select id={ name }>
           <option>Alimentação</option>
           <option>Lazer</option>
           <option>Trabalho</option>

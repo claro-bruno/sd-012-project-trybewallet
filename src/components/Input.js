@@ -10,6 +10,7 @@ class Input extends Component {
         <input
           type={ type }
           name={ name }
+          id={ name }
           data-testid={ testId }
           value={ value }
           onChange={ onChange }
