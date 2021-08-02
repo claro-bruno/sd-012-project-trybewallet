@@ -1,10 +1,19 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { fetchCurrency } from '../actions';
 import Header from '../components/Header';
 import Input from '../components/Input';
 import Select from '../components/Select';
 
 class Wallet extends React.Component {
+  componentDidMount() {
+    const { dispatchSetCurry } = this.props;
+    dispatchSetCurry();
+  }
+
   render() {
+    const { currencies } = this.props;
     return (
       <div>
         <Header />
@@ -26,9 +35,9 @@ class Wallet extends React.Component {
             label="Moeda"
             name="Moeda"
             id="Moeda"
-            defaultOption=""
-            defaultValue=""
-            options={ ['op1', 'op2', 'op3'] }
+            defaultOption="USD"
+            defaultValue="USD"
+            options={ currencies }
           />
           <Select
             label="Método de pagamento"
@@ -52,4 +61,19 @@ class Wallet extends React.Component {
   }
 }
 
-export default Wallet;
+const mapDispatchToProps = (dispatch) => ({
+  dispatchSetCurry: (currencies) => (dispatch(fetchCurrency(currencies))),
+});
+
+const mapStateToProps = (state) => (
+  {
+    currencies: state.wallet.currencies,
+  }
+);
+
+Wallet.propTypes = {
+  dispatchSetCurry: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
