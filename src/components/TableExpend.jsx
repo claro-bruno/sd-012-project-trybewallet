@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { deleteExpense } from '../actions';
 
 function TableExpend(props) {
-  const { expenses } = props;
+  const { expenses, remove } = props;
   const tableThead = [
     'Descrição', 'Tag', 'Método de pagamento', 'Valor', 'Moeda', 'Câmbio utilizado',
     'Valor convertido', ' Moeda de conversão', 'Editar/Excluir',
@@ -33,6 +34,15 @@ function TableExpend(props) {
               <td>{ newAsk }</td>
               <td>{ coversao }</td>
               <td>Real</td>
+              <td>
+                <button
+                  type="button"
+                  onClick={ () => remove(id) }
+                  data-testid="delete-btn"
+                >
+                  Delete
+                </button>
+              </td>
             </tr>
           );
         })}
@@ -45,7 +55,11 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps)(TableExpend);
+const mapDispatchToProps = (dispatch) => ({
+  remove: (id) => dispatch(deleteExpense(id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TableExpend);
 
 TableExpend.propTypes = {
   expenses: PropTypes.array,
