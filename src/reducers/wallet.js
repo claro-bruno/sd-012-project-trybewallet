@@ -20,5 +20,3 @@ function walletReducer(state = INITIAL_STATE, action) {
 }
 
 export default walletReducer;
-
-// Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
