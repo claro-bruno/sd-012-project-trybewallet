@@ -1,8 +1,8 @@
 .form-container {
   align-items: center;
+  background-color: white;
   border: 1px solid black;
   border-radius: 6px;
-  background-color: #fff;
   display: flex;
   flex-flow: column;
   margin: 15px;
@@ -14,12 +14,12 @@
 }
 
 .add-expenses-form {
-  font-size: 22px;
-  padding-bottom: 25px;
+  align-items: center;
   display: flex;
   flex-flow: column;
+  font-size: 22px;
+  padding-bottom: 25px;
   width: 100%;
-  align-items: center;
 }
 
 .layer {
@@ -27,19 +27,19 @@
 }
 
 .add-expenses-form input {
-  margin: auto 10px;
-  border-top: #fff;
-  border-left: #fff;
-  border-right: #fff;
-  outline: none;
   font-size: 22px;
+  border-left: white;
+  border-right: white;
+  border-top: white;
+  margin: auto 10px;
+  outline: none;
 }
 
 .add-expenses-form select {
-  font-size: 21px;
   background: transparent;
   border-radius: 6px;
-  outline: 0px;
+  font-size: 21px;
+  outline: none;
 }
 
 .first-row input {
@@ -51,8 +51,8 @@
 }
 
 .second-row input {
-  width: 25%;
   text-align: center;
+  width: 25%;
 }
 
 .second-row select {
@@ -68,8 +68,8 @@
 }
 
 .third-row select {
-  width: 40%;
   margin: auto 10px;
+  width: 40%;
 }
 
 .fourth-row {
@@ -77,13 +77,13 @@
 }
 
 .fourth-row select {
-  width: 70%;
   margin: 0 10px;
+  width: 70%;
 }
 
 .add-expenses-form button {
-  font-size: larger;
   background-color: rgb(199, 25, 25);
-  color: #fff;
+  color: white;
+  font-size: larger;
   margin: 20px 0;
 }
