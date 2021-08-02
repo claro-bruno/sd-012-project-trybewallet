@@ -11,7 +11,7 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      isClickable: true,
+      disabledButton: true,
     };
 
     this.handleUserInput = this.handleUserInput.bind(this);
@@ -23,7 +23,7 @@ class Login extends React.Component {
 
     if (email.includes('@') && email.includes('.com') && password.length >= minPass) {
       this.setState({
-        isClickable: false,
+        disabledButton: false,
       });
     }
   }
@@ -39,7 +39,7 @@ class Login extends React.Component {
 
   render() {
     const { isLogged, walletLogin } = this.props;
-    const { email, isClickable } = this.state;
+    const { email, disabledButton } = this.state;
 
     return (
       <div>
@@ -65,7 +65,7 @@ class Login extends React.Component {
             />
             <button
               type="button"
-              disabled={ isClickable }
+              disabled={ disabledButton }
               onClick={ () => walletLogin(email) }
             >
               Entrar
