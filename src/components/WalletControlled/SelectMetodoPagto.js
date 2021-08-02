@@ -12,9 +12,9 @@ class SelectMetodoPagto extends React.Component {
     } = this;
 
     const optionsArray = [
+      { value: 'Cartão de crédito', text: 'Cartão de crédito' },
+      { value: 'Cartão de débito', text: 'Cartão de débito' },
       { value: 'Dinheiro', text: 'Dinheiro' },
-      { value: 'Cartão de Crédito', text: 'Cartão de Crédito' },
-      { value: 'Cartão de Débito', text: 'Cartão de Débito' },
     ];
 
     return (
