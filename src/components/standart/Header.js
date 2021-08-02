@@ -49,7 +49,7 @@ class Header extends React.Component {
     return (
       <ul>
         <li data-testid="email-field">{`Email: ${emailStore}`}</li>
-        <li data-testid="total-field">{ `Despesa Total: R ${totalExpenses()}` }</li>
+        <li data-testid="total-field">{ `Despesa Total: R$ ${totalExpenses()}` }</li>
         <li data-testid="header-currency-field">Cambio: BRL</li>
       </ul>
     );
