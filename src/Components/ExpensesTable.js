@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { tableHeaders } from '../data';
+import { removeExpense } from '../actions';
 
 class ExpensesTable extends Component {
   render() {
-    const { expenses } = this.props;
+    const { expenses, dispatchRemoveExpense } = this.props;
     return (
       <table>
         <thead>
@@ -38,7 +39,15 @@ class ExpensesTable extends Component {
               <td>{(parseFloat(exchangeRates[currency].ask)).toFixed(2)}</td>
               <td>{(value * exchangeRates[currency].ask).toFixed(2)}</td>
               <td>Real</td>
-              <td />
+              <td>
+                <button
+                  type="button"
+                  onClick={ () => dispatchRemoveExpense(id) }
+                  data-testid="delete-btn"
+                >
+                  X
+                </button>
+              </td>
             </tr>))}
         </tbody>
       </table>
@@ -50,8 +59,13 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps)(ExpensesTable);
+const mapDispatchToProps = (dispatch) => ({
+  dispatchRemoveExpense: (expenseId) => dispatch(removeExpense(expenseId)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExpensesTable);
 
 ExpensesTable.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  dispatchRemoveExpense: PropTypes.func.isRequired,
 };

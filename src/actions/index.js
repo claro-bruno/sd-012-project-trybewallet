@@ -10,6 +10,10 @@ export const addExpense = (expense, exchangeRates) => ({
   expense,
   exchangeRates,
 });
+export const removeExpense = (expenseId) => ({
+  type: 'REMOVE_EXPENSE',
+  expenseToBeRemoved: expenseId,
+});
 
 const URL = 'https://economia.awesomeapi.com.br/json/all';
 

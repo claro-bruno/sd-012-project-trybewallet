@@ -21,6 +21,12 @@ const wallet = (state = INITIAL_STATE, action) => {
       expenseIdCounter: state.expenseIdCounter + 1,
       currenciesAreLoading: false,
     };
+  case 'REMOVE_EXPENSE':
+    return {
+      ...state,
+      expenses: state.expenses
+        .filter((expense) => expense.id !== action.expenseToBeRemoved),
+    };
   case 'SEND_REQUEST':
     return {
       ...state,
