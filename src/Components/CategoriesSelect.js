@@ -5,9 +5,15 @@ class CategoriesSelect extends React.Component {
   render() {
     const { func, value } = this.props;
     return (
-      <label htmlFor="Category">
+      <label htmlFor="tag">
         Tag:
-        <select onChange={ func } value={ value } id="Category" name="Category">
+        <select
+          data-testid="tag-input"
+          onChange={ func }
+          value={ value }
+          id="tag"
+          name="tag"
+        >
           <option value="Alimentação">Alimentação</option>
           <option value="Lazer">Lazer</option>
           <option value="Trabalho">Trabalho</option>

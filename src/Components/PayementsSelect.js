@@ -5,9 +5,15 @@ class PayementsSelect extends React.Component {
   render() {
     const { func, value } = this.props;
     return (
-      <label htmlFor="Payment">
+      <label htmlFor="method">
         Método de pagamento:
-        <select onChange={ func } value={ value } id="Payment" name="Payment">
+        <select
+          data-testid="method-input"
+          onChange={ func }
+          value={ value }
+          id="method"
+          name="method"
+        >
           <option value="Dinheiro">Dinheiro</option>
           <option value="Cartão de crédito">Cartão de crédito</option>
           <option value="Cartão de débito">Cartão de débito</option>

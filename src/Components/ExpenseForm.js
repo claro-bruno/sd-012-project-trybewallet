@@ -14,8 +14,8 @@ class ExpenseForm extends React.Component {
       Valor: '',
       Description: '',
       Moeda: 'USD',
-      Payment: 'Dinheiro',
-      Category: 'Alimentação',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -35,7 +35,7 @@ class ExpenseForm extends React.Component {
   }
 
   addExpense() {
-    const { Valor, Description, Moeda, Payment, Category } = this.state;
+    const { Valor, Description, Moeda, method, tag } = this.state;
     const { nextId, addExpense } = this.props;
 
     fetch('https://economia.awesomeapi.com.br/json/all')
@@ -46,8 +46,8 @@ class ExpenseForm extends React.Component {
           value: Valor,
           description: Description,
           currency: Moeda,
-          method: Payment,
-          tag: Category,
+          method,
+          tag,
           exchangeRates: response,
         };
         addExpense(newExpense, nextId);
@@ -57,14 +57,14 @@ class ExpenseForm extends React.Component {
       Valor: '',
       Description: '',
       Moeda: 'USD',
-      Payment: 'Dinheiro',
-      Category: 'Alimentação',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     });
   }
 
   render() {
     const { currencies } = this.props;
-    const { Valor, Description, Moeda, Payment, Category } = this.state;
+    const { Valor, Description, Moeda, method, tag } = this.state;
     return (
       <form className="expenseForm">
         <label htmlFor="Valor">
@@ -101,8 +101,8 @@ class ExpenseForm extends React.Component {
             )}
           </select>
         </label>
-        <PayementsSelect func={ this.handleInputChange } value={ Payment } />
-        <CategoriesSelect func={ this.handleInputChange } value={ Category } />
+        <PayementsSelect func={ this.handleInputChange } value={ method } />
+        <CategoriesSelect func={ this.handleInputChange } value={ tag } />
         <button onClick={ this.addExpense } type="button">
           adicionar despesa
         </button>
