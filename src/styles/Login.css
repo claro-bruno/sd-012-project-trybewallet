@@ -14,8 +14,8 @@ body {
 }
 
 .title img {
-  width: 32px;
   margin: 10px;
+  width: 32px;
 }
 
 .title h1 {
@@ -27,7 +27,7 @@ body {
   background-color: #6564db;
   border: 1px black solid;
   border-radius: 17px;
-  box-shadow: 1px 2px 5px 1px #fff;
+  box-shadow: 1px 2px 5px 1px white;
   display: flex;
   flex-flow: column;
   margin: 10% auto auto;
@@ -48,24 +48,21 @@ body {
 }
 
 .button-container {
-  /* border-radius: 9px; */
-  /* background-color: #fff; */
   margin: 10px;
-  /* border: 1px black solid; */
 }
 
 .enabled-button {
+  background-color: white;
   border: none;
   border-radius: 7px;
-  background-color: #fff;
-  width: 100px;
-  height: 35px;
   font-size: larger;
+  height: 35px;
+  width: 100px;
 }
 
 .enabled-button:hover {
-  transform: scale(1.03);
   cursor: pointer;
+  transform: scale(1.03);
 }
 
 .enabled-button:active {
@@ -73,15 +70,15 @@ body {
 }
 
 .disabled-button {
+  background-color: white;
   border: none;
   border-radius: 7px;
-  background-color: #fff;
-  width: 100px;
-  height: 35px;
   font-size: larger;
+  height: 35px;
+  width: 100px;
 }
 
 .disabled-button:hover {
-  transform: scale(1.03);
   cursor: not-allowed;
+  transform: scale(1.03);
 }
