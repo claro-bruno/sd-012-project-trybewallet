@@ -13,7 +13,7 @@ class Wallet extends React.Component {
     return (
       <div>
         <Header />
-        <ExpenseForm />
+        { !showEditModal && <ExpenseForm /> }
         <ExpenseTable />
         { showEditModal && <EditModal /> }
       </div>

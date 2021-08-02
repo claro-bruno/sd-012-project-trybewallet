@@ -7,7 +7,7 @@ import { changeEditItem, hideEditModal } from '../actions';
 import CategoriesSelect from './CategoriesSelect';
 import PayementsSelect from './PayementsSelect';
 import ValueInput from './ValueInput';
-import descriptionInput from './DescriptionInput';
+import DescriptionInput from './DescriptionInput';
 
 class EditModal extends React.Component {
   constructor(props) {
@@ -55,7 +55,7 @@ class EditModal extends React.Component {
           Editar Item
           <form>
             <ValueInput func={ this.handleInputChange } value={ value } />
-            <descriptionInput func={ this.handleInputChange } value={ description } />
+            <DescriptionInput func={ this.handleInputChange } value={ description } />
             <label htmlFor="currency">
               Moeda:
               <select
