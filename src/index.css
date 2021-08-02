@@ -25,6 +25,11 @@ code {
     monospace;
 }
 
+a {
+  text-decoration: none;
+  color: #212121;
+}
+
 #login-page {
   display: flex;
   flex-direction: row;

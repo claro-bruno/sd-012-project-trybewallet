@@ -28,16 +28,17 @@ class LoginForm extends React.Component {
     });
   }
 
-  handleClick(event) {
-    const { changeUser } = this.props;
+  handleClick() {
+    const { changeUser, callback } = this.props;
     const { typedEmail } = this.state;
-    event.preventDefault();
     changeUser(typedEmail);
+    callback();
   }
 
   render() {
     const { typedEmail, passwordLength } = this.state;
     const passwordMinLength = 6;
+    const btnClass = 'pure-material-button-contained';
     const validEmail = () => {
       if (typedEmail.includes('@') && typedEmail.includes('.com')) {
         return true;
@@ -47,7 +48,6 @@ class LoginForm extends React.Component {
     const validPassword = () => {
       if (passwordLength >= passwordMinLength) { return true; } return false;
     };
-
     return (
       <article id="login-box" className="form__group">
         <h2>Trybe Wallet</h2>
@@ -56,6 +56,7 @@ class LoginForm extends React.Component {
           <input
             type="text"
             data-testid="email-input"
+            id="email-input"
             className="form__field"
             onChange={ this.handleEmailInsert }
           />
@@ -65,22 +66,21 @@ class LoginForm extends React.Component {
           <input
             type="password"
             data-testid="password-input"
+            id="password-input"
             className="form__field"
             onChange={ this.handlePasswordInsert }
           />
         </label>
         {validEmail() && validPassword() ? (
           <button
-            className="pure-material-button-contained"
-            type="submit"
+            className={ btnClass }
+            type="button"
             onClick={ this.handleClick }
           >
             Entrar
           </button>
         ) : (
-          <button className="pure-material-button-contained" type="submit" disabled>
-            Entrar
-          </button>
+          <button className={ btnClass } type="button" disabled>Entrar</button>
         )}
       </article>
     );
@@ -100,5 +100,6 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
 
 LoginForm.propTypes = {
+  callback: PropTypes.func.isRequired,
   changeUser: PropTypes.func.isRequired,
 };
