@@ -12,7 +12,7 @@ class AddExpense extends Component {
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
-      category: 'Alimentação',
+      tag: 'Alimentação',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -110,15 +110,15 @@ class AddExpense extends Component {
   }
 
   renderCategorySelect() {
-    const { category } = this.state;
+    const { tag } = this.state;
 
     return (
-      <label htmlFor="category">
+      <label htmlFor="tag">
         Tag
         <select
-          name="category"
-          id="category"
-          value={ category }
+          name="tag"
+          id="tag"
+          value={ tag }
           onChange={ this.handleChange }
         >
           <option>Alimentação</option>
