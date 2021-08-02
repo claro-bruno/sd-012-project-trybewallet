@@ -74,12 +74,38 @@ button:active {
   width: 100%;
 }
 
+
+.form-editExpense input {
+  border-radius: 5px;
+  outline: none;
+  padding: 5px;
+  width: 100%;
+}
+
+.form-newExpense input:focus {
+  border: 1px solid cyan;
+  box-shadow: 0 0 0 2px cyan;
+}
+
 .form-newExpense select {
   border-radius: 5px;
   cursor: pointer;
   outline: none;
   padding: 5px;
   width: 100%;
+}
+
+.form-editExpense select {
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+  padding: 5px;
+  width: 100%;
+}
+
+.form-newExpense select:hover {
+  border: 1px solid cyan;
+  box-shadow: 0 0 0 2px cyan;
 }
 
 .btn-addExpense {
@@ -110,19 +136,14 @@ button:active {
   width: 16%;
 }
 
-.form-editExpense input {
-  border-radius: 5px;
-  outline: none;
-  padding: 5px;
-  width: 100%;
+.form-editExpense input:focus {
+  border: 1px solid cyan;
+  box-shadow: 0 0 0 2px cyan;
 }
 
-.form-editExpense select {
-  border-radius: 5px;
-  cursor: pointer;
-  outline: none;
-  padding: 5px;
-  width: 100%;
+.form-editExpense select:hover {
+  border: 1px solid cyan;
+  box-shadow: 0 0 0 2px cyan;
 }
 
 .btn-editExpense {
