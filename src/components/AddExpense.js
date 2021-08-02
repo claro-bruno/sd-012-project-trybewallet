@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { actionAddExpense } from '../actions';
 
 class AddExpense extends Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class AddExpense extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange({ target }) {
@@ -23,6 +25,14 @@ class AddExpense extends Component {
     this.setState({
       [name]: value,
     });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+
+    const { expenses, addExpense } = this.props;
+
+    addExpense(this.state, expenses.length);
   }
 
   renderValueInput() {
@@ -124,12 +134,13 @@ class AddExpense extends Component {
   render() {
     return (
       <div>
-        <form>
+        <form onSubmit={ this.handleSubmit }>
           { this.renderValueInput() }
           { this.renderDescriptionInput() }
           { this.renderCurrencySelect() }
           { this.renderMethodSelect() }
           { this.renderCategorySelect() }
+          <button type="submit">Adicionar Despesa</button>
         </form>
       </div>
     );
@@ -138,10 +149,17 @@ class AddExpense extends Component {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps)(AddExpense);
+const mapDispatchToProps = (dispatch) => ({
+  addExpense: (state, id) => dispatch(actionAddExpense(state, id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddExpense);
 
 AddExpense.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  addExpense: PropTypes.func.isRequired,
 };
