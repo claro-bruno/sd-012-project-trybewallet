@@ -31,7 +31,7 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       error: null,
-      expenses: [...state.expenses, action.payload],
+      expenses: [...state.expenses, action.payload].sort((a, b) => a.id - b.id),
     };
 
   case REMOVE_EXPENSE:

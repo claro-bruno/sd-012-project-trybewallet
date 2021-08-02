@@ -12,12 +12,14 @@ class Wallet extends React.Component {
     super(props);
     this.state = {
       total: 0,
-      currency: 'BRL',
-      exValue: '0',
-      desc: '',
-      payment: '',
-      category: '',
-      expenseCurrency: '',
+      currencyTag: 'BRL',
+      value: '0',
+      description: '',
+      method: '',
+      tag: '',
+      currency: '',
+      expenseId: '',
+      editMode: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -26,6 +28,7 @@ class Wallet extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.setExpense = this.setExpense.bind(this);
     this.sumOfExpenses = this.sumOfExpenses.bind(this);
+    this.handleEditedExpense = this.handleEditedExpense.bind(this);
   }
 
   componentDidMount() {
@@ -44,15 +47,39 @@ class Wallet extends React.Component {
 
   async setExpense() {
     const { addExpense, expenses } = this.props;
-    const { exValue, desc, payment, category, expenseCurrency } = this.state;
+    const { value, description, method, tag, currency } = this.state;
     const exchangeRates = await this.getExchanceRates();
     const payload = {
       id: expenses.length,
-      value: exValue,
-      description: desc,
-      currency: expenseCurrency,
-      method: payment,
-      tag: category,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      exchangeRates,
+    };
+    addExpense(payload);
+    this.sumOfExpenses();
+  }
+
+  setEditedExpense() {
+    const { addExpense } = this.props;
+    const {
+      value,
+      description,
+      method,
+      tag,
+      currency,
+      exchangeRates,
+      expenseId,
+    } = this.state;
+    const payload = {
+      id: expenseId,
+      value,
+      description,
+      currency,
+      method,
+      tag,
       exchangeRates,
     };
     addExpense(payload);
@@ -83,6 +110,35 @@ class Wallet extends React.Component {
     }));
   }
 
+  editExpenses(selectedId) {
+    const { expenses } = this.props;
+    const {
+      description,
+      tag,
+      method,
+      value,
+      currency,
+      exchangeRates,
+    } = expenses.find((expense) => expense.id === selectedId);
+    this.setState(() => ({
+      currencyTag: 'BRL',
+      value,
+      description,
+      method,
+      tag,
+      currency,
+      expenseId: selectedId,
+      exchangeRates,
+      editMode: true,
+    }));
+  }
+
+  handleEditedExpense() {
+    const { expenseId } = this.state;
+    this.deleteExpenses(expenseId);
+    this.setEditedExpense();
+  }
+
   handleChange(event) {
     const {
       target: { value, name },
@@ -97,61 +153,77 @@ class Wallet extends React.Component {
   }
 
   renderHeader() {
-    const { total, currency } = this.state;
+    const { total, currencyTag } = this.state;
     const { userEmail } = this.props;
     return (
       <header>
         <span data-testid="email-field">{`Email: ${userEmail}`}</span>
         <span data-testid="total-field">{`Despesa Total: R$ ${total}`}</span>
-        <span data-testid="header-currency-field">{`Moeda: ${currency}`}</span>
+        <span data-testid="header-currency-field">{`Moeda: ${currencyTag}`}</span>
       </header>
     );
   }
 
   renderForms() {
-    const { exValue, desc, payment, category, expenseCurrency } = this.state;
+    const { value, description, method, tag, currency, editMode } = this.state;
     const { currencies } = this.props;
     return (
       <form>
-        <Input name="exValue" value={ exValue } handleChange={ this.handleChange }>
+        <Input name="value" value={ value } handleChange={ this.handleChange }>
           Valor:
         </Input>
-        <Input name="desc" value={ desc } handleChange={ this.handleChange }>
+        <Input
+          name="description"
+          value={ description }
+          handleChange={ this.handleChange }
+        >
           Descrição:
         </Input>
         <SelectInput
-          name="expenseCurrency"
-          value={ expenseCurrency }
+          name="currency"
+          value={ currency }
           handleChange={ this.handleChange }
           optionsArray={ currencies }
         >
           Moeda:
         </SelectInput>
         <SelectInput
-          name="payment"
-          value={ payment }
+          name="method"
+          value={ method }
           handleChange={ this.handleChange }
           optionsArray={ PAYMENT_METHOD }
         >
           Método de pagamento:
         </SelectInput>
         <SelectInput
-          name="category"
-          value={ category }
+          name="tag"
+          value={ tag }
           handleChange={ this.handleChange }
           optionsArray={ CATEGORIES }
         >
           Tag:
         </SelectInput>
-        <Button
-          dataTestId="add-btn"
-          loginValid={ false }
-          handleClick={ () => {
-            this.handleClick();
-          } }
-        >
-          Adicionar despesa
-        </Button>
+        {editMode ? (
+          <Button
+            dataTestId="btn"
+            loginValid={ false }
+            handleClick={ () => {
+              this.handleEditedExpense();
+            } }
+          >
+            Editar despesa
+          </Button>
+        ) : (
+          <Button
+            dataTestId="add-btn"
+            loginValid={ false }
+            handleClick={ () => {
+              this.handleClick();
+            } }
+          >
+            Adicionar despesa
+          </Button>
+        )}
       </form>
     );
   }
@@ -163,7 +235,9 @@ class Wallet extends React.Component {
         <table>
           <tbody>
             <tr>
-              {TABLE_HEADER.map((tag) => <th key={ tag }>{tag}</th>)}
+              {TABLE_HEADER.map((tag) => (
+                <th key={ tag }>{tag}</th>
+              ))}
             </tr>
             {expenses.map(
               ({
@@ -175,14 +249,16 @@ class Wallet extends React.Component {
                 exchangeRates,
                 id,
               }) => (
-                <tr key={ id }>
+                <tr key={ Math.random() }>
                   <td>{description}</td>
                   <td>{tag}</td>
                   <td>{method}</td>
                   <td>{value}</td>
                   <td>{exchangeRates[currency].name}</td>
-                  <td>{Math.round(exchangeRates[currency].ask * 100) / 100}</td>
-                  <td>{value * exchangeRates[currency].ask}</td>
+                  <td>{parseFloat(exchangeRates[currency].ask).toFixed(2)}</td>
+                  <td>
+                    {parseFloat(value * exchangeRates[currency].ask).toFixed(2)}
+                  </td>
                   <td>Real</td>
                   <td>
                     <Button
@@ -193,6 +269,15 @@ class Wallet extends React.Component {
                       } }
                     >
                       Remover despesa
+                    </Button>
+                    <Button
+                      dataTestId="edit-btn"
+                      loginValid={ false }
+                      handleClick={ () => {
+                        this.editExpenses(id);
+                      } }
+                    >
+                      Edita despesa
                     </Button>
                   </td>
                 </tr>

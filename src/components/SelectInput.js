@@ -16,6 +16,7 @@ class SelectInput extends Component {
         <label htmlFor={ name }>{ children }</label>
         <select
           id={ name }
+          data-testid={ `${name}-input` }
           name={ name }
           value={ value }
           onChange={ handleChange }
