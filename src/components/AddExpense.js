@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class AddExpense extends Component {
   constructor(props) {
@@ -57,6 +59,7 @@ class AddExpense extends Component {
 
   renderCurrencySelect() {
     const { currency } = this.state;
+    const { currencies } = this.props;
 
     return (
       <label htmlFor="currency">
@@ -67,7 +70,10 @@ class AddExpense extends Component {
           value={ currency }
           onChange={ this.handleChange }
         >
-          <option>TESTE</option>
+          {
+            currencies
+              .map((currencyName) => <option key={ currencyName }>{currencyName}</option>)
+          }
         </select>
       </label>
     );
@@ -130,4 +136,12 @@ class AddExpense extends Component {
   }
 }
 
-export default AddExpense;
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+export default connect(mapStateToProps)(AddExpense);
+
+AddExpense.propTypes = {
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
