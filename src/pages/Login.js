@@ -17,7 +17,7 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
     this.checkButton = this.checkButton.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange(e) {
@@ -45,7 +45,7 @@ class Login extends React.Component {
     return !(emailCheck && passwordCheck);
   }
 
-  handleSubmit() {
+  handleClick() {
     const { user } = this.state;
     const { getUserEmail } = this.props;
     this.setState({ redirect: true });
@@ -80,7 +80,7 @@ class Login extends React.Component {
               className="btn btn-success"
               type="submit"
               disabled={ this.checkButton() }
-              onClick={ this.handleSubmit }
+              onClick={ this.handleClick }
             >
               Entrar
             </button>

@@ -1,66 +1,85 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import Input from './Input';
+import Selects from './Selects';
+import { fetchCurrency } from '../actions';
 
 class Form extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      moedas: [],
+      value: 0,
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
-    fetch('https://economia.awesomeapi.com.br/json/all')
-      .then((res) => res.json())
-      .then((res) => {
-        const todasMoedas = Object.keys(res);
-        const filtrado = todasMoedas.filter((moeda) => moeda !== 'USDT');
-        this.setState({
-          moedas: filtrado,
-        });
-      });
+    const { fetchMoedas } = this.props;
+    fetchMoedas();
+  }
+
+  handleChange({ target: { name, value } }) {
+    this.setState({ [name]: value });
+  }
+
+  handleClick() {
+
   }
 
   render() {
-    const { moedas } = this.state;
+    const { currencies } = this.props;
+    const { value, description, currency, method, tag } = this.state;
     return (
       <form>
-        <label htmlFor="valor">
-          Valor:
-          <input id="valor" type="number" name="valor" />
-        </label>
-        <label htmlFor="decribe">
-          Descrição:
-          <input id="decribe" type="text" name="decribe" />
-        </label>
-
-        <label htmlFor="moeda">
-          Moeda:
-          <select id="moeda" type="text" name="name">
-            {moedas.map((moeda) => <option key={ moeda }>{ moeda }</option>)}
-          </select>
-        </label>
-        <label htmlFor="metodo">
-          Método de pagamento:
-          <select id="metodo" type="text" name="name">
-            <option>Dinheiro</option>
-            <option>Cartão de crédito</option>
-            <option>Cartão de débito</option>
-          </select>
-        </label>
-        <label htmlFor="tag">
-          Tag:
-          <select id="tag" type="text" name="name">
-            <option>Alimentação</option>
-            <option>Lazer</option>
-            <option>Trabalho</option>
-            <option>Transporte</option>
-            <option>Saúde</option>
-          </select>
-        </label>
+        <Input
+          text="Valor: "
+          type="number"
+          name="value"
+          value={ value }
+          onChange={ this.handleChange }
+        />
+        <Input
+          text="Descrição: "
+          type="text"
+          name="description"
+          value={ description }
+          onChange={ this.handleChange }
+        />
+        <Selects
+          method={ method }
+          tag={ tag }
+          currencies={ currencies }
+          currency={ currency }
+          onChange={ this.handleChange }
+        />
+        <button onClick={ this.handleClick } type="button">Adicionar despesa</button>
       </form>
     );
   }
 }
 
-export default Form;
+Form.defaultProps = {
+  currencies: [],
+};
+
+Form.propTypes = {
+  fetchMoedas: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string),
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchMoedas: () => dispatch(fetchCurrency()),
+});
+
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

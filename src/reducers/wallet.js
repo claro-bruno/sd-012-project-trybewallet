@@ -1,12 +1,17 @@
 const INITIAL_STATE = {
   wallet: {
-    currencies: [],
+    idCounter: 0,
+    currencies: ['USD'],
     expenses: [],
   },
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
-  switch (action) {
+  switch (action.type) {
+  case 'ADD_CURRENCIES':
+    return { currencies: action.currencies };
+  case 'ADD_EXPENSE':
+    return { currencies: [state.currencies, action.currencies] };
   default:
     return state;
   }
