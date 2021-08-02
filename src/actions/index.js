@@ -5,21 +5,24 @@ export const logIn = (email) => ({
 export const logOut = () => ({
   type: 'LOG_OUT',
 });
-export const addExpense = (expense) => ({
+export const addExpense = (expense, exchangeRates) => ({
   type: 'ADD_EXPENSE',
   expense,
+  exchangeRates,
 });
 
 const URL = 'https://economia.awesomeapi.com.br/json/all';
 
 const sendRequest = () => ({ type: 'SEND_REQUEST' });
-const gotResponse = (json) => ({ type: 'GOT_RESPONSE', json });
+const getCurrencies = (json) => ({ type: 'GET_CURRENCIES', json });
 const gotError = (error) => ({ type: 'GOT_ERROR', error });
 
-export const fetchAPI = () => (dispatch) => {
+export const fetchAPI = (reason, expense) => (dispatch) => {
   dispatch(sendRequest());
   fetch(URL)
     .then((response) => response.json())
-    .then((json) => dispatch(gotResponse(json)))
+    .then((json) => (reason === 'toAddNewExpense'
+      ? dispatch(addExpense(expense, json))
+      : dispatch(getCurrencies(json))))
     .catch((error) => dispatch(gotError(error)));
 };

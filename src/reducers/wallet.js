@@ -11,15 +11,22 @@ const wallet = (state = INITIAL_STATE, action) => {
   case 'ADD_EXPENSE':
     return {
       ...state,
-      expenses: [...state.expenses, { ...action.expense, id: state.expenseIdCounter }],
+      expenses: [
+        ...state.expenses,
+        { ...action.expense,
+          id: state.expenseIdCounter,
+          exchangeRates: action.exchangeRates,
+        },
+      ],
       expenseIdCounter: state.expenseIdCounter + 1,
+      currenciesAreLoading: false,
     };
   case 'SEND_REQUEST':
     return {
       ...state,
       currenciesAreLoading: true,
     };
-  case 'GOT_RESPONSE':
+  case 'GET_CURRENCIES':
     return {
       ...state,
       currencies: [...state.currencies,

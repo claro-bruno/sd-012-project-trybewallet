@@ -3,16 +3,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { paymentMethods, tags } from '../data';
-import { addExpense } from '../actions';
+import { fetchAPI } from '../actions';
 
 class ExpenseInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      amount: 0,
+      value: 0,
       description: '',
-      currency: {},
-      paymentMethod: '',
+      currency: 'USD',
+      method: '',
       tag: '',
     };
     this.handleChange = this.handleChange.bind(this);
@@ -20,32 +20,28 @@ class ExpenseInput extends React.Component {
   }
 
   handleChange({ target }) {
-    const { currenciesFromStore } = this.props;
     this.setState({
-      [target.id]: target.id === 'currency'
-        ? currenciesFromStore
-          .find((currencyFromStore) => currencyFromStore.code === target.value)
-        : target.value,
+      [target.id]: target.value,
     });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const { dispatchFormToStore } = this.props;
-    dispatchFormToStore(this.state);
+    const { dispatchFetchApi } = this.props;
+    dispatchFetchApi('toAddNewExpense', this.state);
   }
 
   render() {
-    const { amount, description, currency, paymentMethod, tag } = this.state;
+    const { value, description, currency, method, tag } = this.state;
     const { currenciesFromStore } = this.props;
     return (
       <form onSubmit={ this.handleSubmit }>
-        <label htmlFor="amount">
+        <label htmlFor="value">
           Valor
           <input
-            id="amount"
+            id="value"
             type="number"
-            value={ amount }
+            value={ value }
             onChange={ this.handleChange }
           />
         </label>
@@ -62,7 +58,7 @@ class ExpenseInput extends React.Component {
           Moeda
           <select
             id="currency"
-            value={ currency.code }
+            value={ currency }
             onChange={ this.handleChange }
           >
             { currenciesFromStore.map((currencyFromStore) => (
@@ -74,20 +70,20 @@ class ExpenseInput extends React.Component {
               </option>)) }
           </select>
         </label>
-        <label htmlFor="paymentMethod">
+        <label htmlFor="method">
           Método de pagamento
           <select
-            id="paymentMethod"
-            value={ paymentMethod }
+            id="method"
+            value={ method }
             onChange={ this.handleChange }
           >
             { paymentMethods
-              .map((paymentMethoD) => (
+              .map((paymentMethod) => (
                 <option
-                  key={ paymentMethoD }
-                  value={ paymentMethoD }
+                  key={ paymentMethod }
+                  value={ paymentMethod }
                 >
-                  { paymentMethoD }
+                  { paymentMethod }
                 </option>)) }
           </select>
         </label>
@@ -108,7 +104,11 @@ class ExpenseInput extends React.Component {
                 </option>)) }
           </select>
         </label>
-        <input type="submit" value="Enviar" />
+        <button
+          type="submit"
+        >
+          Adicionar despesa
+        </button>
       </form>
     );
   }
@@ -119,12 +119,12 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchFormToStore: (expense) => dispatch(addExpense(expense)),
+  dispatchFetchApi: (reason, expense) => dispatch(fetchAPI(reason, expense)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseInput);
 
 ExpenseInput.propTypes = {
-  dispatchFormToStore: PropTypes.func.isRequired,
+  dispatchFetchApi: PropTypes.func.isRequired,
   currenciesFromStore: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };

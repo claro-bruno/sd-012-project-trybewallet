@@ -8,8 +8,8 @@ import { fetchAPI } from '../actions';
 
 class Wallet extends React.Component {
   componentDidMount() {
-    const { dispatchCurrenciesToStore } = this.props;
-    dispatchCurrenciesToStore();
+    const { dispatchFetchApi } = this.props;
+    dispatchFetchApi('toUpdateCurrenciesInStore');
   }
 
   render() {
@@ -23,11 +23,11 @@ class Wallet extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchCurrenciesToStore: () => dispatch(fetchAPI()),
+  dispatchFetchApi: (reason) => dispatch(fetchAPI(reason)),
 });
 
 export default connect(null, mapDispatchToProps)(Wallet);
 
 Wallet.propTypes = {
-  dispatchCurrenciesToStore: PropTypes.func.isRequired,
+  dispatchFetchApi: PropTypes.func.isRequired,
 };
