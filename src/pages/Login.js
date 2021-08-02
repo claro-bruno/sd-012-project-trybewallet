@@ -16,7 +16,7 @@ class Login extends React.Component {
     this.validateForm = this.validateForm.bind(this);
   }
 
-  validateForm() {
+  validateForm() { // Regex source: https://www.simplilearn.com/tutorials/javascript-tutorial/email-validation-in-javascript
     const { email, password } = this.state;
     const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     const NUMBER_SIX = 6;
