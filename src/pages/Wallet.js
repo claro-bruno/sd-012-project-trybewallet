@@ -12,17 +12,34 @@ class Wallet extends React.Component {
     this.state = {
       total: 0,
       moeda: 'BRL',
+      currencies: {},
     };
+  }
+
+  componentDidMount() {
+    this.getCurrencies();
+  }
+
+  async getCurrencies() {
+    const url = 'https://economia.awesomeapi.com.br/json/all';
+    const res = await fetch(url);
+    const currencies = await res.json();
+    this.setState({
+      currencies,
+    });
   }
 
   render() {
     const { email } = this.props;
-    const { total, moeda } = this.state;
+    const { total, moeda, currencies } = this.state;
 
     return (
       <>
         <HeaderWallet email={ email } total={ total } moeda={ moeda } />
-        <FormWallet />
+        <FormWallet
+          currencies={ Object.values(currencies)
+            .filter(({ codein }) => codein !== 'BRLT') }
+        />
       </>
     );
   }

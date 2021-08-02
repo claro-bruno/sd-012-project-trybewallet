@@ -19,10 +19,11 @@ class Select extends Component {
             {options
               ? options.map((option) => (
                 <option
-                  key={ option.value ? option.value : option.name.toLowerCase() }
-                  value={ option.value ? option.value : option.name.toLowerCase() }
+                  key={ option.code ? option.code
+                    : option.value || option.name.toLowerCase() }
+                  value={ option.code || option.name }
                 >
-                  {option.name}
+                  {option.code || option.name}
                 </option>
               ))
               : ''}

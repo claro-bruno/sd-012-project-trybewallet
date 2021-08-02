@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import InputAutoSized from './InputAutoSized';
 import Select from './Select';
@@ -26,6 +27,7 @@ class FormWallet extends Component {
 
   render() {
     const { value, currency, payment, tag, description } = this.state;
+    const { currencies } = this.props;
 
     const pagamentos = [{ name: 'Dinheiro', value: 'dinheiro' },
       { name: 'Cartão de crédito', value: 'crédito' },
@@ -45,7 +47,7 @@ class FormWallet extends Component {
         <Select
           label="Moeda"
           id="currency"
-          options={ [{ name: 'Dólar' }, { name: 'Real' }] }
+          options={ currencies }
           value={ currency }
           handleChange={ this.handleChange }
         />
@@ -70,9 +72,14 @@ class FormWallet extends Component {
           value={ description }
           handleChange={ this.handleChange }
         />
-      </form>
-    );
+      </form>);
   }
 }
+
+FormWallet.propTypes = {
+  currencies: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+  })).isRequired,
+};
 
 export default FormWallet;
