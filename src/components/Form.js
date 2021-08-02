@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import InputCard from './InputCard';
 
 class Form extends React.Component {
@@ -17,6 +18,7 @@ class Form extends React.Component {
 
   render() {
     const { value, disc } = this.state;
+    const { coins } = this.props;
     const { handleChange } = this;
     return (
       <form>
@@ -38,7 +40,9 @@ class Form extends React.Component {
         />
         <label htmlFor="Moeda">
           Moeda
-          <select id="Moeda"> </select>
+          <select id="Moeda">
+            { coins.map((coin) => <option key={ coin }>{ coin }</option>) }
+          </select>
         </label>
         <label htmlFor="Método de pagamento">
           Método de pagamento
@@ -62,4 +66,7 @@ class Form extends React.Component {
     );
   }
 }
+Form.propTypes = {
+  coins: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 export default Form;
