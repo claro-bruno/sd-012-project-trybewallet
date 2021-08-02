@@ -1,6 +1,22 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class Formulario extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.getMoedas = this.getMoedas.bind(this);
+  }
+
+  getMoedas() {
+    const { moedas } = this.props;
+    const lista = moedas.map((moeda) => Object.keys(moeda));
+    const result = lista[0].filter((moeda) => moeda !== 'USDT')
+      .map((moeda) => <option key={ moeda }>{moeda}</option>);
+    return result;
+  }
+
   render() {
     return (
       <form>
@@ -11,7 +27,7 @@ class Formulario extends React.Component {
         <label htmlFor="moeda">
           moeda
           <select id="moeda">
-            <option>BRL</option>
+            {this.getMoedas()}
           </select>
         </label>
         <label htmlFor="payment">
@@ -41,4 +57,12 @@ class Formulario extends React.Component {
   }
 }
 
-export default Formulario;
+const mapStateToProps = (state) => ({
+  moedas: state.wallet.currencies,
+});
+
+Formulario.propTypes = ({
+  moedas: PropTypes.array,
+}).isRequired;
+
+export default connect(mapStateToProps)(Formulario);
