@@ -1,9 +1,10 @@
 /* eslint-disable max-lines-per-function */
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Header from '../Components/Header';
 import ExpenseInput from '../Components/ExpenseInput';
+import ExpensesTable from '../Components/ExpensesTable';
 import { fetchAPI } from '../actions';
 
 class Wallet extends React.Component {
@@ -17,6 +18,7 @@ class Wallet extends React.Component {
       <>
         <Header />
         <ExpenseInput />
+        <ExpensesTable />
       </>
     );
   }
