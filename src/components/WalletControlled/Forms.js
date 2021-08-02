@@ -90,4 +90,4 @@ Forms.propTypes = {
   getCoins: func.isRequired,
 }.isRequired;
 
-export default connect(null, mapDispatchToProps)(Forms);
+export default connect(mapDispatchToProps)(Forms);
