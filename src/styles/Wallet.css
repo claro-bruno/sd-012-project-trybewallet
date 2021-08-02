@@ -6,3 +6,36 @@
   justify-content: center;
   width: 100vw;
 }
+
+.header {
+  align-items: center;
+  background-color: lightgray;
+  display: flex;
+  justify-content: space-between;
+  padding: 1vmin;
+}
+
+.header__img {
+  height: 4vmin;
+  max-width: 20%;
+  width: auto;
+}
+
+.currency__selector {
+  display: flex;
+  padding: 0 3px;
+}
+
+.user__info {
+  align-items: center;
+  display: flex;
+  font-size: calc(8px + 1vmin);
+  margin: 3px;
+  max-width: 80%;
+  padding-right: 3px;
+  text-align: center;
+}
+
+.user__info p {
+  padding: 5px;
+}

@@ -1,0 +1,36 @@
+.NotAPage {
+  align-items: center;
+  background-color: #48A46B;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.NotAPage h1 {
+  color: white;
+  font-size: calc(10px + 10vmin);
+}
+
+.NotAPage img {
+  height: auto;
+  max-width: 500px;
+  width: 70%;
+}
+
+.NotAPage button {
+  background: #dbdedd;
+  border-radius: 20px;
+  color: #323232;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  margin: 10px;
+  padding: 8px 25px 8px 25px;
+  text-decoration: none;
+}
+
+.NotAPage button:hover {
+  background: #cfe6df;
+}
