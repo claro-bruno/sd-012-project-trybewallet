@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
+import TableHead from './TableHead';
 import { deleteExpense } from '../actions';
 
 class Table extends React.Component {
@@ -17,22 +18,10 @@ class Table extends React.Component {
   }
 
   render() {
-    const { expenses } = this.props;
+    const { expenses, onClick } = this.props;
     return (
       <table>
-        <thead>
-          <tr>
-            <th>Descrição</th>
-            <th>Tag</th>
-            <th>Método de pagamento</th>
-            <th>Valor</th>
-            <th>Moeda</th>
-            <th>Câmbio utilizado</th>
-            <th>Valor convertido</th>
-            <th>Moeda de conversão</th>
-            <th>Editar/Excluir</th>
-          </tr>
-        </thead>
+        <TableHead />
         <tbody>
           { expenses.map(({
             id, value, description, currency, method, tag, exchangeRates,
@@ -58,6 +47,13 @@ class Table extends React.Component {
                   >
                     X
                   </button>
+                  <button
+                    type="button"
+                    data-testid="edit-btn"
+                    onClick={ () => onClick(id) }
+                  >
+                    Editar
+                  </button>
                 </td>
               </tr>
             );
@@ -77,6 +73,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Table.propTypes = {
+  onClick: propTypes.func.isRequired,
   expenses: propTypes.arrayOf(propTypes.shape({
     id: propTypes.number.isRequired,
     value: propTypes.oneOfType([propTypes.number, propTypes.string]).isRequired,
