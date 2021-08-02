@@ -49,7 +49,7 @@ class Wallet extends React.Component {
   addToExpenses() {
     const { addExpenseChange } = this.props;
     addExpenseChange(this.state);
-    this.setState(INITIAL_STATE);
+    this.setState({ ...INITIAL_STATE });
   }
 
   deleteFromExpenses(id) {
@@ -68,17 +68,11 @@ class Wallet extends React.Component {
   addEditedToExpenses(id) {
     const { editExpenseChange } = this.props;
     editExpenseChange(this.state, id);
-    this.setState(INITIAL_STATE);
+    this.setState({ ...INITIAL_STATE });
   }
 
   render() {
-    const {
-      email,
-      currencies,
-      loading,
-      expenses,
-      editing,
-    } = this.props;
+    const { email, currencies, loading, expenses, editing } = this.props;
     const { value, description, currency, method, tag } = this.state;
     return (
       <div>
