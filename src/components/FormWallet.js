@@ -1,15 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchCurrency } from '../actions';
+import { fetchCurrency, expenseAdd } from '../actions';
 
 class FormWallet extends React.Component {
   constructor() {
     super();
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
 
     this.state = {
+      id: 0,
       valor: 0,
       descricao: '',
       moeda: 'USD',
@@ -27,6 +29,16 @@ class FormWallet extends React.Component {
     const { name, value } = target;
     this.setState({
       [name]: value,
+    });
+  }
+
+  handleClick() {
+    const { addExp } = this.props;
+    const { id } = this.state;
+    const obj = { ...this.state };
+    addExp(obj);
+    this.setState({
+      id: id + 1,
     });
   }
 
@@ -76,7 +88,7 @@ class FormWallet extends React.Component {
             { categorias.map((e) => <option value={ e } key={ e }>{ e }</option>) }
           </select>
         </label>
-        <button type="button">Adicionar despesa</button>
+        <button type="button" onClick={ this.handleClick }>Adicionar despesa</button>
       </form>
     );
   }
@@ -88,10 +100,12 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchCurrencies: () => dispatch(fetchCurrency()),
+  addExp: (obj) => dispatch(expenseAdd(obj)),
 });
 
 FormWallet.propTypes = {
   fetchCurrencies: PropTypes.func.isRequired,
+  addExp: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 

@@ -1,4 +1,4 @@
-import { EXPENSE, REQUEST_CURRENCY, GET_CURRENCY } from '../actions';
+import { EXPENSE, REQUEST_CURRENCY, GET_CURRENCY, ADD_EXPENSE } from '../actions';
 
 const initialState = {
   expenses: [],
@@ -24,6 +24,20 @@ function wallet(state = initialState, action) {
     return ({
       ...state,
       currencies: [...noTradeCur],
+    }); }
+  case ADD_EXPENSE: {
+    const actObj = {
+      id: action.id,
+      valor: action.valor,
+      descricao: action.descricao,
+      moeda: action.moeda,
+      metodo: action.metodo,
+      tag: action.tag,
+      exchangeRates: action.exchangeRates,
+    };
+    return ({
+      ...state,
+      expenses: [...state.expenses, actObj],
     }); }
   default:
     return state;
