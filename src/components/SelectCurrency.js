@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default class SelectPayment extends React.Component {
+export default class SelectCurrency extends React.Component {
   constructor() {
     super();
 
@@ -28,10 +29,16 @@ export default class SelectPayment extends React.Component {
 
   render() {
     const { newCurrencyList } = this.state;
+    const { currencyValue, handleChange } = this.props;
     return (
       <label htmlFor="currency-select">
         Moeda:
-        <select name="currency-select" id="currency-select">
+        <select
+          name="currency"
+          id="currency-select"
+          onChange={ handleChange }
+          value={ currencyValue }
+        >
           {newCurrencyList.filter((currency) => currency.code !== 'USDT')
             .map((currency) => (
               <option
@@ -47,3 +54,8 @@ export default class SelectPayment extends React.Component {
     );
   }
 }
+
+SelectCurrency.propTypes = {
+  currencyValue: PropTypes.string,
+  handleChange: PropTypes.func,
+}.isRequired;

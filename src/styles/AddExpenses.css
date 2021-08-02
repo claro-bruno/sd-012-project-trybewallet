@@ -1,0 +1,89 @@
+.form-container {
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 6px;
+  background-color: #fff;
+  display: flex;
+  flex-flow: column;
+  margin: 15px;
+  width: 40%;
+}
+
+.form-container h2 {
+  font-size: 38px;
+}
+
+.add-expenses-form {
+  font-size: 22px;
+  padding-bottom: 25px;
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  align-items: center;
+}
+
+.layer {
+  margin: 20px 0;
+}
+
+.add-expenses-form input {
+  margin: auto 10px;
+  border-top: #fff;
+  border-left: #fff;
+  border-right: #fff;
+  outline: none;
+  font-size: 22px;
+}
+
+.add-expenses-form select {
+  font-size: 21px;
+  background: transparent;
+  border-radius: 6px;
+  outline: 0px;
+}
+
+.first-row input {
+  width: 50%;
+}
+
+.second-row {
+  width: 70%;
+}
+
+.second-row input {
+  width: 25%;
+  text-align: center;
+}
+
+.second-row select {
+  margin: auto 10px;
+}
+
+.third-row {
+  font-size: 20px;
+}
+
+.third-row label {
+  margin: 0;
+}
+
+.third-row select {
+  width: 40%;
+  margin: auto 10px;
+}
+
+.fourth-row {
+  width: 40%;
+}
+
+.fourth-row select {
+  width: 70%;
+  margin: 0 10px;
+}
+
+.add-expenses-form button {
+  font-size: larger;
+  background-color: rgb(199, 25, 25);
+  color: #fff;
+  margin: 20px 0;
+}
