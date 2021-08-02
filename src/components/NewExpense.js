@@ -17,7 +17,6 @@ class NewExpense extends React.Component {
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
-      id: 0,
     };
 
     this.handleChange = this.handleChange.bind(this);
