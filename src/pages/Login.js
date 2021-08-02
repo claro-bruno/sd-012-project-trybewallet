@@ -79,4 +79,5 @@ const mapDispatchToProps = (dispatch) => ({
   getEmail: (payload) => dispatch(submitEmail(payload)),
 });
 
+// me orientei atravez da pull request do Erick kreis https://github.com/tryber/sd-012-project-trybewallet/pull/130/commits/8f6cb22d57179038dd3bbb6f6ed11ecaafa728f1
 export default connect(null, mapDispatchToProps)(Login);
