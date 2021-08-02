@@ -58,3 +58,10 @@ export const actionAddExpense = (state, id) => async (dispatch) => {
     dispatch(AddExpenseError(error));
   }
 };
+
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+
+export const actionDeleteExpense = (id) => ({
+  type: DELETE_EXPENSE,
+  id,
+});

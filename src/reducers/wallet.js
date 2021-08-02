@@ -1,6 +1,7 @@
 import {
   ADD_EXPENSE,
   ADD_EXPENSE_SUCCESS,
+  DELETE_EXPENSE,
   REQUEST_CURRENCIES,
   REQUEST_CURRENCIES_SUCCESS } from '../actions';
 
@@ -33,6 +34,11 @@ const wallet = (state = INITIAL_STATE, action) => {
           exchangeRates: action.apiData,
         },
       ],
+    };
+  case DELETE_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.filter((expense) => expense.id !== Number(action.id)),
     };
   default:
     return state;
