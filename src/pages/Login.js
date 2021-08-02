@@ -11,10 +11,14 @@ class Login extends React.Component {
       email: '',
       password: '',
       activateLogin: true,
+      passwordIsValid: false,
+      emailIsValid: false,
+      shouldRedirectToCarteira: false,
 
     };
     this.handleChangeInLogin = this.handleChangeInLogin.bind(this);
-    this.letsStart = this.initStart.bind(this);
+    this.initStart = this.initStart.bind(this);
+    this.activateBtnLogin = this.activateBtnLogin.bind(this);
   }
 
   // manipulando input login
@@ -41,18 +45,24 @@ class Login extends React.Component {
     const checkEmail = /.+@.+\.[A-Za-z]+$/;
     if (password.length >= minimumPw && checkEmail.test(email)) {
       this.setState({
+        passwordIsValid: true,
+        emailIsValid: true,
         activateLogin: false,
       });
     } else {
       this.setState({
+        passwordIsValid: false,
+        emailIsValid: false,
         activateLogin: true,
       });
     }
   }
 
   render() {
-    const { email, password, activateLogin,
-      shouldRedirectToCarteira } = this.state;
+    const { email, password, activateLogin, emailIsValid,
+      passwordIsValid, shouldRedirectToCarteira } = this.state;
+
+    const tamanho = password.length;
 
     if (shouldRedirectToCarteira) {
       return <Redirect to="/carteira" />;
@@ -87,6 +97,12 @@ class Login extends React.Component {
         >
           Entrar
         </button>
+        <p>{activateLogin ? 'botão inativo' : 'pode logar'}</p>
+        <p>{passwordIsValid ? 'pw ok' : 'pw errado'}</p>
+        <p>{emailIsValid ? 'email ok' : 'email errado'}</p>
+        <p>{password}</p>
+        <p>{tamanho}</p>
+        <p>{shouldRedirectToCarteira ? 'vai' : 'Fica'}</p>
       </div>
     );
   }
