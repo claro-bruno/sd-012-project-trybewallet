@@ -6,7 +6,6 @@ import WalletHeader from '../components/WalletHeader';
 // import './Login.css'
 
 const initialState = {
-  selectedCurrency: 'BRL',
   value: 0,
   description: '',
   currency: 'USD',
@@ -17,16 +16,11 @@ const initialState = {
 class Wallet extends React.Component {
   constructor() {
     super();
-    this.state = {
-      value: 0,
-      description: '',
-      currency: 'USD',
-      method: '',
-      tag: '',
-    };
+    this.state = initialState;
     this.addExpenseBtnClick = this.addExpenseBtnClick.bind(this);
     this.expenseForm = this.expenseForm.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.expensesTable = this.expensesTable.bind(this);
   }
 
   componentDidMount() {
@@ -38,7 +32,7 @@ class Wallet extends React.Component {
     const { expenses, addExpense } = this.props;
     const { value, description, currency, method, tag } = this.state;
     const expense = { id: expenses.length, value, description, currency, method, tag };
-    addExpense(expense);
+    addExpense(expense).then(this.setState(initialState));
   }
 
   handleChange({ target: { id, value } }) {
@@ -104,13 +98,51 @@ class Wallet extends React.Component {
     );
   }
 
+  expensesTable() {
+    const tableHeader = ['Descrição', 'Tag', 'Método de pagamento', 'Valor', 'Moeda',
+      'Câmbio utilizado', 'Valor convertido', 'Moeda de conversão', 'Editar/Excluir'];
+    const formatter = new Intl.NumberFormat('en-US', {
+      maximumFractionDigits: 2,
+    });
+    const { expenses } = this.props;
+    return (
+      <table>
+        <thead>
+          <tr>
+            {tableHeader.map((head, i) => <th key={ i }>{head}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          { expenses.map((expense, i) => {
+            const { description, tag, method, value, currency } = expense;
+            const { ask, name } = expense.exchangeRates[currency];
+            const convertCurrency = name.split('/')[0];
+            const actualCurrency = 'Real';
+            const convertedValue = formatter.format(Number(ask) * Number(value));
+            const editOrRemove = '';
+            const columnValues = [description, tag, method, formatter.format(value),
+              convertCurrency, formatter.format(ask), convertedValue,
+              actualCurrency, editOrRemove];
+            return (
+              <tr key={ i }>
+                {columnValues.map((data, j) => (
+                  <td key={ String(i) + String(j) }>{ data }</td>
+                ))}
+              </tr>);
+          })}
+        </tbody>
+      </table>
+    );
+  }
+
   render() {
-    const { expenseForm, msgDiv } = this;
+    const { expenseForm, msgDiv, expensesTable } = this;
     const { onLoadingC, onLoadingR, error } = this.props;
     return (
       <>
         <WalletHeader />
-        { (!onLoadingC && !error) && expenseForm() }
+        { expenseForm() }
+        { expensesTable() }
         { (onLoadingC || onLoadingR) && msgDiv('LOADING...') }
         { (error) && msgDiv(error) }
       </>
