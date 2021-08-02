@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 const tableHeaders = [
   'Descrição',
@@ -14,15 +15,6 @@ const tableHeaders = [
 ];
 
 class ExpenseTable extends React.Component {
-  // componentDidUpdate() {
-  //   this.renderExpenses();
-  // }
-
-  // renderExpenses() {
-  //   const { expenses } = this.props;
-
-  // }
-
   render() {
     const { expenses } = this.props;
     return (
@@ -52,7 +44,6 @@ class ExpenseTable extends React.Component {
                     type="button"
                     data-testid="edit-btn"
                     name="edit"
-                    // onClick={ ({ target }) => this.handleClick(target, expense) }
                   >
                     Editar
                   </button>
@@ -60,7 +51,6 @@ class ExpenseTable extends React.Component {
                     type="button"
                     name="delete"
                     data-testid="delete-btn"
-                    // onClick={ ({ target }) => this.handleClick(target, id) }
                   >
                     Excluir
                   </button>
@@ -72,6 +62,10 @@ class ExpenseTable extends React.Component {
     );
   }
 }
+
+ExpenseTable.propTypes = {
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
