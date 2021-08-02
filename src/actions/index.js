@@ -5,3 +5,7 @@ export const logIn = (email) => ({
 export const logOut = () => ({
   type: 'LOG_OUT',
 });
+export const addExpense = (expense) => ({
+  type: 'ADD_EXPENSE',
+  expense,
+});
