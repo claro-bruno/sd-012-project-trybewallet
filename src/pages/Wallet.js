@@ -18,7 +18,7 @@ class Wallet extends React.Component {
       method: '',
       tag: '',
       currency: '',
-      expenseId: '',
+      id: '',
       editMode: false,
     };
 
@@ -71,10 +71,10 @@ class Wallet extends React.Component {
       tag,
       currency,
       exchangeRates,
-      expenseId,
+      id,
     } = this.state;
     const payload = {
-      id: expenseId,
+      id,
       value,
       description,
       currency,
@@ -127,15 +127,15 @@ class Wallet extends React.Component {
       method,
       tag,
       currency,
-      expenseId: selectedId,
+      id: selectedId,
       exchangeRates,
       editMode: true,
     }));
   }
 
   handleEditedExpense() {
-    const { expenseId } = this.state;
-    this.deleteExpenses(expenseId);
+    const { id } = this.state;
+    this.deleteExpenses(id);
     this.setEditedExpense();
   }
 
@@ -204,23 +204,11 @@ class Wallet extends React.Component {
           Tag:
         </SelectInput>
         {editMode ? (
-          <Button
-            dataTestId="btn"
-            loginValid={ false }
-            handleClick={ () => {
-              this.handleEditedExpense();
-            } }
-          >
+          <Button handleClick={ () => { this.handleEditedExpense(); } }>
             Editar despesa
           </Button>
         ) : (
-          <Button
-            dataTestId="add-btn"
-            loginValid={ false }
-            handleClick={ () => {
-              this.handleClick();
-            } }
-          >
+          <Button handleClick={ () => { this.handleClick(); } }>
             Adicionar despesa
           </Button>
         )}
