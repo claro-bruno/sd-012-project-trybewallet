@@ -95,7 +95,7 @@ class Login extends React.Component {
 }
 const mapDispatchToProps = (dispatch) => ({
 
-  stateSave: (payload) => dispatch({ type: 'USER_STATE', payload }),
+  stateSave: (payload) => dispatch({ type: 'USER_EMAIL', payload }),
 });
 
 Login.propTypes = {
