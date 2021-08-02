@@ -36,7 +36,6 @@ class Wallet extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  wallet: state.wallet,
   user: state.user,
 });
 
@@ -46,9 +45,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 Wallet.propTypes = {
   submitCurrencies: PropTypes.func.isRequired,
-  wallet: PropTypes.shape({
-
-  }).isRequired,
   user: PropTypes.shape({
     email: PropTypes.string,
   }).isRequired,
