@@ -13,7 +13,7 @@ class Header extends React.Component {
           Email:
           { email }
         </p>
-        <p data-testid="total-field">{ total }</p>
+        <p data-testid="total-field">{ Number(total).toFixed(2) }</p>
         <p data-testid="header-currency-field">BRL</p>
       </header>
     );

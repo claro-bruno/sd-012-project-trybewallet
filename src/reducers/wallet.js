@@ -1,4 +1,6 @@
-import { GET_CURRENCIES, FETCH_API, FAILED_REQUEST, ADD_EXPENSE } from '../actions/types';
+import {
+  GET_CURRENCIES, FETCH_API, FAILED_REQUEST, ADD_EXPENSE, REMOVE_EXPENSE,
+} from '../actions/types';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -19,6 +21,15 @@ const wallet = (state = INITIAL_STATE, action) => {
   case ADD_EXPENSE:
     return {
       ...state, expenses: [...state.expenses, action.payload], total: action.total };
+  case REMOVE_EXPENSE: {
+    const fileredExpenses = [...state.expenses]
+      .filter((expense) => expense.id !== Number(action.id));
+    return {
+      ...state,
+      expenses: fileredExpenses,
+      total: action.value,
+    };
+  }
   default: return state;
   }
 };

@@ -1,5 +1,5 @@
 import {
-  SAVE_EMAIL, GET_CURRENCIES, FETCH_API, ADD_EXPENSE } from './types';
+  SAVE_EMAIL, GET_CURRENCIES, FETCH_API, ADD_EXPENSE, REMOVE_EXPENSE } from './types';
 
 export const actionSaveEmail = (payload) => ({ type: SAVE_EMAIL, payload });
 
@@ -11,6 +11,8 @@ const fetchAPI = () => ({ type: FETCH_API });
 
 export const actionAddExpense = (payload, total) => ({
   type: ADD_EXPENSE, payload, total });
+
+export const actionRemoveExpense = (id, value) => ({ type: REMOVE_EXPENSE, id, value });
 
 export const fetchCurrencies = () => {
   const endpoint = 'https://economia.awesomeapi.com.br/json/all';
