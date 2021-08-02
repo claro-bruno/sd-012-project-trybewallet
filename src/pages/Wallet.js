@@ -144,11 +144,57 @@ class Wallet extends React.Component {
     );
   }
 
+  renderTable() {
+    const { expenses } = this.props;
+    return (
+      <div>
+        <table>
+          <tbody>
+            <tr>
+              <th>Descrição</th>
+              <th>Tag</th>
+              <th>Método de pagamento</th>
+              <th>Valor</th>
+              <th>Moeda</th>
+              <th>Câmbio utilizado</th>
+              <th>Valor convertido</th>
+              <th>Moeda de conversão</th>
+              <th>Editar/Excluir</th>
+            </tr>
+            {expenses.map(
+              ({
+                description,
+                tag,
+                method,
+                value,
+                currency,
+                exchangeRates,
+                id,
+              }) => (
+                <tr key={ id }>
+                  <td>{description}</td>
+                  <td>{tag}</td>
+                  <td>{method}</td>
+                  <td>{value}</td>
+                  <td>{exchangeRates[currency].name}</td>
+                  <td>{Math.round(exchangeRates[currency].ask * 100) / 100}</td>
+                  <td>{value * exchangeRates[currency].ask}</td>
+                  <td>Real</td>
+                </tr>
+              ),
+            )}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+
   render() {
     return (
       <div>
         {this.renderHeader()}
         {this.renderForms()}
+        {this.renderTable()}
       </div>
     );
   }
