@@ -2,6 +2,7 @@ export const USER_EMAIL = 'USER_EMAIL';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
 export const GET_CURRENCIES_SUCCESS = 'GET_CURRENCIES_SUCCESS';
 export const GET_CURRENCIES_ERROR = 'GET_CURRENCIES_ERROR';
+export const ADD_EXPENSE = 'ADD_EXPENSE';
 
 export const actionUserEmail = (payload) => ({ type: USER_EMAIL, payload });
 
@@ -15,6 +16,11 @@ export const actionGetCurrenciesSuccess = (payload) => ({
 export const actionGetCurrenciesError = (error) => ({
   type: GET_CURRENCIES_ERROR,
   error,
+});
+
+export const actionAddExpense = (payload) => ({
+  type: ADD_EXPENSE,
+  payload,
 });
 
 export const fetchAPI = () => (dispatch) => {
