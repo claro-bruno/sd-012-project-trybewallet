@@ -10,9 +10,7 @@ function filterCurrencies(currencies) {
 
 const currencies = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case GET_CURRENCIES_SUCCESS: {
-    return filterCurrencies(action.currencies);
-  }
+  case GET_CURRENCIES_SUCCESS: { return filterCurrencies(action.currencies); }
   default: return state;
   }
 };

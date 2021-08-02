@@ -3,24 +3,17 @@ import PropTypes from 'prop-types';
 
 class Select extends Component {
   render() {
-    const {
-      properties: { labelText, selectProps },
-      value, children, onChange } = this.props;
-    const { id } = selectProps;
+    const { selectRef, properties, children } = this.props;
     return (
-      <label htmlFor={ id }>
-        { labelText }
+      <label htmlFor={ properties.selectProps.id }>
+        { properties.labelText }
         <select
-          { ...selectProps }
-          value={ value }
-          data-testid={ id }
-          onChange={ onChange }
+          { ...properties.selectProps }
+          ref={ selectRef }
+          data-testid={ properties.selectProps.id }
         >
           { children.map((item, index) => (
-            <option
-              key={ index }
-              value={ item }
-            >
+            <option key={ index } value={ item }>
               {item}
             </option>))}
         </select>
@@ -29,13 +22,10 @@ class Select extends Component {
   }
 }
 
-Select.defaultProps = {
-  value: '',
-  labelText: '',
-};
-
 Select.propTypes = {
-  labelText: PropTypes.string,
+  selectRef: PropTypes.shape({
+    current: PropTypes.shape({ value: PropTypes.string.isRequired }),
+  }).isRequired,
   properties: PropTypes.shape({
     labelText: PropTypes.string.isRequired,
     selectProps: PropTypes.shape({
@@ -43,11 +33,7 @@ Select.propTypes = {
       name: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
-  value: PropTypes.string,
-  children: PropTypes.arrayOf(
-    PropTypes.string.isRequired,
-  ).isRequired,
-  onChange: PropTypes.func.isRequired,
+  children: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };
 
 export default Select;

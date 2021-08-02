@@ -11,9 +11,7 @@ function sumTotalExpense(expenses) {
 
 const totalExpense = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case SUM_EXPENSES: {
-    return sumTotalExpense(action.expenses);
-  }
+  case SUM_EXPENSES: { return sumTotalExpense(action.expenses); }
   default: return state;
   }
 };

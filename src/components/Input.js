@@ -3,28 +3,26 @@ import PropTypes from 'prop-types';
 
 class Input extends React.Component {
   render() {
-    const { properties: { labelText, inputProps }, value, onChange } = this.props;
-    const { id } = inputProps;
+    const { inputRef, properties } = this.props;
     return (
-      <label htmlFor={ id }>
-        { labelText }
+      <label htmlFor={ properties.inputProps.id }>
+        { properties.labelText }
         <input
-          { ...inputProps }
-          value={ value }
-          data-testid={ id }
-          onChange={ onChange }
+          { ...properties.inputProps }
+          ref={ inputRef }
+          data-testid={ properties.inputProps.id }
         />
       </label>
     );
   }
 }
 
-Input.defaultProps = {
-  labelText: '',
-};
-
 Input.propTypes = {
-  labelText: PropTypes.string,
+  inputRef: PropTypes.shape({
+    current: PropTypes.shape({
+      value: PropTypes.string.isRequired,
+    }),
+  }).isRequired,
   properties: PropTypes.shape({
     labelText: PropTypes.string.isRequired,
     inputProps: PropTypes.shape({
@@ -33,8 +31,6 @@ Input.propTypes = {
       type: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
 };
 
 export default Input;

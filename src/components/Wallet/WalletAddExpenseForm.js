@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { addExpense, editExpense, updateExpense,
-  sumExpenses,
-  fetchCurrencies } from '../../actions';
+  sumExpenses, fetchCurrencies } from '../../actions';
 
 import { valueInput, currencySelect, methodSelect,
   tagSelect, descriptionInput } from '../../data/expenseForm';
@@ -12,40 +11,38 @@ import { valueInput, currencySelect, methodSelect,
 import Input from '../Input';
 import Select from '../Select';
 
-const INITIAL_STATE = {
-  value: '',
-  currency: 'USD',
-  method: methodSelect.options[0],
-  tag: tagSelect.options[0],
-  description: '',
-};
-
 class WalletAddExpenseForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = INITIAL_STATE;
+    this.valueInputRef = React.createRef();
+    this.currencySelectRef = React.createRef();
+    this.methodSelectRef = React.createRef();
+    this.tagSelectRef = React.createRef();
+    this.descriptionInputRef = React.createRef();
 
-    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange({ target: { name, value } }) {
-    this.setState((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+  resetForm() {
+    const [method] = methodSelect.options;
+    const [tag] = tagSelect.options;
+    this.valueInputRef.current.value = '';
+    this.currencySelectRef.current.value = 'USD';
+    this.methodSelectRef.current.value = method;
+    this.tagSelectRef.current.value = tag;
+    this.descriptionInputRef.current.value = '';
   }
 
-  returnUpdatedExpense(expenseEditing) {
+  returnUpdatedExpense(id, exchangeRates) {
     return {
-      id: expenseEditing.id,
-      value: document.querySelector('#value-input').value,
-      currency: document.querySelector('#currency-input').value,
-      method: document.querySelector('#method-input').value,
-      tag: document.querySelector('#tag-input').value,
-      description: document.querySelector('#description-input').value,
-      exchangeRates: expenseEditing.exchangeRates,
+      id,
+      value: this.valueInputRef.current.value,
+      currency: this.currencySelectRef.current.value,
+      method: this.methodSelectRef.current.value,
+      tag: this.tagSelectRef.current.value,
+      description: this.descriptionInputRef.current.value,
+      exchangeRates,
     };
   }
 
@@ -53,7 +50,7 @@ class WalletAddExpenseForm extends React.Component {
     e.preventDefault();
     const {
       isEditing,
-      expenseEditing,
+      expenseEditing: { id, exchangeRates },
       setExpenseToStore,
       editExpenseInStore,
       updateExpenseInStore,
@@ -61,88 +58,64 @@ class WalletAddExpenseForm extends React.Component {
       getCurrencies } = this.props;
 
     if (isEditing) {
-      updateExpenseInStore(this.returnUpdatedExpense(expenseEditing));
+      updateExpenseInStore(this.returnUpdatedExpense(id, exchangeRates));
       setTotalExpenseInStore();
       editExpenseInStore({}, false);
     } else {
       setExpenseToStore({
-        ...this.state,
+        value: this.valueInputRef.current.value,
+        currency: this.currencySelectRef.current.value,
+        method: this.methodSelectRef.current.value,
+        tag: this.tagSelectRef.current.value,
+        description: this.descriptionInputRef.current.value,
         exchangeRates: await getCurrencies(),
       });
       setTotalExpenseInStore();
     }
-
-    this.setState((prevState) => ({
-      ...prevState,
-      ...INITIAL_STATE,
-    }));
+    this.resetForm();
   }
 
   renderValueInput() {
-    const { value } = this.state;
-    const { isEditing, expenseEditing: { value: editValue = '' } } = this.props;
-    return (
-      <Input
-        properties={ valueInput }
-        value={ (isEditing) ? value || editValue : value }
-        onChange={ this.handleChange }
-      />
-    );
+    const { isEditing, expenseEditing: { value } } = this.props;
+    if (isEditing) { this.valueInputRef.current.value = value; }
+    return <Input inputRef={ this.valueInputRef } properties={ valueInput } />;
   }
 
   renderCurrencySelect() {
-    const { currency } = this.state;
-    const { currencies, expenseEditing: { currency: editCurrency = 'USD' } } = this.props;
+    const { isEditing, expenseEditing: { currency } } = this.props;
+    if (isEditing) { this.currencySelectRef.current.value = currency; }
+    const { currencies } = this.props;
     return (
-      <Select
-        properties={ currencySelect }
-        value={ currency || editCurrency }
-        onChange={ this.handleChange }
-      >
+      <Select selectRef={ this.currencySelectRef } properties={ currencySelect }>
         {currencies}
-      </Select>
-    );
+      </Select>);
   }
 
   renderMethodSelect() {
-    const { method } = this.state;
-    const { isEditing,
-      expenseEditing: { method: editMethod = methodSelect.options[0] } } = this.props;
+    const { isEditing, expenseEditing: { method } } = this.props;
+    if (isEditing) { this.methodSelectRef.current.value = method; }
     return (
-      <Select
-        properties={ methodSelect }
-        value={ (isEditing) ? method || editMethod : method }
-        onChange={ this.handleChange }
-      >
+      <Select selectRef={ this.methodSelectRef } properties={ methodSelect }>
         {methodSelect.options}
       </Select>
     );
   }
 
   renderTagSelect() {
-    const { tag } = this.state;
-    const { isEditing,
-      expenseEditing: { tag: editTag = tagSelect.options[0] } } = this.props;
+    const { isEditing, expenseEditing: { tag } } = this.props;
+    if (isEditing) { this.tagSelectRef.current.value = tag; }
     return (
-      <Select
-        properties={ tagSelect }
-        value={ (isEditing) ? tag || editTag : tag }
-        onChange={ this.handleChange }
-      >
+      <Select selectRef={ this.tagSelectRef } properties={ tagSelect }>
         {tagSelect.options}
       </Select>
     );
   }
 
   renderDescriptionInput() {
-    const { description } = this.state;
-    const { expenseEditing: { description: editDescription = '' } } = this.props;
+    const { isEditing, expenseEditing: { description } } = this.props;
+    if (isEditing) { this.descriptionInputRef.current.value = description; }
     return (
-      <Input
-        properties={ descriptionInput }
-        value={ description || editDescription }
-        onChange={ this.handleChange }
-      />
+      <Input inputRef={ this.descriptionInputRef } properties={ descriptionInput } />
     );
   }
 
@@ -179,22 +152,10 @@ const mapDispatchToProps = (dispatch) => ({
   getCurrencies: () => dispatch(fetchCurrencies()),
 });
 
-WalletAddExpenseForm.defaultProps = {
-  expenseEditing: {
-    id: 0,
-    description: '',
-    tag: '',
-    method: '',
-    value: '',
-    currency: '',
-    exchangeRates: {},
-  },
-};
-
 WalletAddExpenseForm.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   isEditing: PropTypes.bool.isRequired,
-  expenseEditing: PropTypes.shape(PropTypes.object.isRequired),
+  expenseEditing: PropTypes.shape(PropTypes.object.isRequired).isRequired,
   setExpenseToStore: PropTypes.func.isRequired,
   editExpenseInStore: PropTypes.func.isRequired,
   updateExpenseInStore: PropTypes.func.isRequired,

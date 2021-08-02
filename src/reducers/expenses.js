@@ -6,10 +6,7 @@ const INITIAL_STATE = [];
 
 function addingExpense(expenses, action) {
   const id = (expenses.length === 0) ? 0 : expenses.length;
-  return [
-    ...expenses,
-    { id, ...action.expense },
-  ];
+  return [...expenses, { id, ...action.expense }];
 }
 
 function updateExpense(expenses, action) {
@@ -26,15 +23,9 @@ function filterRemovedExpense(expenses, id) {
 
 const expenses = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case ADD_EXPENSE: {
-    return addingExpense(state, action);
-  }
-  case UPDATE_EXPENSE: {
-    return updateExpense(state, action);
-  }
-  case REMOVE_EXPENSE: {
-    return filterRemovedExpense(state, action.id);
-  }
+  case ADD_EXPENSE: { return addingExpense(state, action); }
+  case UPDATE_EXPENSE: { return updateExpense(state, action); }
+  case REMOVE_EXPENSE: { return filterRemovedExpense(state, action.id); }
   default: return state;
   }
 };
