@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Button from '../components/Button';
 import Input from '../components/Input';
+import { login } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -28,9 +31,10 @@ class Login extends React.Component {
   }
 
   onSubmitForm() {
-    const { history, dispatchSetValue } = this.props;
-    dispatchSetValue(this.state);
-    history.push('/');
+    const { history, userEmail } = this.props;
+    const { email } = this.state;
+    userEmail(email);
+    history.push('/carteira');
   }
 
   handleChange({ target }) {
@@ -75,21 +79,33 @@ class Login extends React.Component {
           onChange={ this.handleChange }
           required
         />
-        <Button
-          name="Entrar"
-          dataTestid="button-enter"
-          onClick={ this.onSubmitForm }
-        />
+        <Link to="/carteira">
+          <Button
+            name="Entrar"
+            dataTestid="button-enter"
+            onClick={ this.onSubmitForm }
+          />
+        </Link>
       </div>
     );
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  userEmail: (email) => dispatch(login(email)),
+});
+
+const mapStateToProps = (state) => ({
+  emailText: state.user.email,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
 Login.propTypes = {
-  dispatchSetValue: PropTypes.func.isRequired,
+  userEmail: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
 };
 
-export default Login;
+// export default Login;
