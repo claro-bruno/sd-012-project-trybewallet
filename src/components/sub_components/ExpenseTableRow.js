@@ -28,12 +28,12 @@ class ExpenseTableRow extends React.Component {
           )}
         </td>
         <td>Real</td>
-        <td>
+        <td className="btns-td">
           <input
             data-testid="delete-btn"
             className="btn btn-danger"
             type="button"
-            value="X"
+            value="Excluir"
             onClick={ () => rmv(expense.id) }
           />
           <input

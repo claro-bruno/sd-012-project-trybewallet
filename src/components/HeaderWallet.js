@@ -26,7 +26,7 @@ class HeaderWallet extends React.Component {
       >
         <h1 className="my-0 mr-md-auto font-weight-normal">TrybeWallet</h1>
         <div>
-          <span className="p-1" data-testid="email-field">{email}</span>
+          <span className="p-1" data-testid="email-field">{`${email} |`}</span>
           <span className="p-1" data-testid="total-field">{fmt.format(total)}</span>
           <span className="p-1" data-testid="header-currency-field">BRL</span>
         </div>

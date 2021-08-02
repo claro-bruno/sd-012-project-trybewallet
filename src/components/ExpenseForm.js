@@ -6,12 +6,13 @@ import { fetchCurrencies, addExpense, replaceExpense } from '../actions';
 class ExpenseForm extends React.Component {
   constructor(props) {
     super(props);
+    // const { currencies } = this.props;
     this.state = {
       value: '',
       description: '',
-      currency: '',
-      method: '',
-      tag: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
       nowEditing: false,
     };
     this.handleChange = this.handleChange.bind(this);
