@@ -1,119 +1,138 @@
 import React, { Component } from 'react';
-// import { fetchCurrencies } from '../actions';
-import ExpensesLabel from './ExpensesLabel';
-import SelectLabel from './SelectLabel';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import FormHeader from './FormHeader';
+import { getApi, getCurrency } from '../actions';
 
-const paymentMethods = [
-  {
-    value: 'cash',
-    content: 'Dinheiro',
-  },
-  {
-    value: 'creditCard',
-    content: 'Cartão de crédito',
-  },
-  {
-    value: 'debitCard',
-    content: 'Cartão de débito',
-  },
-];
+// const paymentMethods = [
+//   {
+//     value: 'Dinheiro',
+//     content: 'Dinheiro',
+//   },
+//   {
+//     value: 'Cartão de crédito',
+//     content: 'Cartão de crédito',
+//   },
+//   {
+//     value: 'Cartão de débito',
+//     content: 'Cartão de débito',
+//   },
+// ];
 
-const tag = [
-  {
-    value: 'food',
-    content: 'Alimentação',
-  },
-  {
-    value: 'recreation',
-    content: 'Lazer',
-  },
-  {
-    value: 'work',
-    content: 'Trabalho',
-  },
-  {
-    value: 'transport',
-    content: 'Transporte',
-  },
-  {
-    value: 'health',
-    content: 'Saúde',
-  },
-];
+// const tagg = [
+//   {
+//     value: 'Alimentação',
+//     content: 'Alimentação',
+//   },
+//   {
+//     value: 'Lazer',
+//     content: 'Lazer',
+//   },
+//   {
+//     value: 'Trabalho',
+//     content: 'Trabalho',
+//   },
+//   {
+//     value: 'Transporte',
+//     content: 'Transporte',
+//   },
+//   {
+//     value: 'Saúde',
+//     content: 'Saúde',
+//   },
+// ];
 
 class Expenses extends Component {
   constructor() {
     super();
     this.state = {
+      id: 0,
       value: 0,
       description: '',
-      currencies: [],
-      isLoading: true,
+      currency: 'USD',
+      method: 'Cash',
+      tag: 'Food',
     };
     this.handleChange = this.handleChange.bind(this);
-    this.getApi = this.getApi.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
-    this.getApi();
-  }
-
-  getApi() {
-    fetch('https://economia.awesomeapi.com.br/json/all')
-      .then((res) => res.json())
-      .then((data) => {
-        this.setState({
-          isLoading: false,
-          currencies: ([...Object.keys(data).filter((curren) => curren !== 'USDT')]),
-        });
-      });
+    const { getCurrencies } = this.props;
+    getCurrencies();
   }
 
   handleChange({ target: { name, value } }) {
     this.setState({ [name]: value });
   }
 
+  handleClick() {
+    const { expense } = this.props;
+    expense({ ...this.state });
+    this.setState((prevState) => ({
+      id: prevState.id + 1,
+      value: 0,
+      description: '',
+      currency: 'USD',
+      method: 'Cash',
+      tag: 'Food',
+    }));
+  }
+
+  // if (isLoading) return <div>Carregando...</div>;
   render() {
-    const { value, description, currencies, isLoading } = this.state;
-    if (isLoading) return <div>Carregando...</div>;
+    const { value, description, currency, method, tag } = this.state;
+    const { currencies, total, user } = this.props;
     return (
-      <form>
-        {console.log(currencies)}
-        <ExpensesLabel
-          text="Valor: "
-          type="number"
-          onChange={ this.handleChange }
+      <div>
+        <form>
+          <label htmlFor="infos">
+            Usuario:
+            <span data-testid="email-field">{user}</span>
+            <div data-testid="total-field">
+              Despesas:
+              <span>{ total }</span>
+              Moeda:
+              <span data-testid="header-currency-field">BRL</span>
+            </div>
+          </label>
+        </form>
+        <FormHeader
+          currencies={ currencies }
+          handleChange={ this.handleChange }
           value={ value }
-          name="value"
+          description={ description }
+          currency={ currency }
+          method={ method }
+          tag={ tag }
+          onClick={ this.handleClick }
         />
-        <ExpensesLabel
-          text="Descrição: "
-          type="text"
-          onChange={ this.handleChange }
-          value={ description }
-          name="description"
-        />
-        <label htmlFor="currency">
-          Moeda
-          <select name="currency" id="currency">
-            {currencies.map((opt) => (
-              <option key={ opt } value={ opt }>{ opt }</option>
-            ))}
-          </select>
-        </label>
-        <SelectLabel
-          html="paymentMethod"
-          text="Método de pagamento"
-          option={ paymentMethods }
-        />
-        <SelectLabel
-          html="expenses"
-          text="Tag"
-          option={ tag }
-        />
-      </form>
+      </div>
     );
   }
 }
 
-export default Expenses;
+Expenses.propTypes = {
+  getCurrencies: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  expense: PropTypes.func.isRequired,
+  total: PropTypes.string,
+  user: PropTypes.string.isRequired,
+};
+
+Expenses.defaultProps = {
+  total: '0',
+};
+
+const mapStateToProps = (state) => ({
+  user: state.user.email,
+  currencies: state.wallet.currencies,
+  total: state.wallet.total,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getCurrencies: () => dispatch(getApi()),
+  expense: (expense) => dispatch(getCurrency(expense)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Expenses);

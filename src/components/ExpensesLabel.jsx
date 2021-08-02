@@ -9,6 +9,7 @@ class ExpensesLabel extends Component {
         { text }
         <input
           type={ type }
+          id={ html }
           onChange={ onChange }
           value={ value }
           name={ name }
@@ -23,8 +24,12 @@ ExpensesLabel.propTypes = {
   text: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   name: PropTypes.string.isRequired,
+};
+
+ExpensesLabel.defaultProps = {
+  value: 'Not found',
 };
 
 export default ExpensesLabel;
