@@ -46,3 +46,9 @@ export const removeExpenseAction = (payload) => ({
   type: REMOVE_EXPENSE_ACTION,
   payload,
 });
+
+export const SELECT_EXPENSE = 'SELECT_EXPENSE';
+export const selectExpense = (payload) => ({
+  type: SELECT_EXPENSE,
+  payload,
+});

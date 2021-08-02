@@ -4,6 +4,7 @@ import {
   RECEIVE_ACTION,
   ADD_EXPENSE_ACTION,
   REMOVE_EXPENSE_ACTION,
+  SELECT_EXPENSE,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -13,6 +14,8 @@ const INITIAL_STATE = {
   expenses: [],
   currency: 'BRL',
   loading: false,
+  selected: null,
+  status: 'add',
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -43,6 +46,12 @@ const wallet = (state = INITIAL_STATE, action) => {
     return ({
       ...state,
       expenses: state.expenses.filter((exp) => exp.id !== action.payload),
+    });
+  case SELECT_EXPENSE:
+    return ({
+      ...state,
+      selected: action.payload,
+      status: 'edit',
     });
   default:
     return state;
