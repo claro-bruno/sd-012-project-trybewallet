@@ -4,23 +4,19 @@ import { string } from 'prop-types';
 import ExpenseForm from './ExpenseForm';
 
 class Header extends React.Component {
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
 
-    this.handleChange = this.handleChange.bind(this);
+  //   // this.handleChange = this.handleChange.bind(this);
 
-    this.state = {
-    //   valueEntry: '0',
-    //   currenty: [],
-    //   method: '',
-    //   tag: '',
-    //   description: '',
-    };
-  }
+  //   this.state = {
 
-  handleChange({ target: { name, value } }) {
-    this.setState({ [name]: value });
-  }
+  //   };
+  // }
+
+  // handleChange({ target: { name, value } }) {
+  //   this.setState({ [name]: value });
+  // }
 
   render() {
     const { emailFromGlobalState } = this.props;
@@ -38,7 +34,7 @@ class Header extends React.Component {
           </p>
         </header>
 
-        <ExpenseForm onChange={ this.handleChange } />
+        <ExpenseForm /* onChange={ this.handleChange } */ />
       </div>
     );
   }

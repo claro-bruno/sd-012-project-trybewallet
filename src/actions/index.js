@@ -20,8 +20,9 @@ export const requestFailAct = (error) => ({ type: FAILED_REQUEST, error });
 // action para o caso de sucesso de resposta da fetch
 export const fetchinDataAct = (json) => ({ type: FETCHING_DATA, currencies: json });
 
+const URL = 'https://economia.awesomeapi.com.br/json/all';
 // função que faz a chamada à API e  action que espera a resposta, enquanto permite a renderização de "Loading".
-export const fetchApiAction = () => (dispatch) => fetch('https://economia.awesomeapi.com.br/json/all')
+export const fetchApiAction = () => (dispatch) => fetch(URL)
   .then((resp) => resp.json()
     .then(
       (json) => {
@@ -30,3 +31,14 @@ export const fetchApiAction = () => (dispatch) => fetch('https://economia.awesom
       }
       ,
     )).catch((err) => dispatch(requestFailAct(err)));
+
+export const fetchForExpense = (stateData) => async (dispatch) => {
+  try {
+    const resp = await fetch(URL);
+    const result = await resp.json();
+    console.log(result);
+    dispatch(expenseAction({ ...stateData, exchangeRates: result }));
+  } catch (error) {
+    dispatch(expenseActFailed(error));
+  }
+};

@@ -2,22 +2,31 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { arrayOf, number, func, string, objectOf } from 'prop-types';
 import AddExpensesButton from './AddExpensesButton';
+import { fetchForExpense } from '../actions/index';
 
 class ExpenseForm extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      id: 0,
-      value: '',
+      value: 0,
       description: '',
-      currency: '',
-      method: '',
-      tag: '',
-      exchangeRates: {},
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.onSubmitToExchangeRates = this.onSubmitToExchangeRates.bind(this);
+  }
+
+  onSubmitToExchangeRates() {
+    const { sendToExchangeRates } = this.props;
+    const { value, description, currency, method, tag } = this.state;
+    sendToExchangeRates({ value, description, currency, method, tag });
+    this.setState({
+      value: 0, description: '', currency: 'USD', method: 'Dinheiro', tag: 'Alimentação',
+    });
   }
 
   handleChange({ target: { name, value } }) {
@@ -25,7 +34,7 @@ class ExpenseForm extends React.Component {
   }
 
   render() {
-    const { apiResponse } = this.props;
+    const { apiResponse, onSubmitToExchangeRates } = this.props;
     const { id, value, description, currency, method, tag, exchangeRates } = this.props;
     return (
       <form>
@@ -69,7 +78,7 @@ class ExpenseForm extends React.Component {
             onChange={ this.handleChange }
           />
         </label>
-        <AddExpensesButton />
+        <AddExpensesButton onSubmitToExchangeRates={ this.onSubmitToExchangeRates } />
       </form>
     );
   }
@@ -77,6 +86,10 @@ class ExpenseForm extends React.Component {
 
 const mapStateToProps = (state) => ({
   apiResponse: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  sendToExchangeRates: (stateData) => dispatch(fetchForExpense(stateData)),
 });
 
 ExpenseForm.propTypes = ({
@@ -88,6 +101,8 @@ ExpenseForm.propTypes = ({
   method: string.isRequired,
   tag: string.isRequired,
   exchangeRates: objectOf(string).isRequired,
+  sendToExchangeRates: func.isRequired,
+  onSubmitToExchangeRates: func.isRequired,
 });
 
-export default connect(mapStateToProps, null)(ExpenseForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);
