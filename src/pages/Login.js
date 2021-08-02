@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { authAction, loginAction } from '../actions';
-
+import wallet from '../images/wallet.png';
 // - A rota para esta página deve ser "/"
 // - Existe um local para que o usuário insira seu email e senha
 // - Existe um botão com o texto "Entrar"
@@ -38,7 +38,8 @@ class Login extends React.Component {
     const { email, password } = this.state;
     const { canAuthenticate, loginDispatch } = this.props;
     return (
-      <form>
+      <form className="login">
+        <img src={ wallet } alt="wallet" />
         <label htmlFor="email-input">
           Email
           <input
@@ -67,7 +68,7 @@ class Login extends React.Component {
             onClick={ () => loginDispatch(email) }
             disabled={ !canAuthenticate }
           >
-            Entrar
+            ENTRAR
           </button>
         </Link>
       </form>

@@ -1,0 +1,38 @@
+@import "mixins/flex-col";
+@import "mixins/sizer";
+@import "variables/variables";
+
+form.login {
+  @include flexColumn();
+  @include sizer(80vh, 40vw);
+  margin: auto;
+  border: 2px solid black;
+  a {
+    @include flexColumn();
+    margin: 3%;
+    text-decoration: none;
+    
+    button {
+      @include sizer(50px, auto);
+      font-weight: 600;
+      background-color: $trybe-light-green;
+      color: white;
+      border: none;
+      transition: 0.5s;
+      border-radius: 2px;
+      cursor: pointer;
+      
+      &:disabled {
+        background-color: lightgray;
+        cursor: not-allowed;
+        color: black;
+        transition: 0.5s;
+      }
+    }
+  }
+
+  img {
+    @include sizer(25%, 20%);
+    margin: auto;
+  }
+}
