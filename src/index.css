@@ -103,3 +103,12 @@ code {
 -webkit-box-shadow: 3px 3px 22px 0px rgba(255,254,254,0.75);
 -moz-box-shadow: 3px 3px 22px 0px rgba(255,254,254,0.75);
 }
+
+.table {
+  font-size: 12px;
+  width: 100%;
+}
+
+.table-heading {
+  background-color: darkgrey;
+}
