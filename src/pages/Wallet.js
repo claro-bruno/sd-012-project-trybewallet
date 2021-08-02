@@ -1,9 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 class Wallet extends React.Component {
   render() {
-    return <div>TrybeWallet</div>;
+    const { email } = this.props;
+    return <p>{email}</p>;
   }
 }
 
-export default Wallet;
+const mapState = (state) => ({
+  email: state.user.email,
+});
+
+export default connect(mapState, null)(Wallet);
