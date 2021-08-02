@@ -18,23 +18,52 @@ class Wallet extends React.Component {
 
     this.getMoneyInitials = this.getMoneyInitials.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
   componentDidMount() {
     this.getMoneyInitials();
   }
 
-  async getMoneyInitials() {
+  async getEconomy() {
     const url = 'https://economia.awesomeapi.com.br/json/all';
     const response = await fetch(url);
     const result = await response.json();
-    console.log(result);
-    const moneyInitials = Object.keys(result).filter((initials) => initials !== 'USDT');
+    return result;
+  }
+
+  async getMoneyInitials() {
+    const economy = await this.getEconomy();
+    console.log(economy);
+    const moneyInitials = Object.keys(economy).filter((initials) => initials !== 'USDT');
     this.setState({ moneyInitials });
   }
 
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
+  }
+
+  async handleFormSubmit() {
+    const {
+      value,
+      currency,
+      description,
+      tag,
+      method,
+    } = this.state;
+
+    const economy = await this.getEconomy();
+
+    const newExpense = {
+      id: 0,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      exchangeRates: economy,
+    };
+    console.log(newExpense);
   }
 
   renderFormHelper() {
@@ -78,6 +107,7 @@ class Wallet extends React.Component {
             onChange={ this.handleChange }
           />
         </label>
+        <button type="button">Adicionar despesa</button>
       </div>
     );
   }
