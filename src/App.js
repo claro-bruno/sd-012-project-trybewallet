@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import LoginPage from './components/LoginPage';
+import Login from './pages/Login';
 import Wallet from './pages/Wallet';
 
 // prettier-ignore
@@ -15,7 +15,7 @@ class App extends React.Component {
         <Route
           exact
           path="/"
-          component={ LoginPage }
+          component={ Login }
         />
       </Switch>
     );
