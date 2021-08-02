@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
-import Form1 from '../components/FormPart1';
-import Form2 from '../components/FormPart2';
 import { fetchAPIExpenses } from '../actions';
+import WalletForm from '../components/FormWallet';
+import SubmitButton from '../components/SubmitButton';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class Wallet extends React.Component {
     this.OnbuttonSubmitExpense = this.OnbuttonSubmitExpense.bind(this);
     this.sumAllExpenses = this.sumAllExpenses.bind(this);
     this.state = {
-      coins: [],
+      coin: [],
       value: 0,
       description: '',
       currency: '',
@@ -61,36 +61,28 @@ class Wallet extends React.Component {
     const getapi = await fetch(URL);
     const getjson = await getapi.json();
     const filteredCoin = Object.keys(getjson);
-    const coins = filteredCoin.filter((coin) => !coin.includes('USDT'));
-    this.setState({ coins });
+    const coin = filteredCoin.filter((c) => !c.includes('USDT'));
+    this.setState({ coin });
   }
 
   render() {
-    const { coins, value, description, currency, method, tag } = this.state;
+    const { coin, value, description, currency, method, tag } = this.state;
     const { userEmail } = this.props;
     return (
       <div>
         <nav>
           <Header userEmail={ userEmail } sumAllExpenses={ this.sumAllExpenses } />
-          <Form1
-            coins={ coins }
+          <WalletForm
+            coin={ coin }
             value={ value }
             description={ description }
             currency={ currency }
-            handleChange={ this.handleChange }
-          />
-          <Form2
             handleChange={ this.handleChange }
             method={ method }
             tag={ tag }
           />
         </nav>
-        <button
-          type="button"
-          onClick={ this.OnbuttonSubmitExpense }
-        >
-          Adicionar despesa
-        </button>
+        <SubmitButton OnbuttonSubmitExpense={ this.OnbuttonSubmitExpense } />
       </div>
     );
   }
