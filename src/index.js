@@ -1,13 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import { Provinder } from 'react-redux';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-
+import store from './store';
+// Add Provider and Store
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <Provinder store={ store }>
+      <App />
+    </Provinder>
   </BrowserRouter>,
   document.getElementById('root'),
 );
