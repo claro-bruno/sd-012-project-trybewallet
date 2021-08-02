@@ -8,7 +8,7 @@ export default class SelectPayment extends React.Component {
         <select name="currency-select" id="currency-select">
           <option value="credit">Cartão de Crédito</option>
           <option value="debit">Cartão de Débito</option>
-          <option value="cash">Cartão de Dinheiro</option>
+          <option value="cash">Dinheiro</option>
         </select>
       </label>
 
