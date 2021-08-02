@@ -3,8 +3,6 @@ const INITIAL_STATE = {
   email: '',
   senha: '',
   moedas: [''],
-  isfetishing: false,
-  error: '',
 };
 
 function user(state = INITIAL_STATE, action) {
