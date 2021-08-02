@@ -6,17 +6,17 @@ class Select extends React.Component {
     const {
       labelText,
       id,
-      placeholderText,
+      handleChange,
       options,
+
     } = this.props;
 
     return (
       <div>
         <label htmlFor={ id }>
           { labelText }
-          <select id={ id }>
-            { !placeholderText
-            && options.map((op) => <option key={ op } value={ op }>{op}</option>) }
+          <select id={ id } name={ id } onChange={ handleChange }>
+            { options.map((op) => <option key={ op } value={ op }>{op}</option>) }
           </select>
         </label>
       </div>
@@ -26,14 +26,13 @@ class Select extends React.Component {
 
 Select.defaultProps = {
   options: [],
-  placeholderText: '',
 };
 
 Select.propTypes = {
   labelText: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(PropTypes.string),
-  placeholderText: PropTypes.string,
+  handleChange: PropTypes.func.isRequired,
 };
 
 export default Select;

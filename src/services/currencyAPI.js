@@ -1,6 +1,6 @@
 const URL = 'https://economia.awesomeapi.com.br/json/all';
 
-async function fetchAPI() {
+async function currencyAPI() {
   try {
     const response = await fetch(URL);
     const result = await response.json();
@@ -11,4 +11,4 @@ async function fetchAPI() {
   }
 }
 
-export default fetchAPI;
+export default currencyAPI;

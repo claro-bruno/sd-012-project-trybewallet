@@ -3,39 +3,47 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import FormAddExpense from '../components/FormAddExpense';
-import currencyAPI from '../services/currencyAPI';
+import { fetchAPI } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
     super();
     this.state = {
-      currencies: [],
+      expense: {
+        id: 0,
+        value: 0,
+        currency: '',
+        method: '',
+        tag: '',
+        description: '',
+        exchangeRates: 0,
+      },
     };
-    this.fetchAPI = this.fetchAPI.bind(this);
+
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    this.fetchAPI();
+    const { fetchCurrencies } = this.props;
+    fetchCurrencies();
   }
 
-  async fetchAPI() {
-    const { currencies } = this.state;
-    const result = await currencyAPI();
-    const currencyNames = Object.keys(result);
+  handleChange({ target }) {
+    const { name, value } = target;
     this.setState({
-      currencies: [...currencies, ...currencyNames],
+      [name]: value,
     });
   }
 
   render() {
     const { email } = this.props;
-    const { currencies } = this.state;
+    const { expense } = this.state;
 
     return (
       <main>
         <div>TrybeWallet</div>
         <Header email={ email } />
-        <FormAddExpense currencies={ currencies } />
+        <FormAddExpense handleChange={ this.handleChange } expense={ expense } />
       </main>
     );
   }
@@ -47,8 +55,15 @@ function mapStateToProps(state) {
   };
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchCurrencies() { dispatch(fetchAPI()); },
+  };
+}
+
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
+  fetchCurrencies: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
