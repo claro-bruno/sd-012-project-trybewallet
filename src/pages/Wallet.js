@@ -235,9 +235,7 @@ class Wallet extends React.Component {
         <table>
           <tbody>
             <tr>
-              {TABLE_HEADER.map((tag) => (
-                <th key={ tag }>{tag}</th>
-              ))}
+              {TABLE_HEADER.map((tag) => (<th key={ tag }>{tag}</th>))}
             </tr>
             {expenses.map(
               ({
@@ -256,26 +254,18 @@ class Wallet extends React.Component {
                   <td>{value}</td>
                   <td>{exchangeRates[currency].name}</td>
                   <td>{parseFloat(exchangeRates[currency].ask).toFixed(2)}</td>
-                  <td>
-                    {parseFloat(value * exchangeRates[currency].ask).toFixed(2)}
-                  </td>
+                  <td>{parseFloat(value * exchangeRates[currency].ask).toFixed(2)}</td>
                   <td>Real</td>
                   <td>
                     <Button
                       dataTestId="delete-btn"
-                      loginValid={ false }
-                      handleClick={ () => {
-                        this.deleteExpenses(id);
-                      } }
+                      handleClick={ () => { this.deleteExpenses(id); } }
                     >
                       Remover despesa
                     </Button>
                     <Button
                       dataTestId="edit-btn"
-                      loginValid={ false }
-                      handleClick={ () => {
-                        this.editExpenses(id);
-                      } }
+                      handleClick={ () => { this.editExpenses(id); } }
                     >
                       Edita despesa
                     </Button>

@@ -25,8 +25,12 @@ class Button extends Component {
   }
 }
 
+Button.defaultProps = {
+  loginValid: false,
+};
+
 Button.propTypes = {
-  loginValid: PropTypes.bool.isRequired,
+  loginValid: PropTypes.bool,
   handleClick: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
   dataTestId: PropTypes.string.isRequired,
