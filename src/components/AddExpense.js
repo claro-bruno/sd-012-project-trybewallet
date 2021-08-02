@@ -7,11 +7,17 @@ import Select from './Select';
 import { methodOptions, tagOptions } from '../helpers/optionsData';
 
 class AddExpense extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
+    const { expenses } = this.props;
+    let id = 0;
+
+    if (expenses.length > 0) {
+      id = (expenses[expenses.length - 1].id) + 1;
+    }
     this.state = {
-      id: 0,
+      id,
       value: 0,
       description: '',
       currency: 'USD',
@@ -101,6 +107,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   currencyOptions: state.wallet.currencies,
+  expenses: state.wallet.expenses,
   loading: state.wallet.loading,
 });
 
@@ -108,6 +115,9 @@ AddExpense.propTypes = {
   saveExpense: propTypes.func.isRequired,
   getCurrencies: propTypes.func.isRequired,
   currencyOptions: propTypes.arrayOf(propTypes.string).isRequired,
+  expenses: propTypes.arrayOf(propTypes.shape({
+    id: propTypes.number,
+  })).isRequired,
   loading: propTypes.bool,
 };
 
