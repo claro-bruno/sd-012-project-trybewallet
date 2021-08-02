@@ -4,6 +4,7 @@ import {
   REQUEST_CURRENCIESII_SUCCESS,
   REQUEST_CURRENCIESII_ERROR,
   EXCLUDE_EXPENSE,
+  EDIT_EXPENSE,
 } from '../actions/index';
 
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
@@ -37,6 +38,15 @@ function walletReducer(state = INITIAL_STATE, action) {
     return {
       ...state,
       expenses: state.expenses.filter(({ id }) => id !== action.payload),
+    };
+
+  case EDIT_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.reduce((list, expense) => (
+        expense.id === action.state.id
+          ? [...list, { ...action.payload, exchangeRates: expense.exchangeRates }]
+          : [...list, { ...expense }]), []),
     };
 
   default:
