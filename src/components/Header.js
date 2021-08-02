@@ -5,22 +5,17 @@ import PropTypes from 'prop-types';
 class Header extends React.Component {
   constructor() {
     super();
-
-    this.state = {
-      total: 0,
-    };
     this.getTotalValue = this.getTotalValue.bind(this);
   }
 
   getTotalValue() {
     const { expenses } = this.props;
-    
 
     const totalValue = Math.round(expenses.reduce((acc, expense) => {
       const { value, currency, exchangeRates } = expense;
       const { ask } = exchangeRates[currency];
-      return acc += parseFloat(value) * parseFloat(ask);
-    }, 0) * 100)/ 100;
+      return acc + parseFloat(value) * parseFloat(ask);
+    }, 0) * 100) / 100;
     return totalValue;
   }
 
@@ -45,6 +40,7 @@ const mapStateToProps = (state) => ({
 
 Header.propTypes = {
   userEmail: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps)(Header);

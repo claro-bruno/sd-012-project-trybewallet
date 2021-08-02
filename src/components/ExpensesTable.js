@@ -33,7 +33,7 @@ class ExpensesTable extends React.Component {
       method,
       value,
       name,
-      Math.round(ask*100)/100,
+      Math.round(ask * 100) / 100,
       (Math.round((ask * value) * 100) / 100),
       'Real',
       <button
@@ -72,7 +72,7 @@ class ExpensesTable extends React.Component {
     return (
       <table>
         <thead>
-          <TableRow isHeader={ true } content={ header } />
+          <TableRow isHeader content={ header } />
         </thead>
         <tbody>
           { expenses.length > 0

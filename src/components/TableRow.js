@@ -4,17 +4,17 @@ import PropTypes from 'prop-types';
 class TableRow extends React.Component {
   render() {
     const { content, isHeader } = this.props;
-    return( isHeader ? (
+    return (isHeader ? (
       <tr>
         { content.map((item, index) => <th key={ index }>{ item }</th>) }
       </tr>
     )
       : (
         <tr>
-        { content.map((item, index) => <td key={ index }>{ item }</td>) }
-         </tr>
-        )
+          { content.map((item, index) => <td key={ index }>{ item }</td>) }
+        </tr>
       )
+    );
   }
 }
 
