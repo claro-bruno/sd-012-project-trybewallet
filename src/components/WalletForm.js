@@ -1,34 +1,59 @@
 import React from 'react';
 
 class WalletForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currencies: [],
+    };
+    this.fetchApi = this.fetchApi.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchApi();
+  }
+
+  async fetchApi() {
+    const apiList = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const a = await apiList.json();
+    const currencies = Object.keys(a);
+    const currenciesFiltered = currencies.filter((currency) => currency !== 'USDT');
+    console.log(Object.keys(a));
+    this.setState({
+      currencies: currenciesFiltered,
+    });
+  }
+
   render() {
+    const { currencies } = this.state;
     return (
-      <form>
-        <label htmlFor="value">
+      <form className="bg-light ml-5">
+        <label className="ml-3" htmlFor="value">
           Valor:
-          <input type="text" name="value" id="value" />
+          <input className="ml-1" type="text" name="value" id="value" />
         </label>
-        <label htmlFor="description">
+        <label className="ml-3" htmlFor="description">
           Descrição:
-          <input type="text" name="description" id="description" />
+          <input className="ml-1" type="text" name="description" id="description" />
         </label>
-        <label htmlFor="currency">
+        <label className="ml-3" htmlFor="currency">
           Moeda:
-          <select type="text" name="currency" id="currency">
-            <option>USD</option>
+          <select className="ml-1" type="text" name="currency" id="currency">
+            { currencies
+              .map((c) => <option key={ c }>{ c }</option>) }
           </select>
         </label>
-        <label htmlFor="payment-method">
+        <label className="ml-3" htmlFor="payment-method">
           Método de pagamento:
-          <select type="text" name="payment-method" id="payment-method">
+          <select className="ml-1" type="text" name="payment-method" id="payment-method">
             <option>Dinheiro</option>
             <option>Cartão de crédito</option>
             <option>Cartão de débito</option>
           </select>
         </label>
-        <label htmlFor="payment-method">
+        <label className="ml-3" htmlFor="payment-method">
           Tag:
-          <select type="text" name="payment-method" id="payment-method">
+          <select className="ml-1" type="text" name="payment-method" id="payment-method">
             <option>Alimentação</option>
             <option>Lazer</option>
             <option>Trabalho</option>
@@ -36,6 +61,7 @@ class WalletForm extends React.Component {
             <option>Saúde</option>
           </select>
         </label>
+        <button type="button">b</button>
       </form>
     );
   }
