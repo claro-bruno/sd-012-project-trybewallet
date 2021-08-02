@@ -14,8 +14,8 @@ class Select extends React.Component {
           onChange={ onChange }
           data-testid={ dataTestId }
         >
-          {options.map(({ value, description }) => (
-            <option key={ value } value={ value }>{description}</option>
+          {options.map((option) => (
+            <option key={ option } value={ option }>{option}</option>
           ))}
         </select>
       </label>
@@ -27,10 +27,7 @@ Select.propTypes = {
   text: propTypes.string.isRequired,
   name: propTypes.string.isRequired,
   dataTestId: propTypes.string.isRequired,
-  options: propTypes.arrayOf(propTypes.shape({
-    value: propTypes.string.isRequired,
-    description: propTypes.string.isRequired,
-  })).isRequired,
+  options: propTypes.arrayOf(propTypes.string).isRequired,
   onChange: propTypes.func.isRequired,
 };
 

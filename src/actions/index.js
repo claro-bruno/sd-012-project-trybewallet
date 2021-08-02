@@ -47,10 +47,6 @@ export const fetchCurrency = () => (dispatch) => {
     .then((response) => {
       const allCurrencies = Object.keys(response);
       const USDTdeleted = allCurrencies.filter((currency) => currency !== 'USDT');
-      const currenciesObject = USDTdeleted.map((currency) => ({
-        value: currency,
-        description: currency,
-      }));
-      dispatch(updateCurrency(currenciesObject));
+      dispatch(updateCurrency(USDTdeleted));
     });
 };

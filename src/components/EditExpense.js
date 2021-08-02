@@ -118,10 +118,7 @@ EditExpense.propTypes = {
     tag: propTypes.string.isRequired,
   })).isRequired,
   getCurrencies: propTypes.func.isRequired,
-  currencyOptions: propTypes.arrayOf(propTypes.shape({
-    value: propTypes.string.isRequired,
-    description: propTypes.string.isRequired,
-  })).isRequired,
+  currencyOptions: propTypes.arrayOf(propTypes.string).isRequired,
   loading: propTypes.bool.isRequired,
 };
 

@@ -94,7 +94,7 @@ class AddExpense extends React.Component {
   }
 }
 
-const mapDisptachToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({
   saveExpense: (expense) => dispatch(fetchExpense(expense)),
   getCurrencies: () => dispatch(fetchCurrency()),
 });
@@ -107,11 +107,12 @@ const mapStateToProps = (state) => ({
 AddExpense.propTypes = {
   saveExpense: propTypes.func.isRequired,
   getCurrencies: propTypes.func.isRequired,
-  currencyOptions: propTypes.arrayOf(propTypes.shape({
-    value: propTypes.string.isRequired,
-    description: propTypes.string.isRequired,
-  })).isRequired,
-  loading: propTypes.bool.isRequired,
+  currencyOptions: propTypes.arrayOf(propTypes.string).isRequired,
+  loading: propTypes.bool,
 };
 
-export default connect(mapStateToProps, mapDisptachToProps)(AddExpense);
+AddExpense.defaultProps = {
+  loading: false,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddExpense);
