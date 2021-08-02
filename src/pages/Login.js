@@ -17,7 +17,7 @@ class Login extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.validEntries = this.validEntries.bind(this);
-    this.handleSubmitEmail = this.handleSubmitEmail(this);
+    this.handleSubmitEmail = this.handleSubmitEmail.bind(this);
   }
 
   handleChange({ target }) {
@@ -43,9 +43,9 @@ class Login extends React.Component {
   }
 
   handleSubmitEmail() {
+    const { setEmailStore } = this.props;
     const { email } = this.state;
-    const { getEmailStore } = this.props;
-    getEmailStore(email);
+    setEmailStore(email);
   }
 
   render() {
@@ -56,7 +56,7 @@ class Login extends React.Component {
         <form>
           <label htmlFor="email">
             <input
-              type="text"
+              type="email"
               name="email"
               id="email"
               value={ email }
@@ -94,10 +94,11 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-  getEmailStore: PropTypes.func,
+  setEmailStore: PropTypes.func,
 }.isRequired;
 
 const mapDispatchToProps = (dispatch) => ({
-  getEmailStore: (emailInput) => dispatch(actionGetEmail(emailInput)),
+  setEmailStore: (email) => dispatch(actionGetEmail(email)),
 });
+
 export default connect(null, mapDispatchToProps)(Login);
