@@ -1,18 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchCurrency } from '../actions';
 
 class Selects extends React.Component {
   constructor() {
     super();
     this.state = {
     };
-  }
-
-  componentDidMount() {
-    const { fetchMoedas } = this.props;
-    fetchMoedas();
   }
 
   render() {
@@ -28,7 +22,9 @@ class Selects extends React.Component {
             onChange={ onChange }
             name="currency"
           >
-            {currencies.map((c) => <option key={ c } value={ c }>{c}</option>)}
+            {Object.keys(currencies).map(
+              (c) => <option key={ c } value={ c }>{c}</option>,
+            )}
           </select>
         </label>
         <label htmlFor="metodo">
@@ -61,24 +57,21 @@ class Selects extends React.Component {
 }
 
 Selects.defaultProps = {
-  currencies: [],
+  currencies: {},
 };
 
 Selects.propTypes = {
-  currencies: PropTypes.arrayOf(PropTypes.string),
+  currencies: PropTypes.shape({
+    USD: PropTypes.shape({ code: PropTypes.string, ask: PropTypes.string }),
+  }),
   onChange: PropTypes.func.isRequired,
   method: PropTypes.string.isRequired,
   tag: PropTypes.string.isRequired,
   currency: PropTypes.string.isRequired,
-  fetchMoedas: PropTypes.func.isRequired,
 };
-
-const mapDispatchToProps = (dispatch) => ({
-  fetchMoedas: () => dispatch(fetchCurrency()),
-});
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Selects);
+export default connect(mapStateToProps)(Selects);

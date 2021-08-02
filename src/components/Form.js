@@ -3,19 +3,21 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Input from './Input';
 import Selects from './Selects';
-import { fetchCurrency } from '../actions';
+import { fetchCurrency, fetchExpenses } from '../actions';
 
 class Form extends React.Component {
   constructor() {
     super();
 
     this.state = {
+      id: 0,
       value: 0,
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
     };
+
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
@@ -30,7 +32,17 @@ class Form extends React.Component {
   }
 
   handleClick() {
+    const { fetchExp } = this.props;
 
+    fetchExp({ ...this.state });
+    this.setState({
+      value: 0,
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+    });
+    this.setState((prevState) => ({ id: prevState.id + 1 }));
   }
 
   render() {
@@ -66,16 +78,20 @@ class Form extends React.Component {
 }
 
 Form.defaultProps = {
-  currencies: [],
+  currencies: {},
 };
 
 Form.propTypes = {
+  fetchExp: PropTypes.func.isRequired,
   fetchMoedas: PropTypes.func.isRequired,
-  currencies: PropTypes.arrayOf(PropTypes.string),
+  currencies: PropTypes.shape({
+    USD: PropTypes.shape({ code: PropTypes.string, ask: PropTypes.string }),
+  }),
 };
 
 const mapDispatchToProps = (dispatch) => ({
   fetchMoedas: () => dispatch(fetchCurrency()),
+  fetchExp: (data) => dispatch(fetchExpenses(data)),
 });
 
 const mapStateToProps = (state) => ({

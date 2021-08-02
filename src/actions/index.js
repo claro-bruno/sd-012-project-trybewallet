@@ -3,14 +3,14 @@ export const getUser = (user) => ({
   user,
 });
 
-export const addExpense = (currencies) => ({
-  type: 'ADD_EXPENSE',
-  currencies,
-});
-
 const addCurrencies = (currencies) => ({
   type: 'ADD_CURRENCIES',
   currencies,
+});
+
+export const addExpense = (expense) => ({
+  type: 'ADD_EXPENSE',
+  expense,
 });
 
 export const fetchCurrency = () => (
@@ -18,10 +18,16 @@ export const fetchCurrency = () => (
     try {
       const request = await fetch('https://economia.awesomeapi.com.br/json/all');
       const obj = await request.json();
-      const currencies = Object.keys(obj);
-      dispatch(addCurrencies(currencies.filter((elem) => elem !== 'USDT')));
+      delete obj.USDT;
+      dispatch(addCurrencies(obj));
     } catch (e) {
       console.log(e);
     }
   }
 );
+
+export const fetchExpenses = (userData) => async (dispach) => {
+  const request = await fetch('https://economia.awesomeapi.com.br/json/all');
+  const data = await request.json();
+  dispach(addExpense({ ...userData, exchangeRates: data }));
+};
