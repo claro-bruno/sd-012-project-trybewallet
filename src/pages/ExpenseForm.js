@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { arrayOf, number, func, string, objectOf } from 'prop-types';
+import { arrayOf, func, string } from 'prop-types';
 import AddExpensesButton from './AddExpensesButton';
 import { fetchForExpense } from '../actions/index';
 
@@ -34,8 +34,8 @@ class ExpenseForm extends React.Component {
   }
 
   render() {
-    const { apiResponse, onSubmitToExchangeRates } = this.props;
-    const { id, value, description, currency, method, tag, exchangeRates } = this.props;
+    const { apiResponse } = this.props;
+    // const { id, value, description, currency, method, tag, exchangeRates } = this.props;
     return (
       <form>
         <label htmlFor="valor">
@@ -94,15 +94,14 @@ const mapDispatchToProps = (dispatch) => ({
 
 ExpenseForm.propTypes = ({
   apiResponse: arrayOf(string).isRequired,
-  id: number.isRequired,
-  value: string.isRequired,
-  description: string.isRequired,
-  currency: string.isRequired,
-  method: string.isRequired,
-  tag: string.isRequired,
-  exchangeRates: objectOf(string).isRequired,
+  // id: number.isRequired,
+  // value: string.isRequired,
+  // description: string.isRequired,
+  // currency: string.isRequired,
+  // method: string.isRequired,
+  // tag: string.isRequired,
+  // exchangeRates: objectOf(string).isRequired,
   sendToExchangeRates: func.isRequired,
-  onSubmitToExchangeRates: func.isRequired,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);

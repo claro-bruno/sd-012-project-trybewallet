@@ -36,7 +36,6 @@ export const fetchForExpense = (stateData) => async (dispatch) => {
   try {
     const resp = await fetch(URL);
     const result = await resp.json();
-    console.log(result);
     dispatch(expenseAction({ ...stateData, exchangeRates: result }));
   } catch (error) {
     dispatch(expenseActFailed(error));
