@@ -28,10 +28,9 @@ class Login extends React.Component {
     }), this.checkInfos);
   }
 
-  handleClick(event) {
+  handleClick() {
     const { history } = this.props;
     history.push('/carteira');
-    event.preventDefault();
     const { login } = this.props;
     const { email } = this.state;
     login(email);

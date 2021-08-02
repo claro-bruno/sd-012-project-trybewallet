@@ -1,22 +1,28 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Input from './Input';
 import Select from './Select';
+import Button from './Button';
+import { fetchExpense, ENDPOINT } from '../actions';
 
 class NewExpense extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      currencies: [],
+      exchangeRates: {},
       value: '',
       description: '',
       currency: 'USD',
-      payment: 'Dinheiro',
+      method: 'Dinheiro',
       tag: 'Alimentação',
+      id: 0,
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.fetchCurrency = this.fetchCurrency.bind(this);
   }
 
   componentDidMount() {
@@ -24,20 +30,23 @@ class NewExpense extends React.Component {
   }
 
   async fetchCurrency() {
-    const endpoint = 'https://economia.awesomeapi.com.br/json/all';
-    const response = await fetch(endpoint);
+    const response = await fetch(ENDPOINT);
     const data = await response.json();
-    const currencies = Object.keys(data)
-      .filter((currency) => currency !== 'USDT');
-    this.setState({ currencies });
+    this.setState({ exchangeRates: data });
   }
 
   handleChange({ target }) {
     const { name, value } = target;
 
-    this.setState(() => ({
+    this.setState({
       [name]: value,
-    }));
+    });
+  }
+
+  handleClick() {
+    const { add } = this.props;
+    const { id } = this.props;
+    add({ ...this.state, id });
   }
 
   renderInputs() {
@@ -70,16 +79,19 @@ class NewExpense extends React.Component {
 
   renderSelects() {
     const {
-      currencies,
+      exchangeRates,
       currency,
-      payment,
+      method,
       tag,
     } = this.state;
 
     return (
       <div>
         <Select
-          options={ currencies }
+          options={
+            Object.keys(exchangeRates)
+              .filter((actualCurrency) => actualCurrency !== 'USDT')
+          }
           labelText="Moeda:"
           name="currency"
           value={ currency }
@@ -88,8 +100,8 @@ class NewExpense extends React.Component {
         <Select
           options={ ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'] }
           labelText="Método de pagamento:"
-          name="payment"
-          value={ payment }
+          name="method"
+          value={ method }
           onChange={ this.handleChange }
         />
         <Select
@@ -103,25 +115,38 @@ class NewExpense extends React.Component {
     );
   }
 
+  renderButton() {
+    return (
+      <Button
+        buttonText="Adicionar despesa"
+        onClick={ () => this.handleClick() }
+        disabled={ false }
+      />
+    );
+  }
+
   render() {
     return (
       <form>
         { this.renderInputs() }
         { this.renderSelects() }
+        { this.renderButton() }
       </form>
     );
   }
 }
 
-// NewExpense.propTypes = {
-//   value: PropTypes.string.isRequired,
-//   name: PropTypes.string.isRequired,
-//   testId: PropTypes.string.isRequired,
-//   value: PropTypes.string.isRequired,
-//   options: PropTypes.arrayOf(
-//     PropTypes.string.isRequired,
-//   ).isRequired,
-//   onChange: PropTypes.func.isRequired,
-// };
+NewExpense.propTypes = {
+  add: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
+};
 
-export default NewExpense;
+const mapDispatchToProps = (dispatch) => ({
+  add: (expense) => dispatch(fetchExpense(expense)),
+});
+
+const mapStateToProps = (state) => ({
+  id: state.wallet.expenses.length,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewExpense);
