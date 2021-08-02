@@ -2,25 +2,28 @@ import React from 'react';
 import Button from '../components/Button';
 import Input from '../components/Input';
 /**
- * Consultei o repositório do Henrique Brito Elias para resolver essa parte.
- * Link: https://github.com/tryber/sd-09-project-trybewallet/pull/3/commits/702598b7aa02d12398b116c94eb325d340100b39
+ * Consultei o repositório da Trybe (tryber/sd-09-live-lecture) para resolver essa parte.
+ * Link: https://github.com/tryber/sd-09-live-lectures/blob/lecture/12.2/my-form/src/App.js
  */
 
-const PASSWORD_MINIMUM_LENGTH = 6;
+const INITIAL_STATE = {
+  emailInput: '',
+  passwordInput: '',
+  formErrors: {
+    emailInput: '',
+    passwordInput: '',
+  },
+  typed: {
+    emailInput: false,
+    passwordInput: false,
+  },
+};
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      emailInput: '',
-      passwordInput: '',
-      formErrors: {
-        emailInput: '',
-        passwordInput: '',
-      },
-      typed: false,
-    };
+    this.state = { ...INITIAL_STATE };
 
     this.handleChange = this.handleChange.bind(this);
     this.validateField = this.validateField.bind(this);
@@ -35,17 +38,21 @@ class Login extends React.Component {
         ...state.formErrors,
         [name]: this.validateField(name, value),
       },
-      typed: true,
+      typed: {
+        ...state.typed,
+        [name]: true,
+      },
     }));
   }
 
   validateField(fieldName, value) {
+    const MINIMUM_PASSWORD_LENGTH = 6;
     const isValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
     switch (fieldName) {
     case 'emailInput':
       return isValid ? '' : 'Email is invalid';
     case 'passwordInput':
-      return value.length >= PASSWORD_MINIMUM_LENGTH ? '' : 'Password is too short';
+      return value.length >= MINIMUM_PASSWORD_LENGTH ? '' : 'Password is too short';
     default:
       break;
     }

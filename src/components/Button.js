@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import userLogin from '../actions';
+import { userLogin } from '../actions';
 
 class Button extends Component {
   render() {
@@ -13,14 +13,14 @@ class Button extends Component {
         passwordInput:
           passwordError,
         },
-      typed,
+      typed: { emailInput: emailTyped, passwordInput: passwordTyped },
       },
     } = this.props;
     return (
       <Link to="/carteira">
         <button
           type="button"
-          disabled={ !typed || emailError || passwordError }
+          disabled={ !emailTyped || !passwordTyped || emailError || passwordError }
           onClick={ () => logIn(emailInput) }
         >
           Entrar
