@@ -10,7 +10,7 @@ const expenseEdit = (state = INITIAL_STATE, action) => {
   case EDIT_EXPENSE: {
     return {
       isEditing: action.editing,
-      editingExpense: action.expense,
+      expenseEditing: action.expense,
     };
   }
   default: return state;

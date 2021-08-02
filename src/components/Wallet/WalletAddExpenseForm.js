@@ -1,23 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
-import {
-  addExpense,
-  editExpense,
-  updateExpense,
+import { addExpense, editExpense, updateExpense,
   sumExpenses,
   fetchCurrencies } from '../../actions';
+
+import { valueInput, currencySelect, methodSelect,
+  tagSelect, descriptionInput } from '../../data/expenseForm';
+
 import Input from '../Input';
 import Select from '../Select';
-
-const methodArray = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
-const tagArray = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
 const INITIAL_STATE = {
   value: '',
   currency: 'USD',
-  method: methodArray[0],
-  tag: tagArray[0],
+  method: methodSelect.options[0],
+  tag: tagSelect.options[0],
   description: '',
 };
 
@@ -38,6 +37,18 @@ class WalletAddExpenseForm extends React.Component {
     }));
   }
 
+  returnUpdatedExpense(expenseEditing) {
+    return {
+      id: expenseEditing.id,
+      value: document.querySelector('#value-input').value,
+      currency: document.querySelector('#currency-input').value,
+      method: document.querySelector('#method-input').value,
+      tag: document.querySelector('#tag-input').value,
+      description: document.querySelector('#description-input').value,
+      exchangeRates: expenseEditing.exchangeRates,
+    };
+  }
+
   async handleSubmit(e) {
     e.preventDefault();
     const {
@@ -50,10 +61,7 @@ class WalletAddExpenseForm extends React.Component {
       getCurrencies } = this.props;
 
     if (isEditing) {
-      updateExpenseInStore({
-        ...expenseEditing,
-        ...this.state,
-      });
+      updateExpenseInStore(this.returnUpdatedExpense(expenseEditing));
       setTotalExpenseInStore();
       editExpenseInStore({}, false);
     } else {
@@ -75,10 +83,7 @@ class WalletAddExpenseForm extends React.Component {
     const { isEditing, expenseEditing: { value: editValue = '' } } = this.props;
     return (
       <Input
-        labelText="Valor"
-        id="value-input"
-        name="value"
-        type="number"
+        properties={ valueInput }
         value={ (isEditing) ? value || editValue : value }
         onChange={ this.handleChange }
       />
@@ -90,9 +95,7 @@ class WalletAddExpenseForm extends React.Component {
     const { currencies, expenseEditing: { currency: editCurrency = 'USD' } } = this.props;
     return (
       <Select
-        labelText="Moeda"
-        id="currency-input"
-        name="currency"
+        properties={ currencySelect }
         value={ currency || editCurrency }
         onChange={ this.handleChange }
       >
@@ -101,35 +104,32 @@ class WalletAddExpenseForm extends React.Component {
     );
   }
 
-  renderPaymentMethodSelect() {
+  renderMethodSelect() {
     const { method } = this.state;
     const { isEditing,
-      expenseEditing: { method: editMethod = methodArray[0] } } = this.props;
+      expenseEditing: { method: editMethod = methodSelect.options[0] } } = this.props;
     return (
       <Select
-        labelText="Método de pagamento"
-        id="method-input"
-        name="method"
+        properties={ methodSelect }
         value={ (isEditing) ? method || editMethod : method }
         onChange={ this.handleChange }
       >
-        {methodArray}
+        {methodSelect.options}
       </Select>
     );
   }
 
   renderTagSelect() {
     const { tag } = this.state;
-    const { expenseEditing: { tag: editTag = tagArray[0] } } = this.props;
+    const { isEditing,
+      expenseEditing: { tag: editTag = tagSelect.options[0] } } = this.props;
     return (
       <Select
-        labelText="Tag"
-        id="tag-input"
-        name="tag"
-        value={ tag || editTag }
+        properties={ tagSelect }
+        value={ (isEditing) ? tag || editTag : tag }
         onChange={ this.handleChange }
       >
-        {tagArray}
+        {tagSelect.options}
       </Select>
     );
   }
@@ -139,10 +139,7 @@ class WalletAddExpenseForm extends React.Component {
     const { expenseEditing: { description: editDescription = '' } } = this.props;
     return (
       <Input
-        labelText="Descrição"
-        id="description-input"
-        name="description"
-        type="text"
+        properties={ descriptionInput }
         value={ description || editDescription }
         onChange={ this.handleChange }
       />
@@ -155,7 +152,7 @@ class WalletAddExpenseForm extends React.Component {
       <form onSubmit={ this.handleSubmit }>
         {this.renderValueInput()}
         {this.renderCurrencySelect()}
-        {this.renderPaymentMethodSelect()}
+        {this.renderMethodSelect()}
         {this.renderTagSelect()}
         {this.renderDescriptionInput()}
         {
@@ -171,7 +168,7 @@ class WalletAddExpenseForm extends React.Component {
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   isEditing: state.wallet.expenseEdit.isEditing,
-  expenseEditing: state.wallet.expenseEdit.editingExpense,
+  expenseEditing: state.wallet.expenseEdit.expenseEditing,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -195,19 +192,9 @@ WalletAddExpenseForm.defaultProps = {
 };
 
 WalletAddExpenseForm.propTypes = {
-  currencies: PropTypes.arrayOf(
-    PropTypes.string.isRequired,
-  ).isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   isEditing: PropTypes.bool.isRequired,
-  expenseEditing: PropTypes.shape({
-    id: PropTypes.number,
-    description: PropTypes.string,
-    tag: PropTypes.string,
-    method: PropTypes.string,
-    value: PropTypes.string,
-    currency: PropTypes.string,
-    exchangeRates: PropTypes.shape(PropTypes.object.isRequired),
-  }),
+  expenseEditing: PropTypes.shape(PropTypes.object.isRequired),
   setExpenseToStore: PropTypes.func.isRequired,
   editExpenseInStore: PropTypes.func.isRequired,
   updateExpenseInStore: PropTypes.func.isRequired,
