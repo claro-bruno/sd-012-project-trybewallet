@@ -1,7 +1,11 @@
-import { GET_CURRENCIES, GET_CURRENCIES_SUCCESS, GET_CURRENCIES_ERROR, GET_EMAIL }
-  from './actionTypes';
-
-export const RETURN_EMAIL = 'RETURN_EMAIL';
+import {
+  GET_CURRENCIES,
+  GET_CURRENCIES_SUCCESS,
+  GET_CURRENCIES_ERROR,
+  GET_EMAIL,
+  INSERT_EXPENSE,
+  DELETE_EXPENSE,
+} from './actionTypes';
 
 export const loginAction = (payload) => ({
   type: GET_EMAIL,
@@ -31,3 +35,13 @@ export const fetchCurrencies = () => async (dispatch) => {
     dispatch(getCurrenciesError(error));
   }
 };
+
+export const insertExpense = (payload) => ({
+  type: INSERT_EXPENSE,
+  payload,
+});
+
+export const deleteExpense = (payload) => ({
+  type: DELETE_EXPENSE,
+  payload,
+});

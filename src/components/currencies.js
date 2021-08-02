@@ -5,9 +5,11 @@ import { connect } from 'react-redux';
 class Currencies extends Component {
   render() {
     const { currencies } = this.props;
+    const currenciesFiltered = Object.keys(currencies)
+      .filter((currency) => currency !== 'USDT');
     return (
       <>
-        {currencies.map((itens, index) => {
+        {currenciesFiltered.map((itens, index) => {
           if (itens !== 'USDT') {
             return (
               <option key={ index }>

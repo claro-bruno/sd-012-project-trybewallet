@@ -1,4 +1,9 @@
-import { GET_CURRENCIES, GET_CURRENCIES_SUCCESS, GET_CURRENCIES_ERROR }
+import {
+  GET_CURRENCIES,
+  GET_CURRENCIES_SUCCESS,
+  GET_CURRENCIES_ERROR,
+  INSERT_EXPENSE,
+  DELETE_EXPENSE }
   from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -18,8 +23,9 @@ const wallet = (state = INITIAL_STATE, action) => {
 
   case GET_CURRENCIES_SUCCESS:
     return {
+      ...state,
       error: null,
-      currencies: Object.keys(action.payload),
+      currencies: action.payload,
       isLoading: false,
     };
 
@@ -30,6 +36,19 @@ const wallet = (state = INITIAL_STATE, action) => {
       isLoading: false,
     };
 
+  case INSERT_EXPENSE:
+    return {
+      ...state,
+      expenses: [
+        ...state.expenses, { id: state.expenses.length, ...action.payload },
+      ],
+    };
+
+  case DELETE_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.filter((item, index) => index !== action.payload),
+    };
   default:
     return state;
   }
