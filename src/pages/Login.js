@@ -1,5 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { inputEmail } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -12,6 +15,7 @@ class Login extends React.Component {
 
     this.onChange = this.onChange.bind(this);
     this.handlerCheck = this.handlerCheck.bind(this);
+    this.handlerSubmite = this.handlerSubmite.bind(this);
   }
 
   onChange({ target: { name, value } }) {
@@ -28,6 +32,12 @@ class Login extends React.Component {
     } else {
       this.setState({ check: true });
     }
+  }
+
+  handlerSubmite() {
+    const { email } = this.state;
+    const { saveEmail } = this.props;
+    saveEmail(email);
   }
 
   render() {
@@ -58,7 +68,7 @@ class Login extends React.Component {
           />
         </label>
         <Link to="/carteira">
-          <button type="button" disabled={ check }>
+          <button type="button" disabled={ check } onClick={ this.handlerSubmite }>
             Entrar
           </button>
         </Link>
@@ -67,4 +77,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapStateToProps = (dispatch) => ({
+  saveEmail: (email) => dispatch((inputEmail(email))),
+});
+
+Login.propTypes = {
+  saveEmail: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapStateToProps)(Login);
