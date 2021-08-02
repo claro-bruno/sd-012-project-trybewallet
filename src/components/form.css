@@ -1,0 +1,32 @@
+.form-container {
+  background-color: #001e1d;
+  padding: 16px;
+}
+
+.form-container form {
+  display: flex;
+  justify-content: space-around;
+}
+
+.form-container label {
+  color: #fffffe;
+}
+
+.form-container input {
+  border: 1px solid #1f1f1f;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-left: 8px;
+  outline: none;
+  padding: 4px 8px;
+}
+
+.form-container select {
+  background-color: #fffffe;
+  border: 1px solid #1f1f1f;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-left: 8px;
+  outline: none;
+  padding: 4px 8px;
+}
