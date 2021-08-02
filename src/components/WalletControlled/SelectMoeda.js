@@ -13,10 +13,9 @@ class SelectMoeda extends React.Component {
       },
     } = this;
 
-    const optionsArray = coins.map((coin) => {
-      const { code } = coin[1];
-      return { value: code, text: code };
-    });
+    const optionsArray = Object.keys(coins)
+      .filter((coin) => coin !== 'USDT')
+      .map((coin) => ({ value: coin, text: coin }));
 
     return (
       <Select
