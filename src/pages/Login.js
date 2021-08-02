@@ -1,4 +1,5 @@
 import React from 'react';
+import './Login.css';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -42,7 +43,7 @@ class Login extends React.Component {
     const { email, disabledButton } = this.state;
 
     return (
-      <div>
+      <div className="login-form">
         { isLogged && <Redirect to="/carteira" /> }
         <form>
           <h1>TrybeWallet</h1>

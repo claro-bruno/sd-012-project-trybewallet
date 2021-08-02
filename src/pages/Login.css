@@ -1,0 +1,54 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.login-form {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+}
+
+.login-form form {
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  padding: 100px 50px;
+}
+
+.login-form form h1 {
+  margin-bottom: 50px;
+}
+
+.login-form form fieldset {
+  border: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form fieldset input {
+  margin: 5px;
+  padding: 5px;
+  width: 200px;
+}
+
+.login-form fieldset button {
+  align-self: center;
+  background-color: rgb(53, 190, 53);
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+  padding: 5px;
+  width: 200px;
+}
+
+.login-form fieldset button:disabled {
+  cursor: not-allowed;
+  opacity: 40%;
+}
