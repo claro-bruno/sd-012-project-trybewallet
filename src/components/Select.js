@@ -4,13 +4,14 @@ import PropTypes from 'prop-types';
 class Select extends React.Component {
   render() {
     const { selectProps, selectLabel, selectOptions } = this.props;
-    console.log(selectOptions);
     return (
       <div>
         <label htmlFor={ selectProps.name }>
           {selectLabel}
           <select { ...selectProps }>
-            { selectOptions.map((option) => <option>{option}</option>) }
+            { selectOptions ? selectOptions
+              .map((option) => <option key={ selectOptions.id }>{option}</option>)
+              : null}
           </select>
         </label>
       </div>
@@ -19,6 +20,7 @@ class Select extends React.Component {
 }
 
 Select.propTypes = {
+  selectOptions: PropTypes.arrayOf.isRequired,
   selectProps: PropTypes.string.isRequired,
   selectLabel: PropTypes.string.isRequired,
 };

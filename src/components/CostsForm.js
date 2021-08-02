@@ -1,6 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Input from './Input';
 import Select from './Select';
+import { fetchCurrencies } from '../actions';
 
 const inputValues = {
   type: 'text',
@@ -29,7 +32,13 @@ const selectTag = {
 };
 
 class CostsForm extends React.Component {
+  componentDidMount() {
+    const { currencies } = this.props;
+    currencies();
+  }
+
   render() {
+    const { coins } = this.props;
     return (
       <form>
         <Input
@@ -39,7 +48,7 @@ class CostsForm extends React.Component {
         <Select
           selectLabel="Moeda: "
           selectProps={ selectCurrency }
-          selectOptions={ selectCurrency.currencies }
+          selectOptions={ coins }
         />
         <Select
           selectLabel="Método de pagamento: "
@@ -60,4 +69,17 @@ class CostsForm extends React.Component {
   }
 }
 
-export default CostsForm;
+const mapStateToProps = (state) => ({
+  coins: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  currencies: (result) => dispatch(fetchCurrencies(result)),
+});
+
+CostsForm.propTypes = {
+  currencies: PropTypes.func.isRequired,
+  coins: PropTypes.arrayOf.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CostsForm);
