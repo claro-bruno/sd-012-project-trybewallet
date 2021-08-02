@@ -6,10 +6,11 @@ import {
   GET_CURRENCIES_ER } from './actionTypes';
 
 export const validateLogin = (payload) => ({ type: VALIDATE_LOGIN, payload });
-export const addExpense = (payload) => ({ type: ADD_EXPENSE, payload });
 export const getCurrencies = () => ({ type: GET_CURRENCIES });
 export const getCurrenciesSc = (payload) => ({ type: GET_CURRENCIES_SC, payload });
 export const getCurrenciesEr = (error) => ({ type: GET_CURRENCIES_ER, error });
+
+export const addExpense = (payload) => ({ type: ADD_EXPENSE, payload });
 
 export const fetchAPI = () => async (dispatch) => {
   dispatch(getCurrencies());

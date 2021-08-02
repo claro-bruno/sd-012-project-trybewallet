@@ -4,24 +4,36 @@ import PropTypes from 'prop-types';
 import { addExpense, fetchAPI } from '../actions';
 
 class Form extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      amount: '',
+      id: 0,
+      value: '',
       description: '',
-      selectedCoin: '',
-      payment: '',
+      currency: '',
+      method: '',
       tag: '',
+      exchangeRates: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.sumbitSpent = this.sumbitSpent.bind(this);
+    this.getCoins = this.getCoins.bind(this);
   }
 
   componentDidMount() {
     const { getCurrencies } = this.props;
     getCurrencies();
+    this.getCoins();
+  }
+
+  async getCoins() {
+    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const data = await response.json();
+    this.setState({
+      exchangeRates: data,
+    });
   }
 
   handleChange({ target }) {
@@ -34,7 +46,33 @@ class Form extends Component {
 
   sumbitSpent() {
     const { sendSpendig } = this.props;
-    sendSpendig(this.state);
+
+    const {
+      id,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      exchangeRates,
+    } = this.state;
+
+    const newExpense = {
+      id,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      exchangeRates,
+    };
+
+    sendSpendig(newExpense);
+
+    const newId = id + 1;
+    this.setState({
+      id: newId,
+    });
   }
 
   render() {
@@ -44,7 +82,7 @@ class Form extends Component {
       <form>
         <label htmlFor="valor">
           Valor:
-          <input id="valor" type="text" name="amount" onChange={ this.handleChange } />
+          <input id="valor" type="text" name="value" onChange={ this.handleChange } />
         </label>
         <label htmlFor="descricao">
           Descrição
@@ -57,13 +95,13 @@ class Form extends Component {
         </label>
         <label htmlFor="moeda">
           Moeda
-          <select id="moeda" name="selectedCoin" onChange={ this.handleChange }>
+          <select id="moeda" name="currency" onChange={ this.handleChange }>
             { arrayCurrencies.map((c, index) => <option key={ index }>{c}</option>) }
           </select>
         </label>
         <label htmlFor="method">
           Método de pagamento
-          <select id="method" name="payment" onChange={ this.handleChange }>
+          <select id="method" name="method" onChange={ this.handleChange }>
             <option>Dinheiro</option>
             <option>Cartão de crédito</option>
             <option>Cartão de débito</option>
