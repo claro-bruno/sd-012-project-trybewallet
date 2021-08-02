@@ -190,6 +190,48 @@ class Wallet extends React.Component {
     totalAmount(total);
   }
 
+  tableList() {
+    this.totalValue();
+    const { expenses, deleteExpense, editExpense } = this.props;
+    const headerArray = ['Descrição', 'Tag', 'Método de pagamento', 'Valor', 'Moeda',
+      'Câmbio utilizado', 'Valor convertido', 'Moeda de conversão', 'Editar/Excluir'];
+
+    return (
+      <table>
+        <thead>
+          {headerArray.map((title) => <th key={ title }>{title}</th>)}
+        </thead>
+        <tbody>
+          {expenses.map((data) => (
+            <tr key={ data.id }>
+              <td>{data.description}</td>
+              <td>{data.tag}</td>
+              <td>{data.method}</td>
+              <td>{data.value}</td>
+              <td>{data.exchangeRates[data.currency].name}</td>
+              <td>{Number(data.exchangeRates[data.currency].ask).toFixed(2)}</td>
+              <td>{(data.value * data.exchangeRates[data.currency].ask)}</td>
+              <td>Real</td>
+              <button
+                type="button"
+                data-testid="delete-btn"
+                onClick={ () => deleteExpense(data.id) }
+              >
+                Excluir
+              </button>
+              <button
+                type="button"
+                data-testid="edit-btn"
+                onClick={ () => editExpense(data.id) }
+              >
+                Editar
+              </button>
+            </tr>))}
+        </tbody>
+      </table>
+    );
+  }
+
   render() {
     const { email, amount } = this.props;
     return (
@@ -213,6 +255,9 @@ class Wallet extends React.Component {
             Adicionar despesa
           </button>
         </div>
+        <div>
+          {this.tableList()}
+        </div>
       </div>
     );
   }
@@ -225,6 +270,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  deleteExpense: (id) => dispatch({ type: 'DELETE_EXPENSE', id }),
+  editExpense: (id) => dispatch({ type: 'EDIT_EXPENSE', id }),
   expensesCreator: (expenses) => dispatch({ type: 'ADD_DESPESAS', expenses }),
   totalAmount: (amount) => dispatch({ type: 'TOTAL_AMOUNT', amount }),
 });
