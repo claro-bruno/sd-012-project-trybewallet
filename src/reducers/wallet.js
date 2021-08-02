@@ -28,10 +28,10 @@ function wallet(state = initialState, action) {
   case ADD_EXPENSE: {
     const actObj = {
       id: action.id,
-      valor: action.valor,
-      descricao: action.descricao,
-      moeda: action.moeda,
-      metodo: action.metodo,
+      value: action.value,
+      description: action.description,
+      currency: action.currenc,
+      method: action.method,
       tag: action.tag,
       exchangeRates: action.exchangeRates,
     };

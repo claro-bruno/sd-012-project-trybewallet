@@ -12,10 +12,10 @@ class FormWallet extends React.Component {
 
     this.state = {
       id: 0,
-      valor: 0,
-      descricao: '',
-      moeda: 'USD',
-      metodo: 'Dinheiro',
+      value: 0,
+      description: '',
+      currenc: 'USD',
+      method: 'Cartão de crédito',
       tag: 'Alimentação',
     };
   }
@@ -44,7 +44,7 @@ class FormWallet extends React.Component {
 
   render() {
     const { currencies } = this.props;
-    const { valor, descricao, moeda, metodo, tag } = this.state;
+    const { value, description, currenc, method, tag } = this.state;
     const categorias = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     return (
       <form>
@@ -52,8 +52,8 @@ class FormWallet extends React.Component {
           Valor
           <input
             type="number"
-            name="valor"
-            value={ valor }
+            name="value"
+            value={ value }
             onChange={ this.handleChange }
             id="valor"
           />
@@ -62,23 +62,23 @@ class FormWallet extends React.Component {
           Descrição
           <input
             type="text"
-            name="descricao"
-            value={ descricao }
+            name="description"
+            value={ description }
             onChange={ this.handleChange }
             id="descricao"
           />
         </label>
-        <label htmlFor="moeda">
+        <label htmlFor="c">
           Moeda
-          <select id="moeda" name="moeda" value={ moeda } onChange={ this.handleChange }>
+          <select id="c" name="currenc" value={ currenc } onChange={ this.handleChange }>
             { currencies.map((e, i) => <option value={ e } key={ i }>{ e }</option>) }
           </select>
         </label>
         <label htmlFor="pag">
           Método de pagamento
-          <select id="pag" name="metodo" value={ metodo } onChange={ this.handleChange }>
+          <select id="pag" name="method" value={ method } onChange={ this.handleChange }>
             <option value="Dinheiro">Dinheiro</option>
-            <option value="Cartão de Crédito">Cartão de Crédito</option>
+            <option value="Cartão de Crédito" defaultValue>Cartão de Crédito</option>
             <option value="Cartão de débito">Cartão de débito</option>
           </select>
         </label>
