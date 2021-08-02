@@ -11,14 +11,27 @@ class Select extends React.Component {
   handleOptions() {
     const { options } = this.props;
     return (
-      options.map((option) => (
-        <option
-          key={ option }
-          value={ option }
-        >
-          { option }
-        </option>
-      ))
+      options.map((eachOption) => {
+        const isObject = typeof eachOption;
+        if (isObject === 'object') {
+          return (
+            <option
+              key={ eachOption.code }
+              value={ eachOption.code }
+            >
+              { eachOption.code }
+            </option>
+          );
+        }
+        return (
+          <option
+            key={ eachOption }
+            value={ eachOption }
+          >
+            { eachOption }
+          </option>
+        );
+      })
     );
   }
 
@@ -38,7 +51,20 @@ class Select extends React.Component {
 Select.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  options: PropTypes.arrayOf(
+    PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.string,
+    ]),
+  ),
+};
+
+Select.defaultProps = {
+  options: [
+    {},
+    'abc',
+    'def',
+  ],
 };
 
 export default Select;

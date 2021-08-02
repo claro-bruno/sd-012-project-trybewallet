@@ -6,7 +6,7 @@ import {
   actionUserEmail,
   actionUserPassword,
   actionEntrarButton,
-} from '../actions';
+} from '../actions/actionUser';
 
 // regex fornecido pelo grande Merlone
 const EMAIL_VALIDATOR = /^[a-z0-9_]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/;
