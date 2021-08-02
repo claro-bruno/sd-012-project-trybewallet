@@ -31,4 +31,4 @@ ButtonAddDespesa.defaultProps = {
   disabled: false,
 };
 
-export default ButtonAddDespesar;
+export default ButtonAddDespesa;

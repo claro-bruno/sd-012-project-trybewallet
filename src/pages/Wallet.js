@@ -7,6 +7,7 @@ import InputDescricao from '../components/WalletControlled/InputDescricao';
 import SelectMoeda from '../components/WalletControlled/SelectMoeda';
 import SelectMetodoPagto from '../components/WalletControlled/SelectMetodoPagto';
 import SelectCategoria from '../components/WalletControlled/SelectCategoria';
+import ButtonAddDespesa from '../components/WalletControlled/ButtonAddDespesa';
 import { fetchAPI } from '../actions';
 
 class Wallet extends React.Component {
@@ -14,6 +15,7 @@ class Wallet extends React.Component {
     super();
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
 
     this.state = {
       expenseAmount: 0,
@@ -40,10 +42,15 @@ class Wallet extends React.Component {
     this.setState((state) => ({ ...state, [name]: newValue() }));
   }
 
+  handleClick() {
+    console.log('clicou!');
+  }
+
   render() {
     const {
       state: { expenseAmount, descricao, currency, paymentMethod, category },
       handleChange,
+      handleClick,
     } = this;
 
     return (
@@ -69,6 +76,9 @@ class Wallet extends React.Component {
           <SelectCategoria
             value={ category }
             handleChange={ handleChange }
+          />
+          <ButtonAddDespesa
+            handleClick={ handleClick }
           />
         </form>
       </>
