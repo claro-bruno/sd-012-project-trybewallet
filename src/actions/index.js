@@ -3,7 +3,10 @@ import {
   GET_API,
   GET_API_SUCCESS,
   GET_API_ERROR,
-  GET_EXPENSE,
+  ADD_EXPENSE,
+  GET_API_EXCHANGE_RATES,
+  GET_API_EXCHANGE_RATES_SUCCESS,
+  GET_API_EXCHANGE_RATES_ERROR,
 } from './actionTypes';
 
 export const actionGetEmail = (value) => ({ type: GET_EMAIL, payload: value });
@@ -23,4 +26,29 @@ export const actionFetchApi = () => (dispatch) => {
     .catch((error) => dispatch(getApiError(error)));
 };
 
-export const actionGetExpense = (value) => ({ type: GET_EXPENSE, payload: value });
+export const actionGetExpense = (value, responseAPI) => ({
+  type: ADD_EXPENSE,
+  payload: value,
+  responseAPI,
+});
+
+export const getApiExchangeRates = () => ({ type: GET_API_EXCHANGE_RATES });
+
+export const getApiExchangeRatesSuccess = (payload) => ({
+  type: GET_API_EXCHANGE_RATES_SUCCESS,
+  payload,
+});
+
+export const getApiExchangeRatesError = (error) => ({
+  type: GET_API_EXCHANGE_RATES_ERROR,
+  error,
+});
+
+export const actionFetchApiExchangeRates = (state) => (dispatch) => {
+  dispatch(getApiExchangeRates());
+  const linkApi = 'https://economia.awesomeapi.com.br/json/all';
+  fetch(linkApi)
+    .then((response) => response.json())
+    .then((response) => dispatch(actionGetExpense(state, response)))
+    .catch((error) => dispatch(getApiExchangeRatesError(error)));
+};

@@ -5,7 +5,7 @@ import Input from './Input';
 import CurrencySelect from './CurrencySelect';
 import PaymentSelect from './PaymentSelect';
 import TagSelect from './TagSelect';
-import { actionGetExpense } from '../actions';
+import { actionGetExpense, actionFetchApiExchangeRates } from '../actions';
 
 class AddExpenseForm extends Component {
   constructor(props) {
@@ -14,14 +14,13 @@ class AddExpenseForm extends Component {
     this.state = {
       valor: '',
       descricao: '',
-      moeda: '',
-      pagamento: '',
-      tag: '',
+      moeda: 'USD',
+      pagamento: 'Dinheiro',
+      tag: 'Alimentação',
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    // this.isValid = this.isValid.bind(this);
   }
 
   handleChange({ target }) {
@@ -32,15 +31,14 @@ class AddExpenseForm extends Component {
   }
 
   handleSubmit() {
-    console.log('xablauzinho');
-    const { getExpenseStore } = this.props;
-    getExpenseStore(this.state);
+    const { fetchApiExchangeRates } = this.props;
+    fetchApiExchangeRates(this.state);
     this.setState({
       valor: '',
       descricao: '',
-      moeda: '',
-      pagamento: '',
-      tag: '',
+      moeda: 'USD',
+      pagamento: 'Dinheiro',
+      tag: 'Alimentação',
     });
   }
 
@@ -91,7 +89,8 @@ AddExpenseForm.propTypes = {
   // email: PropTypes.string.isRequired,
   // currencies: PropTypes.arrayOf().isRequired,
   // expenses: PropTypes.arrayOf().isRequired,
-  getExpenseStore: PropTypes.func.isRequired,
+  // getExpenseStore: PropTypes.func.isRequired,
+  fetchApiExchangeRates: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -101,7 +100,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getExpenseStore: (email) => dispatch(actionGetExpense(email)),
+  getExpenseStore: (state) => dispatch(actionGetExpense(state)),
+  fetchApiExchangeRates: (state) => dispatch(actionFetchApiExchangeRates(state)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddExpenseForm);

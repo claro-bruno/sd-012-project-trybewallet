@@ -2,7 +2,7 @@ import {
   GET_API,
   GET_API_SUCCESS,
   GET_API_ERROR,
-  GET_EXPENSE,
+  ADD_EXPENSE,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -10,6 +10,22 @@ const INITIAL_STATE = {
   expenses: [],
   isFetching: false,
   error: '',
+};
+
+const getExchangeRates = (payload) => {
+  const keyCurrencies = Object.values(payload);
+  const result = keyCurrencies.map((item) => ({
+    code: item.code,
+    name: item.name,
+    ask: item.ask,
+  }));
+  return result;
+};
+
+const addExpense = (state, payload, responseAPI) => {
+  const id = (state.length === 0) ? 0 : state.length;
+  const exchangeRates = getExchangeRates(responseAPI);
+  return [...state, { ...payload, id, exchangeRates }];
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -33,11 +49,10 @@ const wallet = (state = INITIAL_STATE, action) => {
       isFetching: false,
     };
 
-  case GET_EXPENSE:
-    console.log(action.payload);
+  case ADD_EXPENSE:
     return {
       ...state,
-      expenses: [action.payload],
+      expenses: addExpense(state.expenses, action.payload, action.responseAPI),
     };
 
   default:

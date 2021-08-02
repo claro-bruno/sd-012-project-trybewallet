@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 class Header extends Component {
   render() {
     const { email, currencies, expenses } = this.props;
-    console.log(currencies, expenses);
+    // console.log(currencies, expenses);
 
     return (
       <header>
