@@ -27,10 +27,10 @@
 }
 
 .add-expenses-form input {
-  font-size: 22px;
   border-left: white;
   border-right: white;
   border-top: white;
+  font-size: 22px;
   margin: auto 10px;
   outline: none;
 }
