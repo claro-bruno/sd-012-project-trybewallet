@@ -98,9 +98,9 @@ const mapDispatchToProps = (dispatch) => ({
   stateSave: (payload) => dispatch({ type: 'USER_EMAIL', payload }),
 });
 
+export default connect(null, mapDispatchToProps)(Login);
+// export default Login;
+
 Login.propTypes = {
   stateSave: PropTypes.func,
 }.isRequered;
-
-export default connect(null, mapDispatchToProps)(Login);
-// export default Login;
