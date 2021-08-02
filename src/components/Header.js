@@ -26,11 +26,11 @@ class Header extends Component {
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
-  total: PropTypes.string.isRequired,
-  localCurrency: PropTypes.arrayOf(PropTypes.shape({
+  total: PropTypes.number.isRequired,
+  localCurrency: PropTypes.shape({
     code: PropTypes.string,
     symbol: PropTypes.string,
-  })).isRequired,
+  }).isRequired,
 };
 
 export default Header;

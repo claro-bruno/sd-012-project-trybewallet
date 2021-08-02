@@ -28,7 +28,7 @@ class Button extends Component {
     const { className, buttonText, pathname, isDisable } = this.props;
     const { redirect } = this.state;
     return (
-      ((redirect) ? (
+      ((redirect && (pathname.length > 0)) ? (
         <Redirect to={ pathname } />
       ) : (
         <button

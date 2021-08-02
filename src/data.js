@@ -35,7 +35,7 @@ const options = {
       desc: 'Saúde',
     },
   ],
-  currencies: [
+  /* currencies: [
     {
       name: 'dolarAmericano',
       desc: 'USD',
@@ -43,10 +43,6 @@ const options = {
     {
       name: 'dolarCanadense',
       desc: 'CAD',
-    },
-    {
-      name: 'euro',
-      desc: 'EUR',
     },
     {
       name: 'libraEsterlina',
@@ -65,7 +61,11 @@ const options = {
       desc: 'LTC',
     },
     {
-      name: 'iene',
+      name: 'euro',
+      desc: 'EUR',
+    },
+    {
+      name: 'ieneJapones',
       desc: 'JPY',
     },
     {
@@ -77,7 +77,7 @@ const options = {
       desc: 'AUD',
     },
     {
-      name: 'remimbi',
+      name: 'yuanChines',
       desc: 'CNY',
     },
     {
@@ -89,10 +89,14 @@ const options = {
       desc: 'ETH',
     },
     {
-      name: 'Ripple',
+      name: 'xrp',
       desc: 'XRP',
     },
-  ],
+    {
+      name: 'dogecoin',
+      desc: 'DOGE',
+    },
+  ], */
 };
 
 export default options;
