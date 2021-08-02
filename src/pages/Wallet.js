@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Table from '../components/Table';
 
-class Wallet extends React.Component {
+class Wallet extends Component {
   constructor() {
     super();
 
@@ -16,7 +17,6 @@ class Wallet extends React.Component {
       exchangeRates: {},
       description: '',
     };
-
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.inputValue = this.inputValue.bind(this);
@@ -52,7 +52,8 @@ class Wallet extends React.Component {
     const { currencies } = this.state;
     return (
       <div>
-        <label htmlFor="currency-input">Moeda
+        <label htmlFor="currency-input">
+          Moeda
           <select
             data-testid="currency-input"
             name="currency"
@@ -74,7 +75,8 @@ class Wallet extends React.Component {
     const { value } = this.state;
     return (
       <div>
-        <label htmlFor="value-input">Valor
+        <label htmlFor="value-input">
+          Valor
           <input
             type="text"
             name="value"
@@ -85,7 +87,8 @@ class Wallet extends React.Component {
             onChange={ (event) => this.handleChange(event) }
           />
         </label>
-        <label htmlFor="description-input">Descrição
+        <label htmlFor="description-input">
+          Descrição
           <textarea
             type="text"
             name="description"
@@ -108,7 +111,8 @@ class Wallet extends React.Component {
     const methodArray = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     return (
       <div>
-        <label htmlFor="method-input">Método de pagamento
+        <label htmlFor="method-input">
+          Método de pagamento
           <select
             data-testid="method-input"
             id="method-input"
@@ -137,7 +141,8 @@ class Wallet extends React.Component {
 
     return (
       <div>
-        <label htmlFor="tag-input">Tag
+        <label htmlFor="tag-input">
+          Tag
           <select
             data-testid="tag-input"
             name="tag"
@@ -190,48 +195,6 @@ class Wallet extends React.Component {
     totalAmount(total);
   }
 
-  tableList() {
-    this.totalValue();
-    const { expenses, deleteExpense, editExpense } = this.props;
-    const headerArray = ['Descrição', 'Tag', 'Método de pagamento', 'Valor', 'Moeda',
-      'Câmbio utilizado', 'Valor convertido', 'Moeda de conversão', 'Editar/Excluir'];
-
-    return (
-      <table>
-        <thead>
-          {headerArray.map((title) => <th key={ title }>{title}</th>)}
-        </thead>
-        <tbody>
-          {expenses.map((data) => (
-            <tr key={ data.id }>
-              <td>{data.description}</td>
-              <td>{data.tag}</td>
-              <td>{data.method}</td>
-              <td>{data.value}</td>
-              <td>{data.exchangeRates[data.currency].name}</td>
-              <td>{Number(data.exchangeRates[data.currency].ask).toFixed(2)}</td>
-              <td>{(data.value * data.exchangeRates[data.currency].ask)}</td>
-              <td>Real</td>
-              <button
-                type="button"
-                data-testid="delete-btn"
-                onClick={ () => deleteExpense(data.id) }
-              >
-                Excluir
-              </button>
-              <button
-                type="button"
-                data-testid="edit-btn"
-                onClick={ () => editExpense(data.id) }
-              >
-                Editar
-              </button>
-            </tr>))}
-        </tbody>
-      </table>
-    );
-  }
-
   render() {
     const { email, amount } = this.props;
     return (
@@ -255,9 +218,7 @@ class Wallet extends React.Component {
             Adicionar despesa
           </button>
         </div>
-        <div>
-          {this.tableList()}
-        </div>
+        <Table />
       </div>
     );
   }
@@ -270,8 +231,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  deleteExpense: (id) => dispatch({ type: 'DELETE_EXPENSE', id }),
-  editExpense: (id) => dispatch({ type: 'EDIT_EXPENSE', id }),
   expensesCreator: (expenses) => dispatch({ type: 'ADD_DESPESAS', expenses }),
   totalAmount: (amount) => dispatch({ type: 'TOTAL_AMOUNT', amount }),
 });
