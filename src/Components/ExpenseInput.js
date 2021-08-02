@@ -12,8 +12,8 @@ class ExpenseInput extends React.Component {
       value: 0,
       description: '',
       currency: 'USD',
-      method: '',
-      tag: '',
+      method: paymentMethods[0],
+      tag: tags[0],
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -61,9 +61,9 @@ class ExpenseInput extends React.Component {
             value={ currency }
             onChange={ this.handleChange }
           >
-            { currenciesFromStore.map((currencyFromStore) => (
+            { currenciesFromStore.map((currencyFromStore, index) => (
               <option
-                key={ currencyFromStore.code }
+                key={ index }
                 value={ currencyFromStore.code }
               >
                 {currencyFromStore.code}
@@ -126,5 +126,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(ExpenseInput);
 
 ExpenseInput.propTypes = {
   dispatchFetchApi: PropTypes.func.isRequired,
-  currenciesFromStore: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  currenciesFromStore: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape(),
+  ])).isRequired,
 };
