@@ -46,3 +46,7 @@ code {
   text-align: center;
   width: 30%;
 }
+
+[data-testid="login-h2"] {
+  text-align: center;
+}
