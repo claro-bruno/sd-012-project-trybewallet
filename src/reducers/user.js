@@ -4,7 +4,7 @@ const INITIAL_STATE = {
   email: '',
 };
 
-const userInfoChange = (state = INITIAL_STATE, action) => {
+const user = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case SAVE_EMAIL:
     return { ...state, email: action.payload };
@@ -12,4 +12,4 @@ const userInfoChange = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default userInfoChange;
+export default user;
