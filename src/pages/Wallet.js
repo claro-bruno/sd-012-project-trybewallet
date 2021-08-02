@@ -4,7 +4,30 @@ import PropTypes from 'prop-types';
 import './wallet.css';
 
 class Wallet extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      moneyInitials: [],
+    };
+
+    this.getMoneyInitials = this.getMoneyInitials.bind(this);
+  }
+
+  componentDidMount() {
+    this.getMoneyInitials();
+  }
+
+  async getMoneyInitials() {
+    const url = 'https://economia.awesomeapi.com.br/json/all';
+    const response = await fetch(url);
+    const result = await response.json();
+    const moneyInitials = Object.keys(result).filter((initials) => initials !== 'USDT');
+    this.setState({ moneyInitials });
+  }
+
   renderForm() {
+    const { moneyInitials } = this.state;
     return (
       <form className="form-section">
         <label htmlFor="value-id">
@@ -18,7 +41,9 @@ class Wallet extends React.Component {
         </label>
         <label htmlFor="currency-id">
           Moeda:
-          <select className="form-item-currency" aria-label="Moeda" id="currency-id" />
+          <select className="form-item-currency" aria-label="Moeda" id="currency-id">
+            { moneyInitials.map((init) => <option key={ init }>{ init }</option>) }
+          </select>
         </label>
         <label htmlFor="method-id">
           Método de pagamento:
