@@ -24,18 +24,18 @@ class ExpensesTable extends React.Component {
 
     const {
       name,
-      high,
+      ask,
     } = exchangeRates[currency];
 
     const info = [
       description,
       tag,
       method,
-      `${currency} ${value}`,
+      value,
       name,
-      parseFloat(high).toFixed(2),
-      (high * value).toFixed(2),
-      'Real Brasileiro',
+      Math.round(ask*100)/100,
+      (Math.round((ask * value) * 100) / 100),
+      'Real',
       <button
         onClick={ () => this.handleDelete(id) }
         data-testid="delete-btn"
@@ -72,7 +72,7 @@ class ExpensesTable extends React.Component {
     return (
       <table>
         <thead>
-          <TableRow content={ header } />
+          <TableRow isHeader={ true } content={ header } />
         </thead>
         <tbody>
           { expenses.length > 0
