@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 class SelectTag extends Component {
   render() {
-    const { name, label } = this.props;
+    const { name, label, tag, onChange } = this.props;
     return (
       <label htmlFor={ name }>
         { label }
-        <select id={ name }>
+        <select value={ tag } name={ name } onChange={ onChange } id={ name }>
           <option>Alimentação</option>
           <option>Lazer</option>
           <option>Trabalho</option>
@@ -22,6 +22,8 @@ class SelectTag extends Component {
 SelectTag.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  tag: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default SelectTag;

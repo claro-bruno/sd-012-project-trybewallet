@@ -1,23 +1,19 @@
-import { API_FETCH, API_FETCH_SUCCESS } from '../actions';
+import { SUBMIT_STATE } from '../actions';
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 const INITIAL_WALLET_STATE = {
-  currencies: [],
   expenses: [],
-  loading: false,
+  currencies: [],
 };
 
 const wallet = (state = INITIAL_WALLET_STATE, action) => {
   switch (action.type) {
-  case API_FETCH:
+  case SUBMIT_STATE:
     return ({
       ...state,
-      loading: true,
-    });
-  case API_FETCH_SUCCESS:
-    return ({
-      ...state,
-      loading: false,
-      currencies: action.currencies,
+      expenses: [
+        ...state.expenses,
+        action.payload,
+      ],
     });
   default:
     return state;

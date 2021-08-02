@@ -5,32 +5,41 @@ import Input from '../components/Input';
 import SelectApi from '../components/SelectApi';
 import SelectPayment from '../components/SelectPayment';
 import SelectTag from '../components/SelectTag';
+import Button from '../components/Button';
+import { fetchCurrent } from '../actions';
 
 class Wallet extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      currenciesKeys: [],
+      id: 0,
+      value: '0',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
+
+    this.handleInputs = this.handleInputs.bind(this);
+    this.submitState = this.submitState.bind(this);
   }
 
-  componentDidMount() {
-    this.fetchCurrencies();
-  }
-
-  async fetchCurrencies() {
-    const url = 'https://economia.awesomeapi.com.br/json/all';
-    const fetchApi = await fetch(url);
-    const response = await fetchApi.json();
+  handleInputs({ target }) {
+    const { name, value } = target;
     this.setState({
-      currenciesKeys: Object.keys(response).filter((coin) => coin !== 'USDT'),
+      [name]: value,
     });
+  }
+
+  submitState() {
+    const { fetchCotacao } = this.props;
+    fetchCotacao(this.state);
   }
 
   render() {
     const { emailState } = this.props;
-    const { currenciesKeys } = this.state;
+    const { currenciesKeys, value, description, currency, method, tag } = this.state;
     return (
       <>
         <header>
@@ -39,11 +48,40 @@ class Wallet extends Component {
           <h3 data-testid="header-currency-field">BRL</h3>
         </header>
         <form>
-          <Input type="text" label="Valor" name="valor" />
-          <Input type="text" label="Descrição" name="descricao" />
-          <SelectApi label="Moeda" endpoint={ currenciesKeys } />
-          <SelectPayment label="Método de pagamento" name="payment" />
-          <SelectTag label="Tag" name="tag" />
+          <Input
+            type="text"
+            onChange={ this.handleInputs }
+            value={ value }
+            label="Valor"
+            name="value"
+          />
+          <Input
+            type="text"
+            onChange={ this.handleInputs }
+            value={ description }
+            label="Descrição"
+            name="description"
+          />
+          <SelectApi
+            label="Moeda"
+            onChange={ this.handleInputs }
+            value={ currency }
+            endpoint={ currenciesKeys }
+            name="currency"
+          />
+          <SelectPayment
+            label="Método de pagamento"
+            value={ method }
+            onChange={ this.handleInputs }
+            name="method"
+          />
+          <SelectTag
+            label="Tag"
+            value={ tag }
+            onChange={ this.handleInputs }
+            name="tag"
+          />
+          <Button onClick={ this.submitState } itemName="Adicionar despesa" />
         </form>
       </>
     );
@@ -52,12 +90,16 @@ class Wallet extends Component {
 
 Wallet.propTypes = {
   emailState: PropTypes.string.isRequired,
+  fetchCotacao: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   emailState: state.user.email,
+  currencies: state.wallet.currencies,
 });
 
-const mapDispatchToProps = () => ({});
+const mapDispatchToProps = (dispatch) => ({
+  fetchCotacao: (currencies) => dispatch(fetchCurrent(currencies)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

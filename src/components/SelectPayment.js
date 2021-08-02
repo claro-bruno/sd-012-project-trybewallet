@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 
 class SelectPayment extends Component {
   render() {
-    const { name, label } = this.props;
+    const { name, label, onChange, payment } = this.props;
     return (
       <label htmlFor={ name }>
         { label }
-        <select id={ name } name={ name }>
-          <option>Dinheiro</option>
-          <option>Cartão de crédito</option>
-          <option>Cartão de débito</option>
+        <select onChange={ onChange } value={ payment } id={ name } name={ name }>
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="Cartão de crédito">Cartão de crédito</option>
+          <option value="Cartão de débito">Cartão de débito</option>
         </select>
       </label>
     );
@@ -20,6 +20,8 @@ class SelectPayment extends Component {
 SelectPayment.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  payment: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default SelectPayment;
