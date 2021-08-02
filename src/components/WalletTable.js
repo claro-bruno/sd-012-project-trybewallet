@@ -40,6 +40,7 @@ class WalletTable extends Component {
                 </td>
                 <td className="table-header">Real</td>
                 <td className="table-header">
+                  <Button name="Editar" className="edit-btn" />
                   <Button
                     name="Excluir"
                     className="delete-btn"

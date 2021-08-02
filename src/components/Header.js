@@ -23,7 +23,7 @@ class Header extends Component {
             </span>
           </div>
         </div>
-        <Link to="/">
+        <Link className="logout" to="/">
           <span>Sair</span>
         </Link>
       </header>
