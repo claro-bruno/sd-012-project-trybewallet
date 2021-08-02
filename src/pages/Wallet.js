@@ -9,9 +9,15 @@ class Wallet extends React.Component {
 
     this.state = {
       moneyInitials: [],
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
 
     this.getMoneyInitials = this.getMoneyInitials.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -27,12 +33,21 @@ class Wallet extends React.Component {
     this.setState({ moneyInitials });
   }
 
+  handleChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
   renderFormHelper() {
     return (
       <div>
         <label htmlFor="method-id">
           Método de pagamento:
-          <select className="form-item" id="method-id">
+          <select
+            className="form-item"
+            id="method-id"
+            name="method"
+            onChange={ this.handleChange }
+          >
             <option>Dinheiro</option>
             <option>Cartão de crédito</option>
             <option>Cartão de débito</option>
@@ -40,7 +55,12 @@ class Wallet extends React.Component {
         </label>
         <label htmlFor="tag-id">
           Tag:
-          <select className="form-item" id="tag-id">
+          <select
+            className="form-item"
+            id="tag-id"
+            name="tag"
+            onChange={ this.handleChange }
+          >
             <option>Alimentação</option>
             <option>Lazer</option>
             <option>Trabalho</option>
@@ -55,6 +75,7 @@ class Wallet extends React.Component {
             id="description-id"
             name="description"
             className="form-item"
+            onChange={ this.handleChange }
           />
         </label>
       </div>
@@ -72,11 +93,18 @@ class Wallet extends React.Component {
             id="value-id"
             name="value"
             className="form-item"
+            onChange={ this.handleChange }
           />
         </label>
         <label htmlFor="currency-id">
           Moeda:
-          <select className="form-item-currency" aria-label="Moeda" id="currency-id">
+          <select
+            className="form-item-currency"
+            aria-label="Moeda"
+            name="currency"
+            id="currency-id"
+            onChange={ this.handleChange }
+          >
             { moneyInitials.map((init) => <option key={ init }>{ init }</option>) }
           </select>
         </label>
