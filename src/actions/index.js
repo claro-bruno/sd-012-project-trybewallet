@@ -32,11 +32,11 @@ export const fetchApiAction = () => (dispatch) => fetch(URL)
       ,
     )).catch((err) => dispatch(requestFailAct(err)));
 
-export const fetchForExpense = (stateData) => async (dispatch) => {
+export const fetchForExpense = (stateData) => async (dispatch) => { // action que busca o objeto exchangeRates e será guardado na constante result. Esta action também recebe o estado do componente <ExpenseForm /> e espalha o ...stateData na action expenseAction.
   try {
     const resp = await fetch(URL);
     const result = await resp.json();
-    dispatch(expenseAction({ ...stateData, exchangeRates: result }));
+    dispatch(expenseAction({ ...stateData, exchangeRates: result })); // esta parte já deixa no formato que o requisito 8 pede: expenses: [{id: 0, value: 3, ..., exchangeRates: {USD:{...}, CAD:{...} }}]
   } catch (error) {
     dispatch(expenseActFailed(error));
   }

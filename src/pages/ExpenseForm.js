@@ -23,7 +23,7 @@ class ExpenseForm extends React.Component {
   onSubmitToExchangeRates() {
     const { sendToExchangeRates } = this.props;
     const { value, description, currency, method, tag } = this.state;
-    sendToExchangeRates({ value, description, currency, method, tag });
+    sendToExchangeRates({ value, description, currency, method, tag }); // envia para o estado global.
     this.setState({
       value: 0, description: '', currency: 'USD', method: 'Dinheiro', tag: 'Alimentação',
     });
