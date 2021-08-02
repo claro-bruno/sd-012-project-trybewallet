@@ -3,19 +3,16 @@ import PropTypes from 'prop-types';
 
 class Table extends React.Component {
   render() {
-    const { expenses, deleteFromExpenses, toggleEditChange } = this.props;
+    const { expenses, deleteFromExpenses, handleToggleEdit } = this.props;
+    const categogies = ['Descrição', 'Tag', 'Método de pagamento', 'Valor', 'Moeda',
+      'Câmbio utilizado', 'Valor convertido', 'Moeda de conversão', 'Editar/Excluir'];
     return (
       <div id="table" role="table">
-        <div className="table-row" role="row">
-          <span role="columnheader">Descrição</span>
-          <span role="columnheader">Tag</span>
-          <span role="columnheader">Método de pagamento</span>
-          <span role="columnheader">Valor</span>
-          <span role="columnheader">Moeda</span>
-          <span role="columnheader">Câmbio utilizado</span>
-          <span role="columnheader">Valor convertido</span>
-          <span role="columnheader">Moeda de conversão</span>
-          <span role="columnheader">Editar/Excluir</span>
+        <div className="table-categories" role="row">
+          { categogies.map((category) => (
+            <span key={ category } role="columnheader">
+              { category }
+            </span>)) }
         </div>
         { expenses.map((expense) => (
           <div key={ expense.id } className="table-row" role="row">
@@ -37,7 +34,7 @@ class Table extends React.Component {
               <button
                 data-testid="edit-btn"
                 type="button"
-                onClick={ () => toggleEditChange(expense.id) }
+                onClick={ () => handleToggleEdit(expense.id) }
               >
                 Editar
               </button>
@@ -57,7 +54,7 @@ class Table extends React.Component {
 Table.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   deleteFromExpenses: PropTypes.func.isRequired,
-  toggleEditChange: PropTypes.func.isRequired,
+  handleToggleEdit: PropTypes.func.isRequired,
 };
 
 export default Table;

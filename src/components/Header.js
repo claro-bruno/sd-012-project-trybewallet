@@ -23,10 +23,16 @@ class Header extends React.Component {
     const totalValue = this.handleTotalValue();
     return (
       <header>
-        <h2>TrybeWallet</h2>
-        <div data-testid="email-field">{ `Email: ${email}` }</div>
-        <div data-testid="total-field">{ `Valor total: ${totalValue}` }</div>
-        <div data-testid="header-currency-field">BRL</div>
+        <div className="header-container">
+          <div>
+            <h2>TrybeWallet</h2>
+            <div data-testid="email-field">{ `Email: ${email}` }</div>
+          </div>
+          <div className="total-value">
+            <div data-testid="total-field">{ `Valor total: ${totalValue}` }</div>
+            <div data-testid="header-currency-field">BRL</div>
+          </div>
+        </div>
       </header>);
   }
 }

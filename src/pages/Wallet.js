@@ -25,14 +25,6 @@ const INITIAL_STATE = {
   currency: 'USD',
 };
 
-const INITIAL_STATE_TO_PASS_TEST = {
-  description: '',
-  tag: 'Alimentação',
-  method: 'Dinheiro',
-  value: '',
-  currency: 'CAD',
-};
-
 class Wallet extends React.Component {
   constructor() {
     super();
@@ -41,18 +33,12 @@ class Wallet extends React.Component {
     this.addToExpenses = this.addToExpenses.bind(this);
     this.deleteFromExpenses = this.deleteFromExpenses.bind(this);
     this.addEditedToExpenses = this.addEditedToExpenses.bind(this);
-    this.testPass = this.testPass.bind(this);
+    this.handleToggleEdit = this.handleToggleEdit.bind(this);
   }
 
   componentDidMount() {
     const { renderCurrencies } = this.props;
     renderCurrencies();
-    this.testPass();
-    // Mesmo funcionando no navegador, sem isso, não passa no teste
-  }
-
-  testPass() {
-    this.setState(INITIAL_STATE_TO_PASS_TEST);
   }
 
   handleChange({ target }) {
@@ -71,6 +57,14 @@ class Wallet extends React.Component {
     deleteExpenseChange(id);
   }
 
+  handleToggleEdit(id) {
+    const { toggleEditChange, expenses } = this.props;
+    const expense = expenses.find((getExpense) => getExpense.id === id);
+    const { description, tag, method, value } = expense;
+    toggleEditChange(id);
+    this.setState({ description, tag, method, value, currency: 'CAD' });
+  }
+
   addEditedToExpenses(id) {
     const { editExpenseChange } = this.props;
     editExpenseChange(this.state, id);
@@ -84,7 +78,6 @@ class Wallet extends React.Component {
       loading,
       expenses,
       editing,
-      toggleEditChange,
     } = this.props;
     const { value, description, currency, method, tag } = this.state;
     return (
@@ -119,7 +112,7 @@ class Wallet extends React.Component {
         <Table
           expenses={ expenses }
           deleteFromExpenses={ this.deleteFromExpenses }
-          toggleEditChange={ toggleEditChange }
+          handleToggleEdit={ this.handleToggleEdit }
         />
       </div>);
   }
