@@ -11,7 +11,21 @@ class Login extends React.Component {
 
     this.renderEmailInput = this.renderEmailInput.bind(this);
     this.renderPasswordInput = this.renderPasswordInput.bind(this);
+    this.renderEnterButton = this.renderEnterButton.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.validateForm = this.validateForm.bind(this);
+  }
+
+  validateForm() {
+    const { email, password } = this.state;
+    const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    const NUMBER_SIX = 6;
+
+    if (email.match(regex) && password.length >= NUMBER_SIX) {
+      return false;
+    }
+
+    return true;
   }
 
   handleChange({ target }) {
@@ -59,9 +73,12 @@ class Login extends React.Component {
   }
 
   renderEnterButton() {
+    const isDisabled = this.validateForm();
+
     return (
       <button
         type="submit"
+        disabled={ isDisabled }
       >
         Entrar
       </button>
