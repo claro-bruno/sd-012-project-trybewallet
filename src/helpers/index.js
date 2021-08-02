@@ -1,4 +1,4 @@
-function valueCalc(expense) {
+export function valueCalc(expense) {
   const { value, currency, exchangeRates } = expense;
   const rate = parseFloat(exchangeRates[currency].ask);
   const convValue = value * rate;
@@ -6,13 +6,17 @@ function valueCalc(expense) {
   return roundValue;
 }
 
-function totalCalc(expenses) {
+export function totalCalc(expenses) {
   let total = 0;
   expenses.forEach((e) => {
     const value = valueCalc(e);
     total += value;
   });
-  return total;
+  const totalRound = total.toFixed(2);
+  return totalRound;
 }
 
-export default totalCalc;
+export function curName(cur, excRate) {
+  const curFilteredName = excRate[cur].name.split('/', 1);
+  return curFilteredName;
+}

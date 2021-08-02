@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import totalCalc from '../helpers';
+import { totalCalc } from '../helpers';
 
 class HeaderWallet extends React.Component {
   render() {
