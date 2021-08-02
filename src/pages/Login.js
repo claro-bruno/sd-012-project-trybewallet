@@ -1,44 +1,46 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import Proptypes from 'ṕrop-types';
+import PropTypes from 'prop-types';
 import storeEmail from '../actions';
 
-export class Login extends React.Component {
+class Login extends React.Component {
   constructor() {
     super();
     this.state = {
-        email: '',
-        password: '',
-        emailIsValid: false,
-        passwordIsValid: false,
-        shouldRedirect: false,
-      };
-      this.handleChange = this.handleChange.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
+      email: '',
+      password: '',
+      emailIsValid: false,
+      passwordIsValid: false,
+      shouldRedirect: false,
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  // consulta ao repositorio do Miguel retroz sobre validação;
 
   emailChecker(value) {
     const emailRegex = new RegExp([
       '^[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+@[a-zA-Z0-9]',
       '(?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])',
       '?(?:.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$'].join(''));
-      const emailIsValid = emailRegex.test(value);
-      return emailIsValid;
+    const emailIsValid = emailRegex.test(value);
+    return emailIsValid;
   }
 
   passChecker(value) {
     const minChars = 6;
-    const passIsValid = value.lenght >= minChars;
+    const passIsValid = value.length >= minChars;
     return passIsValid;
   }
 
-  handleChange({target}) {
+  handleChange({ target }) {
     const { name, value } = target;
-    const valid = (name === 'email') ? this. emailChecker(value) : this.passChecker(value);
+    const valid = (name === 'email') ? this.emailChecker(value) : this.passChecker(value);
     this.setState({
       [name]: value,
-      [`${name}Isvalid`]: valid,
+      [`${name}IsValid`]: valid,
     });
   }
 
@@ -55,8 +57,8 @@ export class Login extends React.Component {
   render() {
     const { email, password, emailIsValid, passwordIsValid, shouldRedirect } = this.state;
 
-    if (shouldRedirect) return <Redirect to = "/carteira" />
-    
+    if (shouldRedirect) return <Redirect to="/carteira" />;
+
     return (
       <form onSubmit={ this.handleSubmit }>
         <input
@@ -78,18 +80,17 @@ export class Login extends React.Component {
         />
         <button
           type="submit"
-          disabled={ !(emailIsValid && passwordIsValid)}
+          disabled={ !(emailIsValid && passwordIsValid) }
         >
-          Enter
+          Entrar
         </button>
       </form>
     );
-  };
-};
+  }
+}
 
-
-Login.PropTypes = {
-  saveEmail: Proptypes.func.isRequired,
+Login.propTypes = {
+  saveEmail: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
