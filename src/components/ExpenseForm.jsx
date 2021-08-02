@@ -21,11 +21,6 @@ class ExpenseForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    const { getCurrencies } = this.props;
-    getCurrencies();
-  }
-
   handleChange({ target }) {
     const { value, name } = target;
     this.setState({ [name]: value });
