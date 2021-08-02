@@ -4,6 +4,15 @@ import SelectPagamento from './SelectPagamento';
 import SelectTag from './SelectTag';
 
 class Form extends Component {
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     valor: Number,
+  //     descricao: '',
+
+  //   };
+  // }
+
   render() {
     // const {  } = this.state;
     return (
@@ -33,6 +42,9 @@ class Form extends Component {
         <SelectMoedas />
         <SelectPagamento />
         <SelectTag />
+        {/* <button>
+          Adicionar despesas
+        </button> */}
       </form>
     );
   }

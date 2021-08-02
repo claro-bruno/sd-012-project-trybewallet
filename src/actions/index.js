@@ -9,11 +9,14 @@ export function saveUser(user) {
 export const REQUEST_CURRENCY = 'REQUEST_CURRENCY';
 
 export function requestCurrency(currency) {
+  console.log(currency);
   return { type: REQUEST_CURRENCY, payload: currency };
 }
 //-------
 export const getApiCurrency = () => async (dispatch) => {
   const response = await fetch(endPoint);
   const currency = await response.json();
-  dispatch(requestCurrency(Object.key(currency).filter((USDT) => USDT === 'USDT')));
+  const filteredCurrencies = Object.keys(currency).filter((USDT) => USDT !== 'USDT');
+  dispatch(requestCurrency(filteredCurrencies));
+  return filteredCurrencies;
 };
