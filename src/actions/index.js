@@ -1,6 +1,7 @@
 export const SET_LOGIN_VALUE = 'SET_LOGIN_VALUE';
-export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
+export const GET_CURRENCIES_SUCCESS = 'GET_CURRENCIES_SUCCESS';
+export const GET_CURRENCIES_FAIL = 'GET_CURRENCIES_FAIL';
 
 export const setLoginValue = (value) => (
   {
@@ -8,24 +9,34 @@ export const setLoginValue = (value) => (
   }
 );
 
-export const requestCurrencies = () => (
+export const getCurrencies = () => (
   {
-    type: REQUEST_CURRENCIES,
+    type: GET_CURRENCIES,
   }
 );
 
-export const getCurrencies = (currencies) => (
+export const getCurrenciesSuccess = (currencies) => (
   {
-    type: GET_CURRENCIES, currencies,
+    type: GET_CURRENCIES_SUCCESS,
+    currencies,
   }
 );
 
-export function fetchCurrencies() {
+export const getCurrenciesFail = (err) => (
+  {
+    type: GET_CURRENCIES_FAIL,
+    payload: err,
+  }
+);
+
+export const currencyThunk = () => (dispatch) => {
+  dispatch(getCurrencies());
   const endpoint = 'https://economia.awesomeapi.com.br/json/all';
-  return (dispatch) => {
-    dispatch(requestCurrencies());
-    return fetch(endpoint)
-      .then((response) => response.json())
-      .then((currencies) => dispatch(getCurrencies(currencies)));
-  };
-}
+  fetch(endpoint)
+    .then((response) => response.json())
+    .then((json) => {
+      const currencies = Object.keys(json).filter((currency) => currency !== 'USDT');
+      dispatch(getCurrenciesSuccess(currencies));
+    })
+    .catch((err) => dispatch(getCurrenciesFail(err)));
+};

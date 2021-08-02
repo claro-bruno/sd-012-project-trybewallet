@@ -1,18 +1,20 @@
-import { REQUEST_CURRENCIES, GET_CURRENCIES } from '../actions';
+import { GET_CURRENCIES, GET_CURRENCIES_SUCCESS, GET_CURRENCIES_FAIL } from '../actions';
 
 const ESTADO_INICIAL = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  currencies: [],
+  expenses: [],
+  loading: false,
+  err: false,
 };
 
 const wallet = (state = ESTADO_INICIAL, action) => {
   switch (action.type) {
-  case REQUEST_CURRENCIES:
-    return { ...state };
   case GET_CURRENCIES:
-    return { ...state, currencies: action.value };
+    return { ...state, loading: true };
+  case GET_CURRENCIES_SUCCESS:
+    return { ...state, currencies: action.currencies, loading: false };
+  case GET_CURRENCIES_FAIL:
+    return { ...state, loading: false, err: true };
   default:
     return state;
   }
