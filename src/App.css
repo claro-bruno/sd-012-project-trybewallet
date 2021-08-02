@@ -76,7 +76,6 @@
   cursor: pointer;
 }
 
-th, thead, td, tr {
+th , thead , td , tr {
   text-align: center;
 }
-
