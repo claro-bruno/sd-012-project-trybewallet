@@ -6,11 +6,12 @@ class ExpenseDescriptionInput extends Component {
     const { handleChange } = this.props;
     return (
       <label
-        htmlFor="expense-description"
+        htmlFor="description-input"
       >
         Descrição
         <input
-          id="expense-description"
+          id="description-input"
+          data-testid="description-input"
           type="text"
           name="description"
           onChange={ handleChange }

@@ -7,11 +7,12 @@ class ExpensePaymentMethodInput extends Component {
     const paymentMethods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     return (
       <label
-        htmlFor="paymento-method"
+        htmlFor="method-input"
       >
         Método de pagamento
         <select
-          id="paymento-method"
+          id="method-input"
+          data-testid="method-input"
           name="method"
           onChange={ handleChange }
         >

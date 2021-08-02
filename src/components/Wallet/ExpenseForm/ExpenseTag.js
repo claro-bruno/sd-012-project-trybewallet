@@ -7,11 +7,12 @@ class ExpenseTag extends Component {
     const expensesTags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     return (
       <label
-        htmlFor="payment-tags"
+        htmlFor="tag-input"
       >
         Tag
         <select
-          id="payment-tags"
+          id="tag-input"
+          data-testid="tag-input"
           name="tag"
           onChange={ handleChange }
         >

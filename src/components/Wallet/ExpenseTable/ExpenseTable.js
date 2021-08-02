@@ -6,7 +6,7 @@ import { excludeExpense } from '../../../actions';
 
 class ExpenseTable extends Component {
   render() {
-    const { expenses, exclude } = this.props;
+    const { expenses, exclude, editFunc } = this.props;
     return (
       <table>
         <thead>
@@ -32,7 +32,9 @@ class ExpenseTable extends Component {
                   <td>Real</td>
                   <td>
                     <button
+                      data-testid="edit-btn"
                       type="button"
+                      onClick={ () => editFunc(id) }
                     >
                       Editar
                     </button>
@@ -55,6 +57,7 @@ class ExpenseTable extends Component {
 
 ExpenseTable.propTypes = {
   expenses: arrayOf(objectOf).isRequired,
+  editFunc: func.isRequired,
   exclude: func.isRequired,
 };
 

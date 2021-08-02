@@ -13,11 +13,12 @@ class ExpenseCurrencyInput extends Component {
     const { currencies, handleChange } = this.props;
     return (
       <label
-        htmlFor="currencies"
+        htmlFor="currency-input"
       >
         Moeda
         <select
-          id="currencies"
+          id="currency-input"
+          data-testid="currency-input"
           name="currency"
           onChange={ handleChange }
         >

@@ -45,7 +45,7 @@ function walletReducer(state = INITIAL_STATE, action) {
       ...state,
       expenses: state.expenses.reduce((list, expense) => (
         expense.id === action.state.id
-          ? [...list, { ...action.payload, exchangeRates: expense.exchangeRates }]
+          ? [...list, { ...action.state, exchangeRates: expense.exchangeRates }]
           : [...list, { ...expense }]), []),
     };
 

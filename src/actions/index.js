@@ -23,4 +23,4 @@ export const requestCurrenciesIIError = ({ type: REQUEST_CURRENCIESII_ERROR });
 
 export const excludeExpense = (payload) => ({ type: EXCLUDE_EXPENSE, payload });
 
-export const editExpense = (payload) => ({ type: EDIT_EXPENSE, payload });
+export const editExpense = (state) => ({ type: EDIT_EXPENSE, state });
