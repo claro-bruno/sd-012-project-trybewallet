@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { fetchCurrency, setExpense, setTotal } from '../actions';
 import Header from '../components/Header';
 import FormAdd from '../components/FormAdd';
-import tableMenu from '../helpers/tableMenu';
+import ExpenseTable from '../components/ExpenseTable';
 
 const INITIAL_STATE = {
   id: 0,
@@ -75,28 +75,9 @@ class Wallet extends React.Component {
           onChange={ this.handleChange }
           onClick={ this.onSubmit }
         />
-        <table>
-          <thead>
-            <tr>{ tableMenu.map((op, i) => <th key={ i }>{ op }</th>)}</tr>
-          </thead>
-          <tbody>
-            { expenses.map((item) => (
-              <tr key={ item.id }>
-                <td>{ item.description }</td>
-                <td>{ item.tag}</td>
-                <td>{ item.method}</td>
-                <td>{Number(item.value)}</td>
-                <td>{item.exchangeRates[item.currency].name}</td>
-                <td>{Number(item.exchangeRates[item.currency].ask).toFixed(2)}</td>
-                <td>
-                  {(Number(item.value) * Number(item.exchangeRates[item.currency].ask))
-                    .toFixed(2)}
-                </td>
-                <td>Real</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <ExpenseTable
+          expenses={ expenses }
+        />
       </div>
     );
   }
