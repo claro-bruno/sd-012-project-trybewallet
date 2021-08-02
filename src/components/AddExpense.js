@@ -6,23 +6,124 @@ class AddExpense extends Component {
 
     this.state = {
       value: 0,
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      category: 'Alimentação',
     };
+
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  render() {
+  handleChange({ target }) {
+    const { name, value } = target;
+
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  renderValueInput() {
     const { value } = this.state;
 
     return (
+      <label htmlFor="value">
+        Valor
+        <input
+          name="value"
+          id="value"
+          value={ value }
+          onChange={ this.handleChange }
+        />
+      </label>
+    );
+  }
+
+  renderDescriptionInput() {
+    const { description } = this.state;
+
+    return (
+      <label htmlFor="description">
+        Descrição
+        <input
+          name="description"
+          id="description"
+          value={ description }
+          onChange={ this.handleChange }
+        />
+      </label>
+    );
+  }
+
+  renderCurrencySelect() {
+    const { currency } = this.state;
+
+    return (
+      <label htmlFor="currency">
+        Moeda
+        <select
+          name="currency"
+          id="currency"
+          value={ currency }
+          onChange={ this.handleChange }
+        >
+          <option>TESTE</option>
+        </select>
+      </label>
+    );
+  }
+
+  renderMethodSelect() {
+    const { method } = this.state;
+
+    return (
+      <label htmlFor="method">
+        Método de pagamento
+        <select
+          name="method"
+          id="method"
+          value={ method }
+          onChange={ this.handleChange }
+        >
+          <option>Dinheiro</option>
+          <option>Cartão de crédito</option>
+          <option>Cartão de débito</option>
+        </select>
+      </label>
+    );
+  }
+
+  renderCategorySelect() {
+    const { category } = this.state;
+
+    return (
+      <label htmlFor="category">
+        Tag
+        <select
+          name="category"
+          id="category"
+          value={ category }
+          onChange={ this.handleChange }
+        >
+          <option>Alimentação</option>
+          <option>Lazer</option>
+          <option>Trabalho</option>
+          <option>Transporte</option>
+          <option>Saúde</option>
+        </select>
+      </label>
+    );
+  }
+
+  render() {
+    return (
       <div>
         <form>
-          <label htmlFor="value">
-            Valor
-            <input
-              name="value"
-              value={ value }
-              onChange={ this.handleChange }
-            />
-          </label>
+          { this.renderValueInput() }
+          { this.renderDescriptionInput() }
+          { this.renderCurrencySelect() }
+          { this.renderMethodSelect() }
+          { this.renderCategorySelect() }
         </form>
       </div>
     );
