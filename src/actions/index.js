@@ -3,6 +3,7 @@ import fetchAll from '../services/api';
 export const USER_EMAIL = 'USER_EMAIL';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
 
 export const changeEmail = (value) => ({
   type: USER_EMAIL,
@@ -28,5 +29,10 @@ export const changeWallet = (value) => async (dispatch) => {
 
 export const deleteWallet = (value) => ({
   type: DELETE_EXPENSE,
+  payload: value,
+});
+
+export const editWallet = (value) => ({
+  type: EDIT_EXPENSE,
   payload: value,
 });

@@ -27,21 +27,22 @@ describe('11 - Crie um botão para editar uma despesa da tabela contendo as segu
     const tagInput = await screen.findByTestId('tag-input');
     const descriptionInput = await screen.findByTestId('description-input');
     const editButton = await screen.findByText(/Editar despesa/i);
-
+    
+    
     userEvent.type(valueInput, '100');
     userEvent.selectOptions(currencyInput, 'CAD');
     userEvent.selectOptions(methodInput, 'Dinheiro');
     userEvent.selectOptions(tagInput, 'Trabalho');
     userEvent.type(descriptionInput, 'Cem dólares canadenses');
-
+    
     fireEvent.click(editButton);
-
+    
     await waitFor(() => {
       expect(
         screen.getByRole('cell', { name: 'Cem dólares canadenses' }),
-      ).toBeInTheDocument();
-    });
-
+        ).toBeInTheDocument();
+      });
+      
     expect(screen.getAllByRole('cell', { name: 'Trabalho' })[0]).toBeInTheDocument();
     expect(screen.getAllByRole('cell', { name: 'Dinheiro' })[0]).toBeInTheDocument();
     expect(screen.getAllByRole('cell', { name: '100' })[0]).toBeInTheDocument();

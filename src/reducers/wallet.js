@@ -1,18 +1,22 @@
-import { ADD_EXPENSE, DELETE_EXPENSE } from '../actions';
+import { ADD_EXPENSE, DELETE_EXPENSE, EDIT_EXPENSE } from '../actions';
 
 const initialState = {
   expenses: [],
 };
 
-const addExpense = (state = initialState, action) => {
+const wallet = (state = initialState, action) => {
   switch (action.type) {
   case ADD_EXPENSE:
-    return { expenses: [...state.expenses, { ...action.payload }] };
+    return { ...state, expenses: [...state.expenses, { ...action.payload }] };
   case DELETE_EXPENSE:
-    return { expenses: [...state.expenses.filter((item) => item.id !== action.payload)] };
+    return { ...state, expenses: [...state.expenses.filter((item) => item.id !== action.payload)] };
+  case EDIT_EXPENSE:
+    return { ...state, expenses: [...state.expenses.map((item) => {
+      return item.id === action.payload.id ? action.payload : item;
+    })]};
   default:
     return state;
   }
 };
 
-export default addExpense;
+export default wallet;
