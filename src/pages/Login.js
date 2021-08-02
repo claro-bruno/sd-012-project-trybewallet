@@ -1,4 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { actionUserLogin } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -13,6 +17,7 @@ class Login extends React.Component {
     this.renderPasswordInput = this.renderPasswordInput.bind(this);
     this.renderEnterButton = this.renderEnterButton.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.validateForm = this.validateForm.bind(this);
   }
 
@@ -34,6 +39,13 @@ class Login extends React.Component {
     this.setState({
       [name]: value,
     });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const { email } = this.state;
+    const { userLogin } = this.props;
+    userLogin(email);
   }
 
   renderEmailInput() {
@@ -76,18 +88,20 @@ class Login extends React.Component {
     const isDisabled = this.validateForm();
 
     return (
-      <button
-        type="submit"
-        disabled={ isDisabled }
-      >
-        Entrar
-      </button>
+      <Link to="/carteira">
+        <button
+          type="submit"
+          disabled={ isDisabled }
+        >
+          Entrar
+        </button>
+      </Link>
     );
   }
 
   render() {
     return (
-      <form>
+      <form onSubmit={ this.handleSubmit }>
         <h2>Login</h2>
         { this.renderEmailInput() }
         { this.renderPasswordInput() }
@@ -97,4 +111,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  userLogin: (email) => dispatch(actionUserLogin(email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
+
+Login.propTypes = {
+  userLogin: PropTypes.func.isRequired,
+};
