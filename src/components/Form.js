@@ -1,52 +1,63 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import Select from './select';
+import { fetchAPI } from '../actions';
+import Input from './Input';
 
-const Form = ({ coin }) => {
+const Form = ({ coin, dispatchFetch }) => {
+  const [id, getId] = useState(0);
+  const [quantity, getQuantity] = useState('0');
+  const [describe, getDescribe] = useState('');
+  const [currency, getCurrency] = useState('USD');
+  const [payment, getPayment] = useState('Dinheiro');
+  const [tag, getTag] = useState('Alimentação');
+
   const arrayToOptions = {
     paymentType: ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'],
     tag: ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'],
   };
+
+  const stateToStore = () => {
+    const obj = {
+      id,
+      value: quantity,
+      description: describe,
+      currency,
+      method: payment,
+      tag,
+    };
+    dispatchFetch(obj);
+    getId(id + 1);
+  };
+
   return (
     <form>
-      <label htmlFor="input-value">
-        Valor:
-        <input id="input-value" type="text" name="name" />
-      </label>
-      <label htmlFor="describe-input">
-        Descrição:
-        <input id="describe-input" type="text" name="name" />
-      </label>
-      <label htmlFor="select-coin">
-        Moedas:
-        <select id="select-coin">
-          {coin.map((e) => <option value={ e } key={ e }>{e}</option>)}
-        </select>
-      </label>
-      <label htmlFor="select-payment">
-        Método de pagamento:
-        <select id="select-payment">
-          {arrayToOptions
-            .paymentType.map((e) => <option value={ e } key={ e }>{e}</option>)}
-        </select>
-      </label>
-      <label htmlFor="select-tag">
-        Tag:
-        <select id="select-tag">
-          {arrayToOptions
-            .tag.map((e) => <option value={ e } key={ e }>{e}</option>)}
-        </select>
-      </label>
-      <button type="button">Adicionar despesa</button>
+      <Input getQuantity={ getQuantity } getDescribe={ getDescribe } />
+      <Select
+        currency={ getCurrency }
+        payment={ getPayment }
+        tag={ getTag }
+        coin={ coin }
+        paymentType={ arrayToOptions.paymentType }
+        tagArray={ arrayToOptions.tag }
+      />
+      <button type="button" onClick={ () => stateToStore() }>Adicionar despesa</button>
     </form>
   );
 };
 
 Form.propTypes = {
   coin: PropTypes.arrayOf(PropTypes.string),
+  dispatchFetch: PropTypes.func.isRequired,
 };
 
 Form.defaultProps = {
   coin: ['BRL'],
 };
 
-export default Form;
+const mapDispatchToProps = (dispatch) => ({
+  dispatchFetch: (obj) => dispatch(fetchAPI(obj)),
+});
+
+export default connect(null, mapDispatchToProps)(Form);
