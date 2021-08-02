@@ -8,13 +8,22 @@ import LabelCurrency from './subComponents/LabelCurrency';
 import Method from './subComponents/Method';
 import SelectTag from './subComponents/SelectTag';
 
+import { fetchAPI } from '../actions';
+
 class Form extends Component {
+  componentDidMount() {
+    const { fetchCurrency } = this.props;
+    fetchCurrency();
+  }
+
   render() {
+    const { currencies } = this.props;
+
     return (
       <form className="form">
         <InputValue />
         <Description />
-        <LabelCurrency />
+        <LabelCurrency currencies={ currencies } />
         <Method />
         <SelectTag />
       </form>
@@ -22,16 +31,17 @@ class Form extends Component {
   }
 }
 
-/* const mapStateToProps = (state) => ({
-
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
 });
 
-const mapDispatchToProps = {
+const mapDispatchToProps = (dispatch) => ({
+  fetchCurrency: () => dispatch(fetchAPI()),
+});
 
-}; */
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
 
-export default connect()(Form);
-
-SelectTag.propTypes = {
-  onChange: PropTypes.func.isRequired,
+Form.propTypes = {
+  currencies: PropTypes.shape(Object).isRequired,
+  fetchCurrency: PropTypes.func.isRequired,
 };
