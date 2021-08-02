@@ -31,11 +31,11 @@ export default class SelectCurrency extends React.Component {
     const { newCurrencyList } = this.state;
     const { currencyValue, handleChange } = this.props;
     return (
-      <label htmlFor="currency-select">
+      <label htmlFor="currency">
         Moeda:
         <select
           name="currency"
-          id="currency-select"
+          id="currency"
           onChange={ handleChange }
           value={ currencyValue }
         >

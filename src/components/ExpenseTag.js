@@ -5,14 +5,14 @@ export default class ExpenseTag extends React.Component {
   render() {
     const { tag, handleChange } = this.props;
     return (
-      <label htmlFor="currency-select">
+      <label htmlFor="tag">
         Tag:
-        <select name="tag" id="currency-select" value={ tag } onChange={ handleChange }>
-          <option value="Alimentação">Alimentação</option>
-          <option value="Lazer">Lazer</option>
-          <option value="Trabalho">Trabalho</option>
-          <option value="Transporte">Transporte</option>
-          <option value="Saúde">Saúde</option>
+        <select name="tag" id="tag" value={ tag } onChange={ handleChange }>
+          <option>Alimentação</option>
+          <option>Lazer</option>
+          <option>Trabalho</option>
+          <option>Transporte</option>
+          <option>Saúde</option>
         </select>
       </label>
 

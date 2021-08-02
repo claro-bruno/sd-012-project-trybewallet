@@ -5,17 +5,17 @@ export default class SelectPayment extends React.Component {
   render() {
     const { method, handleChange } = this.props;
     return (
-      <label htmlFor="currency-select">
+      <label htmlFor="method">
         Método de pagamento:
         <select
           name="method"
-          id="currency-select"
+          id="method"
           value={ method }
           onChange={ handleChange }
         >
-          <option value="credit">Cartão de Crédito</option>
-          <option value="debit">Cartão de Débito</option>
-          <option value="cash">Dinheiro</option>
+          <option>Cartão de crédito</option>
+          <option>Cartão de débito</option>
+          <option>Dinheiro</option>
         </select>
       </label>
 

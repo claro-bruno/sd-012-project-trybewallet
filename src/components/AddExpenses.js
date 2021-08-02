@@ -6,7 +6,7 @@ import SelectPayment from './SelectPayment';
 import ExpenseTag from './ExpenseTag';
 import SelectCurrency from './SelectCurrency';
 import '../styles/AddExpenses.css';
-import * as actions from '../redux/actions';
+import * as actions from '../actions';
 
 class AddExpenses extends React.Component {
   constructor() {
@@ -36,7 +36,6 @@ class AddExpenses extends React.Component {
 
   handleChange({ target }) {
     const { name, value } = target;
-
     this.setState({
       [name]: value,
     });

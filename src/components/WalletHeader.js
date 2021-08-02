@@ -5,17 +5,16 @@ import wallet from '../images/wallet.png';
 
 class WalletHeader extends React.Component {
   render() {
-    const { userMail } = this.props;
-    let { totalExpenses } = this.props;
+    const { userMail, totalExpenses } = this.props;
 
     let pacoca = 0;
 
     if (totalExpenses.length > 0) {
-      totalExpenses.forEach((expense) => {
-        pacoca += Number(expense.value);
-      });
-    } else {
-      totalExpenses = 0;
+      pacoca = totalExpenses.reduce(
+        (acc, curr) => (
+          Number(curr.value * curr.exchangeRates[curr.currency].ask) + acc),
+        0,
+      );
     }
 
     return (
@@ -28,7 +27,7 @@ class WalletHeader extends React.Component {
           {userMail}
         </span>
         <div className="info-container">
-          <span data-testid="total-field">{pacoca}</span>
+          <span data-testid="total-field">{pacoca.toFixed(2)}</span>
           <span data-testid="header-currency-field">BRL</span>
         </div>
       </header>
