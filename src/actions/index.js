@@ -1,8 +1,25 @@
-import STORE_EMAIL from './actionsTypes';
+import { STORE_EMAIL, GET_CURRENCIES } from './actionsTypes';
 
-const storeEmail = (email) => ({
+export const storeEmail = (email) => ({
   type: STORE_EMAIL,
   email,
 });
 
-export default storeEmail;
+export const getCurrencies = (currency) => ({
+  type: GET_CURRENCIES,
+  currency,
+});
+
+export const fetchCurrencies = () => async (dispatch) => {
+  const END_POINT = 'https://economia.awesomeapi.com.br/json/all';
+  const response = await fetch(END_POINT);
+  const result = await response.json();
+  // consulta ao repositorio do miguel retroz
+  // console.log(result);
+  const usdtINdex = Object.keys(result).indexOf('USDT');
+  const currencyData = Object.values(result);
+  const currencyFilter = currencyData
+    .filter((_currencies, index) => index !== usdtINdex);
+
+  dispatch(getCurrencies(currencyFilter));
+};
