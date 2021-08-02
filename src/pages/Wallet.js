@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import HeaderWallet from '../components/HeaderWallet';
+import FormWallet from '../components/FormWallet';
 
 class Wallet extends React.Component {
   constructor() {
@@ -19,7 +20,10 @@ class Wallet extends React.Component {
     const { total, moeda } = this.state;
 
     return (
-      <HeaderWallet email={ email } total={ total } moeda={ moeda } />
+      <>
+        <HeaderWallet email={ email } total={ total } moeda={ moeda } />
+        <FormWallet />
+      </>
     );
   }
 }
