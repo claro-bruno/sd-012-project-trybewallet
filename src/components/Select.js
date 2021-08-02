@@ -16,17 +16,14 @@ class Select extends Component {
             value={ value }
             onChange={ (event) => handleChange(event) }
           >
-            {options
-              ? options.map((option) => (
-                <option
-                  key={ option.code ? option.code
-                    : option.value || option.name.toLowerCase() }
-                  value={ option.code || option.name }
-                >
-                  {option.code || option.name}
-                </option>
-              ))
-              : ''}
+            {options.map((option) => (
+              <option
+                key={ option }
+                value={ option }
+              >
+                {option}
+              </option>
+            ))}
           </select>
         </label>
       </div>
@@ -39,9 +36,7 @@ Select.propTypes = {
   id: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
-  options: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-  })).isRequired,
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default Select;

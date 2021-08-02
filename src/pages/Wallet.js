@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import HeaderWallet from '../components/HeaderWallet';
 import FormWallet from '../components/FormWallet';
+import { fetchAPI } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
@@ -11,35 +12,32 @@ class Wallet extends React.Component {
 
     this.state = {
       total: 0,
-      moeda: 'BRL',
-      currencies: {},
+      currency: 'BRL',
     };
+
+    this.addValue = this.addValue.bind(this);
   }
 
   componentDidMount() {
-    this.getCurrencies();
+    const { getCurrencies } = this.props;
+    getCurrencies();
   }
 
-  async getCurrencies() {
-    const url = 'https://economia.awesomeapi.com.br/json/all';
-    const res = await fetch(url);
-    const currencies = await res.json();
-    this.setState({
-      currencies,
-    });
+  addValue(value) {
+    this.setState((prevState) => ({
+      ...prevState,
+      total: prevState.total + Number(value),
+    }));
   }
 
   render() {
     const { email } = this.props;
-    const { total, moeda, currencies } = this.state;
+    const { total, currency } = this.state;
 
     return (
       <>
-        <HeaderWallet email={ email } total={ total } moeda={ moeda } />
-        <FormWallet
-          currencies={ Object.values(currencies)
-            .filter(({ codein }) => codein !== 'BRLT') }
-        />
+        <HeaderWallet email={ email } total={ total } moeda={ currency } />
+        <FormWallet addValue={ this.addValue } />
       </>
     );
   }
@@ -47,10 +45,16 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
+  getCurrencies: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  currencies: state.wallet.currencies,
 });
 
-export default connect(mapStateToProps)(Wallet);
+const mapDispatchToProps = (dispatch) => ({
+  getCurrencies: () => dispatch(fetchAPI()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

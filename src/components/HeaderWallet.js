@@ -18,11 +18,13 @@ class HeaderWallet extends Component {
                 ? <span data-testid="email-field">{email}</span>
                 : <Link to="/">Entrar</Link>
             }
-            <span data-testid="total-field">
-              {total}
+            <div>
+              <span data-testid="total-field">
+                {total}
+              </span>
               {' '}
               <span data-testid="header-currency-field">{moeda}</span>
-            </span>
+            </div>
           </div>
         </div>
       </header>

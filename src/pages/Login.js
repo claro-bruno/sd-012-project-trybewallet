@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import { login as loginAction } from '../actions';
 import CardLogin from '../components/CardLogin';
+import { login as loginAction } from '../actions';
 
 class Login extends React.Component {
   constructor() {
