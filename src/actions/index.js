@@ -1,4 +1,6 @@
 // Coloque aqui suas action
-const newAction = (state) => ({ type: 'NEW_ACTION', state });
+export const USER_EMAIL = 'email';
 
-export default newAction;
+const submitEmail = (payload) => ({ type: USER_EMAIL, payload });
+
+export default submitEmail;
