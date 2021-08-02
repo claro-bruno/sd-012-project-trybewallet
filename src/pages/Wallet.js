@@ -143,7 +143,10 @@ class Wallet extends Component {
 
     return (
       (isFetching ? (
-        <>Loading...</>
+        <div className="wallet-container">
+          <Header email={ email } total={ total } localCurrency={ localCurrency } />
+          <p>Loading...</p>
+        </div>
       ) : (
         <div className="wallet-container">
           <Header email={ email } total={ total } localCurrency={ localCurrency } />
