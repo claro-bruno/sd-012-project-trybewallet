@@ -1,6 +1,8 @@
 // Coloque aqui suas actions
-function updateEmail(value) {
+export function updateEmail(value) {
   return { type: 'ADD_EMAIL', value };
 }
 
-export default updateEmail;
+export function updateExpenses(value) {
+  return { type: 'ADD_EXPENSE', value };
+}

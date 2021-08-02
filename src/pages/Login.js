@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Input from '../components/Input';
 import './login.css';
-import updateEmail from '../actions/index';
+import { updateEmail } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
