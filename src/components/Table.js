@@ -52,10 +52,10 @@ class Table extends React.Component {
     return (
       <table>
         { this.tableHead() }
-        { expenses
-          .map((item, index) => (
-            <tbody key={ index }>
-              <tr>
+        <tbody>
+          { expenses
+            .map((item, index) => (
+              <tr key={ index }>
                 <td>{ item.description }</td>
                 <td>{ item.tag }</td>
                 <td>{ item.method }</td>
@@ -83,8 +83,8 @@ class Table extends React.Component {
                   </button>
                 </td>
               </tr>
-            </tbody>
-          )) }
+            )) }
+        </tbody>
       </table>
     );
   }
@@ -101,6 +101,7 @@ Table.propTypes = {
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
+  wallet: state.wallet.wallet,
 });
 
 const mapDispatchToProps = (dispatch) => ({

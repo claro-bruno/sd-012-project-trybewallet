@@ -39,6 +39,10 @@ class Wallet extends React.Component {
     this.getCurrency();
   }
 
+  componentDidUpdate() {
+    this.myFunc();
+  }
+
   async getCurrency() {
     const { coinsApi } = this.props;
     await coinsApi();
@@ -136,7 +140,7 @@ class Wallet extends React.Component {
   }
 
   handleEdit() {
-    const { expenseEditFunc, wallet, editing } = this.props;
+    const { expenseEditFunc, /* wallet */ editing } = this.props;
     const { valor, tag, moeda, pagamento, description } = this.state;
     const obj = {
       id: editing,
@@ -145,8 +149,9 @@ class Wallet extends React.Component {
       currency: moeda,
       method: pagamento,
       tag,
-      exchangeRates: wallet[0],
+      // exchangeRates: wallet[0],
     };
+    // console.log(wallet);
     expenseEditFunc(obj);
     this.setState({
       valor: 0,
@@ -169,7 +174,6 @@ class Wallet extends React.Component {
       >
         Editar despesa
       </button>);
-    this.myFunc();
     const { valor, moeda, currency, pagamento } = this.state;
     return (
       <div>
@@ -222,7 +226,13 @@ const mapStateToProps = (state) => ({
     .reduce((
       acc,
       { value, currency, exchangeRates },
-    ) => acc + (parseFloat(exchangeRates[currency].ask) * value), 0),
+    ) => {
+      // console.log(exchangeRates, currency);
+      if (Object.keys(exchangeRates).length) {
+        return acc + (parseFloat(+exchangeRates[currency].ask) * value);
+      }
+      return acc;
+    }, 0),
 });
 
 const mapDispatchToProps = (dispatch) => ({

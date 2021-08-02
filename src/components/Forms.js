@@ -27,7 +27,7 @@ class Forms extends React.Component {
             id="moeda"
           >
             { currency.length ? currency
-              .map((item) => <option key={ item }>{ item }</option>) : '' }
+              .map((item) => <option key={ item } value={ item }>{ item }</option>) : '' }
           </select>
         </label>
         <label htmlFor="pagamento">
