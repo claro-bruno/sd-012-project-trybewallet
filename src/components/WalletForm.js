@@ -50,7 +50,12 @@ class WalletForm extends React.Component {
 }
 
 WalletForm.propTypes = {
-  currencies: PropTypes.arrayOf(PropTypes.object),
+  currencies: PropTypes.arrayOf(
+    PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.string,
+    ]),
+  ),
 };
 
 WalletForm.defaultProps = {
