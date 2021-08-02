@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { submitEmail } from '../actions';
+import logoPaturso from '../Img/logoPaturso.jpg';
+import './LoginStyle.css';
 
 class Login extends React.Component {
   constructor(props) {
@@ -52,32 +54,38 @@ class Login extends React.Component {
       return <Redirect to="/carteira" />;
     }
     return (
-      <main>
-        <form>
-          <input
-            data-testid="email-input"
-            type="text"
-            name="email"
-            value={ email }
-            placeholder="Email"
-            onChange={ this.handleChange }
-          />
-          <input
-            data-testid="password-input"
-            type="password"
-            name="password"
-            value={ password }
-            placeholder="Password"
-            onChange={ this.handleChange }
-          />
-          <button
-            type="button"
-            onClick={ this.handleSaveLogin }
-            disabled={ disabled }
-          >
-            ENTRAR
-          </button>
-        </form>
+      <main className="login-container">
+        <section className="login-content">
+          <div className="login-header">
+            <img src={ logoPaturso } alt="Logo Paturso" />
+            <hi>Trybe Wallet</hi>
+          </div>
+          <form className="login-form">
+            <input
+              data-testid="email-input"
+              type="text"
+              name="email"
+              value={ email }
+              placeholder="Email"
+              onChange={ this.handleChange }
+            />
+            <input
+              data-testid="password-input"
+              type="password"
+              name="password"
+              value={ password }
+              placeholder="Password"
+              onChange={ this.handleChange }
+            />
+            <button
+              type="button"
+              onClick={ this.handleSaveLogin }
+              disabled={ disabled }
+            >
+              ENTRAR
+            </button>
+          </form>
+        </section>
       </main>
     );
   }
