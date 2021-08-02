@@ -1,27 +1,56 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import Form from '../components/Form';
+import Header from '../components/Header';
+import { fetchAPI } from '../actions/index';
 
 class Wallet extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      expenses: 0,
+    };
+  }
+
+  componentDidMount() {
+    const { submitCurrencies } = this.props;
+    submitCurrencies();
+  }
+
   render() {
+    const { expenses } = this.state;
+    const { user } = this.props;
+
     return (
-      <header>
-        <div>
-          Email:
-          <span data-testid="email-field">
-            email@.com
-          </span>
-        </div>
-        <div>
-          Despesa Total:
-          <span data-testid="total-field">
-            0
-          </span>
-          <span data-testid="header-currency-field">
-            BRL
-          </span>
-        </div>
-      </header>
+      <div>
+        <Header
+          email={ user.email }
+          expenses={ expenses }
+        />
+        <Form />
+      </div>
     );
   }
 }
 
-export default Wallet;
+const mapStateToProps = (state) => ({
+  wallet: state.wallet,
+  user: state.user,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  submitCurrencies: () => dispatch(fetchAPI()),
+});
+
+Wallet.propTypes = {
+  submitCurrencies: PropTypes.func.isRequired,
+  wallet: PropTypes.shape({
+
+  }).isRequired,
+  user: PropTypes.shape({
+    email: PropTypes.string,
+  }).isRequired,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
