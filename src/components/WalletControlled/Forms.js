@@ -18,6 +18,7 @@ class Forms extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.exchangeRates = this.exchangeRates.bind(this);
     this.increaseCounter = this.increaseCounter.bind(this);
+    this.resetData = this.resetData.bind(this);
 
     this.state = {
       value: '',
@@ -61,6 +62,7 @@ class Forms extends React.Component {
       state: { value, description, currency, method, tag, counter },
       props: { getCoins, addFormsStore, coins },
       increaseCounter,
+      resetData,
     } = this;
 
     await getCoins();
@@ -77,6 +79,7 @@ class Forms extends React.Component {
 
     addFormsStore(dataForm);
     increaseCounter();
+    resetData();
   }
 
   increaseCounter() {
@@ -87,6 +90,17 @@ class Forms extends React.Component {
     this.setState((state) => ({
       ...state,
       counter: counter + 1,
+    }));
+  }
+
+  resetData() {
+    this.setState((state) => ({
+      ...state,
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     }));
   }
 
