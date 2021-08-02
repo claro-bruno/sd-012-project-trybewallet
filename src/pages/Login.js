@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router';
 import { actionUserLogin } from '../actions';
 
 class Login extends React.Component {
@@ -11,6 +11,7 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
+      shouldRedirect: false,
     };
 
     this.renderEmailInput = this.renderEmailInput.bind(this);
@@ -43,9 +44,15 @@ class Login extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+
     const { email } = this.state;
     const { userLogin } = this.props;
+
     userLogin(email);
+
+    this.setState({
+      shouldRedirect: true,
+    });
   }
 
   renderEmailInput() {
@@ -88,18 +95,20 @@ class Login extends React.Component {
     const isDisabled = this.validateForm();
 
     return (
-      <Link to="/carteira">
-        <button
-          type="submit"
-          disabled={ isDisabled }
-        >
-          Entrar
-        </button>
-      </Link>
+      <button
+        type="submit"
+        disabled={ isDisabled }
+      >
+        Entrar
+      </button>
     );
   }
 
   render() {
+    const { shouldRedirect } = this.state;
+
+    if (shouldRedirect) return <Redirect to="/carteira" />;
+
     return (
       <form onSubmit={ this.handleSubmit }>
         <h2>Login</h2>
