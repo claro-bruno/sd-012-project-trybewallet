@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Input from '../components/Input';
-import Select from '../components/Select';
+import SelectApi from '../components/SelectApi';
+import SelectPayment from '../components/SelectPayment';
+import SelectTag from '../components/SelectTag';
 
 class Wallet extends Component {
   constructor(props) {
@@ -40,9 +42,9 @@ class Wallet extends Component {
         <form>
           <Input type="text" label="Valor" name="valor" />
           <Input type="text" label="Descrição" name="descricao" />
-          <Select label="Moeda" endpoint={ currenciesKeys } />
-          {/* <Select label="Método de pagamento" />
-          <Select label="Tag" /> */}
+          <SelectApi label="Moeda" endpoint={ currenciesKeys } />
+          <SelectPayment label="Método de pagamento" name="payment" />
+          <SelectTag label="Tag" name="tag" />
         </form>
       </>
     );
