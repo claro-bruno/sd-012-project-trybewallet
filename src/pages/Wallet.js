@@ -11,9 +11,9 @@ class Wallet extends React.Component {
       selectedCurrency: 'BRL',
       value: 0,
       currency: 'USD',
-      tag: 'leisure',
+      tag: 'Lazer',
       description: '',
-      method: 'money',
+      method: 'Dinheiro',
     };
     this.handleAddExpense = this.handleAddExpense.bind(this);
   }
@@ -33,7 +33,8 @@ class Wallet extends React.Component {
       despesaTotal:
         expenseList.length > 0
           ? expenseList.map(
-            (expense) => expense.value * expense.exchangeRates[expense.currency].ask,
+            (expense) => Math.round(expense.value
+            * expense.exchangeRates[expense.currency].ask * 100) / 100,
           )
             .reduce((a, b) => (parseFloat(a) + parseFloat(b))) : 0,
     });
@@ -147,6 +148,47 @@ class Wallet extends React.Component {
     );
   }
 
+  renderExpensesTable() {
+    const { expenseList } = this.props;
+    return (
+      <table>
+        <thead>
+          <tr role="row">
+            <th>Descrição</th>
+            <th>Tag</th>
+            <th>Método de pagamento</th>
+            <th>Valor</th>
+            <th>Moeda</th>
+            <th>Câmbio utilizado</th>
+            <th>Valor convertido</th>
+            <th>Moeda de conversão</th>
+            <th>Editar/Excluir</th>
+          </tr>
+        </thead>
+        <tbody>
+          { expenseList.map((expense) => (
+            <tr role="row" key={ expense.id }>
+              <td role="cell">{ expense.description }</td>
+              <td role="cell">{ expense.tag }</td>
+              <td role="cell">{ expense.method }</td>
+              <td role="cell">{ Math.round(expense.value * 100) / 100 }</td>
+              <td role="cell">{ expense.exchangeRates[expense.currency].name }</td>
+              <td role="cell">
+                { Math.round(expense.exchangeRates[expense.currency].ask * 100) / 100 }
+              </td>
+              <td role="cell">
+                { Math.round(expense.exchangeRates[expense.currency].ask
+                * expense.value * 100) / 100}
+              </td>
+              <td role="cell">Real</td>
+              <td role="cell">Editar/Excluir</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
+  }
+
   render() {
     const { userEmail } = this.props;
     const { despesaTotal, selectedCurrency } = this.state;
@@ -168,6 +210,7 @@ class Wallet extends React.Component {
             { this.renderTagSelect() }
             { this.renderDescriptionInput() }
             { this.renderAddExpenseButton() }
+            { this.renderExpensesTable() }
           </form>
         </div>
       </main>
