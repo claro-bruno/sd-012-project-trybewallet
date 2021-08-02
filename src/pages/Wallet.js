@@ -4,10 +4,8 @@ import PropTypes from 'prop-types';
 import Input from '../components/Input';
 import SelectInput from '../components/SelectInput';
 import Button from '../components/Button';
-import { actionAddExpense, fetchAPI } from '../actions';
-
-const CATEGORIES = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
-const PAYMENT_METHOD = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+import { actionAddExpense, fetchAPI, actionRemoveExpense } from '../actions';
+import { CATEGORIES, PAYMENT_METHOD, TABLE_HEADER } from './helpers';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -65,6 +63,19 @@ class Wallet extends React.Component {
     const { expenses } = this.props;
     this.setState(() => ({
       total: expenses
+        .map(
+          (expense) => expense.value * expense.exchangeRates[expense.currency].ask,
+        )
+        .reduce((acc, currentValue) => acc + currentValue, 0),
+    }));
+  }
+
+  deleteExpenses(id) {
+    const { expenses, RemoveExpense } = this.props;
+    const newExpensesList = expenses.filter((expense) => expense.id !== id);
+    RemoveExpense(newExpensesList);
+    this.setState(() => ({
+      total: newExpensesList
         .map(
           (expense) => expense.value * expense.exchangeRates[expense.currency].ask,
         )
@@ -133,6 +144,7 @@ class Wallet extends React.Component {
           Tag:
         </SelectInput>
         <Button
+          dataTestId="add-btn"
           loginValid={ false }
           handleClick={ () => {
             this.handleClick();
@@ -151,15 +163,7 @@ class Wallet extends React.Component {
         <table>
           <tbody>
             <tr>
-              <th>Descrição</th>
-              <th>Tag</th>
-              <th>Método de pagamento</th>
-              <th>Valor</th>
-              <th>Moeda</th>
-              <th>Câmbio utilizado</th>
-              <th>Valor convertido</th>
-              <th>Moeda de conversão</th>
-              <th>Editar/Excluir</th>
+              {TABLE_HEADER.map((tag) => <th key={ tag }>{tag}</th>)}
             </tr>
             {expenses.map(
               ({
@@ -180,6 +184,17 @@ class Wallet extends React.Component {
                   <td>{Math.round(exchangeRates[currency].ask * 100) / 100}</td>
                   <td>{value * exchangeRates[currency].ask}</td>
                   <td>Real</td>
+                  <td>
+                    <Button
+                      dataTestId="delete-btn"
+                      loginValid={ false }
+                      handleClick={ () => {
+                        this.deleteExpenses(id);
+                      } }
+                    >
+                      Remover despesa
+                    </Button>
+                  </td>
                 </tr>
               ),
             )}
@@ -209,6 +224,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getCurrencies: () => dispatch(fetchAPI()),
   addExpense: (state) => dispatch(actionAddExpense(state)),
+  RemoveExpense: (expense) => dispatch(actionRemoveExpense(expense)),
 });
 
 Wallet.propTypes = {
@@ -217,6 +233,7 @@ Wallet.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   getCurrencies: PropTypes.func.isRequired,
   addExpense: PropTypes.func.isRequired,
+  RemoveExpense: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

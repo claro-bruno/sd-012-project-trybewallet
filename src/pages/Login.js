@@ -103,6 +103,7 @@ class Login extends React.Component {
           </Input>
           <Link to="/carteira">
             <Button
+              dataTestId="login-btn"
               loginValid={ !loginValid }
               handleClick={ () => { getUserEmail(email); } }
             >
