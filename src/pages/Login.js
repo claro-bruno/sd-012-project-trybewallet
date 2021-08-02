@@ -43,6 +43,7 @@ class Login extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    const { userSubmit } = this.props;
     userSubmit(this.state);
     this.setState({ redirect: true });
   }
