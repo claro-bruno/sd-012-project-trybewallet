@@ -1,0 +1,53 @@
+body {
+  background-color: rgb(26, 35, 44);
+  font-family: Courier, monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas,
+    monospace;
+}
+
+/* ENCONTRAR A DIV ROOT EM ALGUM COMPONENT E INCLUIR UM DATATESTID PARA ELA E
+ALTERAR O NOME NA LINHA 17. */
+
+/* #root {
+  background-color: rgb(199, 197, 196);
+  border: 3px solid green;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  padding: 10px;
+  top: 100px;
+  width: 50%;
+} */
+
+[ data-testid = 'email-input' ] {
+  display: flex;
+  height: 30px;
+  margin: auto;
+  width: 80%;
+}
+
+[ data-testid = 'password-input' ] {
+  display: flex;
+  height: 30px;
+  margin: auto;
+  width: 80%;
+}
+
+[ data-testid = 'button-enter' ] {
+  display: flex;
+  height: 30px;
+  margin: auto;
+  text-align: center;
+  width: 30%;
+}
+
+[ data-testid = 'login-h2' ] {
+  text-align: center;
+}
