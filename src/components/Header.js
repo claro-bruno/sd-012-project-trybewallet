@@ -14,7 +14,7 @@ export class Header extends Component {
           {email}
         </p>
         <p data-testid="total-field">
-          Dispesa Total
+          Dispesa Total:
           {amount}
         </p>
         <p data-testid="header-currency-field">{currency}</p>
