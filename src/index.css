@@ -13,7 +13,7 @@ code {
     monospace;
 }
 
-#root {
+/* #root {
   background-color: rgb(199, 197, 196);
   border: 3px solid green;
   border-radius: 3px;
@@ -49,4 +49,4 @@ code {
 
 [data-testid="login-h2"] {
   text-align: center;
-}
+} */
