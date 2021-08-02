@@ -12,7 +12,7 @@ class Wallet extends React.Component {
     this.renderTag = this.renderTag.bind(this);
 
     this.state = {
-
+      moedas: [],
     };
   }
 
@@ -21,16 +21,18 @@ class Wallet extends React.Component {
   }
 
   async getCurrencies() {
-    const { currenciesRequest } = this.props;
-    const currencies = await currenciesRequest();
-    const listaMoedas = Object.keys(currencies);
-    return listaMoedas;
+    const { fetchCurrencies } = this.props;
+    const currenciesData = await fetchCurrencies();
+    const listaMoedas = Object.keys(currenciesData.data);
+    const filteredListaMoedas = listaMoedas
+      .filter((item) => item !== 'USDT' && item !== 'DOGE');
+    this.setState({ moedas: filteredListaMoedas });
   }
 
   renderMetPag() {
     return (
       <label htmlFor="met-pagamento">
-        Método de pagamento
+        Método de pagamento&nbsp;
         <select type="text" id="met-pagamento">
           <option>Dinheiro</option>
           <option>Cartão de crédito</option>
@@ -43,7 +45,7 @@ class Wallet extends React.Component {
   renderTag() {
     return (
       <label htmlFor="tag">
-        Tag
+        Tag&nbsp;
         <select type="text" id="tag">
           <option>Alimentação</option>
           <option>Lazer</option>
@@ -57,7 +59,7 @@ class Wallet extends React.Component {
 
   render() {
     const { userEmail } = this.props;
-
+    const { moedas } = this.state;
     return (
       <div>
         <header>
@@ -81,9 +83,10 @@ class Wallet extends React.Component {
             <input type="text" id="descricao" />
           </label>
           <label htmlFor="moeda">
-            Moeda
+            Moeda&nbsp;
             <select type="text" id="moeda">
-              <option>moeda1</option>
+              { moedas
+                .map((item) => <option key={ item }>{item}</option>) }
             </select>
           </label>
           { this.renderTag() }
@@ -99,12 +102,12 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  currenciesRequest: () => dispatch(thunkCurrencies()),
+  fetchCurrencies: () => dispatch(thunkCurrencies()),
 });
 
 Wallet.propTypes = {
   userEmail: propTypes.string.isRequired,
-  currenciesRequest: propTypes.func.isRequired,
+  fetchCurrencies: propTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
