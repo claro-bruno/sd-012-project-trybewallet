@@ -5,7 +5,7 @@ const INIT_STATE = {
   email: '',
 };
 
-const userReducer = (state = INIT_STATE, action) => {
+const user = (state = INIT_STATE, action) => {
   switch (action.type) {
   case EMAIL:
     return {
@@ -18,4 +18,4 @@ const userReducer = (state = INIT_STATE, action) => {
   }
 };
 
-export default userReducer;
+export default user;

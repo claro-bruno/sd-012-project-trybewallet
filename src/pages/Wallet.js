@@ -2,12 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { func } from 'prop-types';
 import Header from './Header';
-import { fetchContainUrl } from '../actions/index';
+import { fetchApiAction } from '../actions/index';
 
 class Wallet extends React.Component {
   componentDidMount() {
-    const { fetchContain } = this.props;
-    fetchContain();
+    const { fetchApi } = this.props;
+    fetchApi();
   }
 
   render() {
@@ -20,11 +20,11 @@ class Wallet extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchContain: () => dispatch(fetchContainUrl()),
+  fetchApi: () => dispatch(fetchApiAction()),
 });
 
 export default connect(null, mapDispatchToProps)(Wallet);
 
 Wallet.propTypes = {
-  fetchContain: func.isRequired,
+  fetchApi: func.isRequired,
 };

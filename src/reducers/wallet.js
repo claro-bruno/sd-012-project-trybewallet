@@ -1,24 +1,23 @@
-// Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-// Esse reducer será responsável por tratar as informações da pessoa usuária
-import { CURRENCIES, EXPENSES } from '../actions';
+import { FETCHING_DATA, FAILED_REQUEST } from '../actions';
 
 const INIT_STATE = {
   currencies: [],
   expenses: [],
+  error: '',
 };
 
-const userReducer = (state = INIT_STATE, action) => {
+const wallet = (state = INIT_STATE, action) => {
   switch (action.type) {
-  case CURRENCIES:
+  case FETCHING_DATA:
     return {
       ...state,
-      currencies: [...state.currencies, action.currencies],
+      currencies: Object.keys(action.currencies), // feito com a ajuda de Miguel Retroz
     };
 
-  case EXPENSES:
+  case FAILED_REQUEST:
     return {
       ...state,
-      expenses: [...state.expenses, action.expenses],
+      error: action.error,
     };
 
   default:
@@ -26,4 +25,4 @@ const userReducer = (state = INIT_STATE, action) => {
   }
 };
 
-export default userReducer;
+export default wallet;
