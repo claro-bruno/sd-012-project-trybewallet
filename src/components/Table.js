@@ -32,6 +32,7 @@ class Table extends React.Component {
             <span role="cell">Real</span>
             <span role="cell">
               <button
+                className="edit-btn"
                 data-testid="edit-btn"
                 type="button"
                 onClick={ () => handleToggleEdit(expense.id) }
@@ -39,6 +40,7 @@ class Table extends React.Component {
                 Editar
               </button>
               <button
+                className="delete-btn"
                 data-testid="delete-btn"
                 type="button"
                 onClick={ () => deleteFromExpenses(expense.id) }

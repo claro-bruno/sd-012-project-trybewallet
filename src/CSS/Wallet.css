@@ -3,7 +3,7 @@ body {
 }
 
 button {
-  background-color: rgb(6, 155, 6);
+  background-color: blue;
   border-radius: 5px;
   color: white;
 }
@@ -21,6 +21,14 @@ form input , form select {
 
 form button {
   height: 40px;
+}
+
+.edit-btn {
+  background-color: rgb(6, 155, 6);
+}
+
+.delete-btn {
+  background-color: red;
 }
 
 .table-categories {
