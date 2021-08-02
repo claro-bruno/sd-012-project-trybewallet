@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { walletAction } from '../actions';
+import Component from './components/Compontent';
 
 class Wallet extends React.Component {
   render() {
@@ -23,6 +24,7 @@ class Wallet extends React.Component {
           {' '}
           BRL
         </p>
+        <Component />
       </div>
     );
   }
