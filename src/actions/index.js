@@ -3,8 +3,6 @@ export const USER_LOGIN = 'USER_LOGIN';
 export const GET_COINS = 'GET_COINS';
 export const SEND_VALUES = 'SEND_VALUES';
 export const REMOVE_VALUE = 'REMOVE_VALUE';
-export const SUM_VALUE = 'SUM_VALUE';
-export const DECREASE_VALUE = 'DECREASE_VALUE';
 
 export const actionUserData = (credentials) => ({ type: USER_LOGIN, credentials });
 
@@ -23,7 +21,3 @@ export const fetchCoins = () => (
 export const sendValuesToStore = (values) => ({ type: SEND_VALUES, values });
 
 export const removeValue = (id) => ({ type: REMOVE_VALUE, id });
-
-export const sumExpenses = (totalValue) => ({ type: SUM_VALUE, totalValue });
-
-export const decreaseTotalExpenses = (value) => ({ type: DECREASE_VALUE, value });

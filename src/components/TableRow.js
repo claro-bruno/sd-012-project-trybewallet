@@ -25,15 +25,34 @@ class TableRow extends React.Component {
         </td>
         {/* RegEx vista no link shorturl.at/vPS57 */}
         <td>{(exchangeRates[currency].name).match((/[^/]+/))}</td>
-        <td>{}</td>
+        <td>{askRounded}</td>
         <td>
           {valorConvertido}
         </td>
         <td>Real</td>
-        <td><button type="button" data-testid="delete-btn" onClick={ () => deleteExpense(id, valorConvertido) }>D</button></td>
+        <td>
+          <button
+            type="button"
+            data-testid="delete-btn"
+            onClick={ () => deleteExpense(id, valorConvertido) }
+          >
+            D
+          </button>
+        </td>
       </tr>
     );
   }
 }
+
+TableRow.propTypes = {
+  description: PropTypes.string.isRequired,
+  currency: PropTypes.string.isRequired,
+  exchangeRates: PropTypes.objectOf(PropTypes.string).isRequired,
+  id: PropTypes.number.isRequired,
+  method: PropTypes.string.isRequired,
+  tag: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  deleteExpense: PropTypes.func.isRequired,
+};
 
 export default TableRow;

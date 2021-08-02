@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { removeValue, decreaseTotalExpenses } from '../actions';
+import { removeValue } from '../actions';
 import TableRow from './TableRow';
 
 class Table extends React.Component {
@@ -11,9 +11,8 @@ class Table extends React.Component {
     this.deleteExpense = this.deleteExpense.bind(this);
   }
 
-  deleteExpense(id, value) {
-    const { removeRow, decreaseValue } = this.props;
-    decreaseValue(value);
+  deleteExpense(id) {
+    const { removeRow } = this.props;
     removeRow(id);
   }
 
@@ -29,6 +28,7 @@ class Table extends React.Component {
           method,
           tag,
           value } = expense;
+
         return (
           <TableRow
             key={ id }
@@ -49,18 +49,20 @@ class Table extends React.Component {
   render() {
     return (
       <table>
-        <tr>
-          <th>Descrição</th>
-          <th>Tag</th>
-          <th>Método de pagamento</th>
-          <th>Valor</th>
-          <th>Moeda</th>
-          <th>Câmbio utilizado</th>
-          <th>Valor convertido</th>
-          <th>Moeda de conversão</th>
-          <th>Editar/Excluir</th>
-        </tr>
-        { this.createExpenseRow() }
+        <tbody>
+          <tr>
+            <th>Descrição</th>
+            <th>Tag</th>
+            <th>Método de pagamento</th>
+            <th>Valor</th>
+            <th>Moeda</th>
+            <th>Câmbio utilizado</th>
+            <th>Valor convertido</th>
+            <th>Moeda de conversão</th>
+            <th>Editar/Excluir</th>
+          </tr>
+          { this.createExpenseRow() }
+        </tbody>
       </table>
     );
   }
@@ -68,16 +70,15 @@ class Table extends React.Component {
 
 Table.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.obj).isRequired,
+  removeRow: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   removeRow: (id) => dispatch(removeValue(id)),
-  decreaseValue: (value) => dispatch(decreaseTotalExpenses(value)),
 });
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
-  totalExpenses: state.wallet.totalExpense,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

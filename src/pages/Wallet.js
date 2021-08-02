@@ -6,7 +6,7 @@ import Input from '../components/Input';
 import Select from '../components/Select';
 import Table from '../components/Table';
 import { TAGS, PAYMENT } from '../data';
-import { fetchCoins, sendValuesToStore, sumExpenses } from '../actions';
+import { fetchCoins, sendValuesToStore } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
@@ -19,13 +19,11 @@ class Wallet extends React.Component {
       description: '',
       tag: 'Alimentação',
       exchangeRates: {},
-      totalExpense: 0,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.getCurrentQuote = this.getCurrentQuote.bind(this);
     this.getStateValues = this.getStateValues.bind(this);
-    this.sumExpenses = this.sumExpenses.bind(this);
   }
 
   componentDidMount() {
@@ -53,7 +51,6 @@ class Wallet extends React.Component {
       tag: 'Alimentação',
       exchangeRates: {},
     }));
-    this.sumExpenses();
   }
 
   handleChange({ target }) {
@@ -61,17 +58,6 @@ class Wallet extends React.Component {
     this.setState({
       [name]: value,
     });
-  }
-
-  sumExpenses() {
-    const { expenses, sendTotalValue } = this.props;
-    const expense = expenses.reduce((acc, { value, currency, exchangeRates }) => {
-      const bill = value * (exchangeRates[currency].ask);
-      acc += bill;
-      return acc;
-    }, 0);
-    this.setState(({ totalExpense: expense }));
-    sendTotalValue(expense);
   }
 
   render() {
@@ -125,17 +111,14 @@ class Wallet extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   setCoins: () => dispatch(fetchCoins()),
   sendValues: (values) => dispatch(sendValuesToStore(values)),
-  sendTotalValue: (totalValue) => dispatch(sumExpenses(totalValue)),
 });
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
-  expenses: state.wallet.expenses,
 });
 
 Wallet.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
-  expenses: PropTypes.arrayOf(PropTypes.obj).isRequired,
   sendValues: PropTypes.func.isRequired,
   setCoins: PropTypes.func.isRequired,
 };
