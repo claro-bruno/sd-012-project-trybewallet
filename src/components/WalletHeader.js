@@ -61,7 +61,7 @@ class WalletHeader extends Component {
     const { currencies = [], addExpense } = this.props;
     const { value, description, tag, method, currency } = this.state;
     return (
-      <div>
+      <div className="wallet-header">
         <Input
           title="Valor"
           name="value"
@@ -100,6 +100,7 @@ class WalletHeader extends Component {
         <Button
           name="Adicionar Despesa"
           onClick={ () => addExpense(this.newExpense(currencies)) }
+          className="btn-add"
         />
       </div>
     );

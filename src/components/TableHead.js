@@ -14,8 +14,8 @@ class TableHead extends Component {
       'Editar/Excluir',
     ];
     return (
-      <tr>
-        {items.map((th) => <th key={ th }>{ th }</th>)}
+      <tr className="table-header">
+        {items.map((th) => <th className="table-head" key={ th }>{ th }</th>)}
       </tr>
     );
   }

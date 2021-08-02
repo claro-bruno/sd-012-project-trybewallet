@@ -1,4 +1,9 @@
-import { REQUEST_API, SUCCESS_REQUEST, ADD_EXPENSE, DEL_EXPENSE } from '../actions';
+import {
+  REQUEST_API,
+  SUCCESS_REQUEST,
+  ADD_EXPENSE,
+  DEL_EXPENSE,
+} from '../actions';
 
 const INITIAL_STATE = {
   expenses: [],

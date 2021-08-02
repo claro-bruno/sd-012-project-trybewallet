@@ -9,7 +9,7 @@ class WalletTable extends Component {
   render() {
     const { expenses, deleteExpense } = this.props;
     return (
-      <table>
+      <table className="wallet-table">
         <thead>
           <TableHead />
           {Object.values(expenses).map((expense) => {
@@ -23,26 +23,26 @@ class WalletTable extends Component {
               exchangeRates,
             } = expense;
             const currentCurrency = Object.values(exchangeRates).find(
-              (rate) => rate.code === currency
-              && rate.codein !== 'BRLT',
+              (rate) => rate.code === currency && rate.codein !== 'BRLT',
             );
             const round = (number) => Math.round(number * 100) / 100;
             const currencyName = Object.values(currentCurrency)[2].split('/');
             return (
-              <tr key={ id }>
-                <td>{description}</td>
-                <td>{tag}</td>
-                <td>{method}</td>
-                <td>{value}</td>
-                <td>{currencyName[0]}</td>
-                <td>{round(currentCurrency.ask)}</td>
-                <td>{(value * currentCurrency.ask).toFixed(2)}</td>
-                <td>Real</td>
-                <td>
+              <tr className="table-header" key={ id }>
+                <td className="table-header">{description}</td>
+                <td className="table-header">{tag}</td>
+                <td className="table-header">{method}</td>
+                <td className="table-header">{value}</td>
+                <td className="table-header">{currencyName[0]}</td>
+                <td className="table-header">{round(currentCurrency.ask)}</td>
+                <td className="table-header">
+                  {(value * currentCurrency.ask).toFixed(2)}
+                </td>
+                <td className="table-header">Real</td>
+                <td className="table-header">
                   <Button
                     name="Excluir"
                     className="delete-btn"
-                    dataTestid="delete-btn"
                     onClick={ () => deleteExpense(expense) }
                   />
                 </td>

@@ -43,7 +43,7 @@ class Login extends Component {
           <h1 className="login-title">TrybeWallet</h1>
           <Input
             dataTestid="email-input"
-            className="login-input"
+            className="email-input"
             name="email"
             type="text"
             placeholder="E-mail"
@@ -52,7 +52,7 @@ class Login extends Component {
           />
           <Input
             dataTestid="password-input"
-            className="login-input"
+            className="password-input"
             name="password"
             type="password"
             placeholder="Senha"

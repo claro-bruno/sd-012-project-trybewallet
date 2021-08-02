@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 class Header extends Component {
@@ -15,13 +16,16 @@ class Header extends Component {
           </p>
           <div className="user-expense">
             <span data-testid="total-field">
-              {`Despesa Total: ${total} `}
+              {`Despesa Total: ${total.toFixed(2)} `}
             </span>
             <span data-testid="header-currency-field">
               {cambio}
             </span>
           </div>
         </div>
+        <Link to="/">
+          <span>Sair</span>
+        </Link>
       </header>
     );
   }

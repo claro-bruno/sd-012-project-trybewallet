@@ -5,9 +5,16 @@
 }
 
 .header {
+  background-color: rgb(32, 175, 156);
+  color: rgb(187, 255, 0);
   display: flex;
   justify-content: space-around;
   padding: 1rem;
+}
+
+.header a {
+  color: rgb(187, 255, 0);
+  text-decoration: none;
 }
 
 .user-info {
@@ -19,7 +26,30 @@
 }
 
 .user-expense {
-  margin-left: 1rem;
+  margin-left: 0.5rem;
+}
+
+.user-email, .user-expense {
+  font-weight: 700;
+  align-self: center;
+}
+
+.wallet-table {
+  text-align: center;
+  width: 100%;
+}
+
+.wallet-header {
+  text-align: center;
+}
+
+.wallet-header input, label, select {
+  margin: 0.3rem;
+  padding: 0.3rem;
+}
+
+.table-head, .table-header {
+  padding: 0.5rem;
 }
 
 .main-login {
@@ -48,7 +78,7 @@
   text-align: center;
 }
 
-.login-input , .login-button {
+.email-input , .login-button, .password-input {
   border: none;
   border-radius: 10px;
   margin-bottom: 1rem;
@@ -66,7 +96,7 @@
   opacity: 0.5;
 }
 
-.login-input:focus {
+.email-input:focus, .password-input:focus {
   border: 0 none;
   box-shadow: 0 0 0 0;
   outline: 0;
@@ -76,6 +106,30 @@
   cursor: pointer;
 }
 
+.btn-add {
+  background-color: rgb(52, 165, 52);
+  color: rgb(187, 255, 0);
+}
+
+.delete-btn {
+  background-color: rgb(235, 63, 63);
+  color: white;
+}
+
+.btn-add, .delete-btn {
+  border: none;
+  border-radius:10px;
+  font-weight: 700;
+  padding: 0.5rem;
+  transition: 500ms;
+}
+
+.delete-btn:hover, .btn-add:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
 th , thead , td , tr {
+  border: 1px solid lightgray;
   text-align: center;
 }
