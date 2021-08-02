@@ -1,15 +1,22 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { submitEmail } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
 
     this.handleChange = this.handleChange.bind(this);
+    this.validationLogin = this.validationLogin.bind(this);
+    this.handleSaveLogin = this.handleSaveLogin.bind(this);
 
     this.state = {
       email: '',
       password: '',
-      enable: false,
+      disabled: true,
+      redirect: false,
     };
   }
 
@@ -17,14 +24,36 @@ class Login extends React.Component {
     this.setState((state) => ({
       ...state,
       [name]: value,
-    }));
+    }), () => this.validationLogin());
+  }
+
+  validationLogin() {
+    const { email, password } = this.state;
+    const passwordMaxLength = 6;
+    if (/(.*)@(.*).com/.test(email) && password.length >= passwordMaxLength) {
+      this.setState({
+        disabled: false,
+      });
+    }
+  }
+
+  handleSaveLogin() {
+    const { email } = this.state;
+    const { setEmailStore } = this.props;
+    setEmailStore(email);
+    this.setState({
+      redirect: true,
+    });
   }
 
   render() {
-    const { email, password, enable } = this.state;
+    const { email, password, disabled, redirect } = this.state;
+    if (redirect) {
+      return <Redirect to="/carteira" />;
+    }
     return (
       <main>
-        <section>
+        <form>
           <input
             data-testid="email-input"
             type="text"
@@ -44,14 +73,22 @@ class Login extends React.Component {
           <button
             type="button"
             onClick={ this.handleSaveLogin }
-            disabled={ enable }
+            disabled={ disabled }
           >
             ENTRAR
           </button>
-        </section>
+        </form>
       </main>
     );
   }
 }
 
-export default Login;
+Login.propTypes = {
+  setEmailStore: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  setEmailStore: (email) => dispatch(submitEmail(email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
