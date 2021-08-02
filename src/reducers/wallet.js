@@ -1,4 +1,9 @@
-import { GET_COINS, GET_COINS_SUCCESS, GET_COINS_ERROR } from '../actions';
+import {
+  GET_COINS,
+  GET_COINS_SUCCESS,
+  GET_COINS_ERROR,
+  ADD_DATA_FORMS,
+} from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -8,6 +13,7 @@ const INITIAL_STATE = {
 
 function wallet(state = INITIAL_STATE, action) {
   const { type, payload, error } = action;
+  const { expenses } = state;
 
   switch (type) {
   case GET_COINS:
@@ -23,6 +29,12 @@ function wallet(state = INITIAL_STATE, action) {
 
   case GET_COINS_ERROR:
     return { ...state, error };
+
+  case ADD_DATA_FORMS:
+    return {
+      ...state,
+      expenses: [...expenses, payload],
+    };
 
   default:
     return state;
