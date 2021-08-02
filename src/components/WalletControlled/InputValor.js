@@ -13,7 +13,7 @@ class InputValor extends React.Component {
 
     return (
       <Input
-        name="expenseAmount"
+        name="value"
         labelText="Valor:"
         type="number"
         value={ value }

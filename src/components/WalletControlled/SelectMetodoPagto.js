@@ -12,14 +12,14 @@ class SelectMetodoPagto extends React.Component {
     } = this;
 
     const optionsArray = [
-      { value: 'Cash', text: 'Dinheiro' },
-      { value: 'Credit Card', text: 'Cartão de Crédito' },
-      { value: 'Debit Card', text: 'Cartão de Débito' },
+      { value: 'Dinheiro', text: 'Dinheiro' },
+      { value: 'Cartão de Crédito', text: 'Cartão de Crédito' },
+      { value: 'Cartão de Débito', text: 'Cartão de Débito' },
     ];
 
     return (
       <Select
-        name="paymentMethod"
+        name="method"
         labelText="Método de Pagamento:"
         value={ value }
         handleChange={ handleChange }

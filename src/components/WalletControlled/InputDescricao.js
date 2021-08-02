@@ -13,7 +13,7 @@ class InputDescricao extends React.Component {
 
     return (
       <Input
-        name="descricao"
+        name="description"
         labelText="Descrição:"
         type="text"
         value={ value }

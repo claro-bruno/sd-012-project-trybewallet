@@ -12,16 +12,16 @@ class SelectCategoria extends React.Component {
     } = this;
 
     const optionsArray = [
-      { value: 'Food', text: 'Alimentação' },
-      { value: 'Leisure', text: 'Lazer' },
-      { value: 'Work', text: 'Trabalho' },
-      { value: 'Transport', text: 'Transporte' },
-      { value: 'Health', text: 'Saúde' },
+      { value: 'Alimentação', text: 'Alimentação' },
+      { value: 'Lazer', text: 'Lazer' },
+      { value: 'Trabalho', text: 'Trabalho' },
+      { value: 'Transporte', text: 'Transporte' },
+      { value: 'Saúde', text: 'Saúde' },
     ];
 
     return (
       <Select
-        name="category"
+        name="tag"
         labelText="Categoria(tag):"
         value={ value }
         handleChange={ handleChange }
