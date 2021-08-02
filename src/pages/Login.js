@@ -50,10 +50,9 @@ class Login extends Component {
       <div>
         TrybeLogin
         <form>
-          <label htmlFor="email">
+          <label htmlFor="email" data-testid="email-input">
             email:
             <input
-              data-testid="email-input"
               type="email"
               id="email"
               name="email"
@@ -62,12 +61,12 @@ class Login extends Component {
               onChange={ this.HandleChange }
             />
           </label>
-          <label htmlFor="password">
+          <label htmlFor="password-id">
             senha:
             <input
               data-testid="password-input"
               type="password"
-              id="password"
+              id="password-id"
               name="password"
               value={ password }
               placeholder="Digite sua senha"
