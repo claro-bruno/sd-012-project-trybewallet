@@ -22,6 +22,7 @@ class Input extends React.Component {
       >
         { labelName }
         <input
+          id={ name }
           data-testid={ dataTestId }
           className={ inputClass }
           name={ name }

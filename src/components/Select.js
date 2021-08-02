@@ -12,7 +12,7 @@ class Select extends React.Component {
     return (
       <label htmlFor={ name }>
         { labelName }
-        <select onChange={ onChange } name={ name }>
+        <select id={ name } onChange={ onChange } name={ name }>
           { options.map((item) => <option key={ item } value={ item }>{ item }</option>) }
         </select>
       </label>

@@ -17,7 +17,6 @@ const addExpense = (value) => ({
 export const changeWallet = (value) => async (dispatch) => {
   const data = await fetchAll();
   delete data.USDT;
-  console.log(data);
   const expenseDetails = {
     ...value,
     exchangeRates: {

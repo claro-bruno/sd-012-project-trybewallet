@@ -19,7 +19,7 @@ class Header extends React.Component {
         <h1>Weballet</h1>
         <p data-testid="email-field">{ userEmail }</p>
         <p data-testid="total-field">{ total }</p>
-        <p data-testid="header-currency-field" />
+        <p data-testid="header-currency-field">BRL</p>
       </header>
     );
   }
