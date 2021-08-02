@@ -10,24 +10,38 @@ import ButtonAddDespesa from './ButtonAddDespesa';
 import { fetchAPI } from '../../actions/getApiCoins';
 
 class Forms extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.exchangeRates = this.exchangeRates.bind(this);
+    this.increaseCounter = this.increaseCounter.bind(this);
 
     this.state = {
-      expenseAmount: 0,
-      descricao: '',
-      currency: '',
-      paymentMethod: '',
-      category: '',
+      value: 0,
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+      counter: 0,
     };
   }
 
   componentDidMount() {
     const { getCoins } = this.props;
     getCoins();
+  }
+
+  exchangeRates() {
+    const { props: { coins } } = this;
+    coins.reduce(
+      (accumulator, coin) => ({
+        ...accumulator,
+        [coin[0]]: coin[1],
+      }),
+      {},
+    );
   }
 
   handleChange({ target: { name, type, value, checked } }) {
@@ -43,43 +57,52 @@ class Forms extends React.Component {
 
   handleClick() {
     const {
-      state: { expenseAmount, descricao, currency, paymentMethod, category },
-      props: { coins },
+      state: { value, description, currency, method, tag, counter },
+      props: { getCoins },
+      exchangeRates,
+      increaseCounter,
     } = this;
 
-    const dataAPI = coins.reduce(
-      (accumulator, coin) => ({
-        ...accumulator,
-        [coin[0]]: coin[1],
-      }),
-      {},
-    );
+    getCoins();
 
-    const data = {
-      value: expenseAmount,
-      description: descricao,
+    const dataForm = {
+      id: counter,
+      value,
+      description,
       currency,
-      method: paymentMethod,
-      tag: category,
-      exchangeRates: dataAPI,
+      method,
+      tag,
+      exchangeRates: exchangeRates(),
     };
-    console.log(data);
+    console.log(dataForm);
+    increaseCounter();
+  }
+
+  increaseCounter() {
+    const {
+      state: { counter },
+    } = this;
+
+    this.setState((state) => ({
+      ...state,
+      counter: counter + 1,
+    }));
   }
 
   render() {
     const {
-      state: { expenseAmount, descricao, currency, paymentMethod, category },
+      state: { value, description, currency, method, tag },
       handleChange,
       handleClick,
     } = this;
     return (
       <form>
         <InputValor
-          value={ expenseAmount }
+          value={ value }
           handleChange={ handleChange }
         />
         <InputDescricao
-          value={ descricao }
+          value={ description }
           handleChange={ handleChange }
         />
         <SelectMoeda
@@ -87,11 +110,11 @@ class Forms extends React.Component {
           handleChange={ handleChange }
         />
         <SelectMetodoPagto
-          value={ paymentMethod }
+          value={ method }
           handleChange={ handleChange }
         />
         <SelectCategoria
-          value={ category }
+          value={ tag }
           handleChange={ handleChange }
         />
         <ButtonAddDespesa
