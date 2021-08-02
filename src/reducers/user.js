@@ -1,4 +1,4 @@
-import STORE_EMAILfrom "../actions/actionsTypes";
+import STORE_EMAIL from "../actions/actionsTypes";
 
 const INITIAL_STATE = {
     email: '',
@@ -17,4 +17,3 @@ function user(state = INITIAL_STATE, action) {
   }
   
   export default user;
-  

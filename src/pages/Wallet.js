@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-class Wallet extends React.Component {
+export default class Wallet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,4 +38,12 @@ class Wallet extends React.Component {
   }
 }
 
-export default Wallet;
+Wallet.propTypes = {
+  userEmail: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  userEmail: state.user.email,
+});
+
+export default connect(mapStateToProps)(Wallet);
