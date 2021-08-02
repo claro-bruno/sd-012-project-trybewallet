@@ -11,14 +11,15 @@ class Form extends React.Component {
     this.state = {
       valor: '',
       descricao: '',
+      moeda: 'USD',
     };
 
     this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    const { setCurrency } = this.props;
-    setCurrency();
+    const { fetchCurrency } = this.props;
+    fetchCurrency();
   }
 
   handleChange({ target: { name, value } }) {
@@ -29,7 +30,8 @@ class Form extends React.Component {
   }
 
   render() {
-    const { valor, descricao } = this.state;
+    const { getMoedas } = this.props;
+    const { valor, descricao, moeda } = this.state;
     return (
       <form>
         <Input
@@ -51,7 +53,9 @@ class Form extends React.Component {
         <Select
           label="Moeda"
           id="moeda-id"
-          options={ ['moeda'] }
+          options={  }
+          value={ moeda }
+          onChange={ this.handleChange }
         />
         <Select
           label="Método de pagamento"
@@ -69,11 +73,11 @@ class Form extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  getCurrency: state.wallet.currency,
+  getMoedas: state.wallet.moedas,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setCurrency: () => dispatch(fetchAPI()),
+  fetchCurrency: () => dispatch(fetchAPI()),
 });
 
 Form.propTypes = {
