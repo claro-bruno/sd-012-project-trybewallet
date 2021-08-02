@@ -1,4 +1,10 @@
-import { REQUEST_API, REQUEST_API_SUCCESS, REQUEST_API_ERROR } from '../actions';
+import {
+  REQUEST_API,
+  REQUEST_API_SUCCESS,
+  REQUEST_API_ERROR,
+  EXCHANGE_API_SUCCESS,
+  EXCHANGE_API_ERROR,
+} from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -25,6 +31,18 @@ const walletReducer = (state = INITIAL_STATE, action) => {
       ...state,
       error: action.payload,
       isFetching: false,
+    };
+  case EXCHANGE_API_SUCCESS:
+    return {
+      ...state,
+      expenses: [
+        ...state.expenses, { id: state.expenses.length, ...action.state },
+      ],
+    };
+  case EXCHANGE_API_ERROR:
+    return {
+      ...state,
+      error: action.error,
     };
   default:
     return state;

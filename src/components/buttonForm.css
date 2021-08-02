@@ -1,0 +1,19 @@
+.buttonForm {
+  background-color: #f9bc60;
+  border: 1px solid #f9bc60;
+  border-radius: 4px;
+  color: #001e1d;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 4px;
+  transition: background-color 0.2s;
+}
+
+.buttonForm:hover {
+  background-color: #f1ae4a;
+}
+
+.buttonForm:active {
+  transform: scale(0.98);
+}
