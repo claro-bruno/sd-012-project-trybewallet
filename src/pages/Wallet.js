@@ -5,27 +5,26 @@ import AddExpenseForm from '../component/AddExpenseForm';
 import { getCurrency } from '../actions';
 
 class Wallet extends React.Component {
-  componentDidMount() {
-    this.fetchAPI();
-  }
-
-  async fetchAPI() {
-    const { currency } = this.props;
-    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
-    const data = await response.json();
-    currency(data);
+  total() {
+    const { expenses } = this.props;
+    return expenses.reduce((acc, { value, currency, exchangeRates }) => {
+      acc += parseFloat(value) * parseFloat(exchangeRates[currency].ask);
+      return acc;
+    }, 0);
   }
 
   render() {
-    const { email, currencies } = this.props;
+    const { email } = this.props;
     return (
       <>
         <header>
           <span data-testid="email-field">{`Email: ${email}`}</span>
-          <span data-testid="total-field">{`Despesa Total: R$ ${0}`}</span>
+          <span data-testid="total-field">
+            {`Despesa Total: R$ ${this.total().toFixed(2)}`}
+          </span>
           <span data-testid="header-currency-field">BRL</span>
         </header>
-        <AddExpenseForm currencies={ currencies } />
+        <AddExpenseForm />
       </>
     );
   }
@@ -34,6 +33,7 @@ class Wallet extends React.Component {
 const mapStateToProps = (state) => ({
   email: state.user.email,
   currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
