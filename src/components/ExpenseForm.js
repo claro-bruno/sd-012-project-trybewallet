@@ -50,6 +50,7 @@ class ExpenseForm extends React.Component {
       currency: '',
       method: '',
       tag: '',
+      nowEditing: false,
     });
   }
 
@@ -82,6 +83,7 @@ class ExpenseForm extends React.Component {
     const { replace, editing } = this.props;
     const { value, description, currency, method, tag } = this.state;
     replace({ ...editing.expense, value, description, currency, method, tag });
+    this.cleanState();
   }
 
   currenciesSelect(currencies, currency) {

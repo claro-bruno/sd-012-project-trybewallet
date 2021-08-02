@@ -45,6 +45,7 @@ const wallet = (state = INITAL, action) => {
           state.expenses.findIndex(({ id }) => id === action.expense.id) + 1,
         ),
       ],
+      editing: { edit: false, expense: {} },
     };
   default:
     return state;
