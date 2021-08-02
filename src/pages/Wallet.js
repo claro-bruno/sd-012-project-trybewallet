@@ -15,11 +15,13 @@ class Wallet extends React.Component {
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
+      totalExpense: 0,
     };
 
     this.getMoneyInitials = this.getMoneyInitials.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.totalExpense = this.totalExpense.bind(this);
   }
 
   componentDidMount() {
@@ -42,6 +44,31 @@ class Wallet extends React.Component {
 
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
+  }
+
+  totalExpense() {
+    const { expenses } = this.props;
+    const currencies = expenses.map((expense) => [
+      expense.currency,
+      parseFloat(expense.value),
+    ]);
+    const exchanges = Object.entries(expenses[expenses.length - 1].exchangeRates);
+    const exchangesToConvert = [];
+    currencies.forEach((currency) => {
+      exchanges.forEach((exchange) => {
+        if (exchange[0] === currency[0]) {
+          exchangesToConvert.push(exchange);
+        }
+      });
+    });
+    const valueConverted = [];
+    exchangesToConvert.forEach((exchange, index) => {
+      if (exchange[0] === currencies[index][0]) {
+        valueConverted.push(exchange[1].ask * currencies[index][1]);
+      }
+    });
+    const result = valueConverted.reduce((acc, curr) => acc + curr, 0);
+    this.setState({ totalExpense: result });
   }
 
   async handleFormSubmit() {
@@ -71,6 +98,7 @@ class Wallet extends React.Component {
       exchangeRates: economy,
     };
     addExpense(newExpense);
+    this.totalExpense();
   }
 
   renderFormHelper() {
@@ -152,6 +180,7 @@ class Wallet extends React.Component {
 
   render() {
     const { email } = this.props;
+    const { totalExpense } = this.state;
 
     return (
       <section>
@@ -162,7 +191,7 @@ class Wallet extends React.Component {
               <p data-testid="email-field">{ `Email: ${email}` }</p>
             </div>
             <div className="expense-info">
-              <p data-testid="total-field">Despesa Total: 0</p>
+              <p data-testid="total-field">{ `Despesa Total ${totalExpense}` }</p>
               <p data-testid="header-currency-field">BRL</p>
             </div>
           </section>
