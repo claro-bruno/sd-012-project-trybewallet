@@ -37,7 +37,9 @@ class Wallet extends React.Component {
     return (
       <>
         <HeaderWallet email={ email } total={ total } moeda={ currency } />
-        <FormWallet addValue={ this.addValue } />
+        <main className="bg-secondary pt-2 pb-3 text-light">
+          <FormWallet addValue={ this.addValue } />
+        </main>
       </>
     );
   }

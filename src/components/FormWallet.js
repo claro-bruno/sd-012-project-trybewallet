@@ -37,7 +37,9 @@ class FormWallet extends Component {
     });
   }
 
-  handleSubmit() {
+  handleSubmit(event) {
+    event.preventDefault();
+
     const { addExpense, getCurrencies, currencies, addValue } = this.props;
     const { value, currency, payment, tag, description, index } = this.state;
     getCurrencies();
@@ -67,11 +69,10 @@ class FormWallet extends Component {
     const { currencies } = this.props;
     return (
       <form
-        className="row container ml-auto mr-auto align-items-center mt-3"
-        onSubmit={ (event) => {
-          event.preventDefault();
-          this.handleSubmit();
-        } }
+        className="row container ml-auto mr-auto
+        align-items-center justify-content-center"
+        style={ { maxWidth: '60rem' } }
+        onSubmit={ (event) => this.handleSubmit(event) }
       >
         <InputAutoSized
           label="Valor: "
@@ -108,7 +109,9 @@ class FormWallet extends Component {
           value={ description }
           handleChange={ this.handleChange }
         />
-        <button type="submit" className="btn btn-primary">Adicionar despesa</button>
+        <div className="col-auto">
+          <button type="submit" className="btn btn-primary">Adicionar despesa</button>
+        </div>
       </form>);
   }
 }
