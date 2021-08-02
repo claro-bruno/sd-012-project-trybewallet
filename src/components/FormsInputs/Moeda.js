@@ -6,9 +6,7 @@ class Moeda extends Component {
       <div>
         <label htmlFor="Moeda">
           Moeda:
-          <select id="moeda">
-            {/* api options */}
-          </select>
+          <select id="Moeda"> </select>
         </label>
       </div>
     );
