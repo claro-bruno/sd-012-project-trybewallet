@@ -7,9 +7,6 @@ const INITIAL_STATE = {
   test: 0,
 };
 
-const prepareCurrencies = (payload) => Object.keys(payload)
-  .filter((key) => key !== 'USDT');
-
 const prepareExpenses = (expenses, payload, exchangeRates) => {
   if (expenses.length === 0) {
     const idNumber = 0;
@@ -43,7 +40,9 @@ const wallet = (state = INITIAL_STATE, action) => {
   case 'REQUEST_CURRENCIES':
     return { ...state, loading: true };
   case 'GET_CURRENCIES':
-    return { ...state, currencies: prepareCurrencies(action.payload), loading: false };
+    return { ...state,
+      currencies: Object.keys(action.payload).filter((key) => key !== 'USDT'),
+      loading: false };
   case 'FAILED_REQUEST':
     return { ...state, error: true };
   case 'ADD_EXPENSE':
