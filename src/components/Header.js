@@ -15,7 +15,7 @@ class Header extends Component {
           </p>
           <div className="user-expense">
             <span data-testid="total-field">
-              {`Despesa Total: ${totalExpense} `}
+              {`Despesa Total: ${(totalExpense.toFixed(2))}`}
             </span>
             <span data-testid="header-currency-field">
               {cambio}

@@ -118,8 +118,8 @@ const mapStateToProps = (state) => ({
 WalletHeader.propTypes = {
   getCurrency: PropTypes.func.isRequired,
   addExpense: PropTypes.func.isRequired,
-  currencies: PropTypes.arrayOf(
-    PropTypes.arrayOf(
+  currencies: PropTypes.objectOf(
+    PropTypes.objectOf(
       PropTypes.string,
     ),
   ).isRequired,

@@ -18,7 +18,7 @@ class SelectCurrency extends Component {
 
 SelectCurrency.propTypes = {
   name: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
+  options: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)).isRequired,
   title: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,

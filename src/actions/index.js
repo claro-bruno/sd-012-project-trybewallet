@@ -2,6 +2,7 @@ export const LOGIN = 'LOGIN';
 export const SUCCESS_REQUEST = 'SUCCESS_REQUEST';
 export const REQUEST_API = 'REQUEST_API';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const DEL_EXPENSE = 'DEL_EXPENSE';
 const API_URL = 'https://economia.awesomeapi.com.br/json/all';
 
 export const login = (email) => ({
@@ -24,6 +25,13 @@ export function getAPI(data) {
 export function addExpenseToStore(expense) {
   return {
     type: ADD_EXPENSE,
+    payload: expense,
+  };
+}
+
+export function deleteExpenseFromStore(expense) {
+  return {
+    type: DEL_EXPENSE,
     payload: expense,
   };
 }

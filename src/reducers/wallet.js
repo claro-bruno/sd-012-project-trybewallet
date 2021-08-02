@@ -1,4 +1,4 @@
-import { REQUEST_API, SUCCESS_REQUEST, ADD_EXPENSE } from '../actions';
+import { REQUEST_API, SUCCESS_REQUEST, ADD_EXPENSE, DEL_EXPENSE } from '../actions';
 
 const INITIAL_STATE = {
   expenses: [],
@@ -25,6 +25,11 @@ const currencies = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       expenses: [...state.expenses, action.payload],
+    };
+  case DEL_EXPENSE:
+    return {
+      ...state,
+      expenses: [...state.expenses.filter((expense) => expense.id !== action.payload.id)],
     };
   default:
     return state;

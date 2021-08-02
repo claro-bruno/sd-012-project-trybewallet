@@ -8,6 +8,7 @@ class Button extends Component {
       onClick,
       disabled,
       className,
+      dataTestid,
     } = this.props;
     return (
       <button
@@ -15,6 +16,7 @@ class Button extends Component {
         onClick={ onClick }
         disabled={ disabled }
         className={ className }
+        data-testid={ dataTestid }
       >
         { name }
       </button>
@@ -25,6 +27,7 @@ class Button extends Component {
 Button.propTypes = {
   name: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
+  dataTestid: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool.isRequired,
 };
