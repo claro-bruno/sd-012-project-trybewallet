@@ -1,21 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { func, arrayOf, string, number, shape } from 'prop-types';
-import { fetchCurrencies, addExpense } from '../actions';
+import { func, arrayOf, string, number, shape, bool } from 'prop-types';
+import { fetchCurrencies, addExpense, replaceExpense } from '../actions';
 
 class ExpenseForm extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       value: '',
       description: '',
       currency: '',
       method: '',
       tag: '',
+      nowEditing: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.saveClick = this.saveClick.bind(this);
+    this.replaceClick = this.replaceClick.bind(this);
   }
 
   componentDidMount() {
@@ -23,23 +25,63 @@ class ExpenseForm extends React.Component {
     fetchCurr();
   }
 
+  componentDidUpdate() {
+    const { editing } = this.props;
+    const { nowEditing } = this.state;
+    if (editing.edit && !nowEditing) this.loadEdit(editing);
+  }
+
+  loadEdit(editing) {
+    const { value, description, currency, method, tag } = editing.expense;
+    this.setState({
+      value, description, currency, method, tag, nowEditing: true,
+    });
+  }
+
   handleChange({ target }) {
     const { name, value } = target;
     this.setState({ [name]: value });
   }
 
-  handleClick(e) {
+  cleanState() {
+    this.setState({
+      value: '',
+      description: '',
+      currency: '',
+      method: '',
+      tag: '',
+    });
+  }
+
+  saveClick(e) {
     e.preventDefault();
     const {
       fetchCurrencies: fetchCurr,
-      currencies,
+      currenciesResp,
       addExpense: addExp,
       expenses,
     } = this.props;
     fetchCurr();
     const id = expenses.length;
-    const expenseObj = { ...this.state, id, exchangeRates: currencies };
+    const { value, description, currency, method, tag } = this.state;
+    const expenseObj = {
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      id,
+      exchangeRates: currenciesResp,
+    };
     addExp(expenseObj);
+    this.cleanState();
+  }
+
+  replaceClick(e) {
+    e.preventDefault();
+    const { replace, editing } = this.props;
+    const { value, description, currency, method, tag } = this.state;
+    replace({ ...editing.expense, value, description, currency, method, tag });
   }
 
   currenciesSelect(currencies, currency) {
@@ -48,6 +90,7 @@ class ExpenseForm extends React.Component {
         Moeda
         <select
           name="currency"
+          data-testid="currency-input"
           id="currency-input"
           value={ currency }
           onChange={ this.handleChange }
@@ -64,6 +107,7 @@ class ExpenseForm extends React.Component {
         Método de pagamento
         <select
           name="method"
+          data-testid="method-input"
           id="method-input"
           value={ method }
           onChange={ this.handleChange }
@@ -80,7 +124,13 @@ class ExpenseForm extends React.Component {
     return (
       <label htmlFor="tag-input">
         Tag
-        <select name="tag" id="tag-input" value={ tag } onChange={ this.handleChange }>
+        <select
+          name="tag"
+          id="tag-input"
+          value={ tag }
+          data-testid="tag-input"
+          onChange={ this.handleChange }
+        >
           <option value="Alimentação">Alimentação</option>
           <option value="Lazer">Lazer</option>
           <option value="Trabalho">Trabalho</option>
@@ -88,6 +138,18 @@ class ExpenseForm extends React.Component {
           <option value="Saúde">Saúde</option>
         </select>
       </label>
+    );
+  }
+
+  sendBtn() {
+    const { nowEditing } = this.state;
+    if (nowEditing) {
+      return (
+        <button type="submit" onClick={ this.replaceClick }>Editar despesa</button>
+      );
+    }
+    return (
+      <button type="submit" onClick={ this.saveClick }>Adicionar despesa</button>
     );
   }
 
@@ -99,6 +161,7 @@ class ExpenseForm extends React.Component {
         <label htmlFor="valor-input">
           Valor
           <input
+            data-testid="value-input"
             type="number"
             name="value"
             id="valor-input"
@@ -110,18 +173,17 @@ class ExpenseForm extends React.Component {
           Descrição
           <input
             type="text"
+            data-testid="description-input"
             name="description"
             id="description-input"
             value={ description }
             onChange={ this.handleChange }
           />
         </label>
-        {this.currenciesSelect(Object.keys(currencies), currency)}
+        {this.currenciesSelect(currencies, currency)}
         {this.methodSelect(method)}
         {this.tagSelect(tag)}
-        <button type="submit" onClick={ this.handleClick }>
-          Adicionar despesa
-        </button>
+        {this.sendBtn()}
       </form>
     );
   }
@@ -129,14 +191,18 @@ class ExpenseForm extends React.Component {
 
 ExpenseForm.defaultProps = {
   expenses: [],
+  editing: { edit: false, expense: {} },
+  currenciesResp: {},
 };
 
 ExpenseForm.propTypes = {
   fetchCurrencies: func.isRequired,
   addExpense: func.isRequired,
-  currencies: shape({
+  replace: func.isRequired,
+  currencies: arrayOf(string).isRequired,
+  currenciesResp: shape({
     USD: shape({ code: string, ask: string }),
-  }).isRequired,
+  }),
   expenses: arrayOf(
     shape({
       id: number,
@@ -144,16 +210,27 @@ ExpenseForm.propTypes = {
       description: string,
     }),
   ),
+  editing: shape({
+    edit: bool,
+    expense: shape({
+      id: number,
+      value: string,
+      description: string,
+    }),
+  }),
 };
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  currenciesResp: state.wallet.currenciesResp,
   expenses: state.wallet.expenses,
+  editing: state.wallet.editing,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchCurrencies: () => dispatch(fetchCurrencies()),
   addExpense: (expense) => dispatch(addExpense(expense)),
+  replace: (expense) => dispatch(replaceExpense(expense)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);

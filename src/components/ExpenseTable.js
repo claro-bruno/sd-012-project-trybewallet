@@ -28,7 +28,7 @@ class ExpenseTable extends React.Component {
             <th>Editar/Excluir</th>
           </tr>
           {expenses ? expenses.map((expense) => (
-            <ExpenseTableRow key={ expenses.id } expense={ expense } />
+            <ExpenseTableRow key={ expense.id } expense={ expense } />
           )) : null}
         </tbody>
       </table>

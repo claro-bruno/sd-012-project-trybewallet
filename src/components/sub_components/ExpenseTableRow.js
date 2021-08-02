@@ -1,11 +1,11 @@
 import React from 'react';
 import { string, shape, func } from 'prop-types';
 import { connect } from 'react-redux';
-import { rmvExpense } from '../../actions';
+import { rmvExpense, edtExpense } from '../../actions';
 
 class ExpenseTableRow extends React.Component {
   render() {
-    const { expense, rmv } = this.props;
+    const { expense, rmv, edt } = this.props;
 
     const fmt = new Intl.NumberFormat('en-US', {
       style: 'decimal',
@@ -14,7 +14,7 @@ class ExpenseTableRow extends React.Component {
     });
 
     return (
-      <tr>
+      <tr key={ expense.id }>
         <td>{expense.description}</td>
         <td>{expense.tag}</td>
         <td>{expense.method}</td>
@@ -35,6 +35,12 @@ class ExpenseTableRow extends React.Component {
             value="X"
             onClick={ () => rmv(expense.id) }
           />
+          <input
+            data-testid="edit-btn"
+            type="button"
+            value="Editar"
+            onClick={ () => edt(expense) }
+          />
         </td>
       </tr>
     );
@@ -50,10 +56,12 @@ ExpenseTableRow.propTypes = {
     currency: string,
   }).isRequired,
   rmv: func.isRequired,
+  edt: func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   rmv: (id) => dispatch(rmvExpense(id)),
+  edt: (expense) => dispatch(edtExpense(expense)),
 });
 
 export default connect(null, mapDispatchToProps)(ExpenseTableRow);
