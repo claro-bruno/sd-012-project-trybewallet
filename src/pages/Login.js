@@ -4,11 +4,20 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
 
+    this.handleChange = this.handleChange.bind(this);
+
     this.state = {
       email: '',
       password: '',
       enable: false,
     };
+  }
+
+  handleChange({ target: { name, value } }) {
+    this.setState((state) => ({
+      ...state,
+      [name]: value,
+    }));
   }
 
   render() {
