@@ -14,7 +14,7 @@ class FormWallet extends React.Component {
       descricao: '',
       moeda: 'USD',
       metodo: 'Dinheiro',
-      categoria: 'Alimentação',
+      tag: 'Alimentação',
     };
   }
 
@@ -32,8 +32,8 @@ class FormWallet extends React.Component {
 
   render() {
     const { currencies } = this.props;
-    const { valor, descricao, moeda, metodo, categoria } = this.state;
-    const categorias = ['Alimentação', 'Laser', 'Trabalho', 'Transporte', 'Saúde'];
+    const { valor, descricao, moeda, metodo, tag } = this.state;
+    const categorias = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     return (
       <form>
         <label htmlFor="valor">
@@ -43,6 +43,7 @@ class FormWallet extends React.Component {
             name="valor"
             value={ valor }
             onChange={ this.handleChange }
+            id="valor"
           />
         </label>
         <label htmlFor="descricao">
@@ -52,25 +53,26 @@ class FormWallet extends React.Component {
             name="descricao"
             value={ descricao }
             onChange={ this.handleChange }
+            id="descricao"
           />
         </label>
         <label htmlFor="moeda">
           Moeda
-          <select name="moeda" value={ moeda } onChange={ this.handleChange }>
+          <select id="moeda" name="moeda" value={ moeda } onChange={ this.handleChange }>
             { currencies.map((e, i) => <option value={ e } key={ i }>{ e }</option>) }
           </select>
         </label>
-        <label htmlFor="metodo">
+        <label htmlFor="pag">
           Método de pagamento
-          <select name="metodo" value={ metodo } onChange={ this.handleChange }>
+          <select id="pag" name="metodo" value={ metodo } onChange={ this.handleChange }>
             <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de Crédito">Cartão de Crédito</option>
             <option value="Cartão de débito">Cartão de débito</option>
           </select>
         </label>
-        <label htmlFor="categoria">
+        <label htmlFor="tag">
           Tag
-          <select name="categoria" value={ categoria } onChange={ this.handleChange }>
+          <select id="tag" name="tag" value={ tag } onChange={ this.handleChange }>
             { categorias.map((e) => <option value={ e } key={ e }>{ e }</option>) }
           </select>
         </label>
