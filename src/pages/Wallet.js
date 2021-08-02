@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 // prettier-ignore
 class Wallet extends React.Component {
@@ -24,3 +25,9 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, null)(Wallet);
+
+Wallet.propTypes = {
+  user: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+  }).isRequired,
+};
