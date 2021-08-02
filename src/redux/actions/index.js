@@ -2,8 +2,15 @@ import * as actionTypes from './actionTypes';
 
 export const getUserEmail = (email) => ({ type: actionTypes.GET_USER_EMAIL, email });
 
-export const getCurrencies = () => ({
-  type: actionTypes.GET_CURRENCIES,
+export const getFetch = (onLoading) => ({
+  type: actionTypes.GET_FETCH,
+  onLoading,
+});
+
+export const getError = (error, onLoading) => ({
+  type: actionTypes.GET_ERROR,
+  error,
+  onLoading,
 });
 
 export const getCurrenciesSucess = (currencies) => ({
@@ -11,28 +18,19 @@ export const getCurrenciesSucess = (currencies) => ({
   currencies,
 });
 
-export const getCurrenciesError = (error) => ({
-  type: actionTypes.GET_CURRENCIES_ERROR,
-  error,
-});
-
-export const getRates = () => ({
-  type: actionTypes.GET_RATES,
-});
-
 export const getRatesSucess = (expense) => ({
   type: actionTypes.GET_RATES_SUCESS,
   expense,
 });
 
-export const getRatesError = (error) => ({
-  type: actionTypes.GET_RATES_ERROR,
-  error,
-});
-
 export const removeItem = (id) => ({
   type: actionTypes.REMOVE_ITEM,
   id,
+});
+
+export const editItem = (editedItem) => ({
+  type: actionTypes.EDIT_ITEM,
+  editedItem,
 });
 
 const handleErrors = (response) => {
@@ -43,21 +41,21 @@ const handleErrors = (response) => {
 export const fetchCurrencies = () => async (dispatch) => {
   const endpoint = 'https://economia.awesomeapi.com.br/json/all';
   const forbidenCurrencies = ['USDT'];
-  dispatch(getCurrencies());
+  dispatch(getFetch('onLoadingCurrencies'));
   fetch(endpoint)
     .then((response) => handleErrors(response))
     .then((results) => {
       const currencies = [...Object.keys(results)
         .filter((cur) => !forbidenCurrencies.includes(cur))];
       dispatch(getCurrenciesSucess(currencies));
-    }).catch((err) => dispatch(getCurrenciesError(err)));
+    }).catch((err) => dispatch(getError(err, 'onLoadingCurrencies')));
 };
 
 export const fetchRates = (expense) => async (dispatch) => {
   const endpoint = 'https://economia.awesomeapi.com.br/json/all';
-  dispatch(getRates());
+  dispatch(getFetch('onLoadingRates'));
   fetch(endpoint)
     .then((response) => handleErrors(response))
     .then((exchangeRates) => dispatch(getRatesSucess({ ...expense, exchangeRates })))
-    .catch((err) => dispatch(getRatesError(err)));
+    .catch((err) => dispatch(getError(err, 'onLoadingRates')));
 };
