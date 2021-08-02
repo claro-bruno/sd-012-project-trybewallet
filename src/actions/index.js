@@ -4,6 +4,7 @@ export const REQUEST_CURRENCIES_SUCCESS = 'REQUEST_CURRENCIES_SUCCESS';
 export const REQUEST_CURRENCIES_ERROR = 'REQUEST_CURRENCIES_ERROR';
 export const REQUEST_CURRENCIESII_SUCCESS = 'REQUEST_CURRENCIESII_SUCCESS';
 export const REQUEST_CURRENCIESII_ERROR = 'REQUEST_CURRENCIESII_ERROR';
+export const EXCLUDE_EXPENSE = 'EXCLUDE_EXPENSE';
 
 export const saveUserEmail = (payload) => ({ type: SAVE_USER_EMAIL, payload });
 
@@ -18,3 +19,5 @@ export const requestCurrenciesIISuccess = (payload) => ({
 });
 
 export const requestCurrenciesIIError = ({ type: REQUEST_CURRENCIESII_ERROR });
+
+export const excludeExpense = (payload) => ({ type: EXCLUDE_EXPENSE, payload });
