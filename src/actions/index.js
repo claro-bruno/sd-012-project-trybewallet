@@ -5,4 +5,14 @@ const newUser = (state) => ({
   state,
 });
 
+export const newExpense = (state) => ({
+  type: 'ADD_NEW_EXPENSE',
+  state,
+});
+
+export const newCurrencies = (state) => ({
+  type: 'ADD_NEW_CURRENCIES',
+  state,
+});
+
 export default newUser;
