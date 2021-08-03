@@ -8,29 +8,19 @@ export const saveUserAction = (email) => (
   }
 );
 
-export const saveExpensesAction = (expense) => (
+export const saveExpensesAction = (thisState) => (
   {
     type: SAVE_EXPENSE,
-    payload: expense,
+    payload: thisState,
   }
 );
 
-// const saveExpensesAsyncAction = async () => 'ducks';
-
-export const saveExpensesAsyncAction = (payload) => async (dispatch) => {
+export const saveExpensesAsyncAction = (thisState) => async (dispatch) => {
   const res = await fetch('https://economia.awesomeapi.com.br/json/all');
-  const obj = await res.json();
-  const arr = Object.values(obj);
-  const filtered = arr.filter((el) => el.codeIn !== 'BRLT');
-  const values = filtered.map((el) => el.ask);
-  const saveObj = { ...payload, exchangeRates: values };
-  dispatch(saveExpensesAction(obj));
-  console.log(obj);
+  const resObj = await res.json();
+  const returnObj = {
+    ...thisState,
+    exchangeRates: resObj,
+  };
+  dispatch(saveExpensesAction(returnObj));
 };
-
-// export const fetchMovies = () => (dispatch) => { // thunk declarado
-//   dispatch(requestMovies());
-//   return fetch('alguma-api-qualquer.com')
-//     .then((response) => response.json())
-//     .then((movies) => dispatch(receiveMovies(movies)));
-// };

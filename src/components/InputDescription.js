@@ -6,13 +6,13 @@ export default class InputDescription extends React.Component {
     const { onChangeHandler } = this.props;
     return (
       <>
-        <label htmlFor="descricao">
+        <label htmlFor="description">
           Descrição:
           <input
             onChange={ onChangeHandler }
             type="text"
-            name="descricao"
-            id="descricao"
+            name="description"
+            id="description"
           />
         </label>
         <br />

@@ -13,11 +13,11 @@ export default class InputTag extends React.Component {
             name="tag"
             id="tag"
           >
-            <option value="food">Alimentação</option>
-            <option value="recreation">Lazer</option>
-            <option value="work">Trabalho</option>
-            <option value="transport">Transporte</option>
-            <option value="health">Saúde</option>
+            <option xablau="food">Alimentação</option>
+            <option xablau="recreation">Lazer</option>
+            <option xablau="work">Trabalho</option>
+            <option xablau="transport">Transporte</option>
+            <option xablau="health">Saúde</option>
           </select>
         </label>
         <br />

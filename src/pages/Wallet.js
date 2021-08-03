@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-// import { saveExpensesAction } from '../actions';
 import { saveExpensesAsyncAction } from '../actions';
 
 import InputAmount from '../components/InputAmount';
@@ -15,15 +14,17 @@ class Wallet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      amount: 0,
+      id: -1,
+      value: '0',
       currency: 'USD',
       exchangeRates: null,
-      method: 'cash',
-      tag: 'food',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
       description: '',
     };
     this.onChangeHandler = this.onChangeHandler.bind(this);
     this.onClickHandler = this.onClickHandler.bind(this);
+    this.totalCalculator = this.totalCalculator.bind(this);
   }
 
   onChangeHandler({ target }) {
@@ -31,18 +32,32 @@ class Wallet extends React.Component {
     this.setState({ [name]: value });
   }
 
-  onClickHandler() {
+  onClickHandler(e) {
+    e.preventDefault();
     const { DispatchSaveExpensesAsyncAction } = this.props;
-    DispatchSaveExpensesAsyncAction(this.state);
+    this.setState((state) => ({
+      id: state.id + 1,
+    }), () => DispatchSaveExpensesAsyncAction(this.state));
+  }
+
+  totalCalculator(wallet) {
+    const res = wallet.expenses.reduce((acc, item) => {
+      const curr = item.currency;
+      const ask = parseFloat(item.exchangeRates[curr].ask);
+      const value = parseFloat(item.value);
+      acc += value * ask;
+      return acc;
+    }, 0);
+    return res;
   }
 
   render() {
-    const { user, expenses } = this.props;
+    const { user, wallet } = this.props;
     return (
       <div>
         <header>
           <span data-testid="email-field">{ user.email }</span>
-          <span data-testid="total-field">0</span>
+          <span data-testid="total-field">{ this.totalCalculator(wallet) }</span>
           <span data-testid="header-currency-field">BRL</span>
         </header>
         <form action="#">
@@ -66,7 +81,7 @@ class Wallet extends React.Component {
 const mapStateToProps = (state) => (
   {
     user: state.user,
-    expenses: state.expenses,
+    wallet: state.wallet,
   }
 );
 const mapDispatchToProps = (dispatch) => (
@@ -80,6 +95,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
 
 Wallet.propTypes = {
   user: PropTypes.shape({
+    email: PropTypes.string,
+  }).isRequired,
+  wallet: PropTypes.shape({
     email: PropTypes.string,
   }).isRequired,
   DispatchSaveExpensesAsyncAction: PropTypes.func.isRequired,

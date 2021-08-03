@@ -13,9 +13,9 @@ export default class InputMethod extends React.Component {
             name="method"
             id="method"
           >
-            <option value="cash">Dinheiro</option>
-            <option value="credit">Cartão de crédito</option>
-            <option value="debit">Cartão de débito</option>
+            <option xablau="cash">Dinheiro</option>
+            <option xablau="credit">Cartão de crédito</option>
+            <option xablau="debit">Cartão de débito</option>
           </select>
         </label>
         <br />

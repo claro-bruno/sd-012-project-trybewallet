@@ -6,13 +6,13 @@ export default class InputAmount extends React.Component {
     const { onChangeHandler } = this.props;
     return (
       <>
-        <label htmlFor="amount">
+        <label htmlFor="value">
           Valor:
           <input
             onChange={ onChangeHandler }
             type="number"
-            name="amount"
-            id="amount"
+            name="value"
+            id="value"
           />
         </label>
         <br />
