@@ -68,6 +68,7 @@ class EditExpense extends Component {
       <label htmlFor="value">
         Valor
         <input
+          data-testid="value-input"
           name="value"
           id="value"
           value={ value }
@@ -85,6 +86,7 @@ class EditExpense extends Component {
         Descrição
         <input
           name="description"
+          data-testid="description-input"
           id="description"
           value={ description }
           onChange={ this.handleChange }
@@ -102,6 +104,7 @@ class EditExpense extends Component {
         Moeda
         <select
           name="currency"
+          data-testid="currency-input"
           id="currency"
           value={ currency }
           onChange={ this.handleChange }
@@ -123,6 +126,7 @@ class EditExpense extends Component {
         Método de pagamento
         <select
           name="method"
+          data-testid="method-input"
           id="method"
           value={ method }
           onChange={ this.handleChange }
@@ -143,6 +147,7 @@ class EditExpense extends Component {
         Tag
         <select
           name="tag"
+          data-testid="tag-input"
           id="tag"
           value={ tag }
           onChange={ this.handleChange }
