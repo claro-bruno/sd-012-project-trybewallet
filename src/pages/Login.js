@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { loginValidator } from '../helper';
-import { sendUser } from '../actions';
+import sendUser from '../actions';
 import InputCard from '../components/InputCard';
 
 class Login extends React.Component {
