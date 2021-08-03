@@ -20,18 +20,17 @@ class Login extends React.Component {
   }
 
   handleChange({ target }) {
-    this.authenticator();
     this.setState({
       [target.name]: target.value,
-    });
+    }, () => this.authenticator());
   }
 
-  authenticator() {
+  async authenticator() {
     const { email, password } = this.state;
     const { authDispatch } = this.props;
     const emailReg = /^[a-z0-9_.]+@[a-z0-9]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/;
-    const MIN_LEN = 5;
-    authDispatch(emailReg.test(email) && password.length >= MIN_LEN);
+    const MIN_LEN = 6;
+    await authDispatch(emailReg.test(email) && password.length >= MIN_LEN);
   }
 
   render() {

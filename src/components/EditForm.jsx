@@ -9,7 +9,6 @@ class EditForm extends Component {
     const { selectedExpense: {
       id, method, tag, value, description, currency,
     } } = this.props;
-    console.log(value);
     this.state = {
       id, method, tag, value, description, currency,
     };
