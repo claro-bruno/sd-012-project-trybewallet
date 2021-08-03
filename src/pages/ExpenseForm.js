@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { arrayOf, func, string } from 'prop-types';
 import AddExpensesButton from './AddExpensesButton';
 import { fetchForExpense } from '../actions/index';
+import ExpenseTable from './ExpenseTable';
 
 class ExpenseForm extends React.Component {
   constructor(props) {
@@ -79,6 +80,7 @@ class ExpenseForm extends React.Component {
           />
         </label>
         <AddExpensesButton onSubmitToExchangeRates={ this.onSubmitToExchangeRates } />
+        <ExpenseTable />
       </form>
     );
   }
