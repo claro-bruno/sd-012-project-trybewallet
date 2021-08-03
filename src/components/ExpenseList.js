@@ -10,11 +10,11 @@ class ExpenseList extends Component {
         <ul>
           { expenses.map((item, index) => (
             <li key={ index }>
-              <p>{ item.descricao }</p>
+              <p>{ item.description }</p>
               <p>{ item.tag }</p>
-              <p>{ item.pagamento }</p>
-              <p>{ item.valor }</p>
-              <p>{ item.moeda }</p>
+              <p>{ item.method }</p>
+              <p>{ item.value }</p>
+              <p>{ item.currency }</p>
               {/* <p>{ cambio }</p>
               <p>{ valorConvertido }</p>
               <p>{ moedaConversao }</p>

@@ -12,10 +12,10 @@ class AddExpenseForm extends Component {
     super(props);
 
     this.state = {
-      valor: '',
-      descricao: '',
-      moeda: 'USD',
-      pagamento: 'Dinheiro',
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
       tag: 'Alimentação',
     };
 
@@ -34,40 +34,40 @@ class AddExpenseForm extends Component {
     const { fetchApiExchangeRates } = this.props;
     fetchApiExchangeRates(this.state);
     this.setState({
-      valor: '',
-      descricao: '',
-      moeda: 'USD',
-      pagamento: 'Dinheiro',
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
       tag: 'Alimentação',
     });
   }
 
   render() {
-    const { valor, descricao, moeda, pagamento, tag } = this.state;
+    const { value, description, currency, method, tag } = this.state;
     return (
       <section>
         <Input
-          name="valor"
+          name="value"
           label="Valor: "
           type="text"
-          value={ valor }
+          value={ value }
           placeholder="Insira o valor da despesa"
           onChange={ this.handleChange }
         />
         <Input
-          name="descricao"
+          name="description"
           label="Descrição: "
           type="text"
-          value={ descricao }
+          value={ description }
           placeholder="Insira descrição da despesa"
           onChange={ this.handleChange }
         />
         <CurrencySelect
-          value={ moeda }
+          value={ currency }
           onChange={ this.handleChange }
         />
         <PaymentSelect
-          value={ pagamento }
+          value={ method }
           onChange={ this.handleChange }
         />
         <TagSelect

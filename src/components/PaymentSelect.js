@@ -5,12 +5,12 @@ class PaymentSelect extends Component {
   render() {
     const { value, onChange } = this.props;
     return (
-      <label htmlFor="pagamento">
+      <label htmlFor="method">
         Método de Pagamento
-        <select value={ value } onChange={ onChange } id="pagamento" name="pagamento">
-          <option value="dinheiro">Dinheiro</option>
-          <option value="credito">Cartão de Crédito</option>
-          <option value="debito">Cartão de Débito</option>
+        <select value={ value } onChange={ onChange } id="method" name="method">
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="Cartão de crédito">Cartão de Crédito</option>
+          <option value="Cartão de débito">Cartão de Débito</option>
         </select>
       </label>
     );

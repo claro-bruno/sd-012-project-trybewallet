@@ -10,23 +10,24 @@ const INITIAL_STATE = {
   expenses: [],
   isFetching: false,
   error: '',
-};
-
-const getExchangeRates = (payload) => {
-  const keyCurrencies = Object.values(payload);
-  const result = keyCurrencies.map((item) => ({
-    code: item.code,
-    name: item.name,
-    ask: item.ask,
-  }));
-  return result;
+  totalExpense: 0,
 };
 
 const addExpense = (state, payload, responseAPI) => {
   const id = (state.length === 0) ? 0 : state.length;
-  const exchangeRates = getExchangeRates(responseAPI);
+  const exchangeRates = responseAPI;
   return [...state, { ...payload, id, exchangeRates }];
 };
+
+const convertToBRL = (action) => {
+  const expenseValue = action.totalExpense;
+  const { currency } = action.payload;
+  const currencyAsk = action.responseAPI[currency].ask;
+  const convertedExpense = (expenseValue * currencyAsk);
+  return convertedExpense;
+};
+
+const sumExpenses = (state, expenseToSum) => expenseToSum + state.totalExpense;
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -53,6 +54,7 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       expenses: addExpense(state.expenses, action.payload, action.responseAPI),
+      totalExpense: sumExpenses(state, convertToBRL(action)),
     };
 
   default:

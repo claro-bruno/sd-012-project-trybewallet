@@ -26,10 +26,11 @@ export const actionFetchApi = () => (dispatch) => {
     .catch((error) => dispatch(getApiError(error)));
 };
 
-export const actionGetExpense = (value, responseAPI) => ({
+export const actionGetExpense = (state, responseAPI) => ({
   type: ADD_EXPENSE,
-  payload: value,
+  payload: state,
   responseAPI,
+  totalExpense: +state.value,
 });
 
 export const getApiExchangeRates = () => ({ type: GET_API_EXCHANGE_RATES });
