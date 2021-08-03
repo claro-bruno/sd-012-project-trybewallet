@@ -1,8 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { deleteExpense } from '../../actions';
 
 class Table extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.deleteButton = this.deleteButton.bind(this);
+  }
+
+  deleteButton({ target }) {
+    const { id } = target;
+    const { expenses, dExpense } = this.props;
+    const newExpenses = expenses.filter((expense) => expense.id !== Number(id));
+    dExpense(newExpenses);
+  }
+
   render() {
     const { expenses } = this.props;
     const tableHeaders = ['Descrição', 'Tag', 'Método de pagamento', 'Valor', 'Moeda',
@@ -30,7 +44,14 @@ class Table extends React.Component {
                 <td>Real</td>
                 <td>
                   <button type="button">Edit</button>
-                  <button type="button" data-testid="delete-btn">X</button>
+                  <button
+                    type="button"
+                    data-testid="delete-btn"
+                    id={ id }
+                    onClick={ this.deleteButton }
+                  >
+                    X
+                  </button>
                 </td>
               </tr>
             );
@@ -45,8 +66,13 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps, null)(Table);
+const mapDispatchToProps = (dispatch) => ({
+  dExpense: (expense) => dispatch(deleteExpense(expense)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
 
 Table.propTypes = {
-  expenses: PropTypes.arrayOf(Array).isRequired,
-};
+  expenses: PropTypes.arrayOf(Array),
+  dExpense: PropTypes.func,
+}.isRequired;
