@@ -6,8 +6,10 @@ const INICIA_STATE = {
 
 const wallet = (state = INICIA_STATE, action) => {
   switch (action.type) {
-  case 'teste':
-    return state;
+  case 'ADD_CURRENCY': {
+    const newCurrencies = action.currency.filter((currency) => currency.code !== 'USDT');
+    return { currencies: newCurrencies };
+  }
   default:
     return state;
   }
