@@ -8,13 +8,12 @@ class Header extends Component {
 
     this.state = {
       totalExpense: 0,
-      currency: 'BRL',
     };
   }
 
   render() {
     const { email } = this.props;
-    const { totalExpense, currency } = this.state;
+    const { totalExpense } = this.state;
 
     return (
       <header className="wallet-header">
@@ -28,7 +27,7 @@ class Header extends Component {
             { totalExpense }
           </h4>
           <h4 data-testid="header-currency-field">
-            { currency }
+            BRL
           </h4>
         </div>
       </header>
