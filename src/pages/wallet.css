@@ -1,3 +1,9 @@
+.wallet-container {
+  display: grid;
+  grid-template-areas: 'headWallet''formContain''mainWallet';
+  grid-template-rows: 20vh 12vh 68vh;
+}
+
 button {
   box-shadow: 0 0 4px 2px rgb(7, 6, 6);
   opacity: 0.9;
@@ -21,13 +27,13 @@ button:active {
 .logo-wallet {
   filter: contrast(150%);
   margin-left: 20px;
-  max-height: 70%;
-  max-width: 13vw;
+  width: 100px;
 }
 
 .info-wallet {
   align-items: center;
   display: flex;
+  font-size: clamp(0.4em, 0.4em + 2vw, 14px);
   justify-content: space-around;
   width: 50vw;
 }
@@ -36,6 +42,7 @@ button:active {
   align-items: center;
   color: white;
   display: flex;
+  font-size: clamp(0.4em, 0.4em + 2vw, 14px);
   justify-content: space-around;
   width: 50vw;
 }
@@ -56,24 +63,39 @@ button:active {
 
 .darkmode-wallet {
   align-items: center;
-  border-radius: 15px;
   display: flex;
-  height: 25px;
-  justify-content: space-around;
-  padding: 0 5px;
+  justify-content: center;
+  max-width: 90px;
+  min-width: 70px;
   position: absolute;
-  right: 10px;
+  right: 1vw;
   top: 5px;
-  width: 90px;
+  width: 10vw;
 }
 
 .darkmode-wallet button {
+  align-items: center;
   background-color: transparent;
   border: none;
   box-shadow: none;
   cursor: pointer;
+  display: flex;
+  justify-content: space-between;
   outline: none;
-  width: 80px;
+  width: 100%;
+}
+
+.form-contain {
+  display: flex;
+  grid-area: formContain;
+}
+
+.up {
+  display: none;
+}
+
+.down {
+  display: none;
 }
 
 .form-newExpense {
@@ -83,8 +105,9 @@ button:active {
   border-top: 2px solid silver;
   color: white;
   display: flex;
-  grid-area: newExp;
+  font-size: clamp(0.4em, 0.4em + 2vw, 14px);
   justify-content: space-around;
+  width: 100vw;
 }
 
 .form-newExpense label {
@@ -152,7 +175,6 @@ button:active {
   border-top: 2px solid silver;
   color: white;
   display: flex;
-  grid-area: newExp;
   justify-content: space-around;
 }
 
@@ -219,7 +241,7 @@ button:active {
   padding: 10px;
   position: sticky;
   top: 0;
-  z-index: 999;
+  z-index: 997;
 }
 
 .expense-table tbody td {
@@ -275,4 +297,67 @@ button:active {
   margin-left: 5px;
   padding: 5px;
   width: 30px;
+}
+
+@media screen and ( max-width : 768px ) {
+
+  .wallet-container {
+    display: grid;
+    grid-template-areas: 'headWallet''formContain''mainWallet';
+    grid-template-rows: 20vh 12vh 68vh;
+  }
+
+  .header-wallet {
+    flex-direction: column;
+    justify-content: space-around;
+    max-width: 100vw;
+  }
+
+  .logo-wallet {
+    margin-left: 0;
+  }
+
+  .info-wallet {
+    justify-content: space-between;
+    width: 100vw;
+  }
+
+  .info-wallet-darkmode {
+    justify-content: space-between;
+    width: 100vw;
+  }
+
+  .form-contain {
+    position: relative;
+  }
+
+  .up {
+    color: slategray;
+    display: block;
+    font-size: 25px;
+    font-weight: 600;
+    position: absolute;
+    text-align: center;
+    top: -10px;
+    width: 100%;
+    z-index: 999;
+  }
+
+  .down {
+    display: none;
+    position: absolute;
+  }
+
+  .form-newExpense {
+    align-items: center;
+    flex-direction: column;
+    height: 80vh;
+    justify-content: space-around;
+    width: 100vw;
+    z-index: 998;
+  }
+
+  .form-newExpense label {
+    width: 80vw;
+  }
 }

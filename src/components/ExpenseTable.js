@@ -91,11 +91,12 @@ ExpenseTable.propTypes = {
   deleteExpense: PropTypes.func.isRequired,
   editExpense: PropTypes.func.isRequired,
   edit: PropTypes.bool,
-  darkmode: PropTypes.bool.isRequired,
+  darkmode: PropTypes.bool,
 };
 
 ExpenseTable.defaultProps = {
   edit: false,
+  darkmode: false,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseTable);

@@ -60,7 +60,11 @@ const mapStateToProps = (state) => ({
 HeaderWallet.propTypes = {
   email: PropTypes.string.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
-  darkmode: PropTypes.bool.isRequired,
+  darkmode: PropTypes.bool,
+};
+
+HeaderWallet.defaultProps = {
+  darkmode: false,
 };
 
 export default connect(mapStateToProps)(HeaderWallet);

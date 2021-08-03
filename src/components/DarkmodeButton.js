@@ -12,7 +12,6 @@ class DarkmodeButton extends React.Component {
 
   handleClick() {
     const { darkmode, darkOn, lightOn } = this.props;
-    console.log(darkmode);
     if (darkmode) return lightOn();
     darkOn();
   }
@@ -21,23 +20,23 @@ class DarkmodeButton extends React.Component {
     const { darkmode, className } = this.props;
     return (
       <div className={ className }>
-        <i
-          className={
-            `bi bi-lightning-charge-fill ${darkmode ? 'moonOn' : 'moonOff'}`
-          }
-        />
         <button type="button" onClick={ this.handleClick }>
+          <i
+            className={
+              `bi bi-lightning-charge-fill ${darkmode ? 'moonOn' : 'moonOff'}`
+            }
+          />
           {
             darkmode
               ? (<i className="bi bi-toggle2-off toggle-off" />)
               : (<i className="bi bi-toggle2-on toggle-on" />)
           }
+          <i
+            className={
+              `bi bi-lightning-charge-fill ${!darkmode ? 'sumOn' : 'sumOff'}`
+            }
+          />
         </button>
-        <i
-          className={
-            `bi bi-lightning-charge-fill ${!darkmode ? 'sumOn' : 'sumOff'}`
-          }
-        />
       </div>
     );
   }
@@ -53,10 +52,14 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 DarkmodeButton.propTypes = {
-  darkmode: PropTypes.bool.isRequired,
+  darkmode: PropTypes.bool,
   darkOn: PropTypes.func.isRequired,
   lightOn: PropTypes.func.isRequired,
   className: PropTypes.string.isRequired,
+};
+
+DarkmodeButton.defaultProps = {
+  darkmode: false,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DarkmodeButton);

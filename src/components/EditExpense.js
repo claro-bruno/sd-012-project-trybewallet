@@ -97,7 +97,9 @@ class EditExpense extends React.Component {
   render() {
     const { currencies } = this.props;
     return (
-      this.renderForm(this.state, currencies)
+      <section className="form-contain">
+        {this.renderForm(this.state, currencies)}
+      </section>
     );
   }
 }

@@ -9,26 +9,32 @@
   border: 1px solid silver;
   border-radius: 15px;
   display: flex;
-  justify-content: space-around;
-  padding: 0 5px;
+  justify-content: center;
+  max-width: 90px;
+  min-width: 70px;
   position: absolute;
-  right: 30px;
+  right: 1vw;
   top: 5px;
-  width: 90px;
+  width: 10vw;
 }
 
 .darkmode-login button {
+  align-items: center;
   background-color: transparent;
   border: none;
+  border-radius: 15px;
   box-shadow: none;
   cursor: pointer;
+  display: flex;
+  justify-content: space-between;
   outline: none;
-  width: 80px;
+  padding: 0 5px;
+  width: 100%;
 }
 
 .logo-login {
   filter: contrast(150%);
-  max-width: 15vw;
+  width: 150px;
 }
 
 .fields-content {

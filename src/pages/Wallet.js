@@ -30,11 +30,12 @@ const mapStateToProps = (state) => ({
 
 Wallet.propTypes = {
   edit: PropTypes.bool,
-  darkmode: PropTypes.bool.isRequired,
+  darkmode: PropTypes.bool,
 };
 
 Wallet.defaultProps = {
   edit: false,
+  darkmode: false,
 };
 
 export default connect(mapStateToProps)(Wallet);

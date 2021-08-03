@@ -13,12 +13,13 @@ const fade = keyframes`0% {
   }
 `;
 
-const WalletContainer = styled.div`animation: ${fade} ease-in-out 2s;
+const WalletContainer = styled.div.attrs(() => ({
+  className: 'wallet-container',
+}))`animation: ${fade} ease-in-out 2s;
   background-color: ${({ darkmode }) => (darkmode ? 'rgb(51, 51, 51)' : 'white')};
-  display: grid;
-  grid-template-areas: 'headWallet headWallet''newExp newExp' 'mainWallet mainWallet';
-  grid-template-rows: 20vh  12vh 68vh;
+  height: 100vh;
   transition: all 2s;
+  width: 100vw;
 `;
 
 export default WalletContainer;

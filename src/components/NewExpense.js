@@ -17,6 +17,7 @@ class NewExpenses extends React.Component {
       currency: '',
       method: 'Dinheiro',
       tag: 'Alimentação',
+      addMenu: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -43,7 +44,9 @@ class NewExpenses extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const { saveNewExpense, currencies } = this.props;
-    saveNewExpense(this.state);
+    const newExpense = this.state;
+    delete newExpense.addMenu;
+    saveNewExpense(newExpense);
     this.setState({
       value: '',
       description: '',
@@ -51,6 +54,8 @@ class NewExpenses extends React.Component {
       method: 'Dinheiro',
       tag: 'Alimentação',
     });
+
+    this.renderForm = this.renderForm.bind(this);
   }
 
   renderButton() {
@@ -65,7 +70,7 @@ class NewExpenses extends React.Component {
     );
   }
 
-  render() {
+  renderForm() {
     const { value, description, currency, method, tag } = this.state;
     const { currencies } = this.props;
     return (
@@ -110,6 +115,16 @@ class NewExpenses extends React.Component {
         />
         {this.renderButton()}
       </form>
+    );
+  }
+
+  render() {
+    return (
+      <section className="form-contain">
+        <i className="bi bi-chevron-bar-up up" />
+        {this.renderForm()}
+        <i className="bi bi-chevron-up down" />
+      </section>
     );
   }
 }
