@@ -1,11 +1,22 @@
 import React from 'react';
-import WalletHeader from '../components/WalletHeader';
+import Header from '../components/WalletHeader';
+import WalletForm from '../components/WalletForm';
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+    this.onChange = this.onChange.bind(this);
+  }
+
+  onChange({ target: { name, value } }) {
+    this.setState({ [name]: value });
+  }
+
   render() {
     return (
       <div>
-        <WalletHeader />
+        <Header />
+        <WalletForm />
       </div>
     );
   }
