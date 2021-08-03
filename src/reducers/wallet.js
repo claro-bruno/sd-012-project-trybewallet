@@ -1,19 +1,17 @@
-// Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-// Esse reducer será responsável por tratar as informações da pessoa usuária
-// import { ACTION_TYPE } from '../actions/ACTION';
-// import { ASYNCACTION_TYPE1, ASYNCACTION_TYPE2  } from '../actions/ASYNCACTION'
+import { SAVE_EXPENSE } from '../actions';
 
 const initialState = {
-  key: 'value',
+  currencies: [],
+  expenses: [], // {form + cotacao}
 };
 
-const user = (state = initialState, action) => {
+const expenses = (state = initialState, action) => {
   switch (action.type) {
-  case 'ACTION_TYPE':
-    return { ...state, key: action.payload };
+  case SAVE_EXPENSE:
+    return { ...state, expenses: [...state.expenses, action.payload] };
   default:
     return state;
   }
 };
 
-export default user;
+export default expenses;

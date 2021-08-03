@@ -100,14 +100,4 @@ export default connect(mapStateToProps, mapDispatchToProps)(Login);
 
 Login.propTypes = {
   dispatchSaveUserAction: PropTypes.func.isRequired,
-  //   arr: PropTypes.arrayOf(PropTypes.number).isRequired,
-
-  //   obj: PropTypes.shape({
-  //     var: PropTypes.type.isRequired,
-  //     }).isRequired,
-
-  //   optionalUnion: PropTypes.oneOfType([
-  //     PropTypes.string,
-  //     PropTypes.number,
-  //   ]).isRequired,
 };
