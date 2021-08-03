@@ -1,5 +1,5 @@
 .form-container {
-  background-color: #001e1d;
+  background-color: #e8e4e6;
   padding: 16px;
 }
 
@@ -9,7 +9,7 @@
 }
 
 .form-container label {
-  color: #fffffe;
+  color: #001e1d;
 }
 
 .form-container input {

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Form from '../components/Form';
+import ExpensesTable from '../components/ExpensesTable';
 import './wallet.css';
 
 class Wallet extends React.Component {
@@ -42,6 +43,7 @@ class Wallet extends React.Component {
           </div>
         </header>
         <Form />
+        <ExpensesTable />
       </div>
     );
   }

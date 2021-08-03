@@ -3,7 +3,8 @@
 }
 
 header {
-  background-color: #fffffe;
+  background-color: #004643;
+  color: #e8e4e6;
   display: flex;
   justify-content: space-between;
   padding: 16px;
@@ -28,13 +29,13 @@ header {
 }
 
 .email {
-  color: #001e1d;
+  color: #e8e4e6;
   font-weight: 600;
   margin-left: 8px;
 }
 
 .total-sum {
-  color: #001e1d;
+  color: #e8e4e6;
   font-weight: 600;
   margin-left: 8px;
 }
