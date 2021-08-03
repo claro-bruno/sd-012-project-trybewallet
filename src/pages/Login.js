@@ -1,6 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import GenericButton from '../components/GenericButton';
 import UserInputs from '../components/UserInputs';
+import { storeLogin } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -10,6 +14,7 @@ class Login extends React.Component {
       email: '',
       password: '',
       disabled: true,
+      redirect: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -42,7 +47,8 @@ class Login extends React.Component {
   }
 
   render() {
-    const { disabled } = this.state;
+    const { disabled, email, redirect } = this.state;
+    const { storeUserInfo } = this.props;
 
     const emailInputProps = {
       id: 'email-input',
@@ -63,6 +69,12 @@ class Login extends React.Component {
     const loginBtnProps = {
       value: 'Entrar',
       disabled,
+      onClick: () => {
+        storeUserInfo(email);
+        this.setState({
+          redirect: true,
+        });
+      },
     };
 
     return (
@@ -70,9 +82,18 @@ class Login extends React.Component {
         <UserInputs { ...emailInputProps } />
         <UserInputs { ...passwordInputProps } />
         <GenericButton { ...loginBtnProps } />
+        {redirect && <Redirect to="/carteira" />}
       </>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  storeUserInfo: (state) => dispatch(storeLogin(state)),
+});
+
+Login.propTypes = {
+  storeUserInfo: PropTypes.func,
+}.isRequired;
+
+export default connect(null, mapDispatchToProps)(Login);
