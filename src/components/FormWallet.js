@@ -40,7 +40,7 @@ class FormWallet extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    const { addExpense, getCurrencies, currencies, addValue } = this.props;
+    const { addExpense, getCurrencies, currencies } = this.props;
     const { value, currency, payment, tag, description, index } = this.state;
     getCurrencies();
 
@@ -54,9 +54,6 @@ class FormWallet extends Component {
       exchangeRates: currencies,
     };
     addExpense(expense);
-    const conversor = Object.values(currencies)
-      .find(({ code }) => code === currency);
-    addValue(value * conversor.ask);
 
     this.setState((prevState) => ({
       ...prevState,
@@ -71,7 +68,7 @@ class FormWallet extends Component {
       <form
         className="row container ml-auto mr-auto pt-2 pb-3
         align-items-center justify-content-center"
-        style={ { maxWidth: '60rem' } }
+        style={ { maxWidth: '45rem' } }
         onSubmit={ (event) => this.handleSubmit(event) }
       >
         <InputAutoSized
@@ -126,7 +123,6 @@ FormWallet.propTypes = {
   ]).isRequired,
   addExpense: PropTypes.func.isRequired,
   getCurrencies: PropTypes.func.isRequired,
-  addValue: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

@@ -16,19 +16,21 @@ class Wallet extends React.Component {
       currency: 'BRL',
     };
 
-    this.addValue = this.addValue.bind(this);
+    this.getTotalValue = this.getTotalValue.bind(this);
   }
 
   componentDidMount() {
     const { getCurrencies } = this.props;
     getCurrencies();
+    this.getTotalValue();
   }
 
-  addValue(value) {
-    this.setState((prevState) => ({
-      ...prevState,
-      total: prevState.total + Number(value),
-    }));
+  getTotalValue() {
+    const { expenses } = this.props;
+    const totalValue = expenses
+      .reduce((acc, { value, exchangeRates, currency }) => acc
+      + value * exchangeRates[currency].ask, 0);
+    this.setState({ total: totalValue });
   }
 
   render() {
@@ -40,7 +42,10 @@ class Wallet extends React.Component {
         <HeaderWallet email={ email } total={ total } moeda={ currency } />
         <main className="bg-secondary text-light">
           <FormWallet addValue={ this.addValue } />
-          <FormTable />
+          <FormTable
+            removeValue={ this.removeValue }
+            getTotalValue={ this.getTotalValue }
+          />
         </main>
       </>
     );
@@ -49,12 +54,14 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   getCurrencies: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
   currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({

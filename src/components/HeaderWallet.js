@@ -20,7 +20,7 @@ class HeaderWallet extends Component {
             }
             <div>
               <span data-testid="total-field">
-                {total}
+                {Math.round(total * 100) / 100}
               </span>
               {' '}
               <span data-testid="header-currency-field">{moeda}</span>

@@ -2,10 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-class FormTable extends Component {
-  render() {
-    const { expenses } = this.props;
+import { removeExpense as removeExpenseAction } from '../actions';
 
+class FormTable extends Component {
+  componentDidUpdate() {
+    const { getTotalValue } = this.props;
+    getTotalValue();
+  }
+
+  render() {
+    const { expenses, removeExpense } = this.props;
     return (
       <table className="table bg-light">
         <thead>
@@ -33,7 +39,16 @@ class FormTable extends Component {
                 <td>{ Math.round(exchangeRates[currency].ask * 100) / 100 }</td>
                 <td>{ Math.round(value * exchangeRates[currency].ask * 100) / 100 }</td>
                 <td>Real</td>
-                <td>x</td>
+                <td>
+                  <button
+                    type="button"
+                    data-testid="delete-btn"
+                    className="btn btn-danger"
+                    onClick={ () => removeExpense(id) }
+                  >
+                    X
+                  </button>
+                </td>
               </tr>
             ),
           )}
@@ -45,10 +60,16 @@ class FormTable extends Component {
 
 FormTable.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  removeExpense: PropTypes.func.isRequired,
+  getTotalValue: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps)(FormTable);
+const mapDispatchToProps = (dispatch) => ({
+  removeExpense: (event) => dispatch(removeExpenseAction(event)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormTable);

@@ -8,6 +8,10 @@ function wallet(state = initialState, action) {
   switch (action.type) {
   case 'ADD_EXPANSE':
     return { ...state, expenses: [...state.expenses, action.value] };
+  case 'REMOVE_EXPENSE':
+    return { ...state,
+      expenses:
+      state.expenses.filter(({ id }) => id !== action.value) };
   case 'GET_CURRENCIES':
     return { ...state, currencies: action.value };
   default:
