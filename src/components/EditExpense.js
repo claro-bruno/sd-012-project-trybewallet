@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { actionEditExpense } from '../actions';
 
 class EditExpense extends Component {
   constructor(props) {
@@ -54,6 +55,10 @@ class EditExpense extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+
+    const { editExpense } = this.props;
+
+    editExpense(this.state);
   }
 
   renderValueInput() {
@@ -174,10 +179,15 @@ const mapStateToProps = (state) => ({
   idToEdit: state.wallet.idToEdit,
 });
 
-export default connect(mapStateToProps)(EditExpense);
+const mapDispatchToProps = (dispatch) => ({
+  editExpense: (expenseInfo) => dispatch(actionEditExpense(expenseInfo)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditExpense);
 
 EditExpense.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   idToEdit: PropTypes.number.isRequired,
+  editExpense: PropTypes.func.isRequired,
 };
