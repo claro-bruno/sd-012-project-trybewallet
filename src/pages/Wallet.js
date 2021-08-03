@@ -39,8 +39,13 @@ Wallet.propTypes = {
   expenses: PropTypes.arrayOf(
     PropTypes.object.isRequired,
   ).isRequired,
-  editor: PropTypes.bool.isRequired,
-  idToEdit: PropTypes.string.isRequired,
+  editor: PropTypes.bool,
+  idToEdit: PropTypes.number,
+};
+
+Wallet.defaultProps = {
+  editor: false,
+  idToEdit: 0,
 };
 
 const mapStateToProps = (state) => ({

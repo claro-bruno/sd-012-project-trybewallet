@@ -23,10 +23,9 @@ class Table extends React.Component {
     );
   }
 
-  render() {
-    const { expenses } = this.props;
+  renderHead() {
     return (
-      <table>
+      <thead>
         <tr>
           <th>Descrição</th>
           <th>Tag</th>
@@ -38,35 +37,48 @@ class Table extends React.Component {
           <th>Moeda de conversão</th>
           <th>Editar/Excluir</th>
         </tr>
-        { expenses.map((expense) => {
-          const {
-            id,
-            description,
-            tag,
-            method,
-            value,
-            currency,
-            exchangeRates,
-          } = expense;
-          const currencyInitials = currency;
-          const currencyName = exchangeRates[currencyInitials].name.split('/')[0];
-          const currencyValue = parseFloat(exchangeRates[currencyInitials].ask);
-          const convertedValue = Math
-            .floor(currencyValue * parseFloat(value) * 100) / 100;
-          return (
-            <tr key={ id }>
-              <td>{ description }</td>
-              <td>{ tag }</td>
-              <td>{ method }</td>
-              <td>{ `${value}` }</td>
-              <td>{ currencyName }</td>
-              <td>{ currencyValue.toFixed(2) }</td>
-              <td>{ convertedValue.toFixed(2) }</td>
-              <td>Real</td>
-              <td>{ this.renderButtons(id) }</td>
-            </tr>
-          );
-        }) }
+      </thead>
+    );
+  }
+
+  renderBody(expense) {
+    const {
+      id,
+      description,
+      tag,
+      method,
+      value,
+      currency,
+      exchangeRates,
+    } = expense;
+    const currencyInitials = currency;
+    const currencyName = exchangeRates[currencyInitials].name.split('/')[0];
+    const currencyValue = parseFloat(exchangeRates[currencyInitials].ask);
+    const convertedValue = Math
+      .floor(currencyValue * parseFloat(value) * 100) / 100;
+    return (
+      <tbody key={ id }>
+        <tr>
+          <td>{ description }</td>
+          <td>{ tag }</td>
+          <td>{ method }</td>
+          <td>{ `${value}` }</td>
+          <td>{ currencyName }</td>
+          <td>{ currencyValue.toFixed(2) }</td>
+          <td>{ convertedValue.toFixed(2) }</td>
+          <td>Real</td>
+          <td>{ this.renderButtons(id) }</td>
+        </tr>
+      </tbody>
+    );
+  }
+
+  render() {
+    const { expenses } = this.props;
+    return (
+      <table>
+        { this.renderHead() }
+        { expenses.map((expense) => this.renderBody(expense)) }
       </table>
     );
   }

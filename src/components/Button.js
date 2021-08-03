@@ -9,7 +9,7 @@ class Button extends React.Component {
         type="button"
         onClick={ onClick }
         disabled={ disabled }
-        data-testId={ testId }
+        data-testid={ testId }
       >
         { buttonText }
       </button>
