@@ -1,16 +1,47 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { getExpenses } from '../actions/index';
 
 class WalletForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       currencies: [],
+      value: 0,
+      description: '',
+      currency: '',
+      method: '',
+      tag: '',
+      expenses: [],
     };
     this.fetchApi = this.fetchApi.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
     this.fetchApi();
+  }
+
+  onSubmitForm(array) {
+    const expense = {
+      id: array[5].length,
+      value: array[0],
+      description: array[1],
+      currency: array[2] || 'USD',
+      method: array[3] || 'Dinheiro',
+      tag: array[4] || 'Alimentação',
+    };
+    array[5].push(expense);
+    console.log(array[5]);
+    const { dispatchSetExpense } = this.props;
+    const { expenses } = this.state;
+    dispatchSetExpense(expenses);
+  }
+
+  handleChange({ target }) {
+    const { name, value } = target;
+    this.setState({ [name]: value });
   }
 
   async fetchApi() {
@@ -18,7 +49,6 @@ class WalletForm extends React.Component {
     const a = await apiList.json();
     const currencies = Object.keys(a);
     const currenciesFiltered = currencies.filter((currency) => currency !== 'USDT');
-    console.log(Object.keys(a));
     this.setState({
       currencies: currenciesFiltered,
     });
@@ -26,34 +56,35 @@ class WalletForm extends React.Component {
 
   render() {
     const { currencies } = this.state;
+    const { value, description, currency, method, tag, expenses } = this.state;
     return (
-      <form className="bg-light ml-5">
-        <label className="ml-3" htmlFor="value">
+      <form className="bg-light pl-2">
+        <label className="ml-1" htmlFor="value">
           Valor:
-          <input className="ml-1" type="text" name="value" id="value" />
+          <input name="value" id="value" onChange={ this.handleChange } />
         </label>
-        <label className="ml-3" htmlFor="description">
+        <label className="ml-1" htmlFor="description">
           Descrição:
-          <input className="ml-1" type="text" name="description" id="description" />
+          <input name="description" id="description" onChange={ this.handleChange } />
         </label>
-        <label className="ml-3" htmlFor="currency">
+        <label className="ml-1" htmlFor="currency">
           Moeda:
-          <select className="ml-1" type="text" name="currency" id="currency">
+          <select onChange={ this.handleChange } name="currency" id="currency">
             { currencies
               .map((c) => <option key={ c }>{ c }</option>) }
           </select>
         </label>
-        <label className="ml-3" htmlFor="payment-method">
+        <label className="ml-1" htmlFor="payment">
           Método de pagamento:
-          <select className="ml-1" type="text" name="payment-method" id="payment-method">
+          <select onChange={ this.handleChange } name="payment" id="payment">
             <option>Dinheiro</option>
             <option>Cartão de crédito</option>
             <option>Cartão de débito</option>
           </select>
         </label>
-        <label className="ml-3" htmlFor="payment-method">
+        <label className="ml-1" htmlFor="payment">
           Tag:
-          <select className="ml-1" type="text" name="payment-method" id="payment-method">
+          <select onChange={ this.handleChange } name="payment" id="payment">
             <option>Alimentação</option>
             <option>Lazer</option>
             <option>Trabalho</option>
@@ -61,10 +92,30 @@ class WalletForm extends React.Component {
             <option>Saúde</option>
           </select>
         </label>
-        <button type="button">b</button>
+        <button
+          onClick={
+            () => this.onSubmitForm([value, description, currency, method, tag, expenses])
+          }
+          type="button"
+          className="btn btn-primary"
+        >
+          Adicionar despesa
+        </button>
       </form>
     );
   }
 }
 
-export default WalletForm;
+const mapDispatchToProps = (dispatch) => ({
+  dispatchSetExpense: (expenses) => dispatch(getExpenses(expenses)),
+});
+
+const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses,
+});
+
+WalletForm.propTypes = {
+  dispatchSetExpense: PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);

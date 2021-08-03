@@ -1,11 +1,12 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 // Esse reducer será responsável por tratar as informações da pessoa usuária
-import { REQUEST_CURRENCY, GET_TOTAL } from '../actions/index';
+import { REQUEST_CURRENCY, GET_TOTAL, GET_EXPENSES } from '../actions/index';
 
 const initialState = {
   total: 0,
   currencies: [],
   currency: 'BRL',
+  expenses: [],
 };
 
 function wallet(state = initialState, action) {
@@ -19,6 +20,11 @@ function wallet(state = initialState, action) {
     return {
       ...state,
       total: action.payload,
+    };
+  case GET_EXPENSES:
+    return {
+      ...state,
+      expenses: action.payload,
     };
   default:
     return state;

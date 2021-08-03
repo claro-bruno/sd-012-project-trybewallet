@@ -1,4 +1,4 @@
-import React from 'react';
+/* import React from 'react';
 import userEvent from '@testing-library/user-event';
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { response as mockData, initialStateWithExpenses } from './mockData';
@@ -73,4 +73,4 @@ describe('11 - Crie um botão para editar uma despesa da tabela contendo as segu
 
     expect(store.getState().wallet.expenses).toStrictEqual(newExpenses);
   });
-});
+});*/
