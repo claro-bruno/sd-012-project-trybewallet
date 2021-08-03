@@ -6,7 +6,7 @@ class Currency extends Component {
     super();
 
     this.state = {
-      currency: [],
+      currencys: [],
     };
 
     this.currencyList = this.currencyList.bind(this);
@@ -25,23 +25,23 @@ class Currency extends Component {
       .filter((options) => options.code !== 'USDT' && options.codein !== 'BRLT');
     // console.log(option);
     this.setState({
-      currency: option,
+      currencys: option,
     });
   }
 
   render() {
-    const { currency } = this.state;
-    const { currencyCheck, handleChange } = this.props;
+    const { currencys } = this.state;
+    const { currency, handleChange } = this.props;
     return (
       <label htmlFor="currency-expense">
         Moeda
         <select
           id="currency-expense"
-          name="currencyCheck"
+          name="currency"
           onChange={ handleChange }
-          value={ currencyCheck }
+          value={ currency }
         >
-          { currency.map((curr) => (
+          { currencys.map((curr) => (
             <option
               key={ curr.code }
               value={ curr.code }
@@ -56,7 +56,7 @@ class Currency extends Component {
 }
 
 Currency.propTypes = {
-  currencyCheck: PropTypes.string,
+  currency: PropTypes.string,
   handleChange: PropTypes.func,
 }.isRequired;
 

@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 
 class InputValue extends Component {
   render() {
-    const { valueExpense, handleChange } = this.props;
+    const { value, handleChange } = this.props;
     return (
       <label htmlFor="value-expense">
         Valor
         <input
           id="value-expense"
-          name="valueExpense"
+          name="value"
           onChange={ handleChange }
           type="number"
-          value={ valueExpense }
+          value={ value }
         />
       </label>
     );
@@ -21,7 +21,7 @@ class InputValue extends Component {
 
 InputValue.propTypes = {
   handleChange: PropTypes.func,
-  valueExpense: PropTypes.number,
+  value: PropTypes.number,
 }.isRequired;
 
 export default InputValue;

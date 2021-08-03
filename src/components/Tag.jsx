@@ -18,7 +18,6 @@ class Tag extends Component {
           <option>Trabalho</option>
           <option>Transporte</option>
           <option>Saúde</option>
-
         </select>
       </label>
     );
@@ -32,7 +31,7 @@ Tag.propTypes = {
 
 Tag.defaultProps = {
   handleChange: () => {},
-  tag: 'Alimentação',
+  tag: '',
 };
 
 export default Tag;

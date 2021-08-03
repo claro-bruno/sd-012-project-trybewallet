@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 
 class InputDescribe extends Component {
   render() {
-    const { describeExpense, handleChange } = this.props;
+    const { description, handleChange } = this.props;
     return (
       <label htmlFor="describe-expense">
         Descrição
         <input
           id="describe-expense"
-          name="describeExpense"
+          name="description"
           onChange={ handleChange }
           type="text"
-          value={ describeExpense }
+          value={ description }
         />
       </label>
     );
@@ -21,7 +21,7 @@ class InputDescribe extends Component {
 
 InputDescribe.propTypes = {
   handleChange: PropTypes.func,
-  describeExpense: PropTypes.string,
+  description: PropTypes.string,
 }.isRequired;
 
 export default InputDescribe;

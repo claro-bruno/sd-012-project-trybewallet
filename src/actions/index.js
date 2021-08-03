@@ -1,6 +1,6 @@
 // Coloque aqui suas actions
 export const GET_EMAIL = 'GET_EMAIL';
-export const VALUE_INPUT = 'VALUE_INPUT';
+export const INPUT = 'INPUT';
 
 export function loginAction(emailInput) {
   return {
@@ -9,9 +9,19 @@ export function loginAction(emailInput) {
   };
 }
 
-export function valueExpense(valueInput) {
+export function expensesAction(expenses) {
   return {
-    type: VALUE_INPUT,
-    valueExpenses: valueInput,
+    type: INPUT,
+    expenses,
+  };
+}
+
+export function listAction(currencies) {
+  return async (dispatch) => {
+    const fethCurrencys = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const currenciesJSON = await fethCurrencys.json();
+    const currencyList = { exchangeRates: currenciesJSON };
+    Object.assign(currencies, currencyList);
+    dispatch(expensesAction(currencies));
   };
 }
