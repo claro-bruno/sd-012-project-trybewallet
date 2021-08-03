@@ -23,15 +23,29 @@
   width: 40%;
 }
 
-.header-table {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  list-style: none;
+tbody, th, td {
+  /* border: 0.3px solid gray; */
+  border-collapse: collapse;
+  color: white;
+  padding: 8px;
 }
 
-tr {
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
+tr:nth-child(even) {
+  background-color: #303030;
+}
+
+tr:nth-child(odd) {
+  background-color: #000000;
+}
+
+.delete-btn {
+  background-color: red;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.edit-btn {
+  background-color: yellow;
+  border-radius: 5px;
+  padding: 5px;
 }

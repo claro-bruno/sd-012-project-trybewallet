@@ -6,6 +6,12 @@ import { getCurrency } from '../actions';
 import ExpenseTable from '../component/expenseTable';
 
 class Wallet extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.total = this.total.bind(this);
+  }
+
   total() {
     const { expenses } = this.props;
     return expenses.reduce((acc, { value, currency, exchangeRates }) => {
@@ -26,7 +32,7 @@ class Wallet extends React.Component {
           <span data-testid="header-currency-field">BRL</span>
         </header>
         <AddExpenseForm />
-        <ExpenseTable />
+        <ExpenseTable total={ this.total } />
       </>
     );
   }
