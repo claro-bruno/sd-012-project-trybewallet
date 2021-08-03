@@ -1,5 +1,5 @@
 // Coloque aqui suas actions
 
-const addEmail = (email) => ({ type: 'ADD_EMAIL', email });
+export const addEmail = (email) => ({ type: 'ADD_EMAIL', email });
 
-export default addEmail;
+export const addCurrenses = (value) => ({ type: 'TESTE', value });
