@@ -1,15 +1,15 @@
-/* .login-container {
+.login-container {
   width: 100%;
 }
 
 .login-content {
   background-color: rgb(137, 149, 150);
-  margin: auto;
-  min-height: 500px;
   border-radius: 10%;
-  width: 400px;
+  margin: auto;
   margin-top: 60px;
+  min-height: 500px;
   padding: 20px;
+  width: 400px;
 }
 
 .login-header {
@@ -28,11 +28,11 @@
 }
 
 .login-form {
+  display: flex;
+  flex-direction: column;
   gap: 10px;
   margin: auto;
-  display: flex;
-  width: 80%;
-  flex-direction: column;
   margin-top: 50px;
   padding: 10px;
-} */
+  width: 80%;
+}

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Input from './Input';
 import Select from './Select';
 import { selects } from '../service/selects';
-// import './FormWalletStyle.css';
+import './FormWalletStyle.css';
 
 class FormWallet extends React.Component {
   render() {
