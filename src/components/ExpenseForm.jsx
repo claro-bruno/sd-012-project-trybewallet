@@ -46,7 +46,7 @@ class ExpenseForm extends React.Component {
 }
 
 ExpenseForm.propTypes = {
-  currencies: PropTypes.string.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default ExpenseForm;
