@@ -18,3 +18,18 @@
 .totalExpense {
   display: inline;
 }
+
+.wallet-form {
+  align-items: center;
+  background-color: darkslategray;
+  border-style: ridge;
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 5px;
+}
+
+.form-items {
+  align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+}
