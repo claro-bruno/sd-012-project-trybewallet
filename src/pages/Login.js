@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { loginAction } from '../actions';
 import trybeWallet from '../images/trybe-wallet.gif';
+import trybeWalletBlank from '../images/trybe-wallet_blank.gif';
+import FieldsetLogin from '../components/styledComponents/FieldsetLogin';
+import FormLogin from '../components/styledComponents/FormLogin';
+import DarkmodeButton from '../components/DarkmodeButton';
 import './login.css';
 
 const EMAIL_REGEX = /^[a-z0-9](\.|-|_|[a-z]|\d)+@([a-z]|\d)+\.[a-z]{2,3}(\.[a-z]{2})?$/;
@@ -44,11 +48,12 @@ class Login extends React.Component {
 
   renderLoginFields() {
     const { email, password, isValid } = this.state;
+    const { darkmode } = this.props;
     return (
-      <fieldset>
+      <FieldsetLogin darkmode={ darkmode }>
         <img
           className="logo-login"
-          src={ trybeWallet }
+          src={ darkmode ? trybeWalletBlank : trybeWallet }
           alt="trybe-wallet-logo"
         />
         <div className="fields-content">
@@ -83,16 +88,18 @@ class Login extends React.Component {
 
           </button>
         </div>
-      </fieldset>
+      </FieldsetLogin>
     );
   }
 
   render() {
+    const { darkmode } = this.props;
     return (
       <div className="login-page">
-        <form className="login-form" method="get">
+        <DarkmodeButton className="darkmode-login" />
+        <FormLogin darkmode={ darkmode }>
           {this.renderLoginFields()}
-        </form>
+        </FormLogin>
       </div>
     );
   }
@@ -102,11 +109,16 @@ const mapDispatchToProps = (dispatch) => ({
   login: (email) => dispatch(loginAction(email)),
 });
 
+const mapStateToProps = (state) => ({
+  darkmode: state.user.darkmode,
+});
+
 Login.propTypes = {
   login: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
+  darkmode: PropTypes.bool.isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -4,26 +4,26 @@
   width: 100vw;
 }
 
-.login-form {
+.darkmode-login {
   align-items: center;
-  animation: blink-login ease-in-out 2s;
+  border: 1px solid silver;
+  border-radius: 15px;
   display: flex;
-  height: 100%;
-  justify-content: center;
-  width: 100%;
+  justify-content: space-around;
+  padding: 0 5px;
+  position: absolute;
+  right: 30px;
+  top: 5px;
+  width: 90px;
 }
 
-.login-form fieldset {
-  align-items: center;
-  animation: expand ease-in-out 2s;
+.darkmode-login button {
+  background-color: transparent;
   border: none;
-  border-radius: 5px;
-  box-shadow: 0 0 4px 6px silver;
-  display: flex;
-  flex-direction: column;
-  height: 25vw;
-  justify-content: space-evenly;
-  width: 25vw;
+  box-shadow: none;
+  cursor: pointer;
+  outline: none;
+  width: 80px;
 }
 
 .logo-login {

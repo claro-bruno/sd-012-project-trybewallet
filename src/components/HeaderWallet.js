@@ -2,10 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import trybeWalletLogo from '../images/trybe-wallet.gif';
+import trybeWalletLogoBlank from '../images/trybe-wallet_blank.gif';
+import DarkmodeButton from './DarkmodeButton';
 
 class HeaderWallet extends React.Component {
   render() {
-    const { email, expenses } = this.props;
+    const { email, expenses, darkmode } = this.props;
     const totalExpenses = expenses
       .reduce((total, expense) => {
         const { currency } = expense;
@@ -19,11 +21,11 @@ class HeaderWallet extends React.Component {
       <header className="header-wallet">
         <img
           className="logo-wallet"
-          src={ trybeWalletLogo }
+          src={ darkmode ? trybeWalletLogoBlank : trybeWalletLogo }
           alt="trybe-wallet-logo"
         />
 
-        <div className="info-wallet">
+        <div className={ darkmode ? 'info-wallet-darkmode' : 'info-wallet' }>
           <div className="email-wallet">
             Email:
             {' '}
@@ -42,8 +44,8 @@ class HeaderWallet extends React.Component {
             {' '}
             <span data-testid="header-currency-field">BRL</span>
           </div>
-
         </div>
+        <DarkmodeButton className="darkmode-wallet" />
       </header>
     );
   }
@@ -52,11 +54,13 @@ class HeaderWallet extends React.Component {
 const mapStateToProps = (state) => ({
   email: state.user.email,
   expenses: state.wallet.expenses,
+  darkmode: state.user.darkmode,
 });
 
 HeaderWallet.propTypes = {
   email: PropTypes.string.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  darkmode: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps)(HeaderWallet);

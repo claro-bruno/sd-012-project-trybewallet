@@ -1,0 +1,29 @@
+.moonOn {
+  color: cyan;
+  font-size: 20px;
+}
+
+.moonOff {
+  color: rgb(51, 51, 51);
+  font-size: 20px;
+}
+
+.sumOn {
+  color: orange;
+  font-size: 20px;
+}
+
+.sumOff {
+  color: rgb(31, 31, 31);
+  font-size: 20px;
+}
+
+.toggle-off {
+  color: cyan;
+  font-size: 25px;
+}
+
+.toggle-on {
+  color: orange;
+  font-size: 25px;
+}

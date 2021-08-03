@@ -74,6 +74,6 @@ export const saveExpense = (expense) => (async (dispatch) => {
   }
 });
 
-export const darkModeOn = () => ({ type: DARK_MODE_ON });
+export const darkmodeOn = () => ({ type: DARK_MODE_ON });
 
-export const darkModeOff = () => ({ type: DARK_MODE_OFF });
+export const darkmodeOff = () => ({ type: DARK_MODE_OFF });

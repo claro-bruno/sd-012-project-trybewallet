@@ -31,9 +31,9 @@ class ExpenseTable extends React.Component {
   }
 
   render() {
-    const { expenses } = this.props;
+    const { expenses, darkmode } = this.props;
     return (
-      <table className="expense-table">
+      <table className={ `expense-table ${darkmode ? 'expense-table-darkmode' : ''}` }>
         <thead>
           <tr className="table-title">
             {
@@ -78,6 +78,7 @@ class ExpenseTable extends React.Component {
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
   edit: state.wallet.edit,
+  darkmode: state.user.darkmode,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -90,6 +91,7 @@ ExpenseTable.propTypes = {
   deleteExpense: PropTypes.func.isRequired,
   editExpense: PropTypes.func.isRequired,
   edit: PropTypes.bool,
+  darkmode: PropTypes.bool.isRequired,
 };
 
 ExpenseTable.defaultProps = {
