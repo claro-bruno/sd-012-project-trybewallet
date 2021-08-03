@@ -1,11 +1,23 @@
 export const ENTRY_USER = 'ENTRY_USER';
 export const SAVE_CURRENCY = 'SAVE_CURRENCY';
 export const SAVE_CURRENCY_SUCESS = 'SAVE_CURRENCY_SUCESS';
-export const SAVE_CURRENCY_ERROR = 'SAVE_CURRENCY_ERROR';
-export const ADD_EXPENDITURE = 'ADD_EXPENDITURE';
+export const SAVE_CURRENCY_FAILED = 'SAVE_CURRENCY_FAILED';
+export const ADD_EXPENSES = 'ADD_EXPENSES';
 
 export const entryUser = (email) => ({ type: ENTRY_USER, email });
 export const saveCurrency = () => ({ type: SAVE_CURRENCY });
 export const saveCurrencySucess = (payload) => ({ type: SAVE_CURRENCY_SUCESS, payload });
-export const saveCurrencyError = (payload) => ({ type: SAVE_CURRENCY_ERROR, payload });
-export const addExpenditure = (payload) => ({ type: ADD_EXPENDITURE, payload });
+export const saveCurrencyFailed = (payload) => ({ type: SAVE_CURRENCY_FAILED, payload });
+export const addExpenses = (payload) => ({ type: ADD_EXPENSES, payload });
+
+export const saveCurrencyThunk = () => async (dispatch) => {
+  dispatch(saveCurrency());
+  try {
+    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const results = await response.json();
+    const filter = Object.keys(results).filter((currencies) => currencies !== 'USDT');
+    dispatch(saveCurrencySucess(filter));
+  } catch (error) {
+    dispatch(saveCurrencyFailed(error));
+  }
+};

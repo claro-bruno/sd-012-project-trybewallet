@@ -7,7 +7,7 @@ import InputDescription from './InputDescription';
 import InputCurrency from './InputCurrency';
 import InputPayment from './InputPayment';
 import InputTag from './InputTag';
-import { addExpenditure } from '../actions';
+import { addExpenses } from '../actions';
 
 class Expenditures extends React.Component {
   constructor() {
@@ -56,8 +56,8 @@ class Expenditures extends React.Component {
 
   async handleClick() {
     const { valor, description, currency, paymentMethod, tag, id } = this.state;
-    const { addExpenditureAction } = this.props;
-    const expenditure = {
+    const { addExpenseAction } = this.props;
+    const expenses = {
       id,
       value: valor,
       description,
@@ -66,9 +66,9 @@ class Expenditures extends React.Component {
       tag,
       exchangeRates: await this.getCurrencies(),
     };
-    addExpenditureAction(expenditure);
-    this.setState((previous) => ({
-      id: previous.id + 1,
+    addExpenseAction(expenses);
+    this.setState((previus) => ({
+      id: previus.id + 1,
     }));
   }
 
@@ -103,7 +103,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addExpenditureAction: (payload) => dispatch(addExpenditure(payload)),
+  addExpenseAction: (payload) => dispatch(addExpenses(payload)),
 });
 
 Expenditures.propTypes = {
