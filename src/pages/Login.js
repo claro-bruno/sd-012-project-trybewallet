@@ -8,9 +8,19 @@ class Login extends React.Component {
     this.state = ({
       email: '',
       password: '',
+      button: false,
     });
 
     this.handleChange = this.handleChange.bind(this);
+    this.checkButton = this.checkButton.bind(this);
+  }
+
+  checkButton() {
+    const { email, password } = this.state;
+    const passwordLength = 6;
+    const pattern = /(.*)@(.*).com/; // Fonte: https://trybecourse.slack.com/archives/C01T2C18DSM/p1627671711058500?thread_ts=1627667851.053100&cid=C01T2C18DSM
+    const condition = password.length >= passwordLength && pattern.test(email);
+    return condition;
   }
 
   handleChange({ target }) {
@@ -21,7 +31,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, button } = this.state;
     return (
       <>
         <Input
@@ -44,7 +54,7 @@ class Login extends React.Component {
           onChange={ this.handleChange }
         />
 
-        <button type="submit">Entrar</button>
+        <button type="submit" disabled={ !(this.checkButton()) }>Entrar</button>
 
       </>
     );
