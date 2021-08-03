@@ -6,7 +6,7 @@ class Button extends Component {
     const { onClick, disabled, buttonTxt, name, id } = this.props;
     return (
       <button
-        type="button"
+        type="submit"
         onClick={ onClick }
         disabled={ disabled }
         name={ name }

@@ -25,7 +25,8 @@ class Login extends Component {
     });
   }
 
-  handleClick() {
+  handleClick(e) {
+    e.preventDefault();
     const { email } = this.state;
     const { userStateToRedux } = this.props;
     userStateToRedux(email);

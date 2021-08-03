@@ -5,9 +5,10 @@ import PropTypes from 'prop-types';
 class Header extends Component {
   render() {
     const imgPath = 'https://www.abcdacomunicacao.com.br/wp-content/uploads/Trybe_logo-baixa.png';
-    const { userStateFromRedux } = this.props;
+    const { userStateFromRedux, walletStateFromRedux } = this.props;
     const { email } = userStateFromRedux;
-    const despesas = 0;
+    const { totalExpenses } = walletStateFromRedux;
+    const despesas = totalExpenses || 0;
 
     return (
       <header>
@@ -20,7 +21,7 @@ class Header extends Component {
           </div>
           <div data-testid="total-field">
             <p data-testid="header-currency-field">
-              { `Total de despesas: ${despesas} BRL` }
+              { `Total de despesas: ${despesas.toFixed(2)} BRL` }
             </p>
           </div>
         </div>
@@ -31,11 +32,17 @@ class Header extends Component {
 
 const mapStateToProps = (state) => ({
   userStateFromRedux: state.user,
+  walletStateFromRedux: state.wallet,
 });
 
 Header.propTypes = {
   userStateFromRedux: PropTypes.shape({
     email: PropTypes.string,
+  }).isRequired,
+  walletStateFromRedux: PropTypes.shape({
+    currencies: PropTypes.arrayOf(PropTypes.string),
+    expenses: PropTypes.arrayOf(PropTypes.object),
+    totalExpenses: PropTypes.number,
   }).isRequired,
 };
 
