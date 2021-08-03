@@ -12,9 +12,9 @@ class Header extends React.Component {
           {email}
         </span>
         <span data-testid="total-field">
-          {expenses.reduce((acc, curr) => acc
+          {expenses.reduce((acc, curr) => (acc
             + parseFloat(curr.value)
-            * parseFloat(curr.exchangeRates[curr.currency].ask),
+            * parseFloat(curr.exchangeRates[curr.currency].ask).toFixed(2)),
           0)}
         </span>
         <span data-testid="header-currency-field">
