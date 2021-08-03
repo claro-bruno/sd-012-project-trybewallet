@@ -14,14 +14,14 @@ export const loading = () => ({
   type: 'LOADING',
 });
 
-export const loadingSuccess = (json) => ({
+export const loadingSuccess = (payload) => ({
   type: 'LOADING_SUCCESS',
-  payload: json,
+  payload,
 });
 
-export const loadingError = (err) => ({
+export const loadingError = (payload) => ({
   type: 'LOADING_ERROR',
-  payload: err,
+  payload,
 });
 
 export const loadingExpenses = (payload, responseJson) => ({
