@@ -20,7 +20,7 @@ export default class Input extends Component {
 
 Input.propTypes = {
   id: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   onChange: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
