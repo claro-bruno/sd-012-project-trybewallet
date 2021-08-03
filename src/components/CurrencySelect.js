@@ -32,7 +32,7 @@ CurrencySelect.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   fetchApi: PropTypes.func.isRequired,
-  currencies: PropTypes.shape({}).isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 const mapStateToProps = (state) => ({
