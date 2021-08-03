@@ -1,100 +1,100 @@
 const options = {
   methods: [
     {
-      name: 'cash',
-      desc: 'Dinheiro',
+      name: 'Dinheiro',
+      code: 'cash',
     },
     {
-      name: 'creditCard',
-      desc: 'Cartão de crédito',
+      name: 'Cartão de crédito',
+      code: 'creditCard',
     },
     {
-      name: 'debit card',
-      desc: 'Cartão de débito',
+      name: 'Cartão de débito',
+      code: 'debitCard',
     },
   ],
   tags: [
     {
-      name: 'food',
-      desc: 'Alimentação',
+      name: 'Alimentação',
+      code: 'food',
     },
     {
-      name: 'leisure',
-      desc: 'Lazer',
+      name: 'Lazer',
+      code: 'leisure',
     },
     {
-      name: 'work',
-      desc: 'Trabalho',
+      name: 'Trabalho',
+      code: 'work',
     },
     {
-      name: 'transport',
-      desc: 'Transporte',
+      name: 'Transporte',
+      code: 'transport',
     },
     {
-      name: 'health',
-      desc: 'Saúde',
+      name: 'Saúde',
+      code: 'health',
     },
   ],
   /* currencies: [
     {
-      name: 'dolarAmericano',
-      desc: 'USD',
+      name: 'USD',
+      code: 'dolarAmericano',
     },
     {
-      name: 'dolarCanadense',
-      desc: 'CAD',
+      name: 'CAD',
+      code: 'dolarCanadense',
     },
     {
-      name: 'libraEsterlina',
-      desc: 'GBP',
+      name: 'GBP',
+      code: 'libraEsterlina',
     },
     {
-      name: 'pesoArgentino',
-      desc: 'ARS',
+      name: 'ARS',
+      code: 'pesoArgentino',
     },
     {
-      name: 'bitcoin',
-      desc: 'BTC',
+      name: 'BTC',
+      code: 'bitcoin',
     },
     {
-      name: 'litecoin',
-      desc: 'LTC',
+      name: 'LTC',
+      code: 'litecoin',
     },
     {
-      name: 'euro',
-      desc: 'EUR',
+      name: 'EUR',
+      code: 'euro',
     },
     {
-      name: 'ieneJapones',
-      desc: 'JPY',
+      name: 'JPY',
+      code: 'ieneJapones',
     },
     {
-      name: 'francoSuico',
-      desc: 'CHF',
+      name: 'CHF',
+      code: 'francoSuico',
     },
     {
-      name: 'dolarAustraliano',
-      desc: 'AUD',
+      name: 'AUD',
+      code: 'dolarAustraliano',
     },
     {
-      name: 'yuanChines',
-      desc: 'CNY',
+      name: 'CNY',
+      code: 'yuanChines',
     },
     {
-      name: 'novoShekelIsraelense',
-      desc: 'ILS',
+      name: 'ILS',
+      code: 'novoShekelIsraelense',
     },
     {
-      name: 'ethereum',
-      desc: 'ETH',
+      name: 'ETH',
+      code: 'ethereum',
     },
     {
-      name: 'xrp',
-      desc: 'XRP',
+      name: 'XRP',
+      code: 'xrp',
     },
     {
-      name: 'dogecoin',
-      desc: 'DOGE',
+      name: 'DOGE',
+      code: 'dogecoin',
     },
   ], */
 };

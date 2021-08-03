@@ -2,6 +2,7 @@ import {
   CHANGE_WALLET_INFORMATION,
   GET_CURRENCIES,
   SET_CURRENCIES,
+  SET_EXPENSE,
   REQUEST_CURRENCIES,
   FAILED_REQUEST,
 } from '../actions/ActionTypes';
@@ -23,6 +24,8 @@ const wallet = (state = INITIAL_STATE, action) => {
     return { ...state, currencies: Object.entries(action.payload), isFetching: false };
   case SET_CURRENCIES:
     return { ...state, currencies: action.selecteds };
+  case SET_EXPENSE:
+    return { ...state, expenses: [...state.expenses, action.expense] };
   case FAILED_REQUEST:
     return { ...state, error: action.payload, isFetching: false };
   default:

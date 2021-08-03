@@ -3,6 +3,7 @@ import {
   CHANGE_WALLET_INFORMATION,
   GET_CURRENCIES,
   SET_CURRENCIES,
+  SET_EXPENSE,
   REQUEST_CURRENCIES,
   FAILED_REQUEST,
 } from './ActionTypes';
@@ -20,6 +21,11 @@ export const walletInfo = (info) => ({
 export const setCurrencies = (selecteds) => ({
   type: SET_CURRENCIES,
   selecteds,
+});
+
+export const setExpense = (expense) => ({
+  type: SET_EXPENSE,
+  expense,
 });
 
 const getCurrencies = (json) => ({

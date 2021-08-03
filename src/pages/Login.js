@@ -53,7 +53,7 @@ class Login extends Component {
   render() {
     const { email, password, isDisable } = this.state;
     return (
-      <div className="login-container">
+      <form className="login-container">
         <img className="login-logo" src={ logoPath } alt="trybewallet" />
         <Input
           labelText=""
@@ -63,6 +63,7 @@ class Login extends Component {
           name="email"
           value={ email }
           onChange={ this.handleChange }
+          required
         />
         <Input
           labelText=""
@@ -72,15 +73,17 @@ class Login extends Component {
           name="password"
           value={ password }
           onChange={ this.handleChange }
+          required
         />
         <Button
           className="login-button"
+          type="submit"
           buttonText="Entrar"
           pathname="carteira"
           isDisable={ isDisable }
           onClick={ this.loginWithUserInfo }
         />
-      </div>
+      </form>
     );
   }
 }

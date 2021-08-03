@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
 import { Input, Select, Button } from '.';
 import options from '../data';
 
@@ -8,7 +7,7 @@ class Menu extends Component {
   render() {
     const {
       value,
-      exchangeCurrency,
+      currency,
       currencies,
       method,
       tag,
@@ -19,7 +18,7 @@ class Menu extends Component {
 
     return (
       <div className="menu-container">
-        <form className="menu-form">
+        <div className="menu-form">
           <Input
             labelText="Valor"
             type="number"
@@ -28,15 +27,17 @@ class Menu extends Component {
             name="value"
             value={ value }
             onChange={ onChange }
+            required
           />
           <Select
             labelText="Moeda"
             className="wallet-input"
-            id="wallet-exchange-currency"
-            name="exchangeCurrency"
-            value={ exchangeCurrency }
+            id="wallet-currency"
+            name="currency"
+            value={ currency }
             onChange={ onChange }
             options={ currencies }
+            required={ false }
           />
           <Select
             labelText="Método de pagamento"
@@ -46,6 +47,7 @@ class Menu extends Component {
             value={ method }
             onChange={ onChange }
             options={ options.methods }
+            required={ false }
           />
           <Select
             labelText="Tag"
@@ -55,6 +57,7 @@ class Menu extends Component {
             value={ tag }
             onChange={ onChange }
             options={ options.tags }
+            required={ false }
           />
           <Input
             labelText="Descrição"
@@ -64,6 +67,7 @@ class Menu extends Component {
             name="description"
             value={ description }
             onChange={ onChange }
+            required
           />
           <Button
             className="add-expense"
@@ -72,7 +76,7 @@ class Menu extends Component {
             isDisable={ false }
             onClick={ onClick }
           />
-        </form>
+        </div>
       </div>
     );
   }
@@ -80,7 +84,7 @@ class Menu extends Component {
 
 Menu.propTypes = {
   value: PropTypes.string.isRequired,
-  exchangeCurrency: PropTypes.string.isRequired,
+  currency: PropTypes.string.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string,
     desc: PropTypes.string,

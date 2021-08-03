@@ -19,21 +19,23 @@ class Button extends Component {
   }
 
   handleClick() {
-    const { onClick } = this.props;
-    onClick();
-    this.handleRedirect();
+    const { isDisable, onClick } = this.props;
+    if (!isDisable) {
+      onClick();
+      this.handleRedirect();
+    }
   }
 
   render() {
-    const { className, buttonText, pathname, isDisable } = this.props;
+    const { className, type, buttonText, pathname, isDisable } = this.props;
     const { redirect } = this.state;
     return (
-      ((redirect && (pathname.length > 0)) ? (
+      ((redirect && (pathname.length > 0) && !isDisable) ? (
         <Redirect to={ pathname } />
       ) : (
         <button
           className={ className }
-          type="button"
+          type={ (type === 'submit' ? 'submit' : 'button') }
           onClick={ this.handleClick }
           disabled={ isDisable }
         >
@@ -46,6 +48,7 @@ class Button extends Component {
 
 Button.propTypes = {
   className: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
   buttonText: PropTypes.string.isRequired,
   pathname: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
