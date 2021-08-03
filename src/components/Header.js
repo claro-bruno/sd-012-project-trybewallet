@@ -1,10 +1,50 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import trybePath from '../images/trybe.png';
 
 class Header extends Component {
+  constructor(props) {
+    super(props);
+
+    this.addToTotal = this.addToTotal.bind(this);
+
+    this.state = {
+      total: 0,
+    };
+  }
+
+  componentDidUpdate(prevProps) {
+    const { wallet: { expenses } } = this.props;
+    const { total } = this.state;
+    if ((prevProps.wallet.expenses !== expenses)
+        && (expenses.length > 0)) {
+      console.log(expenses.length);
+      console.log(expenses);
+      console.log(total);
+      this.addToTotal();
+    }
+  }
+
+  addToTotal() {
+    const { wallet: { expenses } } = this.props;
+    const somaTotal = expenses.map((expenseValue) => {
+      const resultValue = expenseValue.value;
+      return resultValue;
+    }).reduce((currentValue, nextValue) => {
+      const result = parseFloat(currentValue) + parseFloat(nextValue);
+      return result;
+    }, 0);
+    console.log(somaTotal);
+    this.setState((prevProps) => ({
+      ...prevProps,
+      total: somaTotal,
+    }));
+  }
+
   render() {
-    const { email, total, localCurrency } = this.props;
+    const { email, localCurrency } = this.props;
+    const { total } = this.state;
     const formato = { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' };
     return (
       <div className="header-container">
@@ -24,13 +64,24 @@ class Header extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({ wallet: state.wallet });
+
 Header.propTypes = {
   email: PropTypes.string.isRequired,
-  total: PropTypes.number.isRequired,
   localCurrency: PropTypes.shape({
     code: PropTypes.string,
     symbol: PropTypes.string,
   }).isRequired,
+  wallet: PropTypes.shape({
+    expenses: PropTypes.arrayOf(PropTypes.shape({
+      exchangeRates: PropTypes.arrayOf(PropTypes.shape({
+        camelName: PropTypes.string,
+        name: PropTypes.string,
+        code: PropTypes.string,
+        ask: PropTypes.number,
+      })),
+    })).isRequired,
+  }).isRequired,
 };
 
-export default Header;
+export default connect(mapStateToProps, null)(Header);

@@ -17,7 +17,6 @@ class Wallet extends Component {
     this.addExchangeRates = this.addExchangeRates.bind(this);
     this.setExpense = this.setExpense.bind(this);
     this.resetState = this.resetState.bind(this);
-    this.convertToCamelCase = this.convertToCamelCase.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
 
@@ -80,7 +79,6 @@ class Wallet extends Component {
       .filter((currenciesSelecteds) => currenciesSelecteds.codein !== 'BRLT');
     const formatCurrencies = selectedsCurrencies.map((currencyFormated) => {
       const newObject = {
-        camelName: this.convertToCamelCase(currencyFormated.name),
         name: currencyFormated.name.split('/')[0],
         code: currencyFormated.code,
         ask: currencyFormated.ask,
@@ -153,29 +151,6 @@ class Wallet extends Component {
       ...prevState,
       readyToAdd: false,
     }));
-  }
-
-  convertToCamelCase(input) {
-    const stRegExp = '[A-Z\xC0-\xD6\xD8-\xDE]?[a-z\xDF-\xF6\xF8-\xFF]';
-    const ndRegExp = '|[A-Z\xC0-\xD6\xD8-\xDE]+(?![a-z\xDF-\xF6\xF8-\xFF])|d+';
-    const joinRegExp = `${stRegExp}+${ndRegExp}`;
-    const regex = new RegExp(joinRegExp, 'g');
-
-    let temp = input.split('/')[0];
-    temp = temp.match(regex);
-    let result = '';
-
-    for (let index = 0, len = temp.length; index < len; index += 1) {
-      const currentString = temp[index];
-      let tempString = currentString.toLowerCase();
-      if (index !== 0) {
-        tempString = tempString.substr(0, 1).toUpperCase() + tempString.substr(1);
-      }
-      result += tempString;
-    }
-
-    result = result.normalize('NFD').replace(/[^a-zA-Zs]/g, '');
-    return result;
   }
 
   handleChange({ target: { name, value } }) {
