@@ -7,6 +7,13 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
 
+    this.createSelect = this.createSelect.bind(this);
+    this.createInput = this.createInput.bind(this);
+    this.createButton = this.createButton.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.fetchAPI = this.dataAPI.bind(this);
+
     this.state = {
       value: 0,
       description: '',
@@ -14,13 +21,6 @@ class Form extends React.Component {
       method: 'Dinheiro',
       tag: 'Alimentação',
     };
-
-    this.createSelect = this.createSelect.bind(this);
-    this.createInput = this.createInput.bind(this);
-    this.createButton = this.createButton.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.fetchAPI = this.dataAPI.bind(this);
   }
 
   componentDidMount() {
