@@ -21,7 +21,6 @@ class Form extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.fetchAPI = this.dataAPI.bind(this);
-
   }
 
   componentDidMount() {
