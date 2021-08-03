@@ -6,13 +6,27 @@ import { getCurrencies } from '../actions';
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+
+    };
+
     this.fetchCurrencies = this.fetchCurrencies.bind(this);
     this.showCurrencies = this.showCurrencies.bind(this);
     this.renderPage = this.renderPage.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
     this.fetchCurrencies();
+  }
+
+  handleChange({ target }) {
+    const { name, value } = target;
+
+    return this.setState({
+      [name]: value,
+    }, () => console.log(this.state));
   }
 
   fetchCurrencies() {
@@ -31,11 +45,15 @@ class Wallet extends React.Component {
     return (
       <label htmlFor="input-currency">
         Moeda
-        <select name="Moeda" id="input-currency" aria-label="Moeda">
+        <select
+          name="currency"
+          id="input-currency"
+          aria-label="Moeda"
+          onChange={ this.handleChange }
+        >
           {filteredCurrencies.map((currencieName) => (
             <option
               key={ currencieName }
-              value={ currencieName }
             >
               { currencieName }
             </option>
@@ -45,41 +63,56 @@ class Wallet extends React.Component {
     );
   }
 
-  renderPage() {
-    const { currencies } = this.props;
+  renderHeader() {
     const { email } = this.props;
     return (
+      <header>
+        <p>
+          Email:
+          <span data-testid="email-field">{` ${email} `}</span>
+          Despesa Total: R$
+          <span data-testid="total-field">{0}</span>
+          <span data-testid="header-currency-field"> BRL</span>
+        </p>
+      </header>
+    );
+  }
+
+  renderPage() {
+    return (
       <div>
-        <header>
-          <p>
-            Email:
-            <span data-testid="email-field">{` ${email} `}</span>
-            Despesa Total: R$
-            <span data-testid="total-field">{0}</span>
-            <span data-testid="header-currency-field">BRL</span>
-          </p>
-        </header>
+        {this.renderHeader()}
         <form>
-          <label htmlFor="input-value">
+          <label htmlFor="value">
             Valor
-            <input id="input-value" type="number" />
+            <input id="value" name="value" type="number" onChange={ this.handleChange } />
           </label>
-          <label htmlFor="input-description">
+          <label htmlFor="description">
             Descrição
-            <input id="input-description" type="text" />
+            <input
+              id="description"
+              name="description"
+              type="text"
+              onChange={ this.handleChange }
+            />
           </label>
-          {(currencies.length === 0) ? null : this.showCurrencies()}
-          <label htmlFor="input-payment">
+          {this.showCurrencies()}
+          <label htmlFor="method">
             Método de pagamento
-            <select id="input-payment" aria-label="Método de pagamento">
-              <option value="dinheiro">Dinheiro</option>
-              <option value="cartao-de-credito">Cartão de crédito</option>
-              <option value="cartao-de-debito">Cartão de débito</option>
+            <select
+              id="method"
+              aria-label="Método de pagamento"
+              onChange={ this.handleChange }
+              name="method"
+            >
+              <option>Dinheiro</option>
+              <option>Cartão de crédito</option>
+              <option>Cartão de débito</option>
             </select>
           </label>
-          <label htmlFor="input-category">
+          <label htmlFor="tag">
             Tag
-            <select id="input-category" aria-label="Tag">
+            <select id="tag" onChange={ this.handleChange } name="tag">
               <option value="alimentacao">Alimentação</option>
               <option value="lazer">Lazer</option>
               <option value="trabalho">Trabalho</option>
@@ -87,6 +120,7 @@ class Wallet extends React.Component {
               <option value="saude">Saúde</option>
             </select>
           </label>
+          <button type="button">Adicionar despesa</button>
         </form>
       </div>
     );
