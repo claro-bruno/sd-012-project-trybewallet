@@ -11,7 +11,7 @@
   text-align: center;
 }
 
-.expenses-table th,.expenses-table td {
+.expenses-table th , .expenses-table td {
   color: #e8e4e6;
   padding: 6px 16px;
   text-align: center;
