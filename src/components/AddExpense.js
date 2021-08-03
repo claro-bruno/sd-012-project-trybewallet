@@ -8,7 +8,7 @@ class AddExpense extends Component {
     super(props);
 
     this.state = {
-      value: 0,
+      value: '',
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
@@ -33,6 +33,14 @@ class AddExpense extends Component {
     const { expenses, addExpense } = this.props;
 
     addExpense(this.state, expenses.length);
+
+    this.setState({
+      value: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+      description: '',
+    });
   }
 
   renderValueInput() {
