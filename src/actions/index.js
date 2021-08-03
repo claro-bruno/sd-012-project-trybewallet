@@ -4,6 +4,7 @@ export const LOADING = 'LOADING';
 export const LOADING_SUCCESS = 'LOADING_SUCCESS';
 export const LOADING_ERROR = 'LOADING_ERROR';
 export const LOADING_EXPENSES = 'LOADING_EXPENSES';
+export const DELETE_TASK = 'DELETE_TASK';
 
 export const userData = (email) => ({
   type: 'USER_DATA',
@@ -28,6 +29,11 @@ export const loadingExpenses = (payload, responseJson) => ({
   type: 'LOADING_EXPENSES',
   payload,
   responseJson,
+});
+
+export const deleteTask = (id) => ({
+  type: 'DELETE_TASK',
+  id,
 });
 
 export function fetchResponses(payload = false) {

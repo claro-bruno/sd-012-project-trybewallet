@@ -1,5 +1,5 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import { LOADING, LOADING_SUCCESS, LOADING_EXPENSES } from '../actions';
+import { LOADING, LOADING_SUCCESS, LOADING_EXPENSES, DELETE_TASK } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -19,6 +19,11 @@ function wallet(state = INITIAL_STATE, action) {
   case LOADING_EXPENSES:
     action.payload.exchangeRates = action.responseJson;
     return { ...state, expenses: [...state.expenses, action.payload],
+    };
+  case DELETE_TASK:
+    return {
+      ...state,
+      expenses: [...state.expenses.filter(({ id }) => id !== action.id)],
     };
   default:
     return state;
