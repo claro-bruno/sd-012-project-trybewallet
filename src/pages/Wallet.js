@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Form from '../components/Form';
 import Header from '../components/Header';
 import { walletChange } from '../actions';
+import Table from '../components/Table';
 
 const Wallet = () => {
   const [code, setCode] = useState([]);
@@ -22,6 +23,7 @@ const Wallet = () => {
     <div>
       <Header />
       <Form coin={ code } />
+      <Table />
     </div>
   );
 };
