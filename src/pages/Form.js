@@ -8,15 +8,10 @@ import SelectPayMethods from '../Components/SelectPayMethods';
 import SelectTag from '../Components/SelectTag';
 import dataPayMethods from '../data/dataPayMethods';
 import dataTag from '../data/dataTag';
-import { fetchCurrencies } from '../actions';
 
 class Form extends React.Component {
-  componentDidMount() {
-    const { getCurrencies } = this.props;
-    getCurrencies();
-  }
-
   render() {
+    const { currencies } = this.props;
     return (
       <form>
         <InputNumber
@@ -30,7 +25,7 @@ class Form extends React.Component {
         <SelectCurrency
           id="selectCurrency"
           label="Moeda"
-          options={ [{ value: '', text: 'Vazio' }] }
+          options={ currencies }
         />
         <SelectPayMethods
           id="payMethods"
@@ -48,11 +43,11 @@ class Form extends React.Component {
 }
 
 Form.propTypes = {
-  getCurrencies: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  getCurrencies: () => dispatch(fetchCurrencies()),
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
 });
 
-export default connect(null, mapDispatchToProps)(Form);
+export default connect(mapStateToProps)(Form);

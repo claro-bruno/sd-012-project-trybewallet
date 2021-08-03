@@ -5,9 +5,9 @@ export const storeEmail = (email) => ({
   email,
 });
 
-export const getCurrencies = (currency) => ({
+export const getCurrencies = (currencies) => ({
   type: GET_CURRENCIES,
-  currency,
+  currencies,
 });
 
 export const fetchCurrencies = () => async (dispatch) => {
@@ -20,6 +20,6 @@ export const fetchCurrencies = () => async (dispatch) => {
   const currencyData = Object.values(result);
   const currencyFilter = currencyData
     .filter((_currencies, index) => index !== usdtINdex);
-
+  // console.log(currencyFilter);
   dispatch(getCurrencies(currencyFilter));
 };

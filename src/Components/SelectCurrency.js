@@ -10,11 +10,12 @@ class SelectCurrency extends React.Component {
         <select
           id={ id }
         >
-          {options.map(({ value, text }) => (
+          {options.map((currencie) => (
             <option
-              key={ value }
+              key={ currencie.code }
+              value={ currencie.code }
             >
-              { text }
+              { currencie.code }
             </option>
           ))}
         </select>
