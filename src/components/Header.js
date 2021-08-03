@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class Header extends React.Component {
   render() {
-    const { email } = this.props;
+    const { email, total } = this.props;
     const BRL = 'BRL';
 
     return (
@@ -13,7 +13,7 @@ class Header extends React.Component {
             { `Bem-vindo, ${email}` }
           </p>
           <p data-testid="total-field">
-            { `Despesa total: ${0}`}
+            { `Despesa total: ${total.toFixed(2)}`}
           </p>
           <p data-testid="header-currency-field">
             {`Câmbio usado: ${BRL}`}
@@ -26,6 +26,7 @@ class Header extends React.Component {
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
+  total: PropTypes.number.isRequired,
 };
 
 export default Header;

@@ -8,19 +8,7 @@ import { fetchAPI } from '../actions';
 class Wallet extends React.Component {
   constructor() {
     super();
-    this.state = {
-      expense: {
-        id: 0,
-        value: 0,
-        currency: '',
-        method: '',
-        tag: '',
-        description: '',
-        exchangeRates: 0,
-      },
-    };
-
-    this.handleChange = this.handleChange.bind(this);
+    this.sumExpenses = this.sumExpenses.bind(this);
   }
 
   componentDidMount() {
@@ -28,22 +16,25 @@ class Wallet extends React.Component {
     fetchCurrencies();
   }
 
-  handleChange({ target }) {
-    const { name, value } = target;
-    this.setState({
-      [name]: value,
+  sumExpenses() {
+    const { expenses } = this.props;
+    let sum = 0;
+    expenses.forEach((expense) => {
+      const { value, currency, exchangeRates } = expense;
+      const convertValue = Number(value) * exchangeRates[currency].ask;
+      sum += convertValue;
     });
+    return sum;
   }
 
   render() {
     const { email } = this.props;
-    const { expense } = this.state;
 
     return (
       <main>
         <div>TrybeWallet</div>
-        <Header email={ email } />
-        <FormAddExpense handleChange={ this.handleChange } expense={ expense } />
+        <Header email={ email } total={ this.sumExpenses() } />
+        <FormAddExpense />
       </main>
     );
   }
@@ -52,6 +43,7 @@ class Wallet extends React.Component {
 function mapStateToProps(state) {
   return {
     email: state.user.email,
+    expenses: state.wallet.expenses,
   };
 }
 
@@ -63,6 +55,7 @@ function mapDispatchToProps(dispatch) {
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchCurrencies: PropTypes.func.isRequired,
 };
 

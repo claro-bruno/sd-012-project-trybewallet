@@ -16,9 +16,9 @@ export function getCurrencies(currencies) {
   };
 }
 
-export function addExpense(state) {
+export function addExpense(expense) {
   return {
-    type: ADD_EXPENSE, state,
+    type: ADD_EXPENSE, expense,
   };
 }
 
@@ -26,4 +26,10 @@ export const fetchAPI = () => async (dispatch) => {
   const result = await currencyAPI();
   const currencies = Object.keys(result);
   dispatch(getCurrencies(currencies));
+};
+
+export const newExpense = (expense) => async (dispatch) => {
+  const response = await currencyAPI();
+  const fullExpense = { ...expense, exchangeRates: response };
+  dispatch(addExpense(fullExpense));
 };

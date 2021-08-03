@@ -8,14 +8,14 @@ class Select extends React.Component {
       id,
       handleChange,
       options,
-
+      value,
     } = this.props;
 
     return (
       <div>
         <label htmlFor={ id }>
           { labelText }
-          <select id={ id } name={ id } onChange={ handleChange }>
+          <select id={ id } name={ id } onChange={ handleChange } value={ value }>
             { options.map((op) => <option key={ op } value={ op }>{op}</option>) }
           </select>
         </label>
@@ -33,6 +33,7 @@ Select.propTypes = {
   id: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(PropTypes.string),
   handleChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
 };
 
 export default Select;
