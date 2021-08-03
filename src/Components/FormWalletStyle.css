@@ -1,0 +1,23 @@
+.form-wallet-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  background-color: black;
+  border-top: solid 1px white;
+  font-size: 20px;
+  color: white;
+  height: 50px;
+}
+
+.form-wallet-container input {
+  margin-left: 5px;
+  
+}
+
+.form-wallet-container select{
+  padding: 10px;
+  margin-left: 5px;
+  border-radius: 10px;
+  background-color: white;
+}

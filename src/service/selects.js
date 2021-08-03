@@ -3,13 +3,13 @@ export const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde
 
 export const selects = [
   {
-    labelName: 'Método de pagamento',
+    labelName: 'Método de pagamento:',
     id: 'payment-input',
     name: 'payment',
     options: ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'],
   },
   {
-    labelName: 'Tag',
+    labelName: 'Tag:',
     id: 'tag-input',
     name: 'tag',
     options: ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'],

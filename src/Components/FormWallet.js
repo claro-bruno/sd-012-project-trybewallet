@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import Input from './Input';
 import Select from './Select';
 import { selects } from '../service/selects';
+import './FormWalletStyle.css';
 
 class FormWallet extends React.Component {
   render() {
     const { value, description, currency, handleChange } = this.props;
     return (
-      <form>
+      <form className="form-wallet-container">
         <Input
           id="valor"
           labelName="Valor:"
@@ -24,6 +25,7 @@ class FormWallet extends React.Component {
           name="description"
           value={ description }
           handleChange={ handleChange }
+          placeholder="Digite aqui"
         />
         <label htmlFor="moeda">
           Moeda:
