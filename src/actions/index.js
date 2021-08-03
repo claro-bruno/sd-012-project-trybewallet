@@ -1,10 +1,8 @@
-const LOGIN_ACTION = 'LOGIN_ACTION';
 const ADD_EXPENSE = 'ADD_EXPENSE';
 const CURRENCIE_CHANGE = 'CURRENCIE_CHANGE';
 const CURRENCIE_SUCESS = 'CURRENCIE_SUCESS';
 const CURRENCIE_FAIL = 'CURRENCIE_FAIL';
-
-export const loginAction = (payload) => ({ type: LOGIN_ACTION, payload });
+const DELETE_EXPENSES = 'DELETE_EXPENSES';
 
 export const addExpense = (payload) => ({ type: ADD_EXPENSE, payload });
 
@@ -43,3 +41,13 @@ export const currencyThunk = () => async (dispatch) => {
     dispatch(currencieFail(error));
   }
 };
+
+export const actionUser = (payload) => ({
+  type: 'TYPE_EMAIL',
+  payload,
+});
+
+export const deleteExpense = (payload) => ({
+  type: DELETE_EXPENSES,
+  payload,
+});

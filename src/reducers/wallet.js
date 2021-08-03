@@ -16,6 +16,12 @@ function reducerWallet(state = INITIAL_STATE, { type, payload }) {
       ...state,
       isLoading: true,
     };
+  case 'DELETE_EXPENSES':
+    return {
+      ...state,
+      expenses: payload,
+      totalAmount: Number(state.totalAmount) + Number(payload.value),
+    };
   case 'CURRENCIE_SUCESS':
     return {
       ...state,
