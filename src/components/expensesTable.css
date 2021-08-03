@@ -1,7 +1,7 @@
 .expenses-table {
   border-collapse: collapse;
   font-size: 16px;
-  margin: 0px auto;
+  margin: 0 auto;
   width: 100%;
 }
 
@@ -12,11 +12,10 @@
 }
 
 .expenses-table thead th {
-  color: #001e1d
+  color: #001e1d;
 }
 
-.expenses-table th,
-.expenses-table td {
+.expenses-table th, .expenses-table td {
   color: #e8e4e6;
   padding: 6px 16px;
   text-align: center;
@@ -26,6 +25,6 @@
   border-bottom: 1px solid #abd1c6;
 }
 
-.expenses-table tbody tr:nth-of-type(even) {
+.expenses-table tbody tr:nth-of-type( even ) {
   background-color: #001e1d;
 }
