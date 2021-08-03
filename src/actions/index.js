@@ -5,6 +5,7 @@ export const REQUEST_API_SUCCESS = 'REQUEST_API_SUCCESS';
 export const REQUEST_API_ERROR = 'REQUEST_API_ERROR';
 export const EXCHANGE_API_SUCCESS = 'EXCHANGE_API_SUCCESS';
 export const EXCHANGE_API_ERROR = 'EXCHANGE_API_ERROR';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export const saveEmail = (value) => ({
   type: ADD_EMAIL, payload: value,
@@ -28,6 +29,10 @@ export const exchangeError = (error) => ({
 
 export const exchangeSuccess = (state) => ({
   type: EXCHANGE_API_SUCCESS, state,
+});
+
+export const deleteExpense = (id) => ({
+  type: DELETE_EXPENSE, id,
 });
 
 const END_POINT = 'https://economia.awesomeapi.com.br/json/all';

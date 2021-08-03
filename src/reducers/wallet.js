@@ -4,6 +4,7 @@ import {
   REQUEST_API_ERROR,
   EXCHANGE_API_SUCCESS,
   EXCHANGE_API_ERROR,
+  DELETE_EXPENSE,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -43,6 +44,11 @@ const walletReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       error: action.error,
+    };
+  case DELETE_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.filter((exp) => exp.id !== action.id),
     };
   default:
     return state;
