@@ -72,3 +72,10 @@ export const actionEdit = (idToEdit) => ({
   type: EDIT,
   idToEdit,
 });
+
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
+
+export const actionEditExpense = (expenseInfo) => ({
+  type: EDIT_EXPENSE,
+  expenseInfo,
+});
