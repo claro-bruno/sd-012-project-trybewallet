@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { actionDeleteExpense } from '../actions';
+import { actionDeleteExpense, actionEdit } from '../actions';
 
 class ExpensesTable extends Component {
   constructor(props) {
@@ -16,6 +16,11 @@ class ExpensesTable extends Component {
     deleteExpense(id);
   }
 
+  editExpense(id) {
+    const { edit } = this.props;
+    edit(id);
+  }
+
   renderDeleteButton(id) {
     return (
       <button
@@ -25,6 +30,18 @@ class ExpensesTable extends Component {
         onClick={ this.deleteExpense }
       >
         Apagar
+      </button>
+    );
+  }
+
+  renderEditButton(id) {
+    return (
+      <button
+        type="button"
+        data-testid="edit-btn"
+        onClick={ () => this.editExpense(id) }
+      >
+        Editar
       </button>
     );
   }
@@ -68,6 +85,7 @@ class ExpensesTable extends Component {
                 <td>Real</td>
                 <td>
                   { this.renderDeleteButton(id) }
+                  { this.renderEditButton(id) }
                 </td>
               </tr>
             ))
@@ -84,6 +102,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   deleteExpense: (id) => dispatch(actionDeleteExpense(id)),
+  edit: (id) => dispatch(actionEdit(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpensesTable);
@@ -91,4 +110,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(ExpensesTable);
 ExpensesTable.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   deleteExpense: PropTypes.func.isRequired,
+  edit: PropTypes.func.isRequired,
 };
