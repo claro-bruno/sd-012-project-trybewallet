@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import NewExpense from '../components/NewExpense';
 import Table from '../components/Table';
@@ -16,7 +16,7 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { email, expenses } = this.props;
+    const { email, expenses, editor, idToEdit } = this.props;
     return (
       <div>
         <Header
@@ -24,7 +24,10 @@ class Wallet extends React.Component {
           total={ this.totalExpenses() }
           currency="BRL"
         />
-        <NewExpense />
+        <NewExpense
+          editor={ editor }
+          idToEdit={ idToEdit }
+        />
         <Table expenses={ expenses } />
       </div>
     );
@@ -32,15 +35,19 @@ class Wallet extends React.Component {
 }
 
 Wallet.propTypes = {
-  email: Proptypes.string.isRequired,
-  expenses: Proptypes.arrayOf(
-    Proptypes.object.isRequired,
+  email: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayOf(
+    PropTypes.object.isRequired,
   ).isRequired,
+  editor: PropTypes.bool.isRequired,
+  idToEdit: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
   expenses: state.wallet.expenses,
+  editor: state.wallet.editor,
+  idToEdit: state.wallet.idToEdit,
 });
 
 export default connect(mapStateToProps)(Wallet);

@@ -2,17 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Button from './Button';
-import { removeExpense } from '../actions';
+import { removeExpense, editExpense } from '../actions';
 
 class Table extends React.Component {
-  renderButton(id) {
-    const { remove } = this.props;
+  renderButtons(id) {
+    const { remove, edit } = this.props;
     return (
-      <Button
-        buttonText="Excluir"
-        onClick={ () => remove(id) }
-        testId="delete-btn"
-      />
+      <div>
+        <Button
+          buttonText="Editar"
+          onClick={ () => edit(id) }
+          testId="edit-btn"
+        />
+        <Button
+          buttonText="Excluir"
+          onClick={ () => remove(id) }
+          testId="delete-btn"
+        />
+      </div>
     );
   }
 
@@ -56,7 +63,7 @@ class Table extends React.Component {
               <td>{ currencyValue.toFixed(2) }</td>
               <td>{ convertedValue.toFixed(2) }</td>
               <td>Real</td>
-              <td>{ this.renderButton(id) }</td>
+              <td>{ this.renderButtons(id) }</td>
             </tr>
           );
         }) }
@@ -70,10 +77,12 @@ Table.propTypes = {
     PropTypes.object.isRequired,
   ).isRequired,
   remove: PropTypes.func.isRequired,
+  edit: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   remove: (id) => dispatch(removeExpense(id)),
+  edit: (id) => dispatch(editExpense(id)),
 });
 
 export default connect(null, mapDispatchToProps)(Table);
