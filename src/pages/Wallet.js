@@ -10,23 +10,6 @@ class Wallet extends React.Component {
     this.state = {
       currencies: [],
     };
-
-    this.currencies = this.currencies.bind(this);
-  }
-
-  componentDidMount() {
-    this.currencies();
-  }
-
-  async currencies() {
-    const URL = 'https://economia.awesomeapi.com.br/json/all';
-
-    const fetchApiResquest = await fetch(URL);
-    const jsonResponse = await fetchApiResquest.json();
-    const allCurrencies = Object.keys(jsonResponse);
-    this.setState({
-      currencies: [...allCurrencies],
-    });
   }
 
   render() {

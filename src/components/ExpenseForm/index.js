@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import fetchApi from '../../actions';
+import { fetchApi } from '../../actions';
 
 class ExpenseForm extends React.Component {
   constructor(props) {
@@ -21,6 +21,11 @@ class ExpenseForm extends React.Component {
     };
   }
 
+  componentDidMount() {
+    const { newExpense } = this.props;
+    newExpense();
+  }
+
   handleChange(event) {
     const { name, value } = event.target;
     this.setState({
@@ -29,10 +34,10 @@ class ExpenseForm extends React.Component {
   }
 
   handleClick() {
-    const { createNewExpense, expenses } = this.props;
+    const { newExpense, expenses } = this.props;
     const expensesLength = expenses.length;
 
-    createNewExpense(this.state);
+    newExpense(this.state);
 
     if (expensesLength >= 0) {
       this.setState({ id: expensesLength + 1 });
@@ -41,6 +46,7 @@ class ExpenseForm extends React.Component {
 
   render() {
     const { currencies } = this.props;
+
     return (
       <form>
         <label htmlFor="val">
@@ -94,10 +100,11 @@ ExpenseForm.propTypes = {
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
+  currencies: state.wallet.currencies,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  createNewExpense: (expense) => dispatch(fetchApi(expense)),
+  newExpense: (expense) => dispatch(fetchApi(expense)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);

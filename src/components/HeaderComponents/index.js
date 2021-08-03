@@ -10,14 +10,11 @@ class HeaderComponent extends React.Component {
   }
 
   totalExpenses() {
-    let total = 0;
     const { expenses } = this.props;
-    if (expenses) {
-      expenses.forEach(({ value, currency, exchangeRates }) => {
-        total += exchangeRates[currency].ask * value;
-      });
+    if (expenses.length > 0) {
+      return expenses.length;
     }
-    return total;
+    return 0;
   }
 
   render() {
@@ -46,6 +43,7 @@ class HeaderComponent extends React.Component {
 
 HeaderComponent.propTypes = {
   email: PropTypes.string,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 }.isRequired;
 
 const mapStateToProps = (state) => ({
