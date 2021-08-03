@@ -15,4 +15,9 @@ export const newCurrencies = (state) => ({
   state,
 });
 
+export const newTotal = (state) => ({
+  type: 'ADD_MOUNT',
+  state,
+});
+
 export default newUser;

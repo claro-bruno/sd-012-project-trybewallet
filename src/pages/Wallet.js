@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { newExpense, newCurrencies } from '../actions';
+import { newCurrencies } from '../actions';
 import Formulario from '../component/Formulario';
 import Header from '../component/Header';
 
@@ -10,7 +10,6 @@ class Wallet extends React.Component {
     super(props);
 
     this.state = {
-      despesas: 0,
       isLoading: true,
     };
   }
@@ -29,19 +28,19 @@ class Wallet extends React.Component {
 
   render() {
     const { email } = this.props;
-    const { despesas, isLoading } = this.state;
+    const { isLoading } = this.state;
     if (isLoading === true) {
       return (
         <div>
           <h1>Carregando...</h1>
-          <Header email={ email } despesas={ despesas } />
+          <Header email={ email } />
         </div>
       );
     }
 
     return (
       <div>
-        <Header email={ email } despesas={ despesas } />
+        <Header email={ email } />
         <Formulario />
       </div>
     );
@@ -53,7 +52,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  newExpense: (value) => dispatch(newExpense(value)),
   Currencies: (value) => dispatch(newCurrencies(value)),
 });
 
