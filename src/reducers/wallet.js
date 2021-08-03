@@ -1,13 +1,13 @@
-const INITIAL_STATE = {
+import { ADD_EXPENDITURE } from '../actions';
 
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+const INITIAL_STATE = {
+  expenditure: [],
 };
 
 function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
+  case ADD_EXPENDITURE:
+    return { ...state, expenditure: [...state.expenditure, action.payload] };
   default:
     return state;
   }
