@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { paymentMethods, tags } from '../data';
 import { fetchAPI } from '../actions';
+import Input from './Input';
+import Select from './Select';
 
 class ExpenseInput extends React.Component {
   constructor(props) {
@@ -36,74 +38,41 @@ class ExpenseInput extends React.Component {
     const { currenciesFromStore } = this.props;
     return (
       <form onSubmit={ this.handleSubmit }>
-        <label htmlFor="value">
-          Valor
-          <input
-            id="value"
-            type="number"
-            value={ value }
-            onChange={ this.handleChange }
-          />
-        </label>
-        <label htmlFor="description">
-          Descrição
-          <input
-            id="description"
-            type="text"
-            value={ description }
-            onChange={ this.handleChange }
-          />
-        </label>
-        <label htmlFor="currency">
-          Moeda
-          <select
-            id="currency"
-            value={ currency }
-            onChange={ this.handleChange }
-          >
-            { currenciesFromStore.map((currencyFromStore, index) => (
-              <option
-                key={ index }
-                value={ currencyFromStore.code }
-              >
-                {currencyFromStore.code}
-              </option>)) }
-          </select>
-        </label>
-        <label htmlFor="method">
-          Método de pagamento
-          <select
-            id="method"
-            value={ method }
-            onChange={ this.handleChange }
-          >
-            { paymentMethods
-              .map((paymentMethod) => (
-                <option
-                  key={ paymentMethod }
-                  value={ paymentMethod }
-                >
-                  { paymentMethod }
-                </option>)) }
-          </select>
-        </label>
-        <label htmlFor="tag">
-          Tag
-          <select
-            id="tag"
-            value={ tag }
-            onChange={ this.handleChange }
-          >
-            { tags
-              .map((taG) => (
-                <option
-                  key={ taG }
-                  value={ taG }
-                >
-                  { taG }
-                </option>)) }
-          </select>
-        </label>
+        <Input
+          id="value"
+          type="number"
+          value={ value }
+          onChange={ this.handleChange }
+          text="Valor"
+        />
+        <Input
+          id="description"
+          type="text"
+          value={ description }
+          onChange={ this.handleChange }
+          text="Descrição"
+        />
+        <Select
+          id="currency"
+          value={ currency }
+          onChange={ this.handleChange }
+          text="Moeda"
+          options={ currenciesFromStore }
+        />
+        <Select
+          id="method"
+          value={ method }
+          onChange={ this.handleChange }
+          text="Método de pagamento"
+          options={ paymentMethods }
+        />
+        <Select
+          id="tag"
+          value={ tag }
+          onChange={ this.handleChange }
+          text="Tag"
+          options={ tags }
+        />
         <button
           type="submit"
         >
