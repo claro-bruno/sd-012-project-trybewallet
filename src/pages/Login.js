@@ -52,7 +52,7 @@ class Login extends React.Component {
   render() {
     const { email, password, disable } = this.state;
     return (
-      <form onSubmit={ this.handleSubmitUser }>
+      <form>
         <div>
           <label htmlFor="email">
             Email:
@@ -82,6 +82,7 @@ class Login extends React.Component {
             <button
               type="submit"
               disabled={ disable }
+              onClick={ this.handleSubmitUser }
             >
               Entrar
             </button>
