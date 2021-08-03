@@ -3,8 +3,25 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { number } from 'yargs';
 import FormDespesas from '../Components/formDespesas';
+import { newCurrencies } from '../actions/index';
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+    this.handleAPI = this.handleAPI.bind(this);
+  }
+
+  componentDidMount() {
+    this.handleAPI();
+  }
+
+  handleAPI() {
+    const { currenciesDispatch } = this.props;
+    fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((resposta) => resposta.json())
+      .then((moedas) => currenciesDispatch(moedas));
+  }
+
   render() {
     const { email, despesas } = this.props;
     return (
@@ -27,14 +44,19 @@ class Wallet extends React.Component {
   }
 }
 
+Wallet.propTypes = {
+  email: PropTypes.string.isRequired,
+  despesas: PropTypes.arrayOf(number).isRequired,
+  currenciesDispatch: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = (state) => ({
   email: state.user.email,
   despesas: state.wallet.expenses,
 });
 
-Wallet.propTypes = {
-  email: PropTypes.string.isRequired,
-  despesas: PropTypes.arrayOf(number).isRequired,
-};
+const mapDispatchToProps = (dispatch) => ({
+  currenciesDispatch: (currencies) => dispatch(newCurrencies(currencies)),
+});
 
-export default connect(mapStateToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
