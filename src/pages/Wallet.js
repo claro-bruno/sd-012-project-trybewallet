@@ -5,10 +5,14 @@ import WalletForm from '../components/WalletForm';
 class Wallet extends React.Component {
   render() {
     return (
-      <section>
-        <Header />
-        <WalletForm />
-      </section>
+      <div>
+        <header>
+          <Header />
+        </header>
+        <section>
+          <WalletForm />
+        </section>
+      </div>
     );
   }
 }

@@ -1,6 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 class WalletForm extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+    };
+  }
+
   render() {
     return (
       <div>
@@ -42,5 +49,5 @@ class WalletForm extends React.Component {
     );
   }
 }
-
-export default WalletForm;
+const mapStateToProps = () => ({});
+export default connect(null, mapStateToProps)(WalletForm);
