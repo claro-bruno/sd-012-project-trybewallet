@@ -2,13 +2,16 @@ const INITIAL_STATE = {
   email: '',
 };
 
-const reducerUser = (state = INITIAL_STATE, action) => {
-  switch (action.type) {
-  case 'TYPE_EMAIL':
-    return { email: action.payload };
+function reducerUser(state = INITIAL_STATE, { type, payload }) {
+  switch (type) {
+  case 'LOGIN_ACTION':
+    return {
+      ...state,
+      email: payload,
+    };
   default:
     return state;
   }
-};
+}
 
 export default reducerUser;
