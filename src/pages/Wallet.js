@@ -6,17 +6,22 @@ class Wallet extends React.Component {
   render() {
     const { myEmail } = this.props;
     return (
-      <header>
-        <p data-testid="email-field">
-          {`E-mail: ${myEmail}` }
-        </p>
-        <p data-testid="total-field">
-          Despesas totais: 0
-        </p>
-        <p data-testid="header-currency-field">
-        BRL:
-        </p>
-      </header>
+      <main>
+        <header>
+          <p data-testid="email-field">
+            {`E-mail: ${myEmail}`}
+          </p>
+          <p data-testid="total-field">
+            Despesas totais: 0
+          </p>
+          <p data-testid="header-currency-field">
+            BRL:
+          </p>
+        </header>
+        {/* <form>
+
+        </form> */}
+      </main>
     );
   }
 }
@@ -26,6 +31,7 @@ Wallet.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  myEmail: state.user.email });
+  myEmail: state.user.email,
+});
 
 export default connect(mapStateToProps, null)(Wallet);
