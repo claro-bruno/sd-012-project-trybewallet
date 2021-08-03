@@ -3,38 +3,36 @@ import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Input from '../components/Input';
 import actionApi from '../actions/actionApi';
-import actionSaveData from '../actions/actionSaveData';
+import Header from '../components/Header';
 import Currencies from '../components/Currencies';
-import fetchApiEconomy from '../actions/fetchApiEconomy';
 import Method from '../components/Method';
 import Tag from '../components/Tag';
+import actionSave from '../actions/actionSave';
 
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
-      valueEntry: '0',
-      currency: [],
-      // method: [],
-      // tag: '',
+      value: '0',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
       description: '',
     };
   }
 
   componentDidMount() {
-    const { saveDataRedux } = this.props;
-    fetchApiEconomy().then((response) => saveDataRedux(response));
+    const { createCurrency } = this.props;
+    createCurrency();
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    const { currency } = this.state;
-    const { createCurrency } = this.props;
-    createCurrency(currency);
+  onSubmit() {
+    const { saveData } = this.props;
+    saveData(this.state);
   }
 
   handleChange({ target }) {
@@ -43,50 +41,52 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { valueEntry, description } = this.state;
-    const { emailSetted } = this.props;
+    const { value, description, currency, method, tag } = this.state;
     return (
-      <div>
-        <header>
-          <p data-testid="email-field">{ `Email: ${emailSetted}` }</p>
-          <p data-testid="total-field">0</p>
-          <p data-testid="header-currency-field">BRL</p>
-        </header>
+      <form>
+        <Header />
         <div>
           <Input
             type="text"
-            dataTestid="valor"
+            dataTestid="value"
             message="Valor:"
-            value={ valueEntry }
+            value={ value }
             handleChange={ this.handleChange }
           />
-          <label htmlFor="moeda">
-            Moeda
-            <select id="moeda">
-              <Currencies />
-            </select>
-          </label>
-          <label htmlFor="metodo">
-            Método de pagamento
-            <select id="metodo">
-              <Method />
-            </select>
-          </label>
+          <Currencies
+            onChange={ this.handleChange }
+            value={ currency }
+          />
+          <Method
+            onChange={ this.handleChange }
+            value={ method }
+          />
           <label htmlFor="tag">
             Tag
-            <select id="tag">
+            <select
+              id="tag"
+              name="tag"
+              onChange={ this.handleChange }
+              value={ tag }
+            >
               <Tag />
             </select>
           </label>
           <Input
             type="text"
-            dataTestid="descricao"
+            dataTestid="description"
             message="Descrição"
             value={ description }
             handleChange={ this.handleChange }
           />
+          <button
+            type="button"
+            onClick={ this.onSubmit }
+          >
+            Adicionar despesa
+          </button>
         </div>
-      </div>
+      </form>
     );
   }
 }
@@ -97,13 +97,12 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   createCurrency: (currencies) => dispatch(actionApi(currencies)),
-  saveDataRedux: (data) => dispatch(actionSaveData(data)),
+  saveData: (currencies) => dispatch(actionSave(currencies)),
 });
 
 Wallet.propTypes = {
-  emailSetted: propTypes.string.isRequired,
+  saveData: propTypes.func.isRequired,
   createCurrency: propTypes.func.isRequired,
-  saveDataRedux: propTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

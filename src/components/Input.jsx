@@ -12,7 +12,7 @@ class Input extends Component {
             data-testid={ `${dataTestid}-input` }
             type={ type }
             id={ dataTestid }
-            name={ type }
+            name={ dataTestid }
             value={ value }
             onChange={ handleChange }
           />
