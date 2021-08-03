@@ -22,8 +22,12 @@ class SelectTag extends Component {
 SelectTag.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  tag: PropTypes.string.isRequired,
+  tag: PropTypes.string,
   onChange: PropTypes.func.isRequired,
+};
+
+SelectTag.defaultProps = {
+  tag: 'Alimentação',
 };
 
 export default SelectTag;

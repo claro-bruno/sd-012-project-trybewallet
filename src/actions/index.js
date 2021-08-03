@@ -13,6 +13,7 @@ export const submitState = (payload) => ({
   payload,
 });
 
+// essa parte foi feita com ajuda de meus colegas Marcos Siqueira e Erick Silva
 export function fetchCurrent(state) {
   return async (dispatch) => {
     const fetchApi = await fetch('https://economia.awesomeapi.com.br/json/all');

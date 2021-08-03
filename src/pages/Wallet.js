@@ -14,7 +14,7 @@ class Wallet extends Component {
 
     this.state = {
       id: 0,
-      value: '0',
+      value: 0,
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
@@ -32,24 +32,37 @@ class Wallet extends Component {
     });
   }
 
+  // lógica feita com auxilio de meu colega Rodrigo Merlone
+  sum() {
+    const { expenses } = this.props;
+    let sum = 0;
+    expenses.forEach(({ value, currency, exchangeRates }) => {
+      (sum) += (Number(value) * exchangeRates[currency].ask);
+    });
+    return sum.toFixed(2);
+  }
+
   submitState() {
     const { fetchCotacao } = this.props;
+    const { id } = this.state;
+    this.setState({ id: id + 1 });
     fetchCotacao(this.state);
   }
 
   render() {
     const { emailState } = this.props;
-    const { currenciesKeys, value, description, currency, method, tag } = this.state;
+    const {
+      currenciesKeys, value, description, currency, method, tag } = this.state;
     return (
       <>
         <header>
           <h3 data-testid="email-field">{ emailState }</h3>
-          <h3 data-testid="total-field" label="Valor">0</h3>
+          <h3 data-testid="total-field" label="Valor">{this.sum()}</h3>
           <h3 data-testid="header-currency-field">BRL</h3>
         </header>
         <form>
           <Input
-            type="text"
+            type="number"
             onChange={ this.handleInputs }
             value={ value }
             label="Valor"
@@ -91,11 +104,13 @@ class Wallet extends Component {
 Wallet.propTypes = {
   emailState: PropTypes.string.isRequired,
   fetchCotacao: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf(Object).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   emailState: state.user.email,
   currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
