@@ -23,7 +23,7 @@
   width: 40%;
 }
 
-tbody,th,td {
+tbody , th , td {
   border-collapse: collapse;
   color: white;
   padding: 8px;
@@ -34,7 +34,7 @@ tr:nth-child( even ) {
 }
 
 tr:nth-child( odd ) {
-  background-color: #000000;
+  background-color: black;
 }
 
 .delete-btn {
