@@ -1,7 +1,30 @@
 import React from 'react';
 
+const APIURL = 'https://economia.awesomeapi.com.br/json/all';
+
 class WalletForm extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      lista: {},
+    };
+  }
+
+  componentDidMount() {
+    this.API();
+  }
+
+  async API() {
+    const response = await fetch(APIURL);
+    const data = await response.json();
+    console.log(data);
+    this.setState({ lista: data });
+  }
+
   render() {
+    const { lista } = this.state;
+    const moedas = Object.keys(lista);
+    const coinFilter = moedas.filter((moeda) => moeda !== 'USDT');
     return (
       <form>
         <label htmlFor="value">
@@ -15,7 +38,7 @@ class WalletForm extends React.Component {
         <label htmlFor="currency">
           Moeda:
           <select id="currency">
-            <option> </option>
+            {coinFilter.map((moeda) => <option key={ moeda }>{moeda}</option>)}
           </select>
         </label>
         <label htmlFor="payment">
