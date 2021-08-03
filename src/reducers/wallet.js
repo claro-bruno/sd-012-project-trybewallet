@@ -50,9 +50,8 @@ const wallet = (state = INITIAL_STATE, action) => {
       expenses: state.expenses.map((expense, index) => {
         if (index === state.idToEdit) {
           return {
-            id: expense.id,
+            ...expense,
             ...action.expenseInfo,
-            exchangeRates: expense.exchangeRates,
           };
         }
         return expense;
