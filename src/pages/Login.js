@@ -1,5 +1,9 @@
 import React from 'react';
 import '../App.css';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import actionEmail from '../actions';
 
 const validEmail = /^[a-z0-9](\.|-|_|[a-z]|\d)+@([a-z]|\d)+\.[a-z]{2,3}(\.[a-z]{2})?$/;
 
@@ -12,7 +16,6 @@ class Login extends React.Component {
       login: false,
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.validator = this.validator.bind(this);
   }
 
@@ -35,16 +38,9 @@ class Login extends React.Component {
     }, () => this.validator());
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    const { login } = this.state;
-    if (login) {
-      console.log('funcionou');
-    }
-  }
-
   render() {
     const { Email, Password, login } = this.state;
+    const { saveEmail } = this.props;
     return (
       <div className="container">
         <div className="login-container">
@@ -64,18 +60,27 @@ class Login extends React.Component {
             type="text"
             data-testid="password-input"
           />
-          <button
-            text="Entrar"
-            disabled={ !login }
-            className="btn"
-            type="submit"
-            onClick={ this.handleSubmit }
-          >
-            Entrar
-          </button>
+          <Link to="/carteira">
+            <button
+              text="Entrar"
+              disabled={ !login }
+              type="button"
+              onClick={ () => saveEmail(Email) }
+            >
+              Entrar
+            </button>
+          </Link>
         </div>
       </div>);
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  saveEmail: (state) => dispatch(actionEmail(state)),
+});
+
+Login.propTypes = {
+  saveEmail: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
