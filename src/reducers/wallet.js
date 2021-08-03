@@ -97,6 +97,11 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       expenses: [...state.expenses, mockFakeExpense],
     };
+  case 'GET_EXPENSE':
+    return {
+      ...state,
+      expenses: [...state.expenses, action.expenses],
+    };
   default:
     return { ...state };
   }

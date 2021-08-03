@@ -36,11 +36,16 @@ class Select extends React.Component {
   }
 
   render() {
-    const { id, label } = this.props;
+    const { id, label, selectName, selectValue, handleChange } = this.props;
     return (
       <label htmlFor={ id }>
         { `${label}: ` }
-        <select id={ id }>
+        <select
+          id={ id }
+          name={ selectName }
+          value={ selectValue }
+          onChange={ handleChange }
+        >
           { this.handleOptions() }
         </select>
       </label>
@@ -57,6 +62,9 @@ Select.propTypes = {
       PropTypes.string,
     ]),
   ),
+  selectName: PropTypes.string.isRequired,
+  selectValue: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
 };
 
 Select.defaultProps = {
