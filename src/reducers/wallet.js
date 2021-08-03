@@ -1,14 +1,17 @@
 const INICIAL_STATE = {
-  isLoading: true,
-  err: null,
+  currencies: [],
+  expenses: [],
+  fullCurrencies: {},
 };
 
 function wallet(state = INICIAL_STATE, action) {
   switch (action.type) {
-  case 'REQUEST_CURRENCIES':
-    return { ...state, isLoading: false };
   case 'GET_CURRENCIES':
-    return { currencies: action.currencies, isLoading: false, err: null };
+    return { ...state, currencies: action.currencies };
+  case 'GET_EXPENSES':
+    return { ...state, expenses: [...state.expenses, action.expenses] };
+  case 'GET_FULL_CURRENCIES':
+    return { ...state, fullCurrencies: action.fullCurrencies };
   default:
     return state;
   }
