@@ -23,18 +23,17 @@
   width: 40%;
 }
 
-tbody, th, td {
-  /* border: 0.3px solid gray; */
+tbody,th,td {
   border-collapse: collapse;
   color: white;
   padding: 8px;
 }
 
-tr:nth-child(even) {
+tr:nth-child( even ) {
   background-color: #303030;
 }
 
-tr:nth-child(odd) {
+tr:nth-child( odd ) {
   background-color: #000000;
 }
 
