@@ -22,5 +22,4 @@ SelectPayment.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-
 export default SelectPayment;
