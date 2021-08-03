@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import Routes from './Routes';
+import './styles/app.css';
 
-function App() {
-  return <div>Hello, TrybeWallet!</div>;
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <button type="button"><Link to="/">INICIO</Link></button>
+        <button type="button"><Link to="/carteira">CARTEIRA</Link></button>
+        <Routes />
+      </div>);
+  }
 }
 
 export default App;
