@@ -14,7 +14,10 @@ class ExpenseTable extends React.Component {
   render() {
     const { expenses } = this.props;
     return (
-      <table className="table table-striped table-hover align-middle text-center">
+      <table
+        className="table table-striped table-bordered
+        table-hover align-middle text-center"
+      >
         <tbody>
           <tr>
             <th scope="col">Descrição</th>

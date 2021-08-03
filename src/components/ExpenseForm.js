@@ -47,9 +47,9 @@ class ExpenseForm extends React.Component {
     this.setState({
       value: '',
       description: '',
-      currency: '',
-      method: '',
-      tag: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
       nowEditing: false,
     });
   }
@@ -150,13 +150,13 @@ class ExpenseForm extends React.Component {
     const { nowEditing } = this.state;
     if (nowEditing) {
       return (
-        <button className="btn btn-primary" type="submit" onClick={ this.replaceClick }>
+        <button className="btn btn-success" type="submit" onClick={ this.replaceClick }>
           Editar despesa
         </button>
       );
     }
     return (
-      <button className="btn btn-primary" type="submit" onClick={ this.saveClick }>
+      <button className="btn btn-success" type="submit" onClick={ this.saveClick }>
         Adicionar despesa
       </button>
     );
