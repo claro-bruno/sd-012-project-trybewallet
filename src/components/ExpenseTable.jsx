@@ -3,8 +3,15 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import tableMenu from '../helpers/tableMenu';
 import './Header.css';
+import Button from './Button';
+import { remSpent } from '../actions';
 
 class ExpenseTable extends Component {
+  deleteSpent(id) {
+    const { dispatchDelete } = this.props;
+    dispatchDelete(id);
+  }
+
   render() {
     const { expenses } = this.props;
     return (
@@ -26,6 +33,13 @@ class ExpenseTable extends Component {
                   .toFixed(2)}
               </td>
               <td>Real</td>
+              <td>
+                <Button
+                  label="Delete"
+                  testId="delete-btn"
+                  onClick={ () => this.deleteSpent(item.id) }
+                />
+              </td>
             </tr>
           ))}
         </tbody>
@@ -34,19 +48,17 @@ class ExpenseTable extends Component {
   }
 }
 
-const mapStateToProps = (state) => (
-  {
-    email: state.user.email,
-    total: state.wallet.total,
-  }
-);
+const mapDispatchToProps = (dispatch) => ({
+  dispatchDelete: (id) => dispatch(remSpent(id)),
+});
 
 ExpenseTable.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  dispatchDelete: PropTypes.func.isRequired,
 };
 
 // ExpenseTable.defaultProps = {
 //   total: 0,
 // };
 
-export default connect(mapStateToProps)(ExpenseTable);
+export default connect(null, mapDispatchToProps)(ExpenseTable);

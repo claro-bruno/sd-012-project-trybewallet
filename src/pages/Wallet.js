@@ -29,6 +29,13 @@ class Wallet extends React.Component {
     dispatchSetCurry();
   }
 
+  componentDidUpdate(prevProps) {
+    const { expenses } = this.props;
+    if (expenses !== prevProps.expenses) {
+      this.sendTotal();
+    }
+  }
+
   async onSubmit() {
     const { dispatchSetExpense } = this.props;
     const { id } = this.state;
@@ -36,7 +43,6 @@ class Wallet extends React.Component {
       () => dispatchSetExpense(this.state));
     INITIAL_STATE.id = id + 1;
     this.setState(INITIAL_STATE);
-    this.sendTotal();
   }
 
   async fetchCurrency() {
@@ -77,6 +83,7 @@ class Wallet extends React.Component {
         />
         <ExpenseTable
           expenses={ expenses }
+          updateTotal={ this.sendTotal }
         />
       </div>
     );
