@@ -2,12 +2,14 @@ import {
   ADD_EXPENSE,
   ADD_EXPENSE_SUCCESS,
   DELETE_EXPENSE,
+  EDIT,
   REQUEST_CURRENCIES,
   REQUEST_CURRENCIES_SUCCESS } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
+  editor: false,
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -39,6 +41,12 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       expenses: state.expenses.filter((expense) => expense.id !== Number(action.id)),
+    };
+  case EDIT:
+    return {
+      ...state,
+      editor: true,
+      idToEdit: action.idToEdit,
     };
   default:
     return state;
