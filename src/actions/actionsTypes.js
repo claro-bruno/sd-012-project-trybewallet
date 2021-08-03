@@ -1,2 +1,3 @@
 export const STORE_EMAIL = 'STORE_EMAIL';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
+export const STORE_EXPENSE = 'STORE_EXPENSE';
