@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Button from './Button';
 
 class Table extends React.Component {
   render() {
@@ -29,10 +30,14 @@ class Table extends React.Component {
                   <td>{tag}</td>
                   <td>{method}</td>
                   <td>{value}</td>
-                  <td>{currency}</td>
-                  <td>{exchangeRates[currency].ask}</td>
+                  <td>{exchangeRates[currency].name.replace('/Real Brasileiro', '')}</td>
+                  <td>{(exchangeRates[currency].ask * 1).toFixed(2)}</td>
                   <td>{(value * exchangeRates[currency].ask).toFixed(2)}</td>
                   <td>Real</td>
+                  <td>
+                    <Button itemName="Editar" />
+                    <Button testId="delete-btn" itemName="Excluir" />
+                  </td>
                 </tr>
               ),
             )
