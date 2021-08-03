@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
 class OutGoing extends Component {
   constructor(props) {
     super(props)
+    const { currencies } = this.props;
+    this.state = {
+      valor:'',
+      descricao:'',
+      moeda: currencies,
+    }
     this.handleOnChange = this.handleOnChange.bind(this)
   }
 
@@ -18,6 +23,7 @@ class OutGoing extends Component {
   }
 
   render() {
+    const {currencies } = this.props;
     return (
       <form onSubmit={(e) => this.handleOnSubmit(e)}>
         <label htmlFor="valor">
@@ -44,7 +50,9 @@ class OutGoing extends Component {
             aria-label="moeda"
             type="text"
             name="moeda"
-          />
+          >
+          </select>
+
         </label>
         <label htmlFor="pagamento">
           método de pagamento:

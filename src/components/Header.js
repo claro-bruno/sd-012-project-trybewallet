@@ -4,8 +4,9 @@ import React, { Component } from 'react';
 class Header extends Component {
   constructor(props) {
     super(props);
+    const { userEmail } = this.props;
     this.state = {
-      email: reduxEmail,
+      email: userEmail,
       total: 0,
       cambio: '',
     };
