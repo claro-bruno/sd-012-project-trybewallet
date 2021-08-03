@@ -75,13 +75,14 @@ class Login extends React.Component {
           />
         </label>
         <Link to="/carteira">
-          <button
+          testes
+          {/*   <button
             type="button"
             disabled={ login }
             onClick={ () => includeEmail(email) }
           >
             Entrar
-          </button>
+          </button> */}
         </Link>
       </div>);
   }
