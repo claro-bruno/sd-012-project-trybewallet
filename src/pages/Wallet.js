@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import HeaderWallet from '../components/HeaderWallet';
 import FormWallet from '../components/FormWallet';
 import { fetchAPI } from '../actions';
+import FormTable from '../components/FormTable';
 
 class Wallet extends React.Component {
   constructor() {
@@ -37,8 +38,9 @@ class Wallet extends React.Component {
     return (
       <>
         <HeaderWallet email={ email } total={ total } moeda={ currency } />
-        <main className="bg-secondary pt-2 pb-3 text-light">
+        <main className="bg-secondary text-light">
           <FormWallet addValue={ this.addValue } />
+          <FormTable />
         </main>
       </>
     );

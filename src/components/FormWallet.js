@@ -69,7 +69,7 @@ class FormWallet extends Component {
     const { currencies } = this.props;
     return (
       <form
-        className="row container ml-auto mr-auto
+        className="row container ml-auto mr-auto pt-2 pb-3
         align-items-center justify-content-center"
         style={ { maxWidth: '60rem' } }
         onSubmit={ (event) => this.handleSubmit(event) }
