@@ -27,7 +27,7 @@ class Wallet extends React.Component {
     return this.setState({
       id: expenses.length,
       [name]: value,
-    }, () => console.log(this.state));
+    });
   }
 
   handleClick() {
@@ -69,6 +69,17 @@ class Wallet extends React.Component {
     );
   }
 
+  showTotalValue() {
+    const { expenses } = this.props;
+    const totalValue = expenses
+      .reduce((acc, curr) => acc + parseFloat(curr.value), 0);
+    if (expenses.length > 0) {
+      console.log(totalValue);
+      return totalValue;
+    }
+    return 0;
+  }
+
   renderHeader() {
     const { email } = this.props;
     return (
@@ -77,7 +88,7 @@ class Wallet extends React.Component {
           Email:
           <span data-testid="email-field">{` ${email} `}</span>
           Despesa Total: R$
-          <span data-testid="total-field">{0}</span>
+          <span data-testid="total-field">{this.showTotalValue()}</span>
           <span data-testid="header-currency-field"> BRL</span>
         </p>
       </header>
@@ -119,11 +130,11 @@ class Wallet extends React.Component {
           <label htmlFor="tag">
             Tag
             <select id="tag" onChange={ this.handleChange } name="tag">
-              <option value="alimentacao">Alimentação</option>
-              <option value="lazer">Lazer</option>
-              <option value="trabalho">Trabalho</option>
-              <option value="transporte">Transporte</option>
-              <option value="saude">Saúde</option>
+              <option>Alimentação</option>
+              <option>Lazer</option>
+              <option>Trabalho</option>
+              <option>Transporte</option>
+              <option>Saúde</option>
             </select>
           </label>
           <button type="button" onClick={ this.handleClick }>Adicionar despesa</button>
