@@ -2,4 +2,4 @@
 
 export const addEmail = (email) => ({ type: 'ADD_EMAIL', email });
 
-export const addCurrenses = (value) => ({ type: 'TESTE', value });
+export const addCurrencies = (currency) => ({ type: 'ADD_CURRENCY', currency });
