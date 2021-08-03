@@ -1,7 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class ExpenseForm extends React.Component {
   render() {
+    const { currencies } = this.props;
     return (
       <form>
         <label htmlFor="value">
@@ -10,12 +12,14 @@ class ExpenseForm extends React.Component {
         </label>
         <label htmlFor="description">
           Descrição:
-          <textarea name="description" id="description" cols="30" rows="10" />
+          <input type="text" name="description" id="description" />
         </label>
         <label htmlFor="currency">
           Moeda:
           <select name="currency" id="currency">
-            <option value="1">vazio</option>
+            {currencies.map((currency) => (
+              <option key={ currency } value={ currency }>{currency}</option>
+            ))}
           </select>
         </label>
         <label htmlFor="payment">
@@ -40,5 +44,9 @@ class ExpenseForm extends React.Component {
     );
   }
 }
+
+ExpenseForm.propTypes = {
+  currencies: PropTypes.string.isRequired,
+};
 
 export default ExpenseForm;
