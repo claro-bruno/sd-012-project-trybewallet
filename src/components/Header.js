@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+
 
 class Header extends Component {
   constructor(props) {
     super(props);
-    const { reduxEmail } = this.props;
     this.state = {
       email: reduxEmail,
       total: 0,
@@ -52,11 +50,4 @@ class Header extends Component {
   }
 }
 
-Header.propTypes = {
-  reduxEmail: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  reduxEmail: state.user.email });
-
-export default connect(mapStateToProps)(Header);
+export default Header;
