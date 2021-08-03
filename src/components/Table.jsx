@@ -52,7 +52,9 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, null)(Table);
 
 Table.propTypes = {
-  user: PropTypes.shape({
-    email: PropTypes.string.isRequired,
+  wallet: PropTypes.shape({
+    expenses: PropTypes.shape({
+      map: PropTypes.func,
+    }),
   }).isRequired,
 };
