@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 
 class Header extends Component {
   render() {
-    const { email, totalExpense } = this.props;
-
+    const { email, totalExpense = 0 } = this.props;
     return (
       <header>
         <p data-testid="email-field">
