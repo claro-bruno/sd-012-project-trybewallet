@@ -23,8 +23,7 @@ class Login extends Component {
     const { name, value } = target;
     this.setState({
       [name]: value,
-    });
-    this.FormValidate();
+    }, () => this.FormValidate());
   }
 
   OnSubmitUser() {
@@ -35,7 +34,7 @@ class Login extends Component {
 
   FormValidate() {
     const { email, password } = this.state;
-    const lengthMin = 5;
+    const lengthMin = 6;
     const validEmail = /^[a-z0-9_.-]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/; // Regex criada por Rodrigo Merlone e disponibilizada no slack;
     if (validEmail.test(email) && password.length >= lengthMin) {
       this.setState({ disable: false });
@@ -50,9 +49,10 @@ class Login extends Component {
       <div>
         TrybeLogin
         <form>
-          <label htmlFor="email" data-testid="email-input">
+          <label htmlFor="email">
             email:
             <input
+              data-testid="email-input"
               type="email"
               id="email"
               name="email"

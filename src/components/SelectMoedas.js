@@ -17,7 +17,7 @@ class SelectMoedas extends Component {
   }
 
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     const { getCurrency } = this.props;
     return (
       <label htmlFor="moedas">
@@ -46,7 +46,7 @@ const mapStateToProps = (state) => ({
 });
 
 SelectMoedas.propTypes = {
-  getCurrency: PropTypes.func.isRequired,
+  getCurrency: PropTypes.arrayOf(PropTypes.string).isRequired,
   setCurrency: PropTypes.func.isRequired,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SelectMoedas);

@@ -7,7 +7,7 @@ const INITIAL_STATE = {
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
-  console.log(action);
+  // console.log(action);
   switch (action.type) {
   case REQUEST_CURRENCY:
     return { ...state, currencies: action.payload };
