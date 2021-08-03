@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { deleteDataForm } from '../../actions';
+import ButtonDelete from '../WalletControlled/ButtonDelete';
 
 const HEADERS_TABLE = [
   'Descrição',
@@ -22,7 +24,7 @@ class Table extends React.Component {
   }
 
   lineContentArray() {
-    const { props: { expenses } } = this;
+    const { props: { expenses, setId } } = this;
     const lineMap = expenses.map((expense) => {
       const {
         id,
@@ -48,20 +50,21 @@ class Table extends React.Component {
         Math.round((+ask + Number.EPSILON) * 100) / 100
       );
 
-      return ([
-        description,
-        tag,
-        method,
-        roundedValue,
-        name,
-        roundedAsk,
-        roundedConversion,
-        'Real',
-        <section key={ id }>
-          <button type="button">Editar</button>
-          <button type="button">Deletar</button>
-        </section>,
-      ]);
+      return (
+        <tr key={ id }>
+          <td>{ description }</td>
+          <td>{ tag }</td>
+          <td>{ method }</td>
+          <td>{ roundedValue }</td>
+          <td>{ name }</td>
+          <td>{ roundedAsk }</td>
+          <td>{ roundedConversion }</td>
+          <td>Real</td>
+          <td>
+            <ButtonDelete handleClick={ () => setId(id) } />
+          </td>
+        </tr>
+      );
     });
     return lineMap;
   }
@@ -76,12 +79,7 @@ class Table extends React.Component {
           </tr>
         </thead>
         <tbody>
-          { lineContentArray()
-            .map((lines) => (
-              <tr key={ lines }>
-                { lines.map((line) => <td key={ line }>{ line }</td>) }
-              </tr>
-            )) }
+          { lineContentArray() }
         </tbody>
       </table>
     );
@@ -93,8 +91,13 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-const { string, number, object, arrayOf, objectOf, oneOfType } = PropTypes;
+const mapDispatchToProps = (dispatch) => ({
+  setId: (state) => dispatch(deleteDataForm(state)),
+});
+
+const { string, number, object, arrayOf, objectOf, oneOfType, func } = PropTypes;
 Table.propTypes = {
+  setId: func.isRequired,
   expenses: arrayOf(
     objectOf(oneOfType([
       string,
@@ -104,4 +107,4 @@ Table.propTypes = {
   ).isRequired,
 };
 
-export default connect(mapStateToProps, null)(Table);
+export default connect(mapStateToProps, mapDispatchToProps)(Table);

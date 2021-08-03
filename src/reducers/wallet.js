@@ -3,6 +3,7 @@ import {
   GET_COINS_SUCCESS,
   GET_COINS_ERROR,
   ADD_DATA_FORMS,
+  DELETE_DATA_FORM,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -33,6 +34,12 @@ function wallet(state = INITIAL_STATE, action) {
     return {
       ...state,
       expenses: [...expenses, payload],
+    };
+
+  case DELETE_DATA_FORM:
+    return {
+      ...state,
+      expenses: expenses.filter((expense) => expense.id !== payload),
     };
 
   default:
