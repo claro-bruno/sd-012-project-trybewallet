@@ -10,13 +10,22 @@ class Select extends Component {
   }
 
   render() {
-    const { currentyCodes } = this.props;
+    const { currentyCodes, value, onChange } = this.props;
     return (
       <div>
         <label htmlFor="current">
           Moeda
-          <select id="current">
-            {currentyCodes.map((code, index) => <option key={ index }>{ code }</option>)}
+          <select
+            id="current"
+            name="currency"
+            value={ value }
+            onChange={ onChange }
+          >
+            { currentyCodes.map((code, index) => (
+              <option value={ code } key={ index }>
+                { code }
+              </option>
+            )) }
           </select>
         </label>
       </div>
@@ -27,6 +36,8 @@ class Select extends Component {
 Select.propTypes = {
   currentDispatch: PropTypes.func.isRequired,
   currentyCodes: PropTypes.arrayOf(PropTypes.string).isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

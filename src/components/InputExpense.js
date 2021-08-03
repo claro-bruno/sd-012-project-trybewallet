@@ -8,9 +8,9 @@ class InputExpense extends Component {
       <label htmlFor="expenseValue">
         Valor
         <input
-          type="number"
+          type="text"
           id="expenseValue"
-          name="expenseValue"
+          name="value"
           value={ value }
           onChange={ onChange }
         />
