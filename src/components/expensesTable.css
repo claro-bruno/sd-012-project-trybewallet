@@ -29,7 +29,7 @@
   background-color: #001e1d;
 }
 
-.expenses-table tbody tr td button {
+.expenses-table tbody td button {
   background-color: #e16162;
   border: 1px solid #e16162;
   border-radius: 4px;
@@ -42,15 +42,14 @@
   transition: background-color 0.2s;
 }
 
-.expenses-table tbody tr td button:hover {
+.expenses-table tbody td button:hover {
   background-color: #e44c4c;
 }
 
-.expenses-table tbody tr td button:active {
+.expenses-table tbody td button:active {
   transform: scale(0.98);
 }
 
-.expenses-table tbody tr td button svg {
+.expenses-table tbody button svg {
   font-size: 18px;
 }
-
