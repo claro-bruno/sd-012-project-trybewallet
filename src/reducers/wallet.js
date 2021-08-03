@@ -32,18 +32,15 @@ const sumExpenses = (state, expenseToSum) => expenseToSum + state.totalExpense;
 
 const subExpenses = (state, action) => {
   const id = state.expenses[action];
-
   const { ask } = id.exchangeRates[id.currency];
   const askNumber = +ask;
-
   const { value } = id;
   const valueNumber = +value;
-
-  const result = (valueNumber * askNumber);
-
+  const convertedValue = (valueNumber * askNumber);
   const { totalExpense } = state;
-
-  return totalExpense - result;
+  const result = totalExpense - convertedValue;
+  // console.log(askNumber, valueNumber, convertedValue, result);
+  return result;
 };
 
 const removeExpense = (state, action) => {
