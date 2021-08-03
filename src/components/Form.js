@@ -6,6 +6,8 @@ class Form extends Component {
   render() {
     const { currencies } = this.props;
     const newCurrencies = { ...currencies };
+    delete newCurrencies.USDT;
+
     const payment = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const food = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
