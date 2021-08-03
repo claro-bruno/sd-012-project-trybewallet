@@ -1,12 +1,20 @@
 import {
   WALLET_REQUEST_MOEDAS,
   WALLET_RECEIVED_MOEDAS,
-  WALLET_FAILED_MOEDAS }
-  from '../actions';
+  WALLET_FAILED_MOEDAS,
+  WALLET_USER_EXPENSE,
+} from '../actions/index';
 
 const initialState = {
   currencies: [],
-  expenses: [],
+  expenses: [{
+    id: 0,
+    value: 0,
+    description: '',
+    currency: 'USD',
+    method: '',
+    tag: '',
+  }],
   loadingCurr: true,
   error: false,
 };
@@ -27,6 +35,14 @@ const walletReducer = (state = initialState, action) => {
     return {
       ...state,
       error: true,
+    };
+  case WALLET_USER_EXPENSE:
+    return {
+      ...state,
+      expenses: [
+        ...state.expenses,
+        action.expense,
+      ],
     };
   default:
     return state;

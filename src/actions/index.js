@@ -2,6 +2,7 @@ export const USER_LOGIN = 'USER_LOGIN';
 export const WALLET_REQUEST_MOEDAS = 'WALLET_REQUEST_MOEDAS';
 export const WALLET_RECEIVED_MOEDAS = 'WALLET_RECEIVED_MOEDAS';
 export const WALLET_FAILED_MOEDAS = 'WALLET_FAILED_MOEDAS';
+export const WALLET_USER_EXPENSE = 'WALLET_USER_EXPENSE';
 
 export const userLogin = (email, senha) => ({
   type: USER_LOGIN,
@@ -20,6 +21,11 @@ export const sucessMoedas = (data) => ({
 
 export const failedMoedas = () => ({
   type: WALLET_FAILED_MOEDAS,
+});
+
+export const userExpense = (expense) => ({
+  type: WALLET_USER_EXPENSE,
+  expense,
 });
 
 export function thunkCurrencies() {
