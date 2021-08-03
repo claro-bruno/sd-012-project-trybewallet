@@ -1,20 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCurrencies } from '../actions';
+import { fetchRates, getCurrencies } from '../actions';
 
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-
-    };
+    this.state = {};
 
     this.fetchCurrencies = this.fetchCurrencies.bind(this);
     this.showCurrencies = this.showCurrencies.bind(this);
     this.renderPage = this.renderPage.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -23,10 +22,17 @@ class Wallet extends React.Component {
 
   handleChange({ target }) {
     const { name, value } = target;
+    const { expenses } = this.props;
 
     return this.setState({
+      id: expenses.length,
       [name]: value,
     }, () => console.log(this.state));
+  }
+
+  handleClick() {
+    const { dispatchRates } = this.props;
+    return dispatchRates(this.state);
   }
 
   fetchCurrencies() {
@@ -120,7 +126,7 @@ class Wallet extends React.Component {
               <option value="saude">Saúde</option>
             </select>
           </label>
-          <button type="button">Adicionar despesa</button>
+          <button type="button" onClick={ this.handleClick }>Adicionar despesa</button>
         </form>
       </div>
     );
@@ -138,16 +144,20 @@ class Wallet extends React.Component {
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
   dispatchCurrencies: PropTypes.func.isRequired,
+  dispatchRates: PropTypes.func.isRequired,
   currencies: PropTypes.objectOf(PropTypes.string).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
 };
 
 const mapStateToProps = (state) => (
   { email: state.user.email,
     currencies: state.wallet.currencies,
+    expenses: state.wallet.expenses,
   });
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchCurrencies: (currencies) => dispatch(getCurrencies(currencies)),
+  dispatchRates: (state) => dispatch(fetchRates(state)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
