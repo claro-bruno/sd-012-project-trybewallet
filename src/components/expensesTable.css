@@ -11,14 +11,14 @@
   text-align: center;
 }
 
-.expenses-table thead th {
-  color: #001e1d;
-}
-
 .expenses-table th, .expenses-table td {
   color: #e8e4e6;
   padding: 6px 16px;
   text-align: center;
+}
+
+.expenses-table thead th {
+  color: #001e1d;
 }
 
 .expenses-table tbody tr {
