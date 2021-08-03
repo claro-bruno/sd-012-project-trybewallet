@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { actionRemoveExpense } from '../actions';
 
 class ExpenseTable extends Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class ExpenseTable extends Component {
   }
 
   render() {
-    const { expenses } = this.props;
+    const { expenses, removeExpenseStore } = this.props;
     return (
       <tbody>
         <tr>
@@ -51,7 +52,8 @@ class ExpenseTable extends Component {
             <button
               type="button"
               value={ index }
-              onClick={ () => console.log('Excluir') }
+              data-testid="delete-btn"
+              onClick={ removeExpenseStore }
             >
               Excluir
             </button>
@@ -72,10 +74,17 @@ class ExpenseTable extends Component {
 
 ExpenseTable.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  removeExpenseStore: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps, null)(ExpenseTable);
+const mapDispatchToProps = (dispatch) => ({
+  removeExpenseStore: ({ target: { value: index } }) => (
+    dispatch(actionRemoveExpense(index))
+  ),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseTable);

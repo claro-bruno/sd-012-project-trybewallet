@@ -86,10 +86,6 @@ class AddExpenseForm extends Component {
 }
 
 AddExpenseForm.propTypes = {
-  // email: PropTypes.string.isRequired,
-  // currencies: PropTypes.arrayOf().isRequired,
-  // expenses: PropTypes.arrayOf().isRequired,
-  // getExpenseStore: PropTypes.func.isRequired,
   fetchApiExchangeRates: PropTypes.func.isRequired,
 };
 
