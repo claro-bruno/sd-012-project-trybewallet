@@ -30,5 +30,4 @@ class OutGoing extends Component {
   }
 }
 
-
 export default connect(null, mapDispatchToProps)(OutGoing);
