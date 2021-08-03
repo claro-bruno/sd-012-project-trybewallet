@@ -24,12 +24,12 @@ class Select extends Component {
   }
 
   render() {
-    const { name, label, value, onChange } = this.props;
+    const { value, onChange } = this.props;
     const { currency } = this.state;
     return (
-      <label htmlFor={ name }>
-        { label }
-        <select value={ value } name={ name } id={ name } onChange={ onChange }>
+      <label htmlFor="currency">
+        Moeda
+        <select value={ value } name="currency" id="currency" onChange={ onChange }>
           { currency.map((coin) => (
             <option
               key={ coin }
@@ -44,8 +44,6 @@ class Select extends Component {
 }
 
 Select.propTypes = {
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };

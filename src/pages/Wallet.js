@@ -7,11 +7,11 @@ import SelectPayment from '../components/SelectPayment';
 import SelectTag from '../components/SelectTag';
 import Button from '../components/Button';
 import { fetchCurrent } from '../actions';
+import Table from '../components/Table';
 
 class Wallet extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       id: 0,
       value: 0,
@@ -20,7 +20,6 @@ class Wallet extends Component {
       method: 'Dinheiro',
       tag: 'Alimentação',
     };
-
     this.handleInputs = this.handleInputs.bind(this);
     this.submitState = this.submitState.bind(this);
   }
@@ -76,26 +75,21 @@ class Wallet extends Component {
             name="description"
           />
           <SelectApi
-            label="Moeda"
             onChange={ this.handleInputs }
             value={ currency }
             endpoint={ currenciesKeys }
-            name="currency"
           />
           <SelectPayment
-            label="Método de pagamento"
             value={ method }
             onChange={ this.handleInputs }
-            name="method"
           />
           <SelectTag
-            label="Tag"
             value={ tag }
             onChange={ this.handleInputs }
-            name="tag"
           />
           <Button onClick={ this.submitState } itemName="Adicionar despesa" />
         </form>
+        <Table />
       </>
     );
   }
