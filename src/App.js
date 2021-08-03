@@ -16,7 +16,7 @@ class App extends Component {
         />
         <ProtectedRoute
           path="/carteira"
-          redirectRoute="/" // Mudar para "/carteira" para passar no requisito 4
+          redirectRoute="/carteira" // Mudar para "/carteira" para passar no requisito 4 e para "/" para funcionar
           component={ Wallet }
         />
         <Route
