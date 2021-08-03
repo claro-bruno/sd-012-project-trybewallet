@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { addEmail } from '../actions/index';
 
@@ -38,7 +38,6 @@ class Login extends React.Component {
     const { user } = this.props;
     const { email } = this.state;
     user(email);
-    return <Redirect to="/carteira" />;
   }
 
   render() {
@@ -64,13 +63,15 @@ class Login extends React.Component {
             onChange={ this.handleChange }
           />
         </label>
-        <button
-          type="button"
-          onClick={ this.onClick }
-          disabled={ this.buttonDisable() }
-        >
-          Entrar
-        </button>
+        <Link to="/carteira">
+          <button
+            type="button"
+            onClick={ this.handleClick }
+            disabled={ this.buttonDisable() }
+          >
+            Entrar
+          </button>
+        </Link>
       </div>
     );
   }
