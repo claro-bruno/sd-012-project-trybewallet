@@ -14,24 +14,13 @@ class Header extends React.Component {
       props: { expenses },
     } = this;
 
-    const GrandTotal = expenses.reduce((accumuladorOne, expense) => {
+    const GrandTotal = expenses.reduce((accumulador, expense) => {
       const { exchangeRates, currency, value } = expense;
+      const { ask } = exchangeRates[currency];
 
-      const filterCurrency = Object.values(exchangeRates)
-        .filter((coin) => {
-          const { code, codein } = coin;
-          return code === currency && codein === 'BRL';
-        });
+      accumulador += +ask * +value;
 
-      const currencyConverter = filterCurrency.reduce((accumulatorTwo, coin) => {
-        const { ask } = coin;
-        accumulatorTwo += (+ask * +value);
-        return accumulatorTwo;
-      }, 0);
-
-      accumuladorOne += currencyConverter;
-
-      return accumuladorOne;
+      return accumulador;
     }, 0);
 
     const roundingValues = (Math.round((GrandTotal + Number.EPSILON) * 100) / 100);
