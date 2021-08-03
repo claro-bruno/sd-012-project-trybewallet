@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import AddExpense from '../components/AddExpense';
 import { actionFetchCurrencies } from '../actions';
 import ExpensesTable from '../components/ExpensesTable';
+import EditExpense from '../components/EditExpense';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -12,7 +13,7 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { email, expenses } = this.props;
+    const { email, expenses, editor } = this.props;
 
     return (
       <>
@@ -42,7 +43,9 @@ class Wallet extends React.Component {
           </div>
         </header>
         <div>
-          <AddExpense />
+          {
+            !editor ? <AddExpense /> : <EditExpense />
+          }
         </div>
         <ExpensesTable />
       </>
@@ -53,6 +56,7 @@ class Wallet extends React.Component {
 const mapStateToProps = (state) => ({
   email: state.user.email,
   expenses: state.wallet.expenses,
+  editor: state.wallet.editor,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -63,6 +67,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
+  editor: PropTypes.bool.isRequired,
   fetchCurrencies: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
