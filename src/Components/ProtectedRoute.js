@@ -33,6 +33,9 @@ export default connect(mapStateToProps)(ProtectedRoute);
 
 ProtectedRoute.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
-  component: PropTypes.func.isRequired,
+  component: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape(),
+  ]).isRequired,
   redirectRoute: PropTypes.string.isRequired,
 };
