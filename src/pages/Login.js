@@ -1,5 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Input from '../components/Input';
+import { actionChangeEmail } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -13,6 +17,7 @@ class Login extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.checkButton = this.checkButton.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   checkButton() {
@@ -21,6 +26,12 @@ class Login extends React.Component {
     const pattern = /(.*)@(.*).com/; // Fonte: https://trybecourse.slack.com/archives/C01T2C18DSM/p1627671711058500?thread_ts=1627667851.053100&cid=C01T2C18DSM
     const condition = password.length >= passwordLength && pattern.test(email);
     return condition;
+  }
+
+  handleClick() {
+    const { changeEmail } = this.props;
+    const { email } = this.state;
+    changeEmail(email);
   }
 
   handleChange({ target }) {
@@ -54,11 +65,28 @@ class Login extends React.Component {
           onChange={ this.handleChange }
         />
 
-        <button type="submit" disabled={ !(this.checkButton()) }>Entrar</button>
+        <Link to="/carteira">
+          <button
+            type="submit"
+            disabled={ !(this.checkButton()) }
+            onClick={ this.handleClick }
+          >
+            Entrar
+          </button>
+        </Link>
 
       </>
     );
   }
 }
+const mapDispatchToProps = (dispatch) => (
+  {
+    changeEmail: (value) => dispatch(actionChangeEmail(value)),
+  }
+);
 
-export default Login;
+export default connect(null, mapDispatchToProps)(Login);
+
+Login.propTypes = {
+  changeEmail: PropTypes.func.isRequired,
+};
