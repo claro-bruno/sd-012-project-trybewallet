@@ -7,6 +7,8 @@ import {
   EXPENSE_REMOVE,
   EXPENSE_EDIT,
   SAVE_EDITED_EXPENSE,
+  DARK_MODE_ON,
+  DARK_MODE_OFF,
 } from './types';
 
 const CURRENCIES_URL = 'https://economia.awesomeapi.com.br/json/all';
@@ -71,3 +73,7 @@ export const saveExpense = (expense) => (async (dispatch) => {
     dispatch(requestFailed(error));
   }
 });
+
+export const darkModeOn = () => ({ type: DARK_MODE_ON });
+
+export const darkModeOff = () => ({ type: DARK_MODE_OFF });
