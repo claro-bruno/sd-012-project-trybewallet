@@ -29,8 +29,8 @@ const wallet = (state = INITIAL_STATE, action) => {
       expenses: [
         ...state.expenses,
         {
-          ...action.expenseInfo,
           id: action.expenseId,
+          ...action.expenseInfo,
           exchangeRates: action.apiData,
         },
       ],

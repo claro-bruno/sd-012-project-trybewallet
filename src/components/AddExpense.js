@@ -9,10 +9,10 @@ class AddExpense extends Component {
 
     this.state = {
       value: 0,
-      description: '',
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
+      description: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
