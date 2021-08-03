@@ -9,7 +9,7 @@ const wallet = (state = INICIA_STATE, action) => {
   case 'ADD_CURRENCY': {
     return {
       ...state,
-      currencies: newCurrencies,
+      currencies: action.currency,
     };
   }
   default:
