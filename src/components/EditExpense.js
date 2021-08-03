@@ -20,6 +20,28 @@ class EditExpense extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.changeExpenseToEdit = this.changeExpenseToEdit.bind(this);
+  }
+
+  componentDidUpdate(prevProps) {
+    const { idToEdit } = this.props;
+
+    if (prevProps.idToEdit !== idToEdit) {
+      this.changeExpenseToEdit();
+    }
+  }
+
+  changeExpenseToEdit() {
+    const { expenses, idToEdit } = this.props;
+    const { value, currency, method, tag, description } = expenses[idToEdit];
+
+    this.setState({
+      value,
+      currency,
+      method,
+      tag,
+      description,
+    });
   }
 
   handleChange({ target }) {
