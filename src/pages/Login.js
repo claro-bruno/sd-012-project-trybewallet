@@ -29,6 +29,7 @@ class Login extends React.Component {
   }
 
   handleChangeEmail(event) {
+    // Regex dica do colega Rodrigo Merlone via Slack:
     const emailPattern = /^[a-z0-9_.-]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/;
     this.setState({
       emailInputText: event.target.value,

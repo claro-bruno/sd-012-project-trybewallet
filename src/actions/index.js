@@ -4,10 +4,18 @@ export const GET_CURRENCIES = 'GET_CURRENCIES';
 export const GET_CURRENCIES_SUCCESS = 'GET_CURRENCIES_SUCCESS';
 export const GET_CURRENCIES_ERROR = 'GET_CURRENCIES_ERROR';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const SUM_EXPENSES = 'SUM_EXPENSES';
 
 export const setUserEmail = (email) => ({
   type: SET_USER_EMAIL,
   payload: email,
+});
+
+export const sumExpenses = () => ({ type: SUM_EXPENSES });
+
+export const deleteExpense = (expenseId) => ({
+  type: DELETE_EXPENSE, expenseId,
 });
 
 export const addExpense = (expense) => ({

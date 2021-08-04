@@ -1,13 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addExpense, fetchCurrencies } from '../actions/index';
+import {
+  addExpense, fetchCurrencies, deleteExpense,
+} from '../actions/index';
+import ExpensesTable from '../components/ExpensesTable';
 
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      despesaTotal: 0,
+      totalValue: 0,
       selectedCurrency: 'BRL',
       value: 0,
       currency: 'USD',
@@ -16,6 +19,7 @@ class Wallet extends React.Component {
       method: 'Dinheiro',
     };
     this.handleAddExpense = this.handleAddExpense.bind(this);
+    this.handleDeleteExpense = this.handleDeleteExpense.bind(this);
   }
 
   componentDidMount() {
@@ -23,20 +27,31 @@ class Wallet extends React.Component {
     getCurrencies();
   }
 
+  async handleDeleteExpense(expenseId) {
+    const { deleteThisExpense } = this.props;
+    await deleteThisExpense(expenseId);
+    const { expenseList } = this.props;
+    this.setState({
+      totalValue: expenseList.map(
+        (expense) => Math.round(expense.value
+        * expense.exchangeRates[expense.currency].ask * 100) / 100,
+      )
+        .reduce((a, b) => (parseFloat(a) + parseFloat(b)), 0),
+    });
+  }
+
   async handleAddExpense() {
     const { value, currency, tag, description, method } = this.state;
     const { getCurrencies, addNewExpense } = this.props;
     await getCurrencies();
-    await addNewExpense({ value, currency, tag, description, method });
+    addNewExpense({ value, currency, tag, description, method });
     const { expenseList } = this.props;
     this.setState({
-      despesaTotal:
-        expenseList.length > 0
-          ? expenseList.map(
-            (expense) => Math.round(expense.value
-            * expense.exchangeRates[expense.currency].ask * 100) / 100,
-          )
-            .reduce((a, b) => (parseFloat(a) + parseFloat(b))) : 0,
+      totalValue: expenseList.map(
+        (expense) => Math.round(expense.value
+        * expense.exchangeRates[expense.currency].ask * 100) / 100,
+      )
+        .reduce((a, b) => (parseFloat(a) + parseFloat(b))),
     });
   }
 
@@ -139,64 +154,25 @@ class Wallet extends React.Component {
 
   renderAddExpenseButton() {
     return (
-      <button
-        type="button"
-        onClick={ this.handleAddExpense }
-      >
+      <button type="button" onClick={ this.handleAddExpense }>
         Adicionar despesa
       </button>
     );
   }
 
-  renderExpensesTable() {
-    const { expenseList } = this.props;
-    return (
-      <table>
-        <thead>
-          <tr role="row">
-            <th>Descrição</th>
-            <th>Tag</th>
-            <th>Método de pagamento</th>
-            <th>Valor</th>
-            <th>Moeda</th>
-            <th>Câmbio utilizado</th>
-            <th>Valor convertido</th>
-            <th>Moeda de conversão</th>
-            <th>Editar/Excluir</th>
-          </tr>
-        </thead>
-        <tbody>
-          { expenseList.map((expense) => (
-            <tr role="row" key={ expense.id }>
-              <td role="cell">{ expense.description }</td>
-              <td role="cell">{ expense.tag }</td>
-              <td role="cell">{ expense.method }</td>
-              <td role="cell">{ Math.round(expense.value * 100) / 100 }</td>
-              <td role="cell">{ expense.exchangeRates[expense.currency].name }</td>
-              <td role="cell">
-                { Math.round(expense.exchangeRates[expense.currency].ask * 100) / 100 }
-              </td>
-              <td role="cell">
-                { Math.round(expense.exchangeRates[expense.currency].ask
-                * expense.value * 100) / 100}
-              </td>
-              <td role="cell">Real</td>
-              <td role="cell">Editar/Excluir</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    );
+  renderTotalValue() {
+    const { totalValue } = this.state;
+    return (totalValue);
   }
 
   render() {
     const { userEmail } = this.props;
-    const { despesaTotal, selectedCurrency } = this.state;
+    const { selectedCurrency, totalValue } = this.state;
     return (
       <main>
         <header>
           <p data-testid="email-field">{ userEmail }</p>
-          <p data-testid="total-field">{ despesaTotal }</p>
+          <p data-testid="total-field">{ totalValue }</p>
           <p>
             Moeda:
             <span data-testid="header-currency-field">{ selectedCurrency }</span>
@@ -210,7 +186,7 @@ class Wallet extends React.Component {
             { this.renderTagSelect() }
             { this.renderDescriptionInput() }
             { this.renderAddExpenseButton() }
-            { this.renderExpensesTable() }
+            <ExpensesTable handleDeleteExpense={ this.handleDeleteExpense } />
           </form>
         </div>
       </main>
@@ -223,18 +199,23 @@ Wallet.propTypes = {
   getCurrencies: PropTypes.func.isRequired,
   addNewExpense: PropTypes.func.isRequired,
   currencies: PropTypes.shape(PropTypes.shape).isRequired,
+  // totalExpended: PropTypes.number.isRequired,
+  // setTotalExpenses: PropTypes.func.isRequired,
   expenseList: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  deleteThisExpense: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   userEmail: state.user.email,
   currencies: state.wallet.currencies,
   expenseList: state.wallet.expenses,
+  totalExpended: state.wallet.totalExpended,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getCurrencies: () => dispatch(fetchCurrencies()),
   addNewExpense: (expenseData) => dispatch(addExpense(expenseData)),
+  deleteThisExpense: (expenseId) => dispatch(deleteExpense(expenseId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
