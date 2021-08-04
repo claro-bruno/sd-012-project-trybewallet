@@ -5,9 +5,9 @@ const Description = (props) => {
   const { onChange } = props;
 
   return (
-    <label htmlFor="form-description">
+    <label htmlFor="description">
       Descrição:
-      <input type="text" name="Descrição" id="form-description" onChange={ onChange } />
+      <input type="text" name="Descrição" id="description" onChange={ onChange } />
     </label>
   );
 };

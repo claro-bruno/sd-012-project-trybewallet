@@ -4,6 +4,10 @@
   padding: 0;
 }
 
+html {
+  background-color: rgb(20, 7, 41);
+}
+
 @import './Login.css' ;
 
 @import './Wallet.css' ;

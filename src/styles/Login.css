@@ -1,5 +1,6 @@
 .login {
   align-items: center;
+  background-color: rgb(13, 4, 24);
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -8,10 +9,10 @@
 
 .login__form {
   align-items: center;
-  background-color: #eaeaea;
+  background-color: rgba(234, 234, 234, 33%);
   border: solid rgb(201, 201, 201) 1.5px;
   border-radius: 10px;
-  color: rgb(39, 36, 36);
+  color: rgb(203, 202, 202);
   column-gap: 10%;
   display: flex;
   flex-direction: column;

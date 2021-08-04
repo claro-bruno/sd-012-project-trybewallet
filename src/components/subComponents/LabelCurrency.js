@@ -5,10 +5,10 @@ const LabelCurrency = (props) => {
   const { onChange, currencies } = props;
 
   return (
-    <label htmlFor="form-currency">
+    <label htmlFor="currency">
       Moeda:
       <select
-        id="form-currency"
+        id="currency"
         name="Moeda"
         onChange={ onChange }
       >

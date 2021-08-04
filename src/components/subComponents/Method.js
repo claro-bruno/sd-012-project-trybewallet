@@ -5,9 +5,9 @@ const SelectMethod = (props) => {
   const { onChange } = props;
 
   return (
-    <label htmlFor="form-pay-method">
+    <label htmlFor="method">
       Método de pagamento:
-      <select id="form-pay-method" name="Pagamento" onChange={ onChange }>
+      <select id="method" name="Pagamento" onChange={ onChange }>
         <option>Dinheiro</option>
         <option>Cartão de crédito</option>
         <option>Cartão de débito</option>

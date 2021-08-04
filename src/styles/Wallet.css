@@ -9,7 +9,7 @@
 
 .header {
   align-items: center;
-  background-color: lightgray;
+  background-color: rgba(255, 255, 255, 77%);
   display: flex;
   justify-content: space-between;
   padding: 1vmin;
@@ -38,4 +38,20 @@
 
 .user__info p {
   padding: 5px;
+}
+
+.wallet__form {
+  align-items: center;
+  background-color: rgba(255, 255, 255, 33%);
+  color: rgb(203, 203, 203);
+  display: flex;
+  font-size: calc(5px + 1vmin);
+  margin: 3px;
+  padding-right: 3px;
+}
+
+.wallet__form input,
+.wallet__form select,
+.wallet__form button {
+  background-color: lightgray;
 }

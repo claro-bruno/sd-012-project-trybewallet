@@ -5,9 +5,9 @@ const InputValue = (props) => {
   const { onChange } = props;
 
   return (
-    <label htmlFor="form-value">
+    <label htmlFor="value">
       Valor:
-      <input type="text" name="Valor" id="form-value" onChange={ onChange } />
+      <input type="text" name="Valor" id="value" onChange={ onChange } />
     </label>
   );
 };

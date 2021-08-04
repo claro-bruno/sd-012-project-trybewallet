@@ -5,9 +5,9 @@ const SelectTag = (props) => {
   const { onChange } = props;
 
   return (
-    <label htmlFor="form-category">
+    <label htmlFor="tag">
       Tag:
-      <select id="form-category" name="Categoria" onChange={ onChange }>
+      <select id="tag" name="Categoria" onChange={ onChange }>
 
         <option>Alimentação</option>
         <option>Lazer</option>
