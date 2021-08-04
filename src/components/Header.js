@@ -11,40 +11,43 @@ class Header extends Component {
 
     this.state = {
       total: 0,
+      localCurrency: {
+        code: 'R$',
+        symbol: 'BRL',
+      },
     };
   }
 
   componentDidUpdate(prevProps) {
     const { wallet: { expenses } } = this.props;
-    const { total } = this.state;
     if ((prevProps.wallet.expenses !== expenses)
         && (expenses.length > 0)) {
-      console.log(expenses.length);
-      console.log(expenses);
-      console.log(total);
       this.addToTotal();
     }
   }
 
   addToTotal() {
     const { wallet: { expenses } } = this.props;
-    const somaTotal = expenses.map((expenseValue) => {
-      const resultValue = expenseValue.value;
-      return resultValue;
+
+    const totalSumExpenses = expenses.map((expenseValue) => {
+      const exchangeExpense = (Object.values(expenseValue.exchangeRates)
+        .find((exchangeRate) => exchangeRate.code === expenseValue.currency)
+        .bid) * expenseValue.value;
+      return exchangeExpense;
     }).reduce((currentValue, nextValue) => {
-      const result = parseFloat(currentValue) + parseFloat(nextValue);
-      return result;
+      const sumExpenses = parseFloat(currentValue) + parseFloat(nextValue);
+      return sumExpenses;
     }, 0);
-    console.log(somaTotal);
+
     this.setState((prevProps) => ({
       ...prevProps,
-      total: somaTotal,
+      total: totalSumExpenses,
     }));
   }
 
   render() {
-    const { email, localCurrency } = this.props;
-    const { total } = this.state;
+    const { email } = this.props;
+    const { total, localCurrency } = this.state;
     const formato = { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' };
     return (
       <div className="header-container">
@@ -68,14 +71,9 @@ const mapStateToProps = (state) => ({ wallet: state.wallet });
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
-  localCurrency: PropTypes.shape({
-    code: PropTypes.string,
-    symbol: PropTypes.string,
-  }).isRequired,
   wallet: PropTypes.shape({
     expenses: PropTypes.arrayOf(PropTypes.shape({
       exchangeRates: PropTypes.arrayOf(PropTypes.shape({
-        camelName: PropTypes.string,
         name: PropTypes.string,
         code: PropTypes.string,
         ask: PropTypes.number,

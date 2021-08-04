@@ -48,11 +48,15 @@ class Button extends Component {
 
 Button.propTypes = {
   className: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string,
   buttonText: PropTypes.string.isRequired,
   pathname: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   isDisable: PropTypes.bool.isRequired,
+};
+
+Button.defaultProps = {
+  type: undefined,
 };
 
 export default Button;

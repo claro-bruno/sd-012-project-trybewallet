@@ -21,11 +21,6 @@ class Wallet extends Component {
     this.handleClick = this.handleClick.bind(this);
 
     this.state = {
-      total: 0,
-      localCurrency: {
-        code: 'R$',
-        symbol: 'BRL',
-      },
       expense: {
         id: '',
         value: '',
@@ -75,23 +70,34 @@ class Wallet extends Component {
 
   setCurrency() {
     const { wallet: { currencies, expenses }, setCurrenciesHandler } = this.props;
-    const selectedsCurrencies = currencies.map((currencyFound) => currencyFound[1])
-      .filter((currenciesSelecteds) => currenciesSelecteds.codein !== 'BRLT');
-    const formatCurrencies = selectedsCurrencies.map((currencyFormated) => {
+
+    const selectedsCurrencies = currencies.filter((currenciesSelecteds) => {
+      const selectedsResult = currenciesSelecteds[1].codein !== 'BRLT';
+      return selectedsResult;
+    });
+
+    const formatatedCurrencies = selectedsCurrencies.map((currencyFormated) => {
       const newObject = {
-        name: currencyFormated.name.split('/')[0],
-        code: currencyFormated.code,
-        ask: currencyFormated.ask,
+        [currencyFormated[0]]: {
+          ...currencyFormated[1],
+          name: currencyFormated[1].name.split('/')[0],
+        },
       };
       return newObject;
     });
-    setCurrenciesHandler(formatCurrencies);
+
+    const objectCurrencies = formatatedCurrencies.reduce((previousValue, nextValue) => {
+      const newObject = Object.assign(previousValue, nextValue);
+      return newObject;
+    }, {});
+
+    setCurrenciesHandler(objectCurrencies);
     this.setState((prevState) => ({
       ...prevState,
       expense: {
         ...prevState.expense,
-        id: (expenses.length + 1),
-        currency: formatCurrencies[0].code,
+        id: (expenses.length),
+        currency: Object.keys(objectCurrencies)[0],
       },
     }));
   }
@@ -176,7 +182,7 @@ class Wallet extends Component {
     return (
       (isFetching ? (
         <div className="wallet-container">
-          <Header email={ email } total={ total } localCurrency={ localCurrency } />
+          <Header email={ email } localCurrency={ localCurrency } />
           <p>Loading...</p>
         </div>
       ) : (
@@ -215,14 +221,12 @@ Wallet.propTypes = {
     isFetching: PropTypes.bool,
     currency: PropTypes.string,
     currencies: PropTypes.arrayOf(PropTypes.shape({
-      camelName: PropTypes.string,
       name: PropTypes.string,
       code: PropTypes.string,
-      ask: PropTypes.number,
+      ask: PropTypes.string,
     })),
     expenses: PropTypes.arrayOf(PropTypes.shape({
       exchangeRates: PropTypes.arrayOf(PropTypes.shape({
-        camelName: PropTypes.string,
         name: PropTypes.string,
         code: PropTypes.string,
         ask: PropTypes.number,

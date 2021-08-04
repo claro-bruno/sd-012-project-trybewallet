@@ -8,7 +8,7 @@ import {
 } from '../actions/ActionTypes';
 
 const INITIAL_STATE = {
-  currencies: [],
+  currencies: {},
   expenses: [],
   isFetching: false,
   error: '',

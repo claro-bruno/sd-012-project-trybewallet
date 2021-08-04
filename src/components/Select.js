@@ -14,6 +14,8 @@ class Select extends Component {
       options,
     } = this.props;
 
+    const optionsList = Object.keys(options).map((option) => option);
+
     return (
       (name === 'currency' ? (
         <label htmlFor={ id }>
@@ -26,12 +28,12 @@ class Select extends Component {
             onChange={ onChange }
             required={ required }
           >
-            { options.map((option, index) => (
+            { optionsList.map((option, index) => (
               <option
                 key={ index }
-                value={ option.code }
+                value={ option }
               >
-                {option.code}
+                {option}
               </option>))}
           </select>
         </label>
@@ -49,7 +51,7 @@ class Select extends Component {
             { options.map((option, index) => (
               <option
                 key={ index }
-                value={ option.code }
+                value={ option.name }
               >
                 {option.name}
               </option>))}
