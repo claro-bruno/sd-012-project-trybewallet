@@ -50,8 +50,14 @@
   padding-right: 3px;
 }
 
-.wallet__form input ,
- .wallet__form select ,
- .wallet__form button {
+.wallet__form input {
+  background-color: lightgray;
+}
+
+.wallet__form select {
+  background-color: lightgray;
+}
+
+.wallet__form button {
   background-color: lightgray;
 }
