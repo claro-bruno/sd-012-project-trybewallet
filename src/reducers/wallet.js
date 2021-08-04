@@ -21,7 +21,16 @@ const wallet = (state = INITIAL_STATE, action) => {
   case REQUEST_CURRENCIES:
     return { ...state, isFetching: true };
   case GET_CURRENCIES:
-    return { ...state, currencies: Object.entries(action.payload), isFetching: false };
+    return {
+      ...state,
+      currencies: action.payload.map((format) => {
+        const newObject = {
+          [format.code]: { ...format, name: format.name.split('/')[0] },
+        };
+        return newObject;
+      }).reduce((prev, next) => Object.assign(prev, next), {}),
+      isFetching: false,
+    };
   case SET_CURRENCIES:
     return { ...state, currencies: action.selecteds };
   case SET_EXPENSE:
@@ -34,3 +43,27 @@ const wallet = (state = INITIAL_STATE, action) => {
 };
 
 export default wallet;
+
+/* currencies: action.payload.map((format) => {
+  const newObject = {
+    [format.code]: { ...format, name: currencyFormated.name.split('/')[0] },
+  };
+  return newObject;
+}),
+ */
+// .reduce((prev, next) => Object.assign(prev, next), {}),
+
+/* const formatatedCurrencies = selectedsCurrencies.map((currencyFormated) => {
+  const newObject = {
+    [currencyFormated[0]]: {
+      ...currencyFormated[1],
+      name: currencyFormated[1].name.split('/')[0],
+    },
+  };
+  return newObject;
+}); */
+
+/* const objectCurrencies = formatatedCurrencies.reduce((previousValue, nextValue) => {
+  const newObject = Object.assign(previousValue, nextValue);
+  return newObject;
+}, {}); */

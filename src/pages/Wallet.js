@@ -49,10 +49,11 @@ class Wallet extends Component {
       readyToAdd,
       expenseToAdd,
     } = this.state;
-    const defaultLength = 16;
+    const defaultLength = 15;
     if ((prevProps.wallet.currencies !== currencies)
         && ((prevProps.wallet.currencies.length === 0)
-        || (currencies.length === defaultLength))) {
+        || (Object.keys(currencies).length === defaultLength))) {
+      console.log('entrou');
       this.setCurrency();
     }
     if (fetchToAdd) this.updateCurrencies();
@@ -71,33 +72,14 @@ class Wallet extends Component {
   setCurrency() {
     const { wallet: { currencies, expenses }, setCurrenciesHandler } = this.props;
 
-    const selectedsCurrencies = currencies.filter((currenciesSelecteds) => {
-      const selectedsResult = currenciesSelecteds[1].codein !== 'BRLT';
-      return selectedsResult;
-    });
+    setCurrenciesHandler(currencies);
 
-    const formatatedCurrencies = selectedsCurrencies.map((currencyFormated) => {
-      const newObject = {
-        [currencyFormated[0]]: {
-          ...currencyFormated[1],
-          name: currencyFormated[1].name.split('/')[0],
-        },
-      };
-      return newObject;
-    });
-
-    const objectCurrencies = formatatedCurrencies.reduce((previousValue, nextValue) => {
-      const newObject = Object.assign(previousValue, nextValue);
-      return newObject;
-    }, {});
-
-    setCurrenciesHandler(objectCurrencies);
     this.setState((prevState) => ({
       ...prevState,
       expense: {
         ...prevState.expense,
         id: (expenses.length),
-        currency: Object.keys(objectCurrencies)[0],
+        currency: Object.values(currencies)[0].code,
       },
     }));
   }

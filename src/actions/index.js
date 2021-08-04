@@ -30,7 +30,7 @@ export const setExpense = (expense) => ({
 
 const getCurrencies = (json) => ({
   type: GET_CURRENCIES,
-  payload: json,
+  payload: Object.values(json).filter((array) => array.codein !== 'BRLT'),
 });
 
 function requestCurrencies() {
