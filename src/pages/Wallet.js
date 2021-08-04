@@ -1,6 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Header from '../Components/Header';
 import FormWallet from '../Components/FormWallet';
+import { fetchCyrrency } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
@@ -17,6 +20,11 @@ class Wallet extends React.Component {
     };
   }
 
+  componentDidMount() {
+    const { setCurrencyStore } = this.props;
+    setCurrencyStore();
+  }
+
   handleChange({ target: { name, value } }) {
     this.setState((state) => ({
       ...state,
@@ -25,7 +33,8 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { value, description, currency, payment, tag } = this.state;
+    const { value, description, payment, currency, tag } = this.state;
+    const { currencyStore } = this.props;
     return (
       <main>
         <Header />
@@ -33,6 +42,7 @@ class Wallet extends React.Component {
           value={ value }
           description={ description }
           currency={ currency }
+          currencyStore={ currencyStore }
           payment={ payment }
           tag={ tag }
           handleChange={ this.handleChange }
@@ -42,4 +52,17 @@ class Wallet extends React.Component {
   }
 }
 
-export default Wallet;
+Wallet.propTypes = {
+  setCurrencyStore: PropTypes.func.isRequired,
+  currencyStore: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  currencyStore: state.wallet.currencies,
+});
+
+const mapDispatchToPtops = (dispatch) => ({
+  setCurrencyStore: () => dispatch(fetchCyrrency()),
+});
+
+export default connect(mapStateToProps, mapDispatchToPtops)(Wallet);
