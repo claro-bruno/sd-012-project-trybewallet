@@ -6,11 +6,11 @@ export default class Form extends Component {
       <form>
         <label htmlFor="valor">
           Valor:
-          <input type="number" html="valor" />
+          <input value="0.00" type="number" id="valor" />
         </label>
         <label htmlFor="descricao">
           Descrição:
-          <input type="text" html="descricao" />
+          <input type="text" value="" id="descricao" />
         </label>
         <label htmlFor="moeda">
           Moeda:
