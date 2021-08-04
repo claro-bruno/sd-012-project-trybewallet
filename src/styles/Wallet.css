@@ -51,7 +51,7 @@
 }
 
 .wallet__form input ,
-.wallet__form select ,
-.wallet__form button {
+ .wallet__form select ,
+ .wallet__form button {
   background-color: lightgray;
 }
