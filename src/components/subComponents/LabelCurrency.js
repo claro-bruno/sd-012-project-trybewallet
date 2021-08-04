@@ -1,15 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { func, arrayOf, string } from 'prop-types';
 
 const LabelCurrency = (props) => {
-  const { onChange, currencies } = props;
+  const { onChange, currencies, currency } = props;
 
   return (
-    <label htmlFor="currency">
+    <label htmlFor="currency-select">
       Moeda:
       <select
-        id="currency"
-        name="Moeda"
+        id="currency-select"
+        name="currency"
+        value={ currency }
         onChange={ onChange }
       >
 
@@ -27,6 +28,7 @@ const LabelCurrency = (props) => {
 export default LabelCurrency;
 
 LabelCurrency.propTypes = {
-  onChange: PropTypes.func.isRequired,
-  currencies: PropTypes.shape(Object).isRequired,
+  onChange: func.isRequired,
+  currencies: arrayOf(string).isRequired,
+  currency: string.isRequired,
 };

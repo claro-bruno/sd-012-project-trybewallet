@@ -32,6 +32,22 @@ export const requestError = (payload) => ({
   payload,
 });
 
+export const addExpenses = (payload) => ({
+  type: GET_EXPENSES,
+  payload,
+});
+
+export const addTotal = (payload, id) => ({
+  type: ADD_TOTAL,
+  payload,
+  id,
+});
+
+export const addRate = (payload) => ({
+  type: ADD_RATE,
+  payload,
+});
+
 // Fetch API Actions
 
 export const fetchAPI = () => async (dispatch) => {

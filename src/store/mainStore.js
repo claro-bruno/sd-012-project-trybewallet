@@ -14,12 +14,16 @@ export default Store;
 {
   user: {
     email: action.payload,
-  }
+  },
   wallet: {
     currencies: [],
     expenses: [],
     error: '',
     isLoading: false
+  },
+  total: {
+    total: [],
+    rate: [],
   }
 };
 */

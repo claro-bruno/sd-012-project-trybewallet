@@ -1,4 +1,4 @@
-import { REQUEST, REQUEST_API_SUCCESS, REQUEST_ERROR } from '../actions';
+import { GET_EXPENSES, REQUEST, REQUEST_API_SUCCESS, REQUEST_ERROR } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -25,6 +25,12 @@ export default function walletReducer(state = INITIAL_STATE, action) {
       ...state,
       isLoading: false,
       error: action.payload,
+    };
+  case GET_EXPENSES:
+    return {
+      ...state,
+      isLoading: false,
+      expenses: [...state.expenses, action.payload],
     };
   default:
     return state;

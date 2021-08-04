@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchAPI } from '../actions';
+import { fetchAPI, addExpenses } from '../actions';
 
 import InputValue from './subComponents/InputValue';
 import Description from './subComponents/Description';
@@ -40,43 +40,41 @@ class Form extends Component {
     }));
   }
 
-  handleChange({ target: { value, id } }) {
-    this.setState({ [id]: value });
+  handleChange({ target: { name, value } }) {
+    this.setState({ [name]: value });
   }
 
-  async handleClick(e) {
-    e.preventDefault();
-    const { fetchCurrency, currencies } = this.props;
-    this.setId();
+  async handleClick() {
+    const { fetchCurrency, dispatchExpenses, currencies: exchangeRates } = this.props;
     await fetchCurrency();
 
-    const { id, value, description, currency, method, tag } = this.state;
-    /* const total = 0;
-    const currentRate = currencies[currency].ask; // falta dispatch
-    const totalCalc = total + parseFloat(currentRate * value).toFixed(2); // falta dispatch */
+    dispatchExpenses({ ...this.state, exchangeRates });
+    this.setState(() => ({
+      value: 0,
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+    }));
 
-    const objTSubmit = {
-      id,
-      value,
-      description,
-      currency,
-      method,
-      tag,
-      exchangeRates: currencies,
-    };
-    console.log(objTSubmit);
+    this.setId();
   }
 
   render() {
     const { currencies } = this.props;
+    const { currency, method, tag, value, description } = this.state;
 
     return (
       <form className="wallet__form">
-        <InputValue onChange={ this.handleChange } />
-        <Description onChange={ this.handleChange } />
-        <LabelCurrency currencies={ currencies } />
-        <Method onChange={ this.handleChange } />
-        <SelectTag onChange={ this.handleChange } />
+        <InputValue onChange={ this.handleChange } value={ value } />
+        <Description onChange={ this.handleChange } description={ description } />
+        <LabelCurrency
+          onChange={ this.handleChange }
+          currencies={ currencies }
+          currency={ currency }
+        />
+        <Method onChange={ this.handleChange } method={ method } />
+        <SelectTag onChange={ this.handleChange } tag={ tag } />
         <SubmitButton onClick={ this.handleClick } />
       </form>
     );
@@ -89,6 +87,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchCurrency: () => dispatch(fetchAPI()),
+  dispatchExpenses: (expenses) => dispatch(addExpenses(expenses)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
@@ -96,4 +95,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(Form);
 Form.propTypes = {
   currencies: PropTypes.shape(Object).isRequired,
   fetchCurrency: PropTypes.func.isRequired,
+  dispatchExpenses: PropTypes.func.isRequired,
 };

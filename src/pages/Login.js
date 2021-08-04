@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { func, number, string, objectOf, oneOfType, object } from 'prop-types';
 import { newEmail } from '../actions';
 import logo from '../assets/logo.png';
 
@@ -89,7 +89,8 @@ class Login extends Component {
             type="submit"
             disabled={ !this.isEligible(email, password) }
             className="login__button"
-            onClick={ () => {
+            onClick={ (e) => {
+              e.preventDefault();
               dispatchSubmitLogin(email);
               this.submitLogin(history);
             } }
@@ -109,6 +110,6 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(null, mapDispatchToProps)(Login);
 
 Login.propTypes = {
-  dispatchSubmitLogin: PropTypes.func.isRequired,
-  history: PropTypes.func.isRequired,
+  dispatchSubmitLogin: func.isRequired,
+  history: objectOf(oneOfType([func, string, number, object])).isRequired,
 };

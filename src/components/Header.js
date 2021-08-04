@@ -1,12 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { number, string, arrayOf, objectOf, oneOfType, object } from 'prop-types';
 import logo from '../assets/logo.png';
 
 class Header extends Component {
+  constructor() {
+    super();
+
+    this.totalSum = this.totalSum.bind(this);
+  }
+
+  totalSum(total) {
+    let currentValue = 0;
+    total.forEach((crr) => {
+      currentValue += (parseFloat(crr.value)
+      * parseFloat(crr.exchangeRates[crr.currency].ask));
+    });
+    return parseFloat(currentValue).toFixed(2);
+  }
+
   render() {
-    const { email } = this.props;
-    const currencySymbol = 'BRL';
+    const { email, total } = this.props;
+    const totalPrice = this.totalSum(total);
 
     return (
       <div className="header">
@@ -21,7 +36,7 @@ class Header extends Component {
             className="info__expense"
             data-testid="total-field"
           >
-            {`Despesa Total: ${currencySymbol} 0`}
+            {`Despesa Total: R$ ${totalPrice}`}
           </p>
           <div
             className="currency__selector"
@@ -40,6 +55,7 @@ class Header extends Component {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  total: state.wallet.expenses,
 });
 
 /* const mapDispatchToProps = {
@@ -49,5 +65,6 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps)(Header);
 
 Header.propTypes = {
-  email: PropTypes.string.isRequired,
+  email: string.isRequired,
+  total: arrayOf(objectOf(oneOfType([string, number, object]))).isRequired,
 };
