@@ -1,9 +1,19 @@
-import React from 'react';
+/* eslint-disable no-shadow */
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { fetchApi } from '../actions';
+import CurrenciesForm from './CurrenciesForm';
 
-class WalletForm extends React.Component {
+class WalletForm extends Component {
   constructor() {
     super();
     this.onChange = this.onChange.bind(this);
+  }
+
+  componentDidMount() {
+    const { currency } = this.props;
+    currency();
   }
 
   onChange({ target }) {
@@ -27,20 +37,20 @@ class WalletForm extends React.Component {
         <label htmlFor="moeda">
           Moeda:
           <select id="moeda" onChange={ this.onChange }>
-            <option value="BRL">BRL</option>
+            <CurrenciesForm />
           </select>
         </label>
-        <label htmlFor="metodo">
+        <label htmlFor="pagamento">
           Método de pagamento:
-          <select id="metodo" onChange={ this.onChange }>
+          <select id="pagamento" onChange={ this.onChange }>
             <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de Crédito">Cartão de Crédito</option>
             <option value="Cartão de débito">Cartão de débito</option>
           </select>
         </label>
-        <label htmlFor="categoria">
+        <label htmlFor="tag">
           Tag
-          <select id="categoria" onChange={ this.onChange }>
+          <select id="tag" onChange={ this.onChange }>
             <option value="Alimentação">Alimentação</option>
             <option value="Lazer">Lazer</option>
             <option value="Trabalho">Trabalho</option>
@@ -53,4 +63,12 @@ class WalletForm extends React.Component {
   }
 }
 
-export default WalletForm;
+const mapDispatchToProps = (dispacth) => ({
+  currency: () => dispacth(fetchApi()),
+});
+
+WalletForm.propTypes = {
+  currency: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(WalletForm);
