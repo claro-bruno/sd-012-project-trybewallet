@@ -9,7 +9,9 @@ class Wallet extends Component {
       <>
         <Header />
         <AddExpenseForm />
-        <ExpenseTable />
+        <table>
+          <ExpenseTable />
+        </table>
       </>
     );
   }

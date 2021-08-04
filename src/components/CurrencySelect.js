@@ -28,16 +28,19 @@ class CurrencySelect extends Component {
   }
 }
 
+CurrencySelect.defaultProps = {
+  currencies: {},
+};
+
 CurrencySelect.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   fetchApi: PropTypes.func.isRequired,
-  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  currencies: PropTypes.shape({}),
 };
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
-  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -7,7 +7,7 @@ import {
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
-  currencies: [],
+  currencies: {},
   expenses: [],
   isFetching: false,
   error: '',
@@ -36,10 +36,9 @@ const subExpenses = (state, action) => {
   const askNumber = +ask;
   const { value } = id;
   const valueNumber = +value;
-  const convertedValue = (valueNumber * askNumber);
+  const convertedValue = valueNumber * askNumber;
   const { totalExpense } = state;
   const result = totalExpense - convertedValue;
-  // console.log(askNumber, valueNumber, convertedValue, result);
   return result;
 };
 
@@ -81,7 +80,7 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       expenses: removeExpense(state, action.payload),
-      totalExpense: subExpenses(state, action.payload),
+      totalExpense: parseFloat(subExpenses(state, action.payload)),
     };
 
   default:

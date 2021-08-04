@@ -5,7 +5,7 @@ import Input from './Input';
 import CurrencySelect from './CurrencySelect';
 import PaymentSelect from './PaymentSelect';
 import TagSelect from './TagSelect';
-import { actionGetExpense, actionFetchApiExchangeRates } from '../actions';
+import { actionFetchApiExchangeRates } from '../actions';
 
 class AddExpenseForm extends Component {
   constructor(props) {
@@ -89,15 +89,8 @@ AddExpenseForm.propTypes = {
   fetchApiExchangeRates: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  email: state.user.email,
-  currencies: state.wallet.currencies,
-  expenses: state.wallet.expenses,
-});
-
 const mapDispatchToProps = (dispatch) => ({
-  getExpenseStore: (state) => dispatch(actionGetExpense(state)),
   fetchApiExchangeRates: (state) => dispatch(actionFetchApiExchangeRates(state)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddExpenseForm);
+export default connect(null, mapDispatchToProps)(AddExpenseForm);

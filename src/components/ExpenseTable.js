@@ -27,7 +27,7 @@ class ExpenseTable extends Component {
   render() {
     const { expenses, removeExpenseStore } = this.props;
     return (
-      <tbody>
+      <thead>
         <tr>
           <th>Descrição</th>
           <th>Tag</th>
@@ -49,25 +49,27 @@ class ExpenseTable extends Component {
             <td>{ this.exchangeUsed(item) }</td>
             <td>{ this.convertedValue(item) }</td>
             <td>Real</td>
-            <button
-              type="button"
-              value={ index }
-              data-testid="delete-btn"
-              onClick={ removeExpenseStore }
-            >
-              Excluir
-            </button>
-            <button
-              type="button"
-              value={ index }
-              onClick={ () => console.log('Editar') } // REQUISITO 11
-            >
-              Editar
-            </button>
-
+            <td>
+              <button
+                type="button"
+                value={ index }
+                data-testid="delete-btn"
+                onClick={ removeExpenseStore }
+              >
+                Excluir
+              </button>
+              <button
+                type="button"
+                value={ index }
+                data-testid="edit-btn"
+                onClick={ () => console.log('Editar') } // REQUISITO 11
+              >
+                Editar
+              </button>
+            </td>
           </tr>
         ))}
-      </tbody>
+      </thead>
     );
   }
 }

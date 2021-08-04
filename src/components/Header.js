@@ -3,8 +3,26 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class Header extends Component {
+  // constructor() {
+  //   super();
+  //   this.calculateTotalValue = this.calculateTotalValue.bind(this);
+  // }
+
+  // calculateTotalValue() {
+  //   const { expenses } = this.props;
+  //   // const xablau = totalExpense.reduce((acc, { value, currency, exchangeRates }) => {
+  //   //   const teste = value * (exchangeRates[currency].ask);
+  //   //   acc += teste;
+  //   //   return acc;
+  //   // }, 0);
+  //   const result = Math.round(expenses * 100) / 100;
+  //   console.log(expenses);
+  //   if (!result) return result;
+  //   return 0;
+  // }
+
   render() {
-    const { email, totalExpense = 0 } = this.props;
+    const { email, totalExpense } = this.props;
     return (
       <header>
         <p data-testid="email-field">
@@ -14,10 +32,10 @@ class Header extends Component {
         <p data-testid="total-field">
           Despesa Total: R$
           { totalExpense.toFixed(2) }
+          {/* { this.calculateTotalValue() } */}
         </p>
         <p data-testid="header-currency-field">
           Moeda: BRL
-          {/* { currencies } */}
         </p>
       </header>
     );
@@ -36,6 +54,7 @@ Header.propTypes = {
 const mapStateToProps = (state) => ({
   email: state.user.email,
   totalExpense: state.wallet.totalExpense,
+  expenses: state.wallet.totalExpense,
 });
 
 export default connect(mapStateToProps, null)(Header);
