@@ -1,15 +1,13 @@
 import { SAVE_EMAIL } from '../actions';
 
 const INTIAL_STATE = {
-  user: {
-    email: '',
-  },
+  email: '',
 };
 
 const store = (state = INTIAL_STATE, action) => {
   switch (action.type) {
   case SAVE_EMAIL:
-    return { ...state, ...action.state };
+    return { ...state, ...action.payload };
   default: return state;
   }
 };
