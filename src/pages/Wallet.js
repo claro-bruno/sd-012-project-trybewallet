@@ -7,7 +7,9 @@ class Wallet extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      currency: 'USD',
+    };
 
     this.fetchCurrencies = this.fetchCurrencies.bind(this);
     this.showCurrencies = this.showCurrencies.bind(this);
@@ -71,10 +73,14 @@ class Wallet extends React.Component {
 
   showTotalValue() {
     const { expenses } = this.props;
-    const totalValue = expenses
-      .reduce((acc, curr) => acc + parseFloat(curr.value), 0);
+
     if (expenses.length > 0) {
-      console.log(totalValue);
+      const totalValue = expenses
+        .reduce((acc, curr) => {
+          const { currency, exchangeRates } = curr;
+          acc += parseFloat(curr.value) * exchangeRates[currency].ask;
+          return acc;
+        }, 0);
       return totalValue;
     }
     return 0;
