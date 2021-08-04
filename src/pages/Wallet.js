@@ -1,6 +1,6 @@
 import React from 'react';
-import BodyWallet from './components/BodyWallet';
-import HeaderWallet from './components/Header';
+import BodyWallet from '../components/BodyWallet';
+import HeaderWallet from '../components/Header';
 
 class Wallet extends React.Component {
   render() {
