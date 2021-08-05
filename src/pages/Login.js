@@ -21,10 +21,10 @@ class Login extends React.Component {
   }
 
   handleSubmit() {
-    const { setEmailStore } = this.props;
     const { email } = this.state;
+    const { setEmailToStore } = this.props;
 
-    setEmailStore(email);
+    setEmailToStore(email);
     this.setState((state) => ({
       ...state,
       email: '',
@@ -53,7 +53,7 @@ class Login extends React.Component {
     const { email, password, isValid, redirect } = this.state;
     if (redirect) { return <Redirect to="/carteira" />; }
     return (
-      <form onSubmit={ this.handleSubmit }>
+      <form>
         <Input
           label="Email:"
           type="email"
@@ -73,6 +73,7 @@ class Login extends React.Component {
         <button
           type="button"
           disabled={ !isValid }
+          onClick={ this.handleSubmit }
         >
           Entrar
         </button>
@@ -82,7 +83,7 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  setEmailStore: (email) => dispatch(addEmail(email)),
+  setEmailToStore: (email) => dispatch(addEmail(email)),
 });
 
 Login.propTypes = {
