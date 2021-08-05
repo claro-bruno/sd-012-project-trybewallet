@@ -1,5 +1,5 @@
 import {
-  FETCHING_DATA, FAILED_REQUEST,
+  FETCHING_DATA, FAILED_REQUEST, REMOVE_EXPENSE,
   EXPENSES_API_GETSTATE, EXPENSES_API_FAILED } from '../actions';
 
 const INIT_STATE = {
@@ -33,6 +33,12 @@ const wallet = (state = INIT_STATE, action) => {
 
   case EXPENSES_API_FAILED:
     return { ...state, error: action.error };
+
+  case REMOVE_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.filter(({ id }) => id !== action.state),
+    };
 
   default:
     return state;

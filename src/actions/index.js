@@ -5,6 +5,7 @@ export const EXPENSES_API_GETSTATE = 'EXPENSES_API_GETSTATE';
 export const EXPENSES_API_FAILED = 'EXPENSES_API_FAILED';
 export const FETCHING_DATA = 'FETCHING_DATA';
 export const FAILED_REQUEST = 'FAILED_REQUEST';
+export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
 
 export const userAction = (state) => ({ type: EMAIL, email: state });
 
@@ -41,3 +42,5 @@ export const fetchForExpense = (stateData) => async (dispatch) => { // action qu
     dispatch(expenseActFailed(error));
   }
 };
+
+export const removeExpenseAct = (state) => ({ type: REMOVE_EXPENSE, state });
