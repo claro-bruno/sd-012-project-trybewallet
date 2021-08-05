@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Input from '../Input';
 import Select from '../Select';
 
@@ -54,6 +55,7 @@ class Form extends React.Component {
   }
 
   renderCurrencySelect() {
+    const { currencies } = this.props;
     const { currency } = this.state;
     return (
       <Select
@@ -63,7 +65,7 @@ class Form extends React.Component {
         value={ currency }
         onChange={ this.handleChange }
       >
-        {['USD', 'EUR', 'CAD']}
+        {currencies}
       </Select>
     );
   }
@@ -130,8 +132,14 @@ class Form extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
 Form.propTypes = {
-  getCurrency: PropTypes.arrayOf(Object),
+  getCurrency: PropTypes.arrayOf(
+    PropTypes.string.isRequired,
+  ),
 }.isRequired;
 
-export default Form;
+export default connect(mapStateToProps, null)(Form);
