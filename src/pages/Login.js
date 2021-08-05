@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { userEmail, userPwd } from '../actions';
+import userInfo from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -43,10 +43,10 @@ class Login extends React.Component {
   }
 
   handleSubmitUser() {
-    const { submitEmail, submitPwd } = this.props;
-    const { email, password } = this.state;
-    submitEmail(email);
-    submitPwd(password);
+    const { submitUserInfo } = this.props;
+    const { state } = this;
+    console.log(state);
+    submitUserInfo(state);
   }
 
   render() {
@@ -95,13 +95,11 @@ class Login extends React.Component {
 
 const mapDispatchToProps = (dispatch) => (
   {
-    submitEmail: (email) => dispatch(userEmail(email)),
-    submitPwd: (pwd) => dispatch(userPwd(pwd)),
+    submitUserInfo: (data) => dispatch(userInfo(data)),
   });
 
 Login.propTypes = {
-  submitEmail: PropTypes.func.isRequired,
-  submitPwd: PropTypes.func.isRequired,
+  submitUserInfo: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Login);

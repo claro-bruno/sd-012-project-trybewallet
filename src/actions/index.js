@@ -1,3 +1,3 @@
-export const userEmail = (state) => ({ type: 'USER_EMAIL', state });
+const userInfo = (payload) => ({ type: 'USER_INFO', payload });
 
-export const userPwd = (state) => ({ type: 'USER_PWD', state });
+export default userInfo;
