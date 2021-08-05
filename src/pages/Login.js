@@ -1,11 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { addUser } from '../actions';
 
 class Login extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      email: '',
+      email: 'abc',
       password: '',
       disable: true,
     };
@@ -13,6 +17,7 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.verifiEmail = this.verifiEmail.bind(this);
     this.verifiSenha = this.verifiSenha.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange({ target }) {
@@ -40,6 +45,13 @@ class Login extends React.Component {
     } return false;
   }
 
+  handleSubmit() {
+    const { submitEmail } = this.props;
+    const { email } = this.state;
+    submitEmail(email);
+    console.log(email);
+  }
+
   render() {
     const { disable } = this.state;
     return (
@@ -62,10 +74,26 @@ class Login extends React.Component {
             onChange={ this.handleChange }
           />
         </label>
-        <button type="button" disabled={ disable }>Entrar</button>
+        <Link to="/carteira">
+          <button
+            onClick={ this.handleSubmit }
+            type="button"
+            disabled={ disable }
+          >
+            Entrar
+          </button>
+        </Link>
       </div>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => (
+  {
+    submitEmail: (email) => dispatch(addUser(email)),
+  });
+
+Login.propTypes = {
+  submitEmail: PropTypes.func.isRequired,
+};
+export default connect(null, mapDispatchToProps)(Login);

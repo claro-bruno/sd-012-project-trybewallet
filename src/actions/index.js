@@ -1,1 +1,2 @@
-// Coloque aqui suas actions
+export const ADD_USER = 'ADD_USER';
+export const addUser = (value) => ({ type: ADD_USER, value });
