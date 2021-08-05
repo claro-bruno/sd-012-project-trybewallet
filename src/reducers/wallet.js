@@ -2,7 +2,7 @@ import { REQUEST_API, GET_CURRENCY } from '../actions/currencyActions';
 
 const INITIAL_STATE = {
   isLoading: false,
-  moedas: {},
+  currencies: [],
 };
 
 const walletReducer = (state = INITIAL_STATE, action) => {
@@ -16,7 +16,7 @@ const walletReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       isLoading: false,
-      moedas: action.data,
+      currencies: action.state,
     };
   default: return state;
   }

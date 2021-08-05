@@ -30,7 +30,8 @@ class Form extends React.Component {
   }
 
   render() {
-    const { getMoedas } = this.props;
+    const { moedas } = this.props;
+    console.log(moedas);
     const { valor, descricao, moeda } = this.state;
     return (
       <form>
@@ -53,7 +54,7 @@ class Form extends React.Component {
         <Select
           label="Moeda"
           id="moeda-id"
-          options={  }
+          options={ [moeda] }
           value={ moeda }
           onChange={ this.handleChange }
         />
@@ -72,9 +73,10 @@ class Form extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  getMoedas: state.wallet.moedas,
-});
+const mapStateToProps = (state) => {
+  const { wallet } = state;
+  return { moedas: wallet.currencies };
+};
 
 const mapDispatchToProps = (dispatch) => ({
   fetchCurrency: () => dispatch(fetchAPI()),
