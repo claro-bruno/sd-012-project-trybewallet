@@ -14,7 +14,7 @@ function wallet(state = initialState, action) {
   case REQUEST_CURRENCY:
     return {
       ...state,
-      currencies: Object.keys(action.payload),
+      currencies: action.payload,
     };
   case GET_TOTAL:
     return {
@@ -24,7 +24,7 @@ function wallet(state = initialState, action) {
   case GET_EXPENSES:
     return {
       ...state,
-      expenses: action.payload,
+      expenses: [...state.expenses, action.payload],
     };
   default:
     return state;

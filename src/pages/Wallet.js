@@ -5,11 +5,16 @@ import Header from '../components/Header';
 import WalletForm from '../components/WalletForm';
 
 class Wallet extends React.Component {
+  componentDidMount() {
+    const { expenses } = this.props;
+    console.log(expenses);
+  }
+
   render() {
-    const { email, currency, total } = this.props;
+    const { email, currency } = this.props;
     return (
       <>
-        <Header emailUser={ email } currency={ currency } total={ total } />
+        <Header emailUser={ email } currency={ currency } total={ 0 } />
         <WalletForm />
       </>
     );
@@ -20,13 +25,13 @@ const mapStateToProps = (state) => ({
   email: state.user.email,
   password: state.user.password,
   currency: state.wallet.currency,
-  total: state.wallet.total,
+  expenses: state.wallet.expenses,
 });
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
   currency: PropTypes.string.isRequired,
-  total: PropTypes.number.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, null)(Wallet);

@@ -2,41 +2,42 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getExpenses } from '../actions/index';
+import CurrencySelect from './CurrencySelect';
 
 class WalletForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currencies: [],
+      id: 0,
       value: 0,
       description: '',
-      currency: '',
-      method: '',
+      currency: 'USD',
       tag: '',
-      expenses: [],
+      method: '',
+      exchangeRates: {},
     };
-    this.fetchApi = this.fetchApi.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.requestExchangeRate = this.requestExchangeRate.bind(this);
   }
 
   componentDidMount() {
-    this.fetchApi();
+    this.requestExchangeRate();
   }
 
-  onSubmitForm(array) {
-    const expense = {
-      id: array[5].length,
-      value: array[0],
-      description: array[1],
-      currency: array[2] || 'USD',
-      method: array[3] || 'Dinheiro',
-      tag: array[4] || 'Alimentação',
-    };
-    array[5].push(expense);
-    console.log(array[5]);
+  onSubmitForm() {
     const { dispatchSetExpense } = this.props;
-    const { expenses } = this.state;
-    dispatchSetExpense(expenses);
+    dispatchSetExpense(this.state);
+    this.setState((estadoAnterior) => ({
+      id: estadoAnterior.id + 1,
+    }));
+  }
+
+  async requestExchangeRate() {
+    const apiList = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const currencies = await apiList.json();
+    this.setState({
+      exchangeRates: currencies,
+    });
   }
 
   handleChange({ target }) {
@@ -44,39 +45,21 @@ class WalletForm extends React.Component {
     this.setState({ [name]: value });
   }
 
-  async fetchApi() {
-    const apiList = await fetch('https://economia.awesomeapi.com.br/json/all');
-    const a = await apiList.json();
-    const currencies = Object.keys(a);
-    const currenciesFiltered = currencies.filter((currency) => currency !== 'USDT');
-    this.setState({
-      currencies: currenciesFiltered,
-    });
-  }
-
   render() {
-    const { currencies } = this.state;
-    const { value, description, currency, method, tag, expenses } = this.state;
     return (
       <form className="bg-light pl-2">
         <label className="ml-1" htmlFor="value">
           Valor:
-          <input name="value" id="value" onChange={ this.handleChange } />
+          <input name="value" type="number" id="value" onChange={ this.handleChange } />
         </label>
         <label className="ml-1" htmlFor="description">
           Descrição:
           <input name="description" id="description" onChange={ this.handleChange } />
         </label>
-        <label className="ml-1" htmlFor="currency">
-          Moeda:
-          <select onChange={ this.handleChange } name="currency" id="currency">
-            { currencies
-              .map((c) => <option key={ c }>{ c }</option>) }
-          </select>
-        </label>
+        <CurrencySelect handleChange={ this.handleChange } />
         <label className="ml-1" htmlFor="payment">
           Método de pagamento:
-          <select onChange={ this.handleChange } name="payment" id="payment">
+          <select onChange={ this.handleChange } name="method" id="payment">
             <option>Dinheiro</option>
             <option>Cartão de crédito</option>
             <option>Cartão de débito</option>
@@ -84,7 +67,7 @@ class WalletForm extends React.Component {
         </label>
         <label className="ml-1" htmlFor="payment">
           Tag:
-          <select onChange={ this.handleChange } name="payment" id="payment">
+          <select onChange={ this.handleChange } name="tag" id="payment">
             <option>Alimentação</option>
             <option>Lazer</option>
             <option>Trabalho</option>
@@ -94,7 +77,7 @@ class WalletForm extends React.Component {
         </label>
         <button
           onClick={
-            () => this.onSubmitForm([value, description, currency, method, tag, expenses])
+            () => this.onSubmitForm()
           }
           type="button"
           className="btn btn-primary"
