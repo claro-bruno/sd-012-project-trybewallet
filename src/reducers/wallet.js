@@ -1,11 +1,13 @@
 import { REQUEST_API, GET_CURRENCY } from '../actions/currencyActions';
 
 const INITIAL_STATE = {
-  isLoading: false,
+  // isLoading: false,
   currencies: [],
+  expenses: [],
+
 };
 
-const walletReducer = (state = INITIAL_STATE, action) => {
+const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case REQUEST_API:
     return {
@@ -22,4 +24,4 @@ const walletReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default walletReducer;
+export default wallet;

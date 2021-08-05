@@ -11,35 +11,13 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      isValid: false,
+      // isValid: false,
       redirect: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.checkValidation = this.checkValidation.bind(this);
+    // this.checkValidation = this.checkValidation.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleSubmit() {
-    const { email } = this.state;
-    const { setEmailToStore } = this.props;
-
-    setEmailToStore(email);
-    this.setState((state) => ({
-      ...state,
-      email: '',
-      password: '',
-      redirect: true,
-    }));
-  }
-
-  checkValidation() {
-    console.log('checkValidation');
-    const { email, password } = this.state;
-    const regexEmail = /^[a-z0-9_]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/;
-    const minPasswordLength = 6;
-    const isValid = regexEmail.test(email) && password.length >= minPasswordLength;
-    this.setState({ isValid });
   }
 
   handleChange({ target: { name, value } }) {
@@ -48,6 +26,30 @@ class Login extends React.Component {
       [name]: value,
     }), () => this.checkValidation());
   }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    // const { email } = this.state;
+    // const { setEmailToStore } = this.props;
+    // setEmailToStore(email);
+
+    this.setState((state) => ({
+      ...state,
+      email: '',
+      password: '',
+      isValid: false,
+      redirect: true,
+    }));
+  }
+
+  // checkValidation() {
+  //   console.log('checkValidation');
+  //   const { email, password } = this.state;
+  //   const regexEmail = /^[a-z0-9_]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/;
+  //   const minPasswordLength = 6;
+  //   const isValid = regexEmail.test(email) && password.length >= minPasswordLength;
+  //   this.setState({ isValid });
+  // }
 
   render() {
     const { email, password, isValid, redirect } = this.state;
