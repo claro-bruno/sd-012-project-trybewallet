@@ -12,7 +12,7 @@ function walletReducer(state = initialState, action) {
   case CURRENCIES:
     return {
       ...state,
-      currencies: [...state.currencies, ...action.currencies],
+      currencies: [...action.currencies],
     };
   case EXPENSES:
     return {

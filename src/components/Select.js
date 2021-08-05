@@ -14,11 +14,19 @@ class Select extends React.Component {
     const { handleChange } = this.props;
     return (
       <>
-        <label htmlFor="Moeda">
-          <select id="Moeda">
+        <label htmlFor="Moedas">
+          Moedas
+          <select id="Moedas">
             {
               currencies
-                .map((coin) => <option key={ coin } value={ coin }>{ coin }</option>)
+                .map((coin) => (
+                  <option
+                    key={ `${coin}${Math.floor(Math.random() * 100 * Date.now())}` }
+                    value={ coin }
+                    name={ coin }
+                  >
+                    { coin }
+                  </option>))
             }
           </select>
         </label>

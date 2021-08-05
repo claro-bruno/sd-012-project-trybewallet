@@ -7,8 +7,7 @@ const fetchApi = (expenses) => async (dispatch) => {
   const data = await response.json();
   if (!expenses) {
     const currents = Object.keys(data)
-      .filter((current) => current !== 'USDT');
-    console.log(currents);
+      .filter((current) => current !== 'USDT' && current !== 'DOGE');
     return dispatch(getCoins(currents));
   }
   dispatch(getExpenses({ ...expenses, exchangeRates: data }));
