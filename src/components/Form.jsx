@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Input from './Input';
 import Select from './Select';
-// import PropTypes from 'prop-types';
+import { fetchAPI } from '../actions';
 
 class Form extends React.Component {
   constructor(props) {
@@ -9,11 +11,15 @@ class Form extends React.Component {
     this.state = {
       valor: '',
       descricao: '',
-      moeda: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
     };
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount() {
+    const { currency } = this.props;
+    currency();
   }
 
   handleChange({ target }) {
@@ -24,29 +30,35 @@ class Form extends React.Component {
   }
 
   render() {
-    const { valor, descricao, method, moeda, tag } = this.state;
+    const { valor, descricao, method, tag } = this.state;
+    const { currencies } = this.props;
+
     return (
       <div>
-        <form action>
+        <form>
           <Input
             label="Valor"
+            datatestid="semTest"
             type="number"
             name="valor"
+            id="value-input"
             value={ valor }
             onChange={ this.handleChange }
           />
 
           <Input
             label="Descrição"
+            datatestid="semTest"
             type="text"
             name="descricao"
+            id="desc-input"
             value={ descricao }
             onChange={ this.handleChange }
 
           />
 
           <Select
-            moeda={ moeda }
+            currencies={ currencies }
             method={ method }
             tag={ tag }
             onChange={ this.handleChange }
@@ -58,10 +70,17 @@ class Form extends React.Component {
   }
 }
 
-// Form.propTypes = {
-//   name: PropTypes.string.isRequired,
-//   onClick: PropTypes.func.isRequired,
-//   disabled: PropTypes.bool.isRequired,
-// };
+Form.propTypes = {
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  currency: PropTypes.func.isRequired,
+};
 
-export default Form;
+const mapStateToProps = ({ wallet }) => ({
+  currencies: wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  currency: () => dispatch(fetchAPI()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
