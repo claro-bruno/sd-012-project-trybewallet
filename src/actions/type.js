@@ -1,3 +1,3 @@
-const SAVE_EMAIL = 'SET_EMAIL';
+const SAVE_EMAIL = 'SAVE_EMAIL';
 
 export default SAVE_EMAIL;
