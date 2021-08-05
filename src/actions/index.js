@@ -1,3 +1,8 @@
-export const USER_EMAIL = 'USER_EMAIL';
+import EMAIL_LOGIN from './actionTypes';
 
-export const actionEmail = (state) => ({ type: USER_EMAIL, state });
+const changeEmailLogin = (value) => ({
+  type: EMAIL_LOGIN,
+  value,
+});
+
+export default changeEmailLogin;

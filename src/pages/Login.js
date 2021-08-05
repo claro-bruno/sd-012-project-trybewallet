@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { addEmail } from '../actions/userActions';
+import changeEmailLogin from '../actions';
 import Input from '../components/Input';
 
 class Login extends React.Component {
@@ -29,16 +29,16 @@ class Login extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    // const { email } = this.state;
-    // const { setEmailToStore } = this.props;
-    // setEmailToStore(email);
-
-    this.setState((state) => ({
-      ...state,
-      email: '',
-      password: '',
-      redirect: true,
-    }));
+    const { setEmailToStore } = this.props;
+    this.setState((state) => {
+      setEmailToStore(state.email);
+      return ({
+        ...state,
+        email: '',
+        password: '',
+        redirect: true,
+      });
+    });
   }
 
   checkValidation() {
@@ -84,7 +84,7 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  setEmailToStore: (email) => dispatch(addEmail(email)),
+  setEmailToStore: (value) => dispatch(changeEmailLogin(value)),
 });
 
 Login.propTypes = {
