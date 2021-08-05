@@ -24,13 +24,14 @@ class Form extends React.Component {
     fetching();
   }
 
-  handleChange(name, value) {
+  handleChange(event) {
+    const { name, value } = event.target;
     this.setState({ [name]: value });
   }
 
   handleSubmit() {
     const { fetching } = this.props;
-    fetching(this.state);
+    fetching({ ...this.state });
     this.setState(({ id }) => ({
       id: id + 1,
       value: '',
@@ -43,7 +44,6 @@ class Form extends React.Component {
 
   render() {
     const { value, description } = this.state;
-    const { handleChange } = this;
     return (
       <form>
         <InputCard
@@ -52,7 +52,7 @@ class Form extends React.Component {
           name="value"
           labelText="Valor"
           value={ value }
-          onChange={ (e) => handleChange(e.target.name, e.target.value) }
+          onChange={ this.handleChange }
         />
         <InputCard
           type="text"
@@ -60,7 +60,7 @@ class Form extends React.Component {
           name="description"
           labelText="Descrição"
           value={ description }
-          onChange={ (e) => handleChange(e.target.name, e.target.value) }
+          onChange={ this.handleChange }
         />
         <Select
           handleChange={ this.handleChange }

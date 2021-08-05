@@ -4,11 +4,6 @@ import { connect } from 'react-redux';
 import fetchApi from '../actions/apiFetch';
 
 class Select extends React.Component {
-  componentDidMount() {
-    const { fetching } = this.props;
-    fetching();
-  }
-
   render() {
     const { currencies } = this.props;
     const { handleChange } = this.props;
@@ -16,14 +11,14 @@ class Select extends React.Component {
       <>
         <label htmlFor="Moedas">
           Moedas
-          <select id="Moedas">
+          <select name="currency" id="Moedas" onChange={ handleChange }>
             {
               currencies
                 .map((coin) => (
                   <option
                     key={ `${coin}${Math.floor(Math.random() * 100 * Date.now())}` }
                     value={ coin }
-                    name={ coin }
+                    name="currency"
                   >
                     { coin }
                   </option>))
@@ -32,7 +27,7 @@ class Select extends React.Component {
         </label>
         <label htmlFor="Método de pagamento">
           Método de pagamento
-          <select id="Método de pagamento" onChange={ handleChange }>
+          <select name="method" id="Método de pagamento" onChange={ handleChange }>
             <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de crédito">Cartão de crédito</option>
             <option value="Cartão de débito">Cartão de débito</option>
@@ -40,7 +35,7 @@ class Select extends React.Component {
         </label>
         <label htmlFor="Tag">
           Tag
-          <select id="Tag" onChange={ handleChange }>
+          <select name="tag" id="Tag" onChange={ handleChange }>
             <option value="Alimentação">Alimentação</option>
             <option value="Lazer">Lazer</option>
             <option value="Trabalho">Trabalho</option>
@@ -54,7 +49,6 @@ class Select extends React.Component {
 }
 Select.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
-  fetching: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
 };
 const mapStateToProps = ({ wallet }) => ({ currencies: wallet.currencies });
