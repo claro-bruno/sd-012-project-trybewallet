@@ -1,9 +1,6 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import {
-  REQUEST_CURR,
-  REQUEST_CURR_SUCESS,
-  CURRENCIES, EXPENSES,
-} from '../actions/index';
+
+import { FETCH_CURRENCIES, FETCH_CURRENCIES_SUCCESS } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -12,16 +9,20 @@ const INITIAL_STATE = {
 
 function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case REQUEST_CURR:
+  case FETCH_CURRENCIES:
     return state;
-  case REQUEST_CURR_SUCESS:
+  case FETCH_CURRENCIES_SUCCESS:
     return {
       ...state,
       currencies: Object
         .keys(action.payload)
         .filter((currency) => currency !== 'USDT'),
     };
-  case CURRENCIES:
+  default:
+    return state;
+  }
+}
+/* case CURRENCIES:
     return {
       ...state,
       currencies: [...state.currencies, ...action.currencies],
@@ -30,10 +31,6 @@ function wallet(state = INITIAL_STATE, action) {
     return {
       ...state,
       expenses: [...state.expenses, action.expenses],
-    };
-  default:
-    return state;
-  }
-}
+    }; */
 
 export default wallet;
