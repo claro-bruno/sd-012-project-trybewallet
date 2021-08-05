@@ -9,7 +9,7 @@ class Login extends React.Component {
     super();
 
     this.state = {
-      email: 'abc',
+      email: '',
       password: '',
       disable: true,
     };
@@ -49,7 +49,6 @@ class Login extends React.Component {
     const { submitEmail } = this.props;
     const { email } = this.state;
     submitEmail(email);
-    console.log(email);
   }
 
   render() {
