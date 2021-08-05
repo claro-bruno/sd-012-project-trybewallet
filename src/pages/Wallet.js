@@ -10,12 +10,10 @@ class Wallet extends React.Component {
   constructor(props) {
     super(props);
 
-    /* this.state = {
+    this.state = {
       value: '',
       describe: '',
-      currencies: [],
-      expenses: [],
-    }; */
+    };
 
     this.handleChange = this.handleChange.bind(this);
   }
@@ -28,12 +26,13 @@ class Wallet extends React.Component {
   }
 
   render() {
+    const { value, describe } = this.state;
     return (
       <div>
         <WalletHead />
         <form>
-          <ValueInput onChange={ this.handleChange } />
-          <DescribeInput onChange={ this.handleChange } />
+          <ValueInput value={ value } onChange={ this.handleChange } />
+          <DescribeInput value={ describe } onChange={ this.handleChange } />
           <CurrencySelect />
           <PaymentSelect />
           <TagSelect />
