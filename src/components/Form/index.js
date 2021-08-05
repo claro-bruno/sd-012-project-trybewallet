@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Input from '../Input';
-import Select from '../Select';
+// import Input from '../Input';
+// import Select from '../Select';
 
 class Form extends React.Component {
   render() {
-    const { moedas, moeda, handleChange } = this.props;
+    // const { moedas, moeda, handleChange } = this.props;
     return (
       <form>
-        <Input
+        {/* <Input
           label="Valor"
           id="valor-id"
           type="text"
@@ -48,7 +48,7 @@ class Form extends React.Component {
           name="tag"
           options={ ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'] }
           onChange={ handleChange }
-        />
+        /> */}
       </form>
     );
   }
