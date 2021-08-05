@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class WalletHead extends React.Component {
-
   render() {
     const { email } = this.props;
     return (
