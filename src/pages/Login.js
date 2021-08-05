@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { addEmail } from '../actions/userActions';
+import Input from '../components/Input';
 
 class Login extends React.Component {
   constructor(props) {
@@ -19,9 +20,7 @@ class Login extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-
+  handleSubmit() {
     const { setEmailStore } = this.props;
     const { email } = this.state;
 
@@ -35,6 +34,7 @@ class Login extends React.Component {
   }
 
   checkValidation() {
+    console.log('checkValidation');
     const { email, password } = this.state;
     const regexEmail = /^[a-z0-9_]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/;
     const minPasswordLength = 6;
@@ -54,28 +54,24 @@ class Login extends React.Component {
     if (redirect) { return <Redirect to="/carteira" />; }
     return (
       <form onSubmit={ this.handleSubmit }>
-        <label htmlFor="email">
-          <span>Email: </span>
-          <input
-            type="email"
-            name="email"
-            value={ email }
-            onChange={ this.handleChange }
-            data-testid="email-input"
-          />
-        </label>
-        <label htmlFor="password">
-          <span>Password: </span>
-          <input
-            type="password"
-            name="password"
-            value={ password }
-            onChange={ this.handleChange }
-            data-testid="password-input"
-          />
-        </label>
+        <Input
+          label="Email:"
+          type="email"
+          id="email-input"
+          name="email"
+          value={ email }
+          onChange={ this.handleChange }
+        />
+        <Input
+          label="Password::"
+          type="password"
+          id="password-input"
+          name="password"
+          value={ password }
+          onChange={ this.handleChange }
+        />
         <button
-          type="submit"
+          type="button"
           disabled={ !isValid }
         >
           Entrar
