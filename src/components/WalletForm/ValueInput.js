@@ -1,6 +1,6 @@
 import React from 'react';
 
-class ValueForm extends React.Component {
+class ValueInput extends React.Component {
   render() {
     return (
       <div>
@@ -17,4 +17,4 @@ class ValueForm extends React.Component {
   }
 }
 
-export default ValueForm;
+export default ValueInput;

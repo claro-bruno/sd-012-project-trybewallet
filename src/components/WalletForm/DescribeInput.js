@@ -1,6 +1,6 @@
 import React from 'react';
 
-class DescribeForm extends React.Component {
+class DescribeInput extends React.Component {
   render() {
     return (
       <div>
@@ -17,4 +17,4 @@ class DescribeForm extends React.Component {
   }
 }
 
-export default DescribeForm;
+export default DescribeInput;

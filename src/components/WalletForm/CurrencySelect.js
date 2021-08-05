@@ -1,13 +1,12 @@
 import React from 'react';
 
-class CurrencyForm extends React.Component {
+class CurrencySelect extends React.Component {
   render() {
     return (
       <div>
         <label htmlFor="currency">
           Moeda
           <select
-            type="select"
             id="currency"
             name="currency"
           >
@@ -19,4 +18,4 @@ class CurrencyForm extends React.Component {
   }
 }
 
-export default CurrencyForm;
+export default CurrencySelect;
