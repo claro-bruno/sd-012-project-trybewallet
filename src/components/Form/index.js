@@ -1,54 +1,130 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-// import Input from '../Input';
-// import Select from '../Select';
+import Input from '../Input';
+import Select from '../Select';
+
+const paymentMethodArray = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+const tagArray = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
+
+const INITIAL_STATE = {
+  value: '',
+  currency: '',
+  paymentMethod: paymentMethodArray[0],
+  tag: tagArray[0],
+  description: '',
+};
 
 class Form extends React.Component {
-  render() {
-    // const { moedas, moeda, handleChange } = this.props;
+  constructor(props) {
+    super(props);
+
+    this.state = INITIAL_STATE;
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange({ target: { name, value } }) {
+    this.setState((state) => ({
+      ...state,
+      [name]: value,
+    }));
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    this.setState((prevState) => ({
+      ...prevState,
+      ...INITIAL_STATE,
+    }));
+  }
+
+  renderValueInput() {
+    const { value } = this.state;
     return (
-      <form>
-        {/* <Input
-          label="Valor"
-          id="valor-id"
-          type="text"
-          name="valor"
-          value={ valor }
-          onChange={ handleChange }
-        />
-        <Input
-          label="Descrição"
-          id="descricao-id"
-          type="text"
-          name="descricao"
-          value={ descricao }
-          onChange={ handleChange }
-        />
-        <Select
-          label="Moeda"
-          id="moeda-id"
-          value={ moeda }
-          name="moeda"
-          options={ moedas }
-          onChange={ handleChange }
-        />
-        <Select
-          label="Método de pagamento"
-          id="pagamento-id"
-          value={ metodo }
-          name="metodo"
-          options={ ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'] }
-          onChange={ handleChange }
-        />
-        <Select
-          label="Tag"
-          id="categoria-id"
-          value={ tag }
-          name="tag"
-          options={ ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'] }
-          onChange={ handleChange }
-        /> */}
+      <Input
+        label="Valor"
+        id="value-input"
+        name="value"
+        type="number"
+        value={ value }
+        onChange={ this.handleChange }
+      />
+    );
+  }
+
+  renderCurrencySelect() {
+    const { currency } = this.state;
+    return (
+      <Select
+        label="Moeda"
+        id="currency-input"
+        name="currency"
+        value={ currency }
+        onChange={ this.handleChange }
+      >
+        {['USD', 'EUR', 'CAD']}
+      </Select>
+    );
+  }
+
+  renderPaymentMethodSelect() {
+    const { paymentMethod } = this.state;
+    return (
+      <Select
+        label="Método de pagamento"
+        id="paymentMethod-input"
+        name="paymentMethod"
+        value={ paymentMethod }
+        onChange={ this.handleChange }
+      >
+        {paymentMethodArray}
+      </Select>
+    );
+  }
+
+  renderTagSelect() {
+    const { tag } = this.state;
+    return (
+      <Select
+        label="Tag"
+        id="tag-input"
+        name="tag"
+        value={ tag }
+        onChange={ this.handleChange }
+      >
+        {tagArray}
+      </Select>
+    );
+  }
+
+  renderDescriptionInput() {
+    const { description } = this.state;
+    return (
+      <Input
+        label="Descrição"
+        id="description-input"
+        name="description"
+        type="text"
+        value={ description }
+        onChange={ this.handleChange }
+      />
+    );
+  }
+
+  render() {
+    return (
+      <form onSubmit={ this.handleSubmit }>
+        {this.renderValueInput()}
+        {this.renderCurrencySelect()}
+        {this.renderPaymentMethodSelect()}
+        {this.renderTagSelect()}
+        {this.renderDescriptionInput()}
+        <button
+          type="submit"
+        >
+          Adicionar dispesa
+        </button>
       </form>
     );
   }
@@ -58,4 +134,4 @@ Form.propTypes = {
   getCurrency: PropTypes.arrayOf(Object),
 }.isRequired;
 
-export default connect(null, null)(Form);
+export default Form;
