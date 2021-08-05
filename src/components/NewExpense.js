@@ -17,14 +17,17 @@ class NewExpenses extends React.Component {
       currency: '',
       method: 'Dinheiro',
       tag: 'Alimentação',
-      addMenu: false,
+      showAddExpense: false,
+      ismobile: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.isMobile = this.isMobile.bind(this);
   }
 
   componentDidMount() {
     this.getCurrencies();
+    this.isMobile();
   }
 
   async getCurrencies() {
@@ -35,9 +38,12 @@ class NewExpenses extends React.Component {
   }
 
   handleChange({ target }) {
+    const isCheckbox = target.type === 'checkbox'
+      ? target.checked
+      : target.value;
     const value = target.name === 'value'
       ? (target.value).match(REGEX_VALUE)[0]
-      : target.value;
+      : isCheckbox;
     this.setState({ [target.name]: value });
   }
 
@@ -45,7 +51,8 @@ class NewExpenses extends React.Component {
     e.preventDefault();
     const { saveNewExpense, currencies } = this.props;
     const newExpense = this.state;
-    delete newExpense.addMenu;
+    delete newExpense.showAddExpense;
+    delete newExpense.ismobile;
     saveNewExpense(newExpense);
     this.setState({
       value: '',
@@ -53,9 +60,24 @@ class NewExpenses extends React.Component {
       currency: currencies[0],
       method: 'Dinheiro',
       tag: 'Alimentação',
-    });
+    }, () => { this.isMobile(); });
+  }
 
-    this.renderForm = this.renderForm.bind(this);
+  isMobile() {
+    const { showAddExpense } = this.state;
+    const resolution = window.screen.width;
+    const width = 768;
+    if (resolution <= width) {
+      this.setState({ showAddExpense: false, ismobile: true });
+    }
+    window.onresize = () => {
+      if (resolution <= width && showAddExpense) {
+        this.setState({ showAddExpense: false, ismobile: true });
+      }
+      if (resolution > width && !showAddExpense) {
+        this.setState({ showAddExpense: true, ismobile: false });
+      }
+    };
   }
 
   renderButton() {
@@ -70,60 +92,128 @@ class NewExpenses extends React.Component {
     );
   }
 
-  renderForm() {
-    const { value, description, currency, method, tag } = this.state;
-    const { currencies } = this.props;
+  renderValorInput(value) {
     return (
-      <form className="form-newExpense" method="get">
-        <Input
-          textLabel="Valor"
-          id="value"
-          name="value"
+      <Input
+        textLabel="Valor"
+        id="value"
+        name="value"
+        onChange={ this.handleChange }
+        value={ value }
+      />
+    );
+  }
+
+  renderDescriptionInput(description) {
+    return (
+      <Input
+        textLabel="Descrição"
+        id="description"
+        name="description"
+        onChange={ this.handleChange }
+        value={ description }
+      />);
+  }
+
+  renderSelectCurrencies(currency, currencies) {
+    return (
+      <Select
+        textLabel="Moeda"
+        id="currency"
+        name="currency"
+        onChange={ this.handleChange }
+        value={ currency }
+        options={ currencies }
+      />
+    );
+  }
+
+  renderSelectMethods(method) {
+    return (
+      <Select
+        textLabel="Método de pagamento"
+        id="method"
+        name="method"
+        onChange={ this.handleChange }
+        value={ method }
+        options={ payMethods }
+      />
+    );
+  }
+
+  renderSelectTags(tag) {
+    return (
+      <Select
+        textLabel="Tag"
+        id="tag"
+        name="tag"
+        onChange={ this.handleChange }
+        value={ tag }
+        options={ tags }
+      />
+    );
+  }
+
+  renderHiddenMenu(showAddExpense) {
+    return (
+      <label
+        htmlFor="up"
+        className="up"
+      >
+        <input
+          name="showAddExpense"
+          type="checkbox"
+          id="up"
           onChange={ this.handleChange }
-          value={ value }
+          checked={ showAddExpense }
         />
-        <Input
-          textLabel="Descrição"
-          id="description"
-          name="description"
+        <i className="bi bi-chevron-bar-up" />
+        <span>Fechar</span>
+      </label>
+    );
+  }
+
+  renderShowMenu(showAddExpense) {
+    return (
+      <label
+        style={ { top: `${showAddExpense ? '80vh' : '-10px'}` } }
+        htmlFor="down"
+        className="down"
+      >
+        <input
+          name="showAddExpense"
+          type="checkbox"
+          id="down"
           onChange={ this.handleChange }
-          value={ description }
+          checked={ showAddExpense }
         />
-        <Select
-          textLabel="Moeda"
-          id="currency"
-          name="currency"
-          onChange={ this.handleChange }
-          value={ currency }
-          options={ currencies }
-        />
-        <Select
-          textLabel="Método de pagamento"
-          id="pay-method"
-          name="method"
-          onChange={ this.handleChange }
-          value={ method }
-          options={ payMethods }
-        />
-        <Select
-          textLabel="Tag"
-          id="tag"
-          name="tag"
-          onChange={ this.handleChange }
-          value={ tag }
-          options={ tags }
-        />
-        {this.renderButton()}
-      </form>
+        <i className="bi bi-chevron-bar-down" />
+        <span>Adicionar Despesa</span>
+      </label>
     );
   }
 
   render() {
+    const {
+      value, description, currency, method, tag, showAddExpense, ismobile } = this.state;
+    const { currencies } = this.props;
+    const margin = `${showAddExpense ? '0' : '-81vh'}`;
     return (
       <section className="form-contain">
-        <i className="bi bi-chevron-bar-up up" />
-        {this.renderForm()}
-        <i className="bi bi-chevron-up down" />
+        <form
+          style={ { marginTop: ismobile ? margin : '0' } }
+          className="form-newExpense"
+          method="get"
+        >
+          {this.renderHiddenMenu(showAddExpense)}
+          {this.renderValorInput(value)}
+          {this.renderDescriptionInput(description)}
+          {this.renderSelectCurrencies(currency, currencies)}
+          {this.renderSelectMethods(method)}
+          {this.renderSelectTags(tag)}
+          {this.renderButton()}
+        </form>
+        {this.renderShowMenu(showAddExpense)}
       </section>
     );
   }

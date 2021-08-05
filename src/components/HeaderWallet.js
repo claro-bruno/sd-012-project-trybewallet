@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import trybeWalletLogo from '../images/trybe-wallet.gif';
 import trybeWalletLogoBlank from '../images/trybe-wallet_blank.gif';
 import DarkmodeButton from './DarkmodeButton';
+import HeaderWalletStyled from './styledComponents/HeaderWalletStyled';
 
 class HeaderWallet extends React.Component {
   render() {
@@ -18,7 +19,7 @@ class HeaderWallet extends React.Component {
         return total;
       }, 0);
     return (
-      <header className="header-wallet">
+      <HeaderWalletStyled darkmode={ darkmode }>
         <img
           className="logo-wallet"
           src={ darkmode ? trybeWalletLogoBlank : trybeWalletLogo }
@@ -35,18 +36,20 @@ class HeaderWallet extends React.Component {
           <div className="expenses-wallet">
             Despesa Total:
             {' '}
-            <span
-              className="total"
-              data-testid="total-field"
-            >
-              {`R$ ${Math.round((totalExpenses + Number.EPSILON) * 100) / 100}`}
+            <span>
+              <span
+                className="total"
+                data-testid="total-field"
+              >
+                {`R$ ${Math.round((totalExpenses + Number.EPSILON) * 100) / 100}`}
+              </span>
+              {' '}
+              <span data-testid="header-currency-field">BRL</span>
             </span>
-            {' '}
-            <span data-testid="header-currency-field">BRL</span>
           </div>
         </div>
         <DarkmodeButton className="darkmode-wallet" />
-      </header>
+      </HeaderWalletStyled>
     );
   }
 }
