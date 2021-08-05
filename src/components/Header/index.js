@@ -9,9 +9,16 @@ class Header extends React.Component {
     const cambio = 'BRL';
     return (
       <header>
-        <p data-testid="email-field">{ emailStore }</p>
-        <p data-testid="total-field">{ totalGastos }</p>
-        <p data-testid="header-currency-field">{ cambio }</p>
+        <h1>Trybe Wallet</h1>
+        <p>
+          Email:
+          <span data-testid="email-field">{`${emailStore}`}</span>
+        </p>
+        <p>
+          Despesa Total: R$
+          <span data-testid="total-field">{`${totalGastos}`}</span>
+          <span data-testid="header-currency-field">{`${cambio}`}</span>
+        </p>
       </header>
     );
   }
