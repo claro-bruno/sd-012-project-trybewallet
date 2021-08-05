@@ -10,11 +10,15 @@ class CurrencySelectForm extends React.Component {
   }
 
   render() {
-    const { currencies } = this.props;
+    const { currencies, handleChange } = this.props;
     return (
       <label htmlFor="currencies">
         Moeda
-        <select id="currencies">
+        <select
+          id="currencies"
+          name="currency"
+          onChange={ handleChange }
+        >
           { currencies.map((currency) => (
             <option
               key={ currency }
@@ -31,6 +35,7 @@ class CurrencySelectForm extends React.Component {
 CurrencySelectForm.propTypes = {
   getCurrencies: func.isRequired,
   currencies: arrayOf(string).isRequired,
+  handleChange: func.isRequired,
 };
 
 const mapStateToProps = ({ wallet }) => ({
