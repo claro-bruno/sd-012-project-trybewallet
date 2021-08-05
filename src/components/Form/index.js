@@ -9,9 +9,11 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      valor: '',
+      valor: 0,
       descricao: '',
       moeda: 'USD',
+      metodo: '',
+      tag: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -32,7 +34,7 @@ class Form extends React.Component {
   render() {
     const { moedas } = this.props;
     console.log(moedas);
-    const { valor, descricao, moeda } = this.state;
+    const { valor, descricao, moeda, metodo, tag } = this.state;
     return (
       <form>
         <Input
@@ -54,19 +56,26 @@ class Form extends React.Component {
         <Select
           label="Moeda"
           id="moeda-id"
-          options={ [moeda] }
           value={ moeda }
+          name="moeda"
+          options={ [''] }
           onChange={ this.handleChange }
         />
         <Select
           label="Método de pagamento"
           id="pagamento-id"
+          value={ metodo }
+          name="metodo"
           options={ ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'] }
+          onChange={ this.handleChange }
         />
         <Select
           label="Tag"
           id="categoria-id"
+          value={ tag }
+          name="tag"
           options={ ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'] }
+          onChange={ this.handleChange }
         />
       </form>
     );
