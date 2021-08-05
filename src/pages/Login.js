@@ -1,5 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
+import { connect } from 'react-redux';
+import { saveUser } from '../actions';
 
 const INITIAL_STATE = {
   email: '',
@@ -15,6 +18,7 @@ class Login extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.validateInput = this.validateInput.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange({ target }) {
@@ -37,8 +41,15 @@ class Login extends React.Component {
     }
   }
 
+  // handleSubmit() {
+  //   const { saveUserProps } = this.props;
+  //   const { email } = this.state;
+  //   saveUserProps(email);
+  // }
+
   render() {
     const { email, password, isDisable } = this.state;
+    const { saveUserProps } = this.props;
     return (
       <div>
         <form>
@@ -62,6 +73,7 @@ class Login extends React.Component {
             <button
               type="submit"
               disabled={ isDisable }
+              onClick={ () => saveUserProps(email) }
             >
               Entrar
             </button>
@@ -72,4 +84,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  saveUserProps: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  saveUserProps: (email) => dispatch(saveUser(email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);

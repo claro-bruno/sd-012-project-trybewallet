@@ -1,11 +1,18 @@
-import React, { Component } from 'react';
+import { SAVE_USER } from '../actions';
 
-export default class user extends Component {
-  render() {
-    return (
-      <div>
-        <h1>User</h1>
-      </div>
-    );
+const INITIAL_STATE = {
+  user: {
+    email: '',
+  },
+};
+
+const user = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+  case SAVE_USER:
+    return { ...state, email: action.value };
+  default:
+    return state;
   }
-}
+};
+
+export default user;
