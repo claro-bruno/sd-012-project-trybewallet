@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 // import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
 // import { emailInput } from '../actions/index';
@@ -9,10 +10,11 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      disable: true,
+      verification: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.loginVerification = this.loginVerification.bind(this);
   }
 
   handleChange({ target: { name, value } }) {
@@ -28,12 +30,27 @@ class Login extends React.Component {
       ...state,
       email: '',
       password: '',
-      disable: true,
-    }));
+    }, () => this.loginVerification()));
+  }
+
+  // Requisito 2 - para validar o email usei source: https://ui.dev/validate-email-address-javascript/
+  loginVerification() {
+    const { email, password } = this.state;
+    const MIN_LENGTH_PASSWORD = 6;
+    const emailVerification = (/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
+    if (emailVerification.test(email)
+      && password.length >= MIN_LENGTH_PASSWORD) {
+      this.setState({
+        verification: true,
+      });
+    }
+    this.setState({
+      verification: false,
+    });
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, verification } = this.state;
     return (
       <>
         Login
@@ -57,9 +74,11 @@ class Login extends React.Component {
           <button
             type="submit"
             onClick={ this.handleClick }
+            disable={ verification }
           >
             Entrar
           </button>
+          { verification ? <Redirect to="/wallet" /> : ''}
 
         </form>
       </>
