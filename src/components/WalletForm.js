@@ -12,7 +12,7 @@ class WalletForm extends React.Component {
       value: 0,
       description: '',
       currency: 'USD',
-      tag: '',
+      tag: 'Lazer',
       method: '',
       exchangeRates: {},
     };
