@@ -11,3 +11,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.gif {
+  width: 30%;
+}
+
+.sign-in{
+  border: 1px solid rgba(0, 0, 0, 0.808);
+  margin-left: 28%;
+  margin-right: 28%;
+  margin-top: 9%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  border-radius: 10px;
+}

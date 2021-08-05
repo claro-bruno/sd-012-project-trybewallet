@@ -42,27 +42,40 @@ class Login extends React.Component {
   render() {
     const { disable } = this.state;
     return (
-      <div>
-        <form>
-          <img src="https://www.bootgum.com/wp-content/uploads/2018/07/Wallet_Cash_550px.gif" alt="oh no" />
-          <input
-            placeholder="Email"
-            type="email"
-            onChange={ this.handleEmailChange }
-            data-testid="email-input"
-          />
-          <input
-            placeholder="Password"
-            type="password"
-            onChange={ this.handlePassChang }
-            data-testid="password-input"
-          />
-          <Link to="/carteira">
-            <button type="button" disabled={ !disable } onClick={ this.handleSaveEmail }>
-              Entrar
-            </button>
-          </Link>
-        </form>
+      <div className="text-center">
+        <div className="sign-in">
+          <form>
+            <img className="gif" src="https://www.bootgum.com/wp-content/uploads/2018/07/Wallet_Cash_550px.gif" alt="oh no" />
+            <h1 className="h3 mb-3 fw-normal">Sign in</h1>
+            <div className="form-floating">
+              <input
+                placeholder="Email"
+                type="email"
+                onChange={ this.handleEmailChange }
+                data-testid="email-input"
+              />
+            </div>
+            <div>
+              <input
+                placeholder="Password"
+                type="password"
+                onChange={ this.handlePassChang }
+                data-testid="password-input"
+              />
+            </div>
+            <br />
+            <Link to="/carteira">
+              <button
+                type="button"
+                disabled={ !disable }
+                onClick={ this.handleSaveEmail }
+                className="btn btn-lg btn-primary"
+              >
+                Entrar
+              </button>
+            </Link>
+          </form>
+        </div>
       </div>
     );
   }
