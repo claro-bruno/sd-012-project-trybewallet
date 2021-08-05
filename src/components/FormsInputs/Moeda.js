@@ -15,7 +15,7 @@ class Moeda extends Component {
       <div>
         <label htmlFor="Moeda">
           Moeda:
-          <select id="Moeda" value={ value } onChange={ hadlechange }>
+          <select id="Moeda" name="currency" value={ value } onChange={ hadlechange }>
             {
               currencies
                 .map((currencyName) => (

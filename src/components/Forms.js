@@ -11,8 +11,10 @@ class Forms extends Component {
     this.hadlechange = this.hadlechange.bind(this);
     this.state = {
       valor: '',
-      currency: '',
-
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+      description: '',
     };
   }
 
@@ -22,14 +24,14 @@ class Forms extends Component {
   }
 
   render() {
-    const { valor, currency } = this.state;
+    const { valor, currency, method, tag, description } = this.state;
     return (
       <form>
         <Valor value={ valor } hadlechange={ this.hadlechange } />
         <Moeda value={ currency } hadlechange={ this.hadlechange } />
-        <Payament />
-        <Tag />
-        <Description />
+        <Payament value={ method } hadlechange={ this.hadlechange } />
+        <Tag value={ tag } hadlechange={ this.hadlechange } />
+        <Description value={ description } hadlechange={ this.hadlechange } />
       </form>
     );
   }
