@@ -1,7 +1,39 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getCoins, fetchCoins } from '../actions';
 
 class FormDespesas extends Component {
+  constructor() {
+    super();
+    this.state = {
+      tags: ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'],
+      paymentType: ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'],
+    };
+    this.getCoinInfo = this.getCoinInfo.bind(this);
+  }
+
+  componentDidMount() {
+    this.getCoinInfo();
+  }
+
+  getCoinInfo() {
+    const { fetchTheCoins, getTheCoins } = this.props;
+    fetchTheCoins();
+    fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((res) => res.json())
+      .then((response) => getTheCoins(Object.keys(response)))
+      .then(fetchTheCoins());
+  }
+
   render() {
+    const { tags, paymentType } = this.state;
+    const { coins, isFetching } = this.props;
+    const THREE = 3;
+    const filterCoins = [...coins].filter((coin) => coin.length === THREE);
+    if (isFetching) {
+      return <img src="https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif" alt="carregando" />;
+    }
     return (
       <form>
         <label htmlFor="valor">
@@ -15,25 +47,19 @@ class FormDespesas extends Component {
         <label htmlFor="Moeda">
           Moeda
           <select id="Moeda">
-            <option>empty</option>
+            {filterCoins.map((option, index) => <option key={ index }>{option}</option>)}
           </select>
         </label>
         <label htmlFor="payment">
           Método de pagamento
           <select id="payment">
-            <option>Dinheiro</option>
-            <option>Cartão de crédito</option>
-            <option>Cartão de débito</option>
+            {paymentType.map((option, index) => <option key={ index }>{option}</option>)}
           </select>
         </label>
         <label htmlFor="Tag">
           Tag
           <select id="Tag">
-            <option>Alimentação</option>
-            <option>Lazer</option>
-            <option>Trabalho</option>
-            <option>Transporte</option>
-            <option>Saúde</option>
+            {tags.map((option, index) => <option key={ index }>{option}</option>)}
           </select>
         </label>
       </form>
@@ -41,4 +67,21 @@ class FormDespesas extends Component {
   }
 }
 
-export default FormDespesas;
+FormDespesas.propTypes = {
+  getTheCoins: PropTypes.func.isRequired,
+  fetchTheCoins: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  coins: PropTypes.arrayOf(String).isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  getTheCoins: (currencies) => dispatch(getCoins(currencies)),
+  fetchTheCoins: () => dispatch(fetchCoins()),
+});
+
+const mapStateTopProps = (state) => ({
+  coins: state.wallet.coins,
+  isFetching: state.wallet.isFetching,
+});
+
+export default connect(mapStateTopProps, mapDispatchToProps)(FormDespesas);
