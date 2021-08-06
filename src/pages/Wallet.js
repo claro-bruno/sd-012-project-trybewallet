@@ -1,32 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { fetchCurrencies } from '../actions';
-import Header from '../components/Header';
-import Form from '../components/Form';
 
 class Wallet extends React.Component {
-  componentDidMount() {
-    const { setCurrenciesToStore } = this.props;
-    setCurrenciesToStore();
-  }
-
   render() {
     return (
       <div>
-        <Header />
-        <Form />
+        Carteira
       </div>
     );
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  setCurrenciesToStore: () => dispatch(fetchCurrencies()),
-});
-
-Wallet.propTypes = {
-  setCurrenciesToStore: PropTypes.func.isRequired,
-};
-
-export default connect(null, mapDispatchToProps)(Wallet);
+export default Wallet;
