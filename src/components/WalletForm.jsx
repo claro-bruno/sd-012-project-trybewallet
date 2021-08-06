@@ -4,9 +4,6 @@ import PropTypes from 'prop-types';
 import { fetchApiThunk } from '../actions/index';
 
 class WalletForm extends React.Component {
-
-
-  
   componentDidMount() {
     const { importedCurrencies } = this.props;
     importedCurrencies();
