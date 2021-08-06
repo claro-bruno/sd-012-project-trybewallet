@@ -24,8 +24,7 @@ class Form extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleGetState = this.handleGetState.bind(this);
-    };
-  
+  }
 
   handleChange({ target }) {
     const { name, value } = target;
@@ -40,9 +39,8 @@ class Form extends React.Component {
     getValue(this.state);
     this.setState((prevState) => ({
       id: prevState.id + 1,
-  }));
-}
-  
+    }));
+  }
 
   render() {
     return (

@@ -27,5 +27,4 @@ TagSelectForm.propTypes = {
   handleChange: func.isRequired,
 };
 
- 
 export default TagSelectForm;

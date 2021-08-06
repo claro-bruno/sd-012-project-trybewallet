@@ -1,4 +1,3 @@
-
 import {
   REQUEST_CURRENCIES_SUCCESS,
   REQUEST_CURRENCIES_ERROR,
@@ -24,7 +23,6 @@ const wallet = (state = INITIAL_STATE, action) => {
   case REQUEST_CURRENCIES_ERROR:
     return { ...state, error: 'Erro ao obter currencies' };
 
-
   case REQUEST_CURRENCIESII_SUCCESS:
     return {
       ...state,
@@ -32,13 +30,6 @@ const wallet = (state = INITIAL_STATE, action) => {
         ...state.expenses, { id: state.expenses.length, ...action.payload },
       ],
       error: '' };
-
-  case REQUEST_CURRENCIESII_SUCCESS:
-    return {
-      ...state,
-      expenses: [...state.expenses, { id: state.expenses.length, ...action.payload }],
-      error: '',
-    };
 
   case REQUEST_CURRENCIESII_ERROR:
     return { ...state, error: 'Erro ao obter currencies' };
