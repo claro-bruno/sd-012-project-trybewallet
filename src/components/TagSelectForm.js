@@ -1,11 +1,17 @@
 import React from 'react';
+import { func } from 'prop-types';
 
 class TagSelectForm extends React.Component {
   render() {
+    const { handleChange } = this.props;
     return (
       <label htmlFor="tag-select">
         Tag
-        <select id="tag-select">
+        <select
+          id="tag-select"
+          name="tag"
+          onChange={ handleChange }
+        >
           <option>Alimentação</option>
           <option>Lazer</option>
           <option>Trabalho</option>
@@ -16,5 +22,9 @@ class TagSelectForm extends React.Component {
     );
   }
 }
+
+TagSelectForm.propTypes = {
+  handleChange: func.isRequired,
+};
 
 export default TagSelectForm;

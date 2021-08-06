@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { func, arrayOf, string } from 'prop-types';
+import { func, string, arrayOf } from 'prop-types';
 import fetchCurrencies from '../fetchs/FetchCurrencies';
 
 class CurrencySelectForm extends React.Component {
@@ -10,16 +10,20 @@ class CurrencySelectForm extends React.Component {
   }
 
   render() {
-    const { currencies } = this.props;
+    const { currencies, handleChange } = this.props;
     return (
       <label htmlFor="currencies">
         Moeda
-        <select id="currencies">
-          { currencies.map((currency) => (
+        <select
+          id="currencies"
+          name="currency"
+          onChange={ handleChange }
+        >
+          { currencies.map((currencie) => (
             <option
-              key={ currency }
+              key={ currencie }
             >
-              { currency }
+              { currencie }
             </option>
           ))}
         </select>
@@ -31,6 +35,7 @@ class CurrencySelectForm extends React.Component {
 CurrencySelectForm.propTypes = {
   getCurrencies: func.isRequired,
   currencies: arrayOf(string).isRequired,
+  handleChange: func.isRequired,
 };
 
 const mapStateToProps = ({ wallet }) => ({
