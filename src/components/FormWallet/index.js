@@ -9,6 +9,7 @@ const INITIAL_STATE = {
   value: 0,
   description: '',
   currency: 'USD',
+  currencies: [],
   method: methodArray[0],
   tag: tagArray[0],
 };
@@ -21,6 +22,29 @@ class Form extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.fetchCurrencies = this.fetchCurrencies.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchCurrencies();
+  }
+
+  async fetchCurrencies() {
+    const END_POINT = 'https://economia.awesomeapi.com.br/json/all';
+    try {
+      const request = await fetch(END_POINT);
+      const response = await request.json();
+
+      const currencies = Object.keys(response)
+        .filter((currency) => currency !== 'USDT');
+
+      this.setState((state) => ({
+        ...state,
+        currencies,
+      }));
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   handleChange({ target: { name, value } }) {
@@ -68,7 +92,7 @@ class Form extends React.Component {
   }
 
   renderCurrencySelect() {
-    const { currency } = this.state;
+    const { currency, currencies } = this.state;
     return (
       <Select
         label="Moeda"
@@ -77,7 +101,7 @@ class Form extends React.Component {
         name="currency"
         onChange={ this.handleChange }
       >
-        {['a', 'b', 'c']}
+        {currencies}
       </Select>
     );
   }
