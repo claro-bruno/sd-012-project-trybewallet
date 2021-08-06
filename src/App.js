@@ -1,7 +1,17 @@
 import React from 'react';
-
-function App() {
-  return <div>Hello, TrybeWallet!</div>;
+import { Switch, Route } from 'react-router-dom';
+import Login from './pages/Login';
+import Wallet from './pages/Wallet';
+// o provider tbm pode ser usado aqui
+class App extends React.Component {
+  render() {
+    return (
+      <Switch>
+        <Route exact path="/" component={ Login } />
+        <Route exact path="/carteira" component={ Wallet } />
+      </Switch>
+    );
+  }
 }
 
 export default App;
