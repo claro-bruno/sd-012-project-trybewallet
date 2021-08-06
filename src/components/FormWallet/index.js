@@ -1,20 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Input from '../Input';
 import Select from '../Select';
+import { fetchExpense, END_POINT } from '../../actions';
 
 const methodArray = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const tagArray = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
 const INITIAL_STATE = {
-  value: 0,
+  value: '',
   description: '',
   currency: 'USD',
   currencies: [],
   method: methodArray[0],
   tag: tagArray[0],
+  exchangeRates: {},
 };
 
-class Form extends React.Component {
+class FormWallet extends React.Component {
   constructor(props) {
     super(props);
 
@@ -30,17 +34,17 @@ class Form extends React.Component {
   }
 
   async fetchCurrencies() {
-    const END_POINT = 'https://economia.awesomeapi.com.br/json/all';
     try {
       const request = await fetch(END_POINT);
-      const response = await request.json();
+      const exchangeRates = await request.json();
 
-      const currencies = Object.keys(response)
+      const currencies = Object.keys(exchangeRates)
         .filter((currency) => currency !== 'USDT');
 
       this.setState((state) => ({
         ...state,
         currencies,
+        exchangeRates,
       }));
     } catch (error) {
       console.log(error);
@@ -57,10 +61,20 @@ class Form extends React.Component {
   async handleSubmit(e) {
     e.preventDefault();
 
-    this.setState((state) => ({
-      ...state,
-      ...INITIAL_STATE,
-    }));
+    const { value, description, currency, method, tag, exchangeRates } = this.state;
+    const { getExpensesInfos, setExpenseInfos } = this.props;
+
+    const expense = {
+      id: getExpensesInfos.length,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      exchangeRates,
+    };
+
+    setExpenseInfos(expense);
   }
 
   renderValueInput() {
@@ -154,4 +168,19 @@ class Form extends React.Component {
   }
 }
 
-export default Form;
+FormWallet.propTypes = {
+  setExpenseInfos: PropTypes.func,
+  getExpensesInfos: PropTypes.arrayOf(
+    PropTypes.object,
+  ),
+}.isRequired;
+
+const mapDispatchToProps = (dispatch) => ({
+  setExpenseInfos: (expense) => dispatch(fetchExpense(expense)),
+});
+
+const mapStateToProps = ({ wallet }) => ({
+  getExpensesInfos: wallet.expenses,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormWallet);
