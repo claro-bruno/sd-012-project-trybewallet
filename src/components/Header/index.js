@@ -4,37 +4,35 @@ import { connect } from 'react-redux';
 
 class Header extends React.Component {
   render() {
-    const { emailStore, totalExpense } = this.props;
-    const cambio = 'BRL';
+    const { getEmailToState } = this.props;
     return (
-      <header>
-        <h1>Trybe Wallet</h1>
-        <p>
-          Email:
-          <span data-testid="email-field">{`${emailStore}`}</span>
-        </p>
-        <p>
-          Despesa Total: R$
-          <span data-testid="total-field">{`${totalExpense.toFixed(2)}`}</span>
-          <span data-testid="header-currency-field">{`${cambio}`}</span>
-        </p>
-      </header>
+      <div>
+        <header>
+          <h1>Trybe Wallet</h1>
+          <p>
+            Email:
+            <span data-testid="email-field">{getEmailToState}</span>
+          </p>
+          <p>
+            Gasto Total:
+            <span data-testid="total-field">{0}</span>
+          </p>
+          <p>
+            Câmbio Utilizado:
+            <span data-testid="header-currency-field">BRL</span>
+          </p>
+        </header>
+      </div>
     );
   }
 }
 
-const mapStateToProps = ({ user, wallet }) => ({
-  emailStore: user.email,
-  totalExpense: wallet.totalExpense,
+const mapStateToProps = ({ user }) => ({
+  getEmailToState: user.email,
 });
 
-Header.defaultProps = {
-  totalExpense: 0,
-};
-
 Header.propTypes = {
-  emailStore: PropTypes.string,
-  totalExpense: PropTypes.number,
+  getEmailToState: PropTypes.string,
 }.isRequired;
 
 export default connect(mapStateToProps, null)(Header);

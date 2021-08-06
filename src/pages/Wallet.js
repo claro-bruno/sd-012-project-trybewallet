@@ -1,38 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import Header from '../components/Header';
 
 class Wallet extends React.Component {
   render() {
-    const { getEmailToState } = this.props;
     return (
       <div>
-        <header>
-          <h1>Trybe Wallet</h1>
-          <p>
-            Email:
-            <span data-testid="email-field">{getEmailToState}</span>
-          </p>
-          <p>
-            Gasto Total:
-            <span data-testid="total-field">{0}</span>
-          </p>
-          <p>
-            Câmbio Utilizado:
-            <span data-testid="header-currency-field">BRL</span>
-          </p>
-        </header>
+        <Header />
       </div>
     );
   }
 }
 
-Wallet.propTypes = {
-  getEmailToState: PropTypes.string,
-}.isRequired;
-
-const mapStateToProps = ({ user }) => ({
-  getEmailToState: user.email,
-});
-
-export default connect(mapStateToProps, null)(Wallet);
+export default Wallet;
