@@ -3,6 +3,15 @@ import Input from '../components/Input';
 import Button from '../components/Button';
 
 class Login extends React.Component {
+  // constructor(props) {
+  //   super(props)
+
+  //   this.state = {
+  //     email: '',
+  //     password: '',
+  //   };
+  // }
+
   render() {
     return (
       <div>
