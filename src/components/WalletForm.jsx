@@ -1,14 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { fetchApiThunk } from '../actions/index';
 
 class WalletForm extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-    };
+
+
+  
+  componentDidMount() {
+    const { importedCurrencies } = this.props;
+    importedCurrencies();
   }
 
   render() {
+    const { isLoading, currencies } = this.props;
+    if (isLoading) {
+      return (<h1>Carregando...</h1>);
+    }
     return (
       <div>
         <form>
@@ -23,9 +31,12 @@ class WalletForm extends React.Component {
           <label htmlFor="currency">
             Moeda:
             <select type="text" name="currency" id="currency">
-              <option> </option>
+              {
+                currencies.map((moeda) => (<option key={ moeda }>{ moeda }</option>))
+              }
             </select>
           </label>
+
           <label htmlFor="payment">
             Método de pagamento:
             <select type="text" name="payment" id="payment">
@@ -49,5 +60,19 @@ class WalletForm extends React.Component {
     );
   }
 }
-const mapStateToProps = () => ({});
-export default connect(null, mapStateToProps)(WalletForm);
+// Usando o combine reducer
+const mapStateToProps = (state) => ({
+  isLoading: state.wallet.isLoading,
+  currencies: state.wallet.currencies,
+});
+const mapDispatchToProps = (dispatch) => ({
+  importedCurrencies: () => dispatch(fetchApiThunk()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);
+
+WalletForm.propTypes = {
+  currencies: PropTypes.shape.isRequired,
+  importedCurrencies: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+};

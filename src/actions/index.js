@@ -1,22 +1,21 @@
-// Coloque aqui suas actions
-export const USER_EMAIL = 'USER_EMAIL';
-export const actionEmail = (payload) => ({
-  type: USER_EMAIL,
-  payload,
-});
-// ------------ Actions Wallet ----->
-export const GET_WALLET = 'GET_WALLET';
-export const GET_SUCESS = 'GET_SUCESS';
-export const GET_FAILL = 'GET_FAILL';
+import { USER_EMAIL, GET_WALLET, GET_SUCESS, GET_FAILL } from './actionTypes';
 
-export const getWallet = () => ({ type: GET_WALLET });
-export const getSecess = () => ({ type: GET_SUCESS });
-export const getFaill = () => ({ type: GET_FAILL });
+export const actionEmail = (payload) => ({ type: USER_EMAIL, payload });
 
-export const fetchAPI = () => (dispatch) => {
+// ------------ Actions Wallet ----->n
+export const getWallet = (payload) => ({ type: GET_WALLET, payload });
+export const getSucess = (payload) => ({ type: GET_SUCESS, payload });
+export const getFaill = (error) => ({ type: GET_FAILL, error });
+
+export const fetchApiThunk = () => (dispatch) => {
   dispatch(getWallet());
   const endpoint = 'https://economia.awesomeapi.com.br/json/all';
   fetch(endpoint)
     .then((data) => data.json())
-    .then((response) => console.log(response));
+    .then((json) => {
+      // filtro com base no repositório da colega Juliana
+      const currencie = Object.keys(json).filter((payload) => payload !== 'USDT');
+      dispatch(getSucess(currencie));
+    })
+    .catch((error) => dispatch(getFaill(error)));
 };
