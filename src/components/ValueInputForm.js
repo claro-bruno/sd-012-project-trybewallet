@@ -1,6 +1,8 @@
 import React from 'react';
 import { func } from 'prop-types';
 
+
+
 class ValueInputForm extends React.Component {
   render() {
     const { handleChange } = this.props;
