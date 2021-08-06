@@ -11,7 +11,7 @@ class AddForm extends React.Component {
     this.renderCurrSelect = this.renderCurrSelect.bind(this);
     this.state = {
       value: 0,
-      currency: '',
+      currencies: [],
       method: '',
       tag: '',
       description: '',
@@ -45,7 +45,8 @@ class AddForm extends React.Component {
   }
 
   renderCurrSelect() {
-    const { currency } = this.state;
+    const { currencies } = this.state;
+    const { currency } = currencies;
 
     return (
       <div>
@@ -58,10 +59,14 @@ class AddForm extends React.Component {
             name="currency"
             onChange={ this.handleWalletChange }
           >
-            <option value="">Teste</option>
-            <option value="">Teste</option>
-            <option value="">Teste</option>
-            <option value="">Teste</option>
+            { currencies.map((curr) => (
+              <option
+                value={ curr }
+                key={ curr }
+              >
+                { curr }
+              </option>
+            ))}
           </select>
         </label>
       </div>
