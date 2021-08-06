@@ -1,5 +1,6 @@
 import React from 'react';
 import Input from '../components/Input';
+import Button from '../components/Button';
 
 class Login extends React.Component {
   render() {
@@ -8,13 +9,18 @@ class Login extends React.Component {
         <Input
           type="email"
           name="email"
-          data-testid="email-input"
+          dataTestId="email-input"
         />
 
         <Input
           type="text"
           name="password"
-          data-testid="password-input"
+          dataTestId="password-input"
+        />
+
+        <Button
+          name="login-button"
+          text="Entrar"
         />
       </div>
     );
