@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Input from '../Input';
 import Select from '../Select';
 import { fetchExpense, END_POINT } from '../../actions';
+import TableWallet from '../Table';
 
 const methodArray = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const tagArray = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
@@ -152,18 +153,21 @@ class FormWallet extends React.Component {
 
   render() {
     return (
-      <form onSubmit={ this.handleSubmit }>
-        {this.renderValueInput()}
-        {this.renderCurrencySelect()}
-        {this.renderPaymentMethodSelect()}
-        {this.renderTagSelect()}
-        {this.renderDescriptionInput()}
-        <button
-          type="submit"
-        >
-          Adicionar despesa
-        </button>
-      </form>
+      <div>
+        <form onSubmit={ this.handleSubmit }>
+          {this.renderValueInput()}
+          {this.renderCurrencySelect()}
+          {this.renderPaymentMethodSelect()}
+          {this.renderTagSelect()}
+          {this.renderDescriptionInput()}
+          <button
+            type="submit"
+          >
+            Adicionar despesa
+          </button>
+        </form>
+        <TableWallet />
+      </div>
     );
   }
 }

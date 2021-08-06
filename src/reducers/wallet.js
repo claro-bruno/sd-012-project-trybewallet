@@ -5,7 +5,6 @@ import {
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
-  sumExpenses: 0,
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
