@@ -1,22 +1,16 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { changeEmailLogin } from '../actions';
 import Input from '../components/Input';
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
+
+    this.state = ({
       email: '',
       password: '',
-      isValid: false,
-      redirect: false,
-    };
+    });
 
     this.handleChange = this.handleChange.bind(this);
-    this.checkValidation = this.checkValidation.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -24,57 +18,37 @@ class Login extends React.Component {
     this.setState((state) => ({
       ...state,
       [name]: value,
-    }), () => this.checkValidation());
+    }));
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    const { setEmailToStore } = this.props;
-    this.setState((state) => {
-      setEmailToStore(state.email);
-      return ({
-        ...state,
-        email: '',
-        password: '',
-        redirect: true,
-      });
-    });
-  }
-
-  checkValidation() {
-    console.log('checkValidation');
-    const { email, password } = this.state;
-    const regexEmail = /^[a-z0-9_]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/;
-    const minPasswordLength = 6;
-    const isValid = regexEmail.test(email) && password.length >= minPasswordLength;
-    this.setState({ isValid });
   }
 
   render() {
-    const { email, password, isValid, redirect } = this.state;
-    if (redirect) { return <Redirect to="/carteira" />; }
+    const { email, password } = this.state;
     return (
-      <form>
+      <form onSubmit={ this.handleSubmit }>
         <Input
-          label="Email:"
+          label="Email: "
           type="email"
-          id="email-input"
+          testid="email-input"
           name="email"
           value={ email }
           onChange={ this.handleChange }
         />
+
         <Input
-          label="Password:"
+          label="Senha: "
           type="password"
-          id="password-input"
+          testid="password-input"
           name="password"
           value={ password }
           onChange={ this.handleChange }
         />
+
         <button
-          type="button"
-          disabled={ !isValid }
-          onClick={ this.handleSubmit }
+          type="submit"
         >
           Entrar
         </button>
@@ -83,12 +57,4 @@ class Login extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  setEmailToStore: (value) => dispatch(changeEmailLogin(value)),
-});
-
-Login.propTypes = {
-  setEmailToStore: PropTypes.func,
-}.isRequired;
-
-export default connect(null, mapDispatchToProps)(Login);
+export default Login;

@@ -14,30 +14,32 @@ class Select extends React.Component {
           name={ name }
           onChange={ onChange }
         >
-          {
-            children.map((item, index) => (
-              <option
-                key={ index }
-                value={ item }
-              >
-                { item }
-              </option>))
-          }
+          { children.map((item, index) => (
+            <option
+              key={ index }
+              value={ item }
+            >
+              { item }
+            </option>))}
         </select>
       </label>
     );
   }
 }
 
+Select.defaultProps = {
+  value: '',
+};
+
 Select.propTypes = {
-  id: PropTypes.string,
-  label: PropTypes.string,
+  id: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
   value: PropTypes.string,
-  name: PropTypes.string,
-  options: PropTypes.arrayOf(
+  name: PropTypes.string.isRequired,
+  children: PropTypes.arrayOf(
     PropTypes.string.isRequired,
-  ),
-  onChange: PropTypes.func,
-}.isRequired;
+  ).isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default Select;

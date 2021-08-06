@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { fetchCurrencies, sumTotalExpenses } from '../../actions';
 import Input from '../Input';
 import Select from '../Select';
 
@@ -9,8 +10,8 @@ const tagArray = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
 const INITIAL_STATE = {
   value: '',
-  currency: '',
-  paymentMethod: paymentMethodArray[0],
+  currency: 'USD',
+  method: paymentMethodArray[0],
   tag: tagArray[0],
   description: '',
 };
@@ -32,10 +33,15 @@ class Form extends React.Component {
     }));
   }
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
-    this.setState((prevState) => ({
-      ...prevState,
+
+    const { setExpenseToStore, setTotalExpensesToStore } = this.props;
+    await setExpenseToStore(this.state);
+    await setTotalExpensesToStore();
+
+    this.setState((state) => ({
+      ...state,
       ...INITIAL_STATE,
     }));
   }
@@ -55,8 +61,8 @@ class Form extends React.Component {
   }
 
   renderCurrencySelect() {
-    const { currencies } = this.props;
     const { currency } = this.state;
+    const { currencies } = this.props;
     return (
       <Select
         label="Moeda"
@@ -75,12 +81,12 @@ class Form extends React.Component {
     return (
       <Select
         label="Método de pagamento"
-        id="paymentMethod-input"
-        name="paymentMethod"
+        id="method-input"
+        name="method"
         value={ paymentMethod }
         onChange={ this.handleChange }
       >
-        {paymentMethodArray}
+        {paymentMethod}
       </Select>
     );
   }
@@ -125,7 +131,7 @@ class Form extends React.Component {
         <button
           type="submit"
         >
-          Adicionar dispesa
+          Adicionar despesa
         </button>
       </form>
     );
@@ -136,10 +142,17 @@ const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  setExpenseToStore: (expense) => dispatch(fetchCurrencies(expense)),
+  setTotalExpensesToStore: () => dispatch(sumTotalExpenses()),
+});
+
 Form.propTypes = {
   getCurrency: PropTypes.arrayOf(
     PropTypes.string.isRequired,
   ),
+  setExpenseToStore: PropTypes.func.isRequired,
+  setTotalExpensesToStore: PropTypes.func.isRequired,
 }.isRequired;
 
-export default connect(mapStateToProps, null)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
