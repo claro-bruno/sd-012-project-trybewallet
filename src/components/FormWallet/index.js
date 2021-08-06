@@ -1,19 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { fetchCurrencies, sumTotalExpenses } from '../../actions';
 import Input from '../Input';
 import Select from '../Select';
 
-const paymentMethodArray = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+const methodArray = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const tagArray = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
 const INITIAL_STATE = {
-  value: '',
-  currency: 'USD',
-  method: paymentMethodArray[0],
-  tag: tagArray[0],
+  value: 0,
   description: '',
+  currency: 'USD',
+  method: methodArray[0],
+  tag: tagArray[0],
 };
 
 class Form extends React.Component {
@@ -36,10 +33,6 @@ class Form extends React.Component {
   async handleSubmit(e) {
     e.preventDefault();
 
-    const { setExpenseToStore, setTotalExpensesToStore } = this.props;
-    await setExpenseToStore(this.state);
-    await setTotalExpensesToStore();
-
     this.setState((state) => ({
       ...state,
       ...INITIAL_STATE,
@@ -51,10 +44,24 @@ class Form extends React.Component {
     return (
       <Input
         label="Valor"
+        type="number"
         id="value-input"
         name="value"
-        type="number"
         value={ value }
+        onChange={ this.handleChange }
+      />
+    );
+  }
+
+  renderDescriptionInput() {
+    const { description } = this.state;
+    return (
+      <Input
+        label="Descrição"
+        type="text"
+        id="description-input"
+        name="description"
+        value={ description }
         onChange={ this.handleChange }
       />
     );
@@ -62,31 +69,30 @@ class Form extends React.Component {
 
   renderCurrencySelect() {
     const { currency } = this.state;
-    const { currencies } = this.props;
     return (
       <Select
         label="Moeda"
         id="currency-input"
-        name="currency"
         value={ currency }
+        name="currency"
         onChange={ this.handleChange }
       >
-        {currencies}
+        {['a', 'b', 'c']}
       </Select>
     );
   }
 
   renderPaymentMethodSelect() {
-    const { paymentMethod } = this.state;
+    const { method } = this.state;
     return (
       <Select
         label="Método de pagamento"
         id="method-input"
         name="method"
-        value={ paymentMethod }
+        value={ method }
         onChange={ this.handleChange }
       >
-        {paymentMethod}
+        {methodArray}
       </Select>
     );
   }
@@ -103,20 +109,6 @@ class Form extends React.Component {
       >
         {tagArray}
       </Select>
-    );
-  }
-
-  renderDescriptionInput() {
-    const { description } = this.state;
-    return (
-      <Input
-        label="Descrição"
-        id="description-input"
-        name="description"
-        type="text"
-        value={ description }
-        onChange={ this.handleChange }
-      />
     );
   }
 
@@ -138,21 +130,4 @@ class Form extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  currencies: state.wallet.currencies,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  setExpenseToStore: (expense) => dispatch(fetchCurrencies(expense)),
-  setTotalExpensesToStore: () => dispatch(sumTotalExpenses()),
-});
-
-Form.propTypes = {
-  getCurrency: PropTypes.arrayOf(
-    PropTypes.string.isRequired,
-  ),
-  setExpenseToStore: PropTypes.func.isRequired,
-  setTotalExpensesToStore: PropTypes.func.isRequired,
-}.isRequired;
-
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
+export default Form;
