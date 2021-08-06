@@ -2,26 +2,39 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class SelectInput extends Component {
+  inputLabel(name) {
+    switch (name) {
+    case 'currency':
+      return 'Moeda:';
+    case 'method':
+      return 'Método de pagamento:';
+    case 'tag':
+      return 'Tag:';
+    default:
+      return 'Label';
+    }
+  }
+
   render() {
     const {
-      handleChange,
+      hC,
       name,
       value,
-      children,
-      optionsArray,
+      opt,
     } = this.props;
+    const label = this.inputLabel(name);
 
     return (
       <div>
-        <label htmlFor={ name }>{ children }</label>
+        <label htmlFor={ name }>{ label }</label>
         <select
           id={ name }
           data-testid={ `${name}-input` }
           name={ name }
           value={ value }
-          onChange={ handleChange }
+          onChange={ hC }
         >
-          {optionsArray.map((option) => (
+          {opt.map((option) => (
             <option key={ option } value={ option }>{ option }</option>
           ))}
         </select>
@@ -31,15 +44,14 @@ class SelectInput extends Component {
 }
 
 SelectInput.defaultProps = {
-  optionsArray: [],
+  opt: [],
 };
 
 SelectInput.propTypes = {
-  handleChange: PropTypes.func.isRequired,
+  hC: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
-  optionsArray: PropTypes.arrayOf(PropTypes.string),
+  opt: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default SelectInput;

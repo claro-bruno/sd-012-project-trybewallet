@@ -1,5 +1,5 @@
 export const CATEGORIES = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
-export const PAYMENT_METHOD = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+export const METHOD = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 export const TABLE_HEADER = [
   'Descrição',
   'Tag',
@@ -11,3 +11,12 @@ export const TABLE_HEADER = [
   'Moeda de conversão',
   'Editar/Excluir',
 ];
+
+export function getExchanceRates() {
+  const endpoint = 'https://economia.awesomeapi.com.br/json/all';
+  const rates = fetch(endpoint)
+    .then((data) => data.json())
+    .then((results) => results)
+    .catch((err) => err);
+  return rates;
+}

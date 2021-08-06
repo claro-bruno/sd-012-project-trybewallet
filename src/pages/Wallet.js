@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import Input from '../components/Input';
 import SelectInput from '../components/SelectInput';
 import Button from '../components/Button';
+import Header from '../components/Header';
 import { actionAddExpense, fetchAPI, actionRemoveExpense } from '../actions';
-import { CATEGORIES, PAYMENT_METHOD, TABLE_HEADER } from './helpers';
+import { CATEGORIES, METHOD, TABLE_HEADER, getExchanceRates } from './helpers';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -22,12 +23,10 @@ class Wallet extends React.Component {
       editMode: false,
     };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.renderHeader = this.renderHeader.bind(this);
+    this.hC = this.hC.bind(this);
     this.renderForms = this.renderForms.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.setExpense = this.setExpense.bind(this);
-    this.sumOfExpenses = this.sumOfExpenses.bind(this);
     this.handleEditedExpense = this.handleEditedExpense.bind(this);
   }
 
@@ -36,19 +35,10 @@ class Wallet extends React.Component {
     getCurrencies();
   }
 
-  getExchanceRates() {
-    const endpoint = 'https://economia.awesomeapi.com.br/json/all';
-    const rates = fetch(endpoint)
-      .then((data) => data.json())
-      .then((results) => results)
-      .catch((err) => err);
-    return rates;
-  }
-
   async setExpense() {
     const { addExpense, expenses } = this.props;
     const { value, description, method, tag, currency } = this.state;
-    const exchangeRates = await this.getExchanceRates();
+    const exchangeRates = await getExchanceRates();
     const payload = {
       id: expenses.length,
       value,
@@ -139,7 +129,7 @@ class Wallet extends React.Component {
     this.setEditedExpense();
   }
 
-  handleChange(event) {
+  hC(event) {
     const {
       target: { value, name },
     } = event;
@@ -152,57 +142,16 @@ class Wallet extends React.Component {
     this.setExpense();
   }
 
-  renderHeader() {
-    const { total, currencyTag } = this.state;
-    const { userEmail } = this.props;
-    return (
-      <header>
-        <span data-testid="email-field">{`Email: ${userEmail}`}</span>
-        <span data-testid="total-field">{`Despesa Total: R$ ${total}`}</span>
-        <span data-testid="header-currency-field">{`Moeda: ${currencyTag}`}</span>
-      </header>
-    );
-  }
-
   renderForms() {
     const { value, description, method, tag, currency, editMode } = this.state;
-    const { currencies } = this.props;
+    const { currencies: c } = this.props;
     return (
       <form>
-        <Input name="value" value={ value } handleChange={ this.handleChange }>
-          Valor:
-        </Input>
-        <Input
-          name="description"
-          value={ description }
-          handleChange={ this.handleChange }
-        >
-          Descrição:
-        </Input>
-        <SelectInput
-          name="currency"
-          value={ currency }
-          handleChange={ this.handleChange }
-          optionsArray={ currencies }
-        >
-          Moeda:
-        </SelectInput>
-        <SelectInput
-          name="method"
-          value={ method }
-          handleChange={ this.handleChange }
-          optionsArray={ PAYMENT_METHOD }
-        >
-          Método de pagamento:
-        </SelectInput>
-        <SelectInput
-          name="tag"
-          value={ tag }
-          handleChange={ this.handleChange }
-          optionsArray={ CATEGORIES }
-        >
-          Tag:
-        </SelectInput>
+        <Input name="value" value={ value } handleChange={ this.hC } />
+        <Input name="description" value={ description } handleChange={ this.hC } />
+        <SelectInput name="currency" value={ currency } hC={ this.hC } opt={ c } />
+        <SelectInput name="method" value={ method } hC={ this.hC } opt={ METHOD } />
+        <SelectInput name="tag" value={ tag } hC={ this.hC } opt={ CATEGORIES } />
         {editMode ? (
           <Button handleClick={ () => { this.handleEditedExpense(); } }>
             Editar despesa
@@ -226,34 +175,28 @@ class Wallet extends React.Component {
               {TABLE_HEADER.map((tag) => (<th key={ tag }>{tag}</th>))}
             </tr>
             {expenses.map(
-              ({
-                description,
-                tag,
-                method,
-                value,
-                currency,
-                exchangeRates,
-                id,
-              }) => (
+              (e) => (
                 <tr key={ Math.random() }>
-                  <td>{description}</td>
-                  <td>{tag}</td>
-                  <td>{method}</td>
-                  <td>{value}</td>
-                  <td>{exchangeRates[currency].name}</td>
-                  <td>{parseFloat(exchangeRates[currency].ask).toFixed(2)}</td>
-                  <td>{parseFloat(value * exchangeRates[currency].ask).toFixed(2)}</td>
+                  <td>{e.description}</td>
+                  <td>{e.tag}</td>
+                  <td>{e.method}</td>
+                  <td>{e.value}</td>
+                  <td>{e.exchangeRates[e.currency].name}</td>
+                  <td>{parseFloat(e.exchangeRates[e.currency].ask).toFixed(2)}</td>
+                  <td>
+                    {parseFloat(e.value * e.exchangeRates[e.currency].ask).toFixed(2)}
+                  </td>
                   <td>Real</td>
                   <td>
                     <Button
                       dataTestId="delete-btn"
-                      handleClick={ () => { this.deleteExpenses(id); } }
+                      handleClick={ () => { this.deleteExpenses(e.id); } }
                     >
                       Remover despesa
                     </Button>
                     <Button
                       dataTestId="edit-btn"
-                      handleClick={ () => { this.editExpenses(id); } }
+                      handleClick={ () => { this.editExpenses(e.id); } }
                     >
                       Edita despesa
                     </Button>
@@ -268,9 +211,11 @@ class Wallet extends React.Component {
   }
 
   render() {
+    const { total, currencyTag } = this.state;
+    const { userEmail } = this.props;
     return (
       <div>
-        {this.renderHeader()}
+        <Header total={ total } tag={ currencyTag } userEmail={ userEmail } />
         {this.renderForms()}
         {this.renderTable()}
       </div>

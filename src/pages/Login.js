@@ -90,17 +90,13 @@ class Login extends React.Component {
             name="email"
             value={ email }
             handleChange={ this.handleChange }
-          >
-            Email:
-          </Input>
+          />
           <Input
             type="password"
             name="password"
             value={ password }
             handleChange={ this.handleChange }
-          >
-            Senha:
-          </Input>
+          />
           <Link to="/carteira">
             <Button
               dataTestId="login-btn"

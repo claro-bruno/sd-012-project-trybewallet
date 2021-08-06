@@ -2,18 +2,33 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class Input extends Component {
+  inputLabel(name) {
+    switch (name) {
+    case 'value':
+      return 'Valor:';
+    case 'description':
+      return 'Descrição:';
+    case 'email':
+      return 'Email:';
+    case 'password':
+      return 'Senha:';
+    default:
+      return 'Label';
+    }
+  }
+
   render() {
     const {
       handleChange,
       type,
       name,
       value,
-      children,
     } = this.props;
+    const label = this.inputLabel(name);
 
     return (
       <div>
-        <label htmlFor={ name }>{ children }</label>
+        <label htmlFor={ name }>{ label }</label>
         <input
           id={ name }
           data-testid={ `${name}-input` }
@@ -36,7 +51,6 @@ Input.propTypes = {
   handleChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
 };
 
 export default Input;
