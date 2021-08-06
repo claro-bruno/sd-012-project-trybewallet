@@ -4,11 +4,10 @@ const INITIAL_STATE = {
 
 const reducerUser = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case 'EMAIL_LOGIN':
+  case 'TYPE_EMAIL':
     return { email: action.payload };
   default:
     return state;
   }
 };
-
 export default reducerUser;
