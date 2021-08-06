@@ -15,7 +15,7 @@ class WalletForm extends React.Component {
     super();
 
     this.state = {
-      amountSpent: '',
+      amountSpent: 0,
       description: '',
       currency: 'USD',
       payment: 'cash',
@@ -28,7 +28,7 @@ class WalletForm extends React.Component {
   handleChange({ target }) {
     const { name, value } = target;
     this.setState({
-      [name]: value,
+      [name]: name === 'amountSpent' ? +value : value,
     });
   }
 

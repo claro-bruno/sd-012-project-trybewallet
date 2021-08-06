@@ -21,10 +21,12 @@ class Wallet extends React.Component {
   async fetchCurrencies() {
     const response = await getCurrencies();
     const results = Object.keys(response);
-    const currenciesArr = results.map((result) => ({
-      option: result,
-      value: result,
-    }));
+    const currenciesArr = results
+      .filter((e) => e !== 'USDT')
+      .map((result) => ({
+        option: result,
+        value: result,
+      }));
     this.setState({
       currencies: currenciesArr,
     });

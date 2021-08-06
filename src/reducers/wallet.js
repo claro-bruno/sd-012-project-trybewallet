@@ -1,6 +1,6 @@
 const INITIAL_STATE = {
   currencies: [],
-  expenses: [0],
+  expenses: [],
 };
 
 const wallet = (state = INITIAL_STATE, action) => {

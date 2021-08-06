@@ -5,11 +5,11 @@ class GenericSelect extends React.Component {
   render() {
     const { name, innerHtml, options, onChange } = this.props;
     return (
-      <label htmlFor={ name }>
+      <label htmlFor={ innerHtml }>
         {innerHtml}
-        <select name={ name } onChange={ onChange }>
+        <select id={ innerHtml } name={ name } onChange={ onChange }>
           {options.map(({ option, value }) => (
-            <option key={ option } value={ value }>{option}</option>
+            <option key={ value } value={ value }>{option}</option>
           ))}
         </select>
       </label>

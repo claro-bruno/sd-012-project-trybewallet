@@ -6,9 +6,9 @@ class WalletHeader extends React.Component {
     const { email, expenses } = this.props;
     return (
       <header>
-        <span data-testid="email-field">{email}</span>
-        <span data-testid="total-field">{expenses}</span>
-        <span data-testid="header-currency-field">BRL</span>
+        <p data-testid="email-field">{email}</p>
+        <p data-testid="total-field">0</p>
+        <p data-testid="header-currency-field">BRL</p>
       </header>
     );
   }
@@ -16,7 +16,7 @@ class WalletHeader extends React.Component {
 
 WalletHeader.propTypes = {
   email: PropTypes.string,
-  expenses: PropTypes.string,
+  expenses: PropTypes.arrayOf(PropTypes.number),
 }.isRequired;
 
 export default WalletHeader;
