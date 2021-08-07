@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { userEmail } from '../actions';
 
 class Login extends React.Component {
@@ -18,13 +19,6 @@ class Login extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   const { email, password } = this.state;
-  //   if (email !== prevState.email || password !== prevState.password) {
-  //     this.validateEmail();
-  //   }
-  // }
-
   handleChange({ target }) {
     const { type, value } = target;
     this.setState({ [type]: value });
@@ -35,6 +29,7 @@ class Login extends React.Component {
     }
   }
 
+  // expressao obtida em:https://regexr.com/3e48o
   validateEmail() {
     const { email } = this.state;
     const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
@@ -62,7 +57,7 @@ class Login extends React.Component {
       <div>
         <div>Login</div>
         <label htmlFor="email-input">
-          teste
+          E-mail:
           <input
             data-testid="email-input"
             type="email"
@@ -71,7 +66,7 @@ class Login extends React.Component {
           />
         </label>
         <label htmlFor="password-input">
-          teste2
+          Senha:
           <input
             data-testid="password-input"
             type="password"
@@ -79,13 +74,15 @@ class Login extends React.Component {
             onChange={ this.handleChange }
           />
         </label>
-        <button
-          onClick={ this.handleSubmit }
-          type="button"
-          disabled={ disable }
-        >
-          Entrar
-        </button>
+        <Link to="/carteira">
+          <button
+            onClick={ this.handleSubmit }
+            type="button"
+            disabled={ disable }
+          >
+            Entrar
+          </button>
+        </Link>
       </div>
     );
   }
