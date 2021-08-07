@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Input from '../Input';
 import Select from '../Select';
 import { fetchExpense, END_POINT } from '../../actions';
-import TableWallet from '../Table';
+import TableWallet from '../TableWallet';
 
 const methodArray = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const tagArray = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
