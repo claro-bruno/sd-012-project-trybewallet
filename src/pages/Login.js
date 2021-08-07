@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { userInformation } from '../actions';
 
 class Login extends React.Component {
@@ -12,7 +13,7 @@ class Login extends React.Component {
       buttonDisable: true,
     };
     this.handleChange = this.handleChange.bind(this);
-    this.testeRudux = this.testeRudux.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.validarEmail = this.validarEmail.bind(this);
   }
 
@@ -23,7 +24,7 @@ class Login extends React.Component {
     }
   }
 
-  testeRudux() {
+  handleSubmit() {
     const { handleUserInformation } = this.props;
     const { email } = this.state;
 
@@ -69,13 +70,15 @@ class Login extends React.Component {
             onChange={ this.handleChange }
           />
         </label>
-        <button
-          type="button"
-          disabled={ buttonDisable }
-          onClick={ this.testeRudux }
-        >
-          Entrar
-        </button>
+        <Link to="/carteira">
+          <button
+            type="button"
+            disabled={ buttonDisable }
+            onClick={ this.handleSubmit }
+          >
+            Entrar
+          </button>
+        </Link>
 
       </div>);
   }
