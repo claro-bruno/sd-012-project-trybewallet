@@ -1,13 +1,13 @@
 // Coloque aqui suas actions
-export const USER_LOGIN = 'USER_LOGIN';
+export const LOGIN_USER = 'LOGIN_USER';
 export const UPDATE_CURRENCY = 'UPDATE_CURRENCY';
-export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const UPDATE_EXPENSE = 'UPDATE_EXPENSE';
 export const EDIT_EXPENSE = 'EDIT_EXPENSE';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 export const SET_LOADING = 'SET_LOADING';
 
 export const loginUser = (email) => ({
-  type: USER_LOGIN,
+  type: LOGIN_USER,
   payload: email,
 });
 
@@ -26,7 +26,7 @@ export const deleteExpense = (newCurrencies) => ({
 });
 
 export const updateExpense = (expense) => ({
-  type: ADD_EXPENSE,
+  type: UPDATE_EXPENSE,
   payload: expense,
 });
 
