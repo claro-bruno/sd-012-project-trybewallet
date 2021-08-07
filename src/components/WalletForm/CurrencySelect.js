@@ -10,7 +10,7 @@ class CurrencySelect extends React.Component {
   }
 
   render() {
-    const { currencies } = this.props;
+    const { currencies, onChange, value } = this.props;
     return (
       <div>
         <label htmlFor="currency">
@@ -18,6 +18,8 @@ class CurrencySelect extends React.Component {
           <select
             id="currency"
             name="currency"
+            value={ value }
+            onChange={ onChange }
           >
             { currencies.map((currency) => (
               <option
@@ -36,6 +38,8 @@ class CurrencySelect extends React.Component {
 CurrencySelect.propTypes = {
   getCurrencies: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({

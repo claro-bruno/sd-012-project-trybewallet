@@ -12,7 +12,10 @@ class Wallet extends React.Component {
 
     this.state = {
       value: '',
-      describe: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -26,16 +29,16 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { value, describe } = this.state;
+    const { value, description, currency, method, tag } = this.state;
     return (
       <div>
         <WalletHead />
         <form>
           <ValueInput value={ value } onChange={ this.handleChange } />
-          <DescribeInput value={ describe } onChange={ this.handleChange } />
-          <CurrencySelect />
-          <PaymentSelect />
-          <TagSelect />
+          <DescribeInput value={ description } onChange={ this.handleChange } />
+          <CurrencySelect value={ currency } onChange={ this.handleChange } />
+          <PaymentSelect value={ method } onChange={ this.handleChange } />
+          <TagSelect value={ tag } onChange={ this.handleChange } />
         </form>
       </div>
     );

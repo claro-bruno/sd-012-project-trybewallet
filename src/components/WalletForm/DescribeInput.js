@@ -6,12 +6,12 @@ class DescribeInput extends React.Component {
     const { onChange, value } = this.props;
     return (
       <div>
-        <label htmlFor="describe">
+        <label htmlFor="description">
           Descrição
           <input
             type="text"
-            id="describe"
-            name="describe"
+            id="description"
+            name="description"
             value={ value }
             onChange={ onChange }
           />
