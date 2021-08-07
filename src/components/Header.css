@@ -1,0 +1,33 @@
+header {
+    background-color: #036b52;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  header h3 {
+    color: white;
+    margin-left: 1em;
+  }
+  
+  .account-container {
+    display: flex;
+    justify-content: space-evenly;
+    width: 30%;
+  }
+  
+  .account-container div {
+    display: flex;
+  }
+  
+  .account-container p {
+    color: white;
+  }
+  
+  .account-container div p:first-child {
+    margin-right: 1em;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  

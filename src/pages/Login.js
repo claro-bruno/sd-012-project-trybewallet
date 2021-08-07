@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Button from '../components/Button';
 import Input from '../components/Input';
 /**
@@ -19,10 +19,9 @@ const INITIAL_STATE = {
   },
 };
 
-class Login extends React.Component {
+class Login extends Component {
   constructor(props) {
     super(props);
-
     this.state = { ...INITIAL_STATE };
 
     this.handleChange = this.handleChange.bind(this);
