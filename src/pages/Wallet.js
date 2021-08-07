@@ -10,7 +10,7 @@ class Wallet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      totalValue: 0,
+      // totalValue: 0,
       selectedCurrency: 'BRL',
       value: 0,
       currency: 'USD',
@@ -27,17 +27,9 @@ class Wallet extends React.Component {
     getCurrencies();
   }
 
-  async handleDeleteExpense(expenseId) {
+  handleDeleteExpense(expenseId) {
     const { deleteThisExpense } = this.props;
-    await deleteThisExpense(expenseId);
-    const { expenseList } = this.props;
-    this.setState({
-      totalValue: expenseList.map(
-        (expense) => Math.round(expense.value
-        * expense.exchangeRates[expense.currency].ask * 100) / 100,
-      )
-        .reduce((a, b) => (parseFloat(a) + parseFloat(b)), 0),
-    });
+    deleteThisExpense(expenseId);
   }
 
   async handleAddExpense() {
@@ -45,14 +37,6 @@ class Wallet extends React.Component {
     const { getCurrencies, addNewExpense } = this.props;
     await getCurrencies();
     addNewExpense({ value, currency, tag, description, method });
-    const { expenseList } = this.props;
-    this.setState({
-      totalValue: expenseList.map(
-        (expense) => Math.round(expense.value
-        * expense.exchangeRates[expense.currency].ask * 100) / 100,
-      )
-        .reduce((a, b) => (parseFloat(a) + parseFloat(b))),
-    });
   }
 
   handleChange(event, element) {
@@ -160,19 +144,14 @@ class Wallet extends React.Component {
     );
   }
 
-  renderTotalValue() {
-    const { totalValue } = this.state;
-    return (totalValue);
-  }
-
   render() {
-    const { userEmail } = this.props;
-    const { selectedCurrency, totalValue } = this.state;
+    const { userEmail, totalExpended } = this.props;
+    const { selectedCurrency } = this.state;
     return (
       <main>
         <header>
           <p data-testid="email-field">{ userEmail }</p>
-          <p data-testid="total-field">{ totalValue }</p>
+          <p data-testid="total-field">{ totalExpended || 0 }</p>
           <p>
             Moeda:
             <span data-testid="header-currency-field">{ selectedCurrency }</span>
@@ -199,10 +178,8 @@ Wallet.propTypes = {
   getCurrencies: PropTypes.func.isRequired,
   addNewExpense: PropTypes.func.isRequired,
   currencies: PropTypes.shape(PropTypes.shape).isRequired,
-  // totalExpended: PropTypes.number.isRequired,
-  // setTotalExpenses: PropTypes.func.isRequired,
-  expenseList: PropTypes.arrayOf(PropTypes.shape).isRequired,
   deleteThisExpense: PropTypes.func.isRequired,
+  totalExpended: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({

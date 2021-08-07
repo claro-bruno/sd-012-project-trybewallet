@@ -4,12 +4,6 @@ import PropTypes from 'prop-types';
 // import { deleteExpense } from '../actions/index';
 
 class ExpensesTable extends React.Component {
-  // handleDeleteExpense(expenseId) {
-  //   const { deleteThisExpense, getTotal } = this.props;
-  //   deleteThisExpense(expenseId);
-  //   getTotal();
-  // }
-
   renderExpensesTable() {
     const { expenseList, handleDeleteExpense } = this.props;
     return (
@@ -78,9 +72,5 @@ const mapStateToProps = (state) => ({
   expenseList: state.wallet.expenses,
   totalExpended: state.wallet.totalExpended,
 });
-
-// const mapDispatchToProps = (dispatch) => ({
-//   deleteThisExpense: (expenseId) => dispatch(deleteExpense(expenseId)),
-// });
 
 export default connect(mapStateToProps, null)(ExpensesTable);

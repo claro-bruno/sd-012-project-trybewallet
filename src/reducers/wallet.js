@@ -2,7 +2,6 @@ import {
   GET_CURRENCIES, GET_CURRENCIES_SUCCESS, GET_CURRENCIES_ERROR,
   ADD_EXPENSE,
   DELETE_EXPENSE,
-  SUM_EXPENSES,
 } from '../actions';
 
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
@@ -17,17 +16,6 @@ const INITIAL_STATE = {
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case SUM_EXPENSES: {
-    return {
-      ...state,
-      totalExpended:
-        state.expenses.map(
-          (expense) => Math.round(expense.value
-          * expense.exchangeRates[expense.currency].ask * 100) / 100,
-        )
-          .reduce((a, b) => (parseFloat(a) + parseFloat(b)), 0),
-    };
-  }
   case GET_CURRENCIES:
     return { ...state, isLoading: true };
   case GET_CURRENCIES_SUCCESS: {
@@ -44,13 +32,29 @@ const wallet = (state = INITIAL_STATE, action) => {
     const { expenses, exchangeRates } = state;
     const { expense } = action;
     const newExpense = { ...expense, id: expenses.length, exchangeRates };
-    return { ...state, expenses: [...expenses, newExpense] };
+    const newExpensesList = [...expenses, newExpense];
+    return { ...state,
+      expenses: newExpensesList,
+      totalExpended:
+        newExpensesList.map(
+          (exp) => Math.round(exp.value
+          * exp.exchangeRates[exp.currency].ask * 100) / 100,
+        )
+          .reduce((a, b) => (parseFloat(a) + parseFloat(b)), 0),
+    };
   }
   case DELETE_EXPENSE: {
     const { expenses } = state;
+    const newExpensesList = expenses.filter((expense) => expense.id !== action.expenseId);
     return {
       ...state,
-      expenses: expenses.filter((expense) => expense.id !== action.expenseId),
+      expenses: newExpensesList,
+      totalExpended:
+        newExpensesList.map(
+          (exp) => Math.round(exp.value
+          * exp.exchangeRates[exp.currency].ask * 100) / 100,
+        )
+          .reduce((a, b) => (parseFloat(a) + parseFloat(b)), 0),
     };
   }
   default:
