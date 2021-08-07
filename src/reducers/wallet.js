@@ -3,11 +3,14 @@ import {
   REQUEST_API,
   REQUEST_API_SUCCESS,
   REQUEST_API_ERROR,
+  EXPENSES_USER,
+  EXPENSES_USER_SUCCESS,
 } from '../actions';
 
 const INITIAL_STATE = {
-  currencies: {},
+  currencies: [],
   isFetching: false,
+  expenses: [],
 };
 
 function wallet(state = INITIAL_STATE, action) {
@@ -21,13 +24,30 @@ function wallet(state = INITIAL_STATE, action) {
     return {
       ...state,
       isFetching: false,
-      currencies: action.payload,
+      currencies: Object.keys(action.payload),
     };
   case REQUEST_API_ERROR:
     return {
       ...state,
       isFetching: false,
       currencies: Error,
+    };
+  case EXPENSES_USER:
+    return {
+      ...state,
+      isFetching: false,
+    };
+  case EXPENSES_USER_SUCCESS:
+    return {
+      ...state,
+      expenses: [
+        ...state.expenses,
+        {
+          id: action.id,
+          ...action.expenseStateInfo,
+          exchangeRates: action.dataApi,
+        },
+      ],
     };
   default:
     return state;

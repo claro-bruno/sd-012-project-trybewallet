@@ -19,8 +19,7 @@ class Login extends React.Component {
   }
 
   handleChangeEmailAndPassword({ target: { name, value } }) {
-    this.setState({ [name]: value });
-    this.emailAndPasswordValidation();
+    this.setState({ [name]: value }, () => this.emailAndPasswordValidation());
   }
 
   handleSubmitEmailToStore() {
@@ -32,9 +31,9 @@ class Login extends React.Component {
   emailAndPasswordValidation() {
     const { email, password } = this.state;
     const emailValidation = /(.*)@(.*).com/;
-    const passwordValidationLenth = 5;
+    const passwordValidationLenth = 6;
 
-    if (emailValidation.test(email) && passwordValidationLenth <= password.length) {
+    if (emailValidation.test(email) && password.length >= passwordValidationLenth) {
       this.setState({
         buttonDisabled: false,
       });
