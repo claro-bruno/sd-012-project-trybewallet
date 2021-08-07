@@ -1,5 +1,8 @@
 import React from 'react';
+import propTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { loginUser } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -33,6 +36,9 @@ class Login extends React.Component {
   }
 
   handleClick() {
+    const { authentication } = this.props;
+    const { email } = this.state;
+    authentication(email);
     this.setState({ redirect: true });
   }
 
@@ -40,7 +46,7 @@ class Login extends React.Component {
     const { email, password, blockSubmit, redirect } = this.state;
 
     if (redirect) {
-      return <Redirect to="/wallet" />;
+      return <Redirect to="/carteira" />;
     }
     return (
       <main>
@@ -73,5 +79,13 @@ class Login extends React.Component {
     );
   }
 }
+// export default Login;
+const mapDispathToProps = (dispath) => ({
+  authentication: (email) => dispath(loginUser(email)),
+});
 
-export default Login;
+Login.propTypes = {
+  authentication: propTypes.func.isRequired,
+};
+
+export default connect(null, mapDispathToProps)(Login);
