@@ -19,44 +19,28 @@ const wallet = (state = INITIAL_STATE, action) => {
   case GET_CURRENCIES:
     return { ...state, isLoading: true };
   case GET_CURRENCIES_SUCCESS: {
-    const { USDT, ...validCurrencies } = action.payload;
-    return { ...state,
-      isLoading: false,
-      currencies: validCurrencies,
-      exchangeRates: action.payload,
-    };
-  }
+    const { USDT, ...validCur } = action.payload;
+    return {
+      ...state, isLoading: false, currencies: validCur, exchangeRates: action.payload }; }
   case GET_CURRENCIES_ERROR:
     return { ...state, isLoading: false, error: action.error };
   case ADD_EXPENSE: {
     const { expenses, exchangeRates } = state;
-    const { expense } = action;
-    const newExpense = { ...expense, id: expenses.length, exchangeRates };
+    const newExpense = { ...action.expense, id: expenses.length, exchangeRates };
     const newExpensesList = [...expenses, newExpense];
     return { ...state,
       expenses: newExpensesList,
-      totalExpended:
-        newExpensesList.map(
-          (exp) => Math.round(exp.value
-          * exp.exchangeRates[exp.currency].ask * 100) / 100,
-        )
-          .reduce((a, b) => (parseFloat(a) + parseFloat(b)), 0),
-    };
-  }
+      totalExpended: newExpensesList.map((exp) => Math.round(exp.value
+        * exp.exchangeRates[exp.currency].ask * 100) / 100)
+        .reduce((a, b) => (parseFloat(a) + parseFloat(b)), 0) }; }
   case DELETE_EXPENSE: {
-    const { expenses } = state;
-    const newExpensesList = expenses.filter((expense) => expense.id !== action.expenseId);
+    const newExpensesList = state.expenses.filter((exp) => exp.id !== action.expenseId);
     return {
       ...state,
       expenses: newExpensesList,
-      totalExpended:
-        newExpensesList.map(
-          (exp) => Math.round(exp.value
-          * exp.exchangeRates[exp.currency].ask * 100) / 100,
-        )
-          .reduce((a, b) => (parseFloat(a) + parseFloat(b)), 0),
-    };
-  }
+      totalExpended: newExpensesList.map((exp) => Math.round(exp.value
+        * exp.exchangeRates[exp.currency].ask * 100) / 100)
+        .reduce((a, b) => (parseFloat(a) + parseFloat(b)), 0) }; }
   default:
     return state;
   }

@@ -10,7 +10,6 @@ class Wallet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // totalValue: 0,
       selectedCurrency: 'BRL',
       value: 0,
       currency: 'USD',
@@ -32,10 +31,10 @@ class Wallet extends React.Component {
     deleteThisExpense(expenseId);
   }
 
-  async handleAddExpense() {
+  handleAddExpense() {
     const { value, currency, tag, description, method } = this.state;
     const { getCurrencies, addNewExpense } = this.props;
-    await getCurrencies();
+    getCurrencies();
     addNewExpense({ value, currency, tag, description, method });
   }
 
