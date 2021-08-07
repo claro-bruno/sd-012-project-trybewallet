@@ -47,17 +47,21 @@ class Login extends React.Component {
         <label htmlFor="E-mail">
           <input
             required
+            name="email"
             type="email"
             data-testid="email-input"
             value={ email }
+            onChange={ this.handleChange }
           />
         </label>
         <label htmlFor="Paassword">
           <input
             required
+            name="password"
             type="password"
             data-testid="password-input"
             value={ password }
+            onChange={ this.handleChange }
           />
         </label>
         <button disabled={ bttnDisable } type="submit">Entrar</button>
