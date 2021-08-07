@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-// CristianBrum
-// https://github.com/tryber/sd-011-project-trybewallet/pull/2/commits/509915ffc966093751035625fa747638888af868
+/**
+ * Consultei o repositório de Cristian Brum para resolver essa parte.
+ * Link: https://github.com/tryber/sd-011-project-trybewallet/pull/2/commits/509915ffc966093751035625fa747638888af868
+ */
 
 class ExpenseForm extends Component {
   render() {
