@@ -20,6 +20,7 @@ class Login extends Component {
   }
 
   handleChange({ target: { name, value } }) {
+    // this.setState({ [name]: value });
     this.setState((state) => ({
       ...state,
       [name]: value,
