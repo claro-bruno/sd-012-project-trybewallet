@@ -6,19 +6,37 @@ import { deleteExpense } from '../../actions';
 class TableWallet extends React.Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleEditClick = this.handleEditClick.bind(this);
+    this.handleDeleteClick = this.handleDeleteClick.bind(this);
   }
 
-  handleClick({ target: { id } }) {
+  handleDeleteClick({ target: { id } }) {
     const { delExpense } = this.props;
     delExpense(+id);
   }
 
-  renderButton(id) {
+  handleEditClick() {
+    console.log('clicou');
+  }
+
+  renderEditButton(id) {
     return (
       <button
         type="button"
-        onClick={ this.handleClick }
+        onClick={ this.handleEditClick }
+        id={ id }
+        data-testid="edit-btn"
+      >
+        Editar despesa
+      </button>
+    );
+  }
+
+  renderDeleteButton(id) {
+    return (
+      <button
+        type="button"
+        onClick={ this.handleDeleteClick }
         id={ id }
         data-testid="delete-btn"
       >
@@ -29,19 +47,14 @@ class TableWallet extends React.Component {
 
   render() {
     const { getExpensesInfos } = this.props;
+    const tableHeaders = ['Descrição', 'Tag', 'Método de pagamento', 'Valor',
+      'Moeda', 'Câmbio utilizado', 'Valor convertido',
+      'Moeda de conversão', 'Editar/Excluir'];
     return (
       <table>
         <thead>
           <tr>
-            <th>Descrição</th>
-            <th>Tag</th>
-            <th>Método de pagamento</th>
-            <th>Valor</th>
-            <th>Moeda</th>
-            <th>Câmbio utilizado</th>
-            <th>Valor convertido</th>
-            <th>Moeda de conversão</th>
-            <th>Editar/Excluir</th>
+            { tableHeaders.map((header, index) => <th key={ index }>{ header }</th>) }
           </tr>
         </thead>
         <tbody>
@@ -53,17 +66,13 @@ class TableWallet extends React.Component {
             const currencyValue = parseFloat(exchangeRates[currency].ask);
             const convertedValue = Math
               .floor(currencyValue * parseFloat(value) * 100) / 100;
+
+            const tableData = [description, tag, method, value, currencyName,
+              currencyValue.toFixed(2), convertedValue.toFixed(2), 'Real',
+              this.renderEditButton(id), this.renderDeleteButton(id)];
             return (
               <tr key={ id }>
-                <td>{ description }</td>
-                <td>{ tag }</td>
-                <td>{ method }</td>
-                <td>{ `${value}` }</td>
-                <td>{ currencyName }</td>
-                <td>{ currencyValue.toFixed(2) }</td>
-                <td>{ convertedValue.toFixed(2) }</td>
-                <td>Real</td>
-                <td>{ this.renderButton(id) }</td>
+                {tableData.map((data, index) => <td key={ index }>{ data }</td>) }
               </tr>
             );
           }) }
