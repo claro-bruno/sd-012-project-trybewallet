@@ -37,40 +37,44 @@ class Login extends React.Component {
     const { email, password } = this.state;
     const { canAuthenticate, loginDispatch } = this.props;
     return (
-      <form className="login">
-        <img src={ wallet } alt="wallet" />
-        <label htmlFor="email-input">
-          Email
-          <input
-            data-testid="email-input"
-            type="email"
-            name="email"
-            id="email-input"
-            value={ email }
-            onChange={ this.handleChange }
-          />
-        </label>
-        <label htmlFor="password-input">
-          Senha
-          <input
-            data-testid="password-input"
-            type="password"
-            name="password"
-            id="password-input"
-            value={ password }
-            onChange={ this.handleChange }
-          />
-        </label>
-        <Link to="/carteira">
-          <button
-            type="button"
-            onClick={ () => loginDispatch(email) }
-            disabled={ !canAuthenticate }
-          >
-            ENTRAR
-          </button>
-        </Link>
-      </form>
+      <div className="login">
+        <div className="logo-div">
+          <img src={ wallet } alt="wallet" />
+        </div>
+        <form className="forms-div">
+          <label htmlFor="email-input">
+            Email
+            <input
+              data-testid="email-input"
+              type="email"
+              name="email"
+              id="email-input"
+              value={ email }
+              onChange={ this.handleChange }
+            />
+          </label>
+          <label htmlFor="password-input">
+            Senha
+            <input
+              data-testid="password-input"
+              type="password"
+              name="password"
+              id="password-input"
+              value={ password }
+              onChange={ this.handleChange }
+            />
+          </label>
+          <Link to="/carteira">
+            <button
+              type="button"
+              onClick={ () => loginDispatch(email) }
+              disabled={ !canAuthenticate }
+            >
+              ENTRAR
+            </button>
+          </Link>
+        </form>
+      </div>
     );
   }
 }

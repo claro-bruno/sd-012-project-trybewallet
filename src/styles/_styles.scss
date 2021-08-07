@@ -1,5 +1,10 @@
-@import "./login";
-@import "./variables/variables";
+@import 'mixins/sizer';
+
+@import 'mixins/flex';
+
+@import './variables/variables';
+
+@import './login';
 
 @font-face {
   font-family: Roboto;
@@ -10,29 +15,17 @@
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
+body, html, main {
   font-family: Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-input, select {
-  border: 2px solid rgba(0, 0, 0, 0);
-  border-bottom: 2px solid $trybe-purple;
-  transition: 0.5s;
-  @include sizer(40px, auto);
-  background-color: transparent;
-  
-  &:focus {
-    transition: 0.5s;
-    outline: none;
-    border: 2px solid $trybe-light-green;
-  }
+  margin: 0;
+  @include sizer(100vh, 100vw);
 }
 
 label {
-  @include flexColumn();
-  text-align: left;
+
+  @include flex(column, wrap, center, flex-start);
   margin: 3%;
+  text-align: left;
 }
