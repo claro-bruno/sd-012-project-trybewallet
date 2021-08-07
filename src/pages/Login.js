@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { /* Redirect, */ Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addEmailInput } from '../actions/index';
@@ -11,30 +11,19 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
-      // disabled: true,
-      // loginVerified: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    // this.loginVerification = this.loginVerification.bind(this);
   }
 
   handleChange({ target: { name, value } }) {
-    // this.setState({ [name]: value });
     this.setState((state) => ({
       ...state,
       [name]: value,
     }));
   }
 
-  handleClick(/* event */) {
-    // event.preventDefault();
-    // this.setState((state) => ({
-    //   ...state,
-    //   email: '',
-    //   password: '',
-    // }
-    // ));
+  handleClick() {
     const { setEmailInputStore } = this.props;
     const { email, password } = this.state;
     setEmailInputStore({ email, password });
@@ -44,33 +33,13 @@ class Login extends Component {
   loginVerification() {
     const { email, password } = this.state;
     const emailVerification = (/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
-    // if (emailVerification.test(email)
-    //   && password.length >= MIN_LENGTH_PASSWORD) {
-    //   this.setState({
-    //     disabled: true,
-    //     // loginVerified: true,
-    //   });
-    // }
-    // this.setState({
-    //   disabled: false,
-    // });
 
     return (emailVerification.test(email)
     && password.length >= MIN_LENGTH_PASSWORD);
-    // if (emailVerification.test(email)
-    // && password.length >= MIN_LENGTH_PASSWORD) {
-    //   this.setState({
-    //     loginVerified: true,
-    //   });
-    // } else {
-    //   this.setState({
-    //     loginVerified: false,
-    //   });
-    // }
   }
 
   render() {
-    const { email, password /* , disabled */ /* loginVerified  */ } = this.state;
+    const { email, password } = this.state;
     return (
       <>
         Login
@@ -99,7 +68,6 @@ class Login extends Component {
             >
               Entrar
             </button>
-            {/* { loginVerification() ? <Redirect to="/carteira" /> : ''} */}
           </Link>
 
         </form>
