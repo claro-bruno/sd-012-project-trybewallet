@@ -1,7 +1,7 @@
 // Coloque aqui suas actions
 export const EMAIL = 'EMAIL';
 
-export const emailInput = (payload) => ({
+export const addEmailInput = (emailInput) => ({
   type: EMAIL,
-  payload,
+  payload: emailInput,
 });

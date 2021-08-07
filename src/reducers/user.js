@@ -4,6 +4,7 @@ import { EMAIL } from '../actions/index';
 
 const INITIAL_STATE = {
   email: '',
+  // n precisa do password pois n vamos armazenar ele
 };
 
 const user = (state = INITIAL_STATE, action) => {
