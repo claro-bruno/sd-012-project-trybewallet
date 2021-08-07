@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class Header extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     const { email } = this.props;
+
     return (
       <header>
         <p data-testid="email-field">{ email }</p>
@@ -24,7 +22,6 @@ const mapStateToProps = (state) => ({
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
-  expenses: PropTypes.arrayOf().isRequired,
 };
 
 export default connect(mapStateToProps)(Header);
