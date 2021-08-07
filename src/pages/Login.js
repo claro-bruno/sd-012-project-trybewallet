@@ -1,9 +1,12 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getMail } from '../actions';
+import PropTypes from 'prop-types';
 
 class Login extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       email: '',
       senha: '',
@@ -42,16 +45,18 @@ class Login extends React.Component {
   }
 
   handleSubmit() {
+    const { handleGetMail } = this.props;
+    const { email } = this.state;
+    handleGetMail(email);
     this.setState({ redirectSubmit: true });
   }
 
   render() {
     const { formValidation, redirectSubmit } = this.state;
-    if (redirectSubmit) {
-      return <Redirect to="/carteira" />;
-    }
+
     return (
       <section>
+        { redirectSubmit && <Redirect to="/carteira" /> }
         <form>
           <input
             name="email"
@@ -80,4 +85,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  handleGetMail: (email) => dispatch(getMail(email)),
+});
+
+Login.propTypes = {
+  handleGetMail: PropTypes.string.isRequired,
+}.isRequired;
+
+export default connect(null, mapDispatchToProps)(Login);
