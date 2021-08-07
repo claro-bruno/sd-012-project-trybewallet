@@ -1,6 +1,7 @@
 export const END_POINT = 'https://economia.awesomeapi.com.br/json/all';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
 
 export const addExpense = (expense, exchangeRates) => ({
   type: ADD_EXPENSE,

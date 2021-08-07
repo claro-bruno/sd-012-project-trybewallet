@@ -11,7 +11,7 @@ class TableWallet extends React.Component {
 
   handleClick({ target: { id, value } }) {
     if (value === 'editar') {
-      console.log('entrou em editar');
+      console.log('implementar edição (requisito bônus');
     } else {
       const { delExpense } = this.props;
       delExpense(+id);
@@ -42,19 +42,6 @@ class TableWallet extends React.Component {
       </div>
     );
   }
-
-  // renderDeleteButton(id) {
-  //   return (
-  //     <button
-  //       type="button"
-  //       onClick={ this.handleClick }
-  //       id={ id }
-  //       data-testid="delete-btn"
-  //     >
-  //       Deletar
-  //     </button>
-  //   );
-  // }
 
   render() {
     const { getExpensesInfos } = this.props;
