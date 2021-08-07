@@ -3,38 +3,16 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import WalletHeader from '../components/WalletHeader';
 import WalletForm from '../components/WalletForm';
-import { getCurrencies } from '../services';
+import { actionAPI } from '../actions';
 
 class Wallet extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      currencies: [],
-    };
-  }
-
   componentDidMount() {
-    this.fetchCurrencies();
-  }
-
-  async fetchCurrencies() {
-    const response = await getCurrencies();
-    const results = Object.keys(response);
-    const currenciesArr = results
-      .filter((e) => e !== 'USDT')
-      .map((result) => ({
-        option: result,
-        value: result,
-      }));
-    this.setState({
-      currencies: currenciesArr,
-    });
+    const { fetchCurrencies } = this.props;
+    fetchCurrencies();
   }
 
   render() {
-    const { email, expenses } = this.props;
-    const { currencies } = this.state;
+    const { email, expenses, currencies } = this.props;
 
     const headerProps = {
       email,
@@ -60,9 +38,9 @@ const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
 });
 
-// const mapDispatchToProps = (dispatch) => ({
-//   getCurrencies: () => dispatch(fetchCurrencies()),
-// });
+const mapDispatchToProps = (dispatch) => ({
+  fetchCurrencies: () => dispatch(actionAPI()),
+});
 
 Wallet.propTypes = {
   email: PropTypes.string,
@@ -70,4 +48,4 @@ Wallet.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string),
 }.isRequired;
 
-export default connect(mapStateToProps, null)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

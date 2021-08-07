@@ -3,16 +3,17 @@ import PropTypes from 'prop-types';
 
 class UserInputs extends React.Component {
   render() {
-    const { id, name, innerHtml, type, onChange } = this.props;
+    const { id, name, type, onChange } = this.props;
 
     return (
       <label htmlFor={ id }>
-        {innerHtml}
+        {name}
         <input
           data-testid={ id }
           type={ type }
           name={ name }
           onChange={ onChange }
+          id={ id }
         />
       </label>
     );

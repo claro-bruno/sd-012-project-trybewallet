@@ -1,61 +1,42 @@
 export const selectCurrencyProps = {
-  name: 'currency',
-  innerHtml: 'Moeda',
+  name: 'Moeda',
+  id: 'currency',
 };
 
 export const selectPaymentProps = {
-  name: 'payment',
-  innerHtml: 'Método de Pagamento',
+  name: 'Método de Pagamento',
   options: [
-    {
-      option: 'Dinheiro',
-      value: 'cash',
-    },
-    {
-      option: 'Cartão de Crédito',
-      value: 'credit',
-    },
-    {
-      option: 'Cartão de Débito',
-      value: 'debit',
-    }],
+    'Dinheiro',
+    'Cartão de crédito',
+    'Cartão de débito',
+  ],
+  id: 'payment',
 };
 
 export const selectTagProps = {
-  name: 'tag',
-  innerHtml: 'Tag',
+  name: 'Tag',
   options: [
-    {
-      option: 'Alimentação',
-      value: 'food',
-    },
-    {
-      option: 'Lazer',
-      value: 'recreation',
-    },
-    {
-      option: 'Trabalho',
-      value: 'work',
-    },
-    {
-      option: 'Transporte',
-      value: 'transport',
-    },
-    {
-      option: 'Saúde',
-      value: 'health',
-    },
+    'Alimentação',
+    'Lazer',
+    'Trabalho',
+    'Transporte',
+    'Saúde',
   ],
+  id: 'tag',
 };
 
 export const amountSpentProps = {
-  name: 'amountSpent',
-  innerHtml: 'Valor',
+  name: 'Valor',
   type: 'number',
+  id: 'amountSpent',
 };
 
 export const descriptionProps = {
-  name: 'description',
-  innerHtml: 'Descrição',
+  name: 'Descrição',
   type: 'text',
+  id: 'description',
+};
+
+export const addExpenseProps = {
+  value: 'Adicionar despesa',
 };

@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 
 class GenericSelect extends React.Component {
   render() {
-    const { name, innerHtml, options, onChange } = this.props;
+    const { id, name, options, onChange } = this.props;
     return (
-      <label htmlFor={ innerHtml }>
-        {innerHtml}
-        <select id={ innerHtml } name={ name } onChange={ onChange }>
-          {options.map(({ option, value }) => (
-            <option key={ value } value={ value }>{option}</option>
+      <label htmlFor={ id }>
+        {name}
+        <select id={ id } name={ name } onChange={ onChange }>
+          {options.map((option) => (
+            <option key={ option } value={ option }>{ option }</option>
           ))}
         </select>
       </label>
