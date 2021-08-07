@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 class TagSelect extends React.Component {
   render() {
     const { onChange, value } = this.props;
+    const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     return (
       <div>
         <label htmlFor="tag">
@@ -14,11 +15,13 @@ class TagSelect extends React.Component {
             value={ value }
             onChange={ onChange }
           >
-            <option>Alimentação</option>
-            <option>Lazer</option>
-            <option>Trabalho</option>
-            <option>Transporte</option>
-            <option>Saúde</option>
+            { tags.map((tag) => (
+              <option
+                key={ tag }
+              >
+                {tag}
+              </option>
+            ))}
           </select>
         </label>
       </div>

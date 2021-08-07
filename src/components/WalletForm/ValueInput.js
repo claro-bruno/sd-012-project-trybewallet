@@ -9,7 +9,7 @@ class ValueInput extends React.Component {
         <label htmlFor="value">
           Valor
           <input
-            type="text"
+            type="number"
             id="value"
             name="value"
             value={ value }
