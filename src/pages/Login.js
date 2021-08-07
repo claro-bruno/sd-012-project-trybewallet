@@ -10,7 +10,8 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      verification: false,
+      disabled: true,
+      loginVerified: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -30,10 +31,11 @@ class Login extends React.Component {
       ...state,
       email: '',
       password: '',
-    }, () => this.loginVerification()));
+    }
+    ));
   }
 
-  // Requisito 2 - para validar o email usei source: https://ui.dev/validate-email-address-javascript/
+  // Requisito 2 - para validar o email usei regex da source: https://ui.dev/validate-email-address-javascript/
   loginVerification() {
     const { email, password } = this.state;
     const MIN_LENGTH_PASSWORD = 6;
@@ -41,16 +43,17 @@ class Login extends React.Component {
     if (emailVerification.test(email)
       && password.length >= MIN_LENGTH_PASSWORD) {
       this.setState({
-        verification: true,
+        disabled: true,
+        loginVerified: true,
       });
     }
     this.setState({
-      verification: false,
+      disabled: false,
     });
   }
 
   render() {
-    const { email, password, verification } = this.state;
+    const { email, password, disabled, loginVerified } = this.state;
     return (
       <>
         Login
@@ -73,12 +76,12 @@ class Login extends React.Component {
           />
           <button
             type="submit"
-            onClick={ this.handleClick }
-            disable={ verification }
+            onClick={ this.loginVerification }
+            disabled={ disabled }
           >
             Entrar
           </button>
-          { verification ? <Redirect to="/wallet" /> : ''}
+          { loginVerified ? <Redirect to="/carteira" /> : ''}
 
         </form>
       </>
