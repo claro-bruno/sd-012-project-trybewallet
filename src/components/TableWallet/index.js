@@ -6,44 +6,55 @@ import { deleteExpense } from '../../actions';
 class TableWallet extends React.Component {
   constructor(props) {
     super(props);
-    this.handleEditClick = this.handleEditClick.bind(this);
-    this.handleDeleteClick = this.handleDeleteClick.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  handleDeleteClick({ target: { id } }) {
-    const { delExpense } = this.props;
-    delExpense(+id);
+  handleClick({ target: { id, value } }) {
+    if (value === 'editar') {
+      console.log('entrou em editar');
+    } else {
+      const { delExpense } = this.props;
+      delExpense(+id);
+    }
   }
 
-  handleEditClick() {
-    console.log('clicou');
-  }
-
-  renderEditButton(id) {
+  renderButtons(id) {
     return (
-      <button
-        type="button"
-        onClick={ this.handleEditClick }
-        id={ id }
-        data-testid="edit-btn"
-      >
-        Editar despesa
-      </button>
+      <div>
+        <button
+          type="button"
+          onClick={ this.handleClick }
+          id={ id }
+          data-testid="edit-btn"
+          value="editar"
+        >
+          Editar
+        </button>
+
+        <button
+          type="button"
+          onClick={ this.handleClick }
+          id={ id }
+          data-testid="delete-btn"
+        >
+          Deletar
+        </button>
+      </div>
     );
   }
 
-  renderDeleteButton(id) {
-    return (
-      <button
-        type="button"
-        onClick={ this.handleDeleteClick }
-        id={ id }
-        data-testid="delete-btn"
-      >
-        Deletar
-      </button>
-    );
-  }
+  // renderDeleteButton(id) {
+  //   return (
+  //     <button
+  //       type="button"
+  //       onClick={ this.handleClick }
+  //       id={ id }
+  //       data-testid="delete-btn"
+  //     >
+  //       Deletar
+  //     </button>
+  //   );
+  // }
 
   render() {
     const { getExpensesInfos } = this.props;
@@ -69,7 +80,7 @@ class TableWallet extends React.Component {
 
             const tableData = [description, tag, method, value, currencyName,
               currencyValue.toFixed(2), convertedValue.toFixed(2), 'Real',
-              this.renderEditButton(id), this.renderDeleteButton(id)];
+              this.renderButtons(id)];
             return (
               <tr key={ id }>
                 {tableData.map((data, index) => <td key={ index }>{ data }</td>) }
