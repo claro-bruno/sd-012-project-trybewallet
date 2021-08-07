@@ -13,9 +13,9 @@ class OutGoing extends Component {
       tag: 'alimentacao',
     };
     this.handleChange = this.handleChange.bind(this);
-    this.inputValue = this.inputValue.bind(this);
-    this.inputDescricao = this.inputDescricao.bind(this);
     this.handleCurrencies = this.handleCurrencies.bind(this);
+    this.inputDescricao = this.inputDescricao.bind(this);
+    this.inputValue = this.inputValue.bind(this);
   }
 
   handleChange({ target }) {
@@ -64,7 +64,7 @@ class OutGoing extends Component {
 
   handleCurrencies() {
     const { currencies } = this.props;
-    const listaMoedas = [...Object.keys(currencies).filter((moeda) => moeda !== 'USDT')];
+    const listaMoedas = currencies;
     return listaMoedas
       .map((moeda) => (
         <option
@@ -77,7 +77,8 @@ class OutGoing extends Component {
 
   render() {
     const { tag, pagamento, moedas } = this.state;
-
+    const { currencies } = this.props;
+    console.log(currencies);
     return (
       <form onSubmit={ (e) => this.handleOnSubmit(e) }>
         {this.inputValue(this.handleChange)}
@@ -125,7 +126,7 @@ class OutGoing extends Component {
 }
 
 OutGoing.propTypes = {
-  currencies: PropTypes.objectOf(PropTypes.object).isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 const mapStateToProps = (state) => ({

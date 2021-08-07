@@ -12,7 +12,10 @@ const WalletReducer = (state = initialState, action) => {
   case FETCH_API:
     return { ...state, isLoading: true };
   case FETCH_API_SUCCESS:
-    return { error: null, currencies: action.payload, isLoading: false };
+    return {
+      error: null,
+      currencies: [...Object.keys(action.payload).filter((moeda) => moeda !== 'USDT')],
+      isLoading: false };
   case FETCH_API_ERROR:
     return { error: action.error, isLoading: false };
   default:
@@ -21,3 +24,4 @@ const WalletReducer = (state = initialState, action) => {
 };
 
 export default WalletReducer;
+// ...Object.keys(currencies).filter((moeda) => moeda !== 'USDT')

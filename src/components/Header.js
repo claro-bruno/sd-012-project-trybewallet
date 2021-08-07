@@ -1,39 +1,32 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class Header extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      email: '',
       total: 0,
     };
-    this.handleEmail = this.handleEmail.bind(this);
-  }
-
-  componentDidMount() {
-    this.handleEmail();
-  }
-
-  handleEmail() {
-    const email = localStorage.getItem('email');
-    this.setState({ email });
   }
 
   render() {
-    const { email, total } = this.state;
+    const { total } = this.state;
+    const { userEmail } = this.props;
 
     return (
       <div>
         <label htmlFor="email-field">
           Email:
-          <input
+          <span
             type="text"
             id="email-field"
             data-testid="email-field"
             readOnly
-            value={ email }
-          />
+          >
+            { userEmail }
+          </span>
         </label>
         <label htmlFor="total">
           Total:
@@ -59,5 +52,12 @@ class Header extends Component {
     );
   }
 }
+Header.propTypes = {
+  userEmail: PropTypes.string.isRequired,
+};
 
-export default Header;
+const mapStateToProps = (state) => ({
+  userEmail: state.user.email,
+});
+
+export default connect(mapStateToProps)(Header);
