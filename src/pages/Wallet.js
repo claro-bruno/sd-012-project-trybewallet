@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import Form from '../components/Form';
-import { userWallet } from '../actions';
+import Table from '../components/Table';
+import { userLogin } from '../actions';
 
 class Wallet extends React.Component {
   render() {
@@ -10,13 +11,14 @@ class Wallet extends React.Component {
       <div>
         <Header />
         <Form />
+        <Table />
       </div>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  wallet: (payload) => dispatch(userWallet(payload)),
+  wallet: (payload) => dispatch(userLogin(payload)),
 });
 
 export default connect(null, mapDispatchToProps)(Wallet);
