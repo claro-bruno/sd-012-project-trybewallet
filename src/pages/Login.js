@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import '../styles/login.css';
 import PropTypes from 'prop-types';
 import paturso from '../images/Paturso.png';
-import userSubmit from '../actions';
+import { userSubmit } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -21,15 +21,15 @@ class Login extends React.Component {
   }
 
   componentDidUpdate() {
-    // fonte https://ui.dev/validate-email-address-javascript/
-    const lenNumber = 6;
-    const { email, password, login } = this.state;
-    const emailRegex = new RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(email);
-    const passwordRegex = password.length >= lenNumber;
-    this.handleUpdate(login, emailRegex, passwordRegex);
+    this.handleUpdate();
   }
 
-  handleUpdate(login, emailRegex, passwordRegex) {
+  handleUpdate() {
+    const lenNumber = 6;
+    const { email, password, login } = this.state;
+    const emailRegex = new RegExp(/[\w]+@[\w]+\.[\w]{3,}/g).test(email);
+    const passwordRegex = password.length >= lenNumber;
+
     if (login) {
       return (emailRegex && passwordRegex) ? this.setState({ login: false }) : login;
     }
@@ -45,7 +45,9 @@ class Login extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const { EnviaEmail } = this.props;
+    const { email } = this.state;
     EnviaEmail(this.state);
+    localStorage.setItem('email', email);
     this.setState({ redirect: true });
   }
 

@@ -1,19 +1,28 @@
 import React, { Component } from 'react';
 
-
 class Header extends Component {
   constructor(props) {
     super(props);
-    const { userEmail } = this.props;
+
     this.state = {
-      email: userEmail,
+      email: '',
       total: 0,
-      cambio: '',
     };
+    this.handleEmail = this.handleEmail.bind(this);
+  }
+
+  componentDidMount() {
+    this.handleEmail();
+  }
+
+  handleEmail() {
+    const email = localStorage.getItem('email');
+    this.setState({ email });
   }
 
   render() {
-    const { email, total, cambio } = this.state;
+    const { email, total } = this.state;
+
     return (
       <div>
         <label htmlFor="email-field">
@@ -42,7 +51,7 @@ class Header extends Component {
             type="text"
             id="exchange"
             data-testid="header-currency-field"
-            value={ cambio }
+            value="BRL"
             readOnly
           />
         </label>

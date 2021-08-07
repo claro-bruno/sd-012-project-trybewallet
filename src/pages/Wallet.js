@@ -1,8 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import OutGoing from '../components/OutGoing';
-import { connect } from 'react-redux';
 import { walletSubmit } from '../actions';
+import Loading from '../components/Loading';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -11,31 +13,32 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { userEmail, currencies } = this.props;
+    const { loading } = this.props;
+
+    if (loading === true) {
+      return <Loading />;
+    }
+
     return (
       <div className="WalletBody">
-        <Header
-          userEmail={ userEmail } 
-        />
-        <OutGoing
-          currencies={ currencies }
-        />
+        <Header />
+        <OutGoing />
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    userEmail: state.user.email,
-    currencies: state.wallet.currencies
-  }
-}
+Wallet.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  fetchApi: PropTypes.func.isRequired,
+};
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchApi: () => dispatch(walletSubmit())
-  }
-}
+const mapStateToProps = (state) => ({
+  loading: state.wallet.isLoading,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchApi: () => dispatch(walletSubmit()),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
