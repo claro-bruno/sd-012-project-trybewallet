@@ -24,4 +24,3 @@ const WalletReducer = (state = initialState, action) => {
 };
 
 export default WalletReducer;
-// ...Object.keys(currencies).filter((moeda) => moeda !== 'USDT')

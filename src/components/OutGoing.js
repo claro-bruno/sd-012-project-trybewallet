@@ -77,8 +77,6 @@ class OutGoing extends Component {
 
   render() {
     const { tag, pagamento, moedas } = this.state;
-    const { currencies } = this.props;
-    console.log(currencies);
     return (
       <form onSubmit={ (e) => this.handleOnSubmit(e) }>
         {this.inputValue(this.handleChange)}
@@ -86,6 +84,7 @@ class OutGoing extends Component {
         <label htmlFor="moeda">
           Moeda:
           <select
+            id="moeda"
             name="moeda"
             value="DOL"
             onChange={ ({ target }) => this.handleChange([moedas], target.value) }
@@ -96,6 +95,7 @@ class OutGoing extends Component {
         <label htmlFor="value">
           método de pagamento:
           <select
+            id="value"
             name="value"
             value={ pagamento }
             onChange={ ({ target }) => this.handleChange(target.name, target.value) }
@@ -108,6 +108,7 @@ class OutGoing extends Component {
         <label htmlFor="tag">
           tag:
           <select
+            id="tag"
             name="tag"
             value={ tag }
             onChange={ ({ target }) => this.handleChange(target.name, target.value) }
