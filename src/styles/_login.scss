@@ -49,22 +49,15 @@
 .logo-div {
   background-color: white;
   border-right: 4px solid $trybe-light-green;
-  color: $trybe-grey;
-
+  
   @include sizer(100vh, 50vw);
-
+  
   .trybe {
     width: 500px;
   }
-
+  
   .wallet {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 100px;
-  }
-
-  h1 {
+    color: $trybe-grey;
     left: 400px;
     margin: 0;
     position: absolute;

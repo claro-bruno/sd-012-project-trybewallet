@@ -10897,7 +10897,6 @@ a.text-dark:hover, a.text-dark:focus {
 .logo-div {
   background-color: white;
   border-right: 4px solid #2fc18c;
-  color: #404550;
   height: 100vh;
   width: 50vw;
 }
@@ -10907,13 +10906,7 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .logo-div .wallet {
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 100px;
-}
-
-.logo-div h1 {
+  color: #404550;
   left: 400px;
   margin: 0;
   position: absolute;
@@ -10921,6 +10914,87 @@ a.text-dark:hover, a.text-dark:focus {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
+}
+
+.page-header {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  height: 95px;
+  width: 98vw;
+  background-color: white;
+}
+
+.page-header div {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  -ms-flex-preferred-size: 1;
+      flex-basis: 1;
+  width: 100px;
+  text-align: right;
+}
+
+.page-header .logo {
+  position: relative;
+  left: -20px;
+  text-align: left;
+  top: -5px;
+}
+
+.page-header .trybe {
+  width: 200px;
+}
+
+.page-header .wallet {
+  font-size: 0.8em;
+  left: 120px;
+  color: #404550;
+  margin: 0;
+  position: relative;
+  top: -10px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.expense-form {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  height: auto;
+  width: 100vw;
+}
+
+.expense-form button {
+  width: 180px;
+}
+
+.add {
+  background-color: #2fc18c;
+}
+
+.edit {
+  background-color: #41197f;
+  color: #2fc18c;
 }
 
 @font-face {
@@ -10934,10 +11008,12 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 body, html, main {
-  font-family: Roboto, sans-serif;
+  font-family: Verdana, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
+  overflow-x: hidden;
+  color: #404550;
   height: 100vh;
   width: 100vw;
 }
@@ -10956,7 +11032,11 @@ label {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin: 3%;
+  margin: 0 10px 20px 10px;
   text-align: left;
+}
+
+body::-webkit-scrollbar {
+  position: absolute;
 }
 /*# sourceMappingURL=main.css.map */

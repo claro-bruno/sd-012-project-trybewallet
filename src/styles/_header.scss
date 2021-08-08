@@ -1,0 +1,33 @@
+.page-header {
+  @include flex(row, nowrap, space-around, center);
+  @include sizer(95px, 98vw);
+  background-color: white;
+
+  div {
+    flex-grow: 1;
+    flex-basis: 1;
+    width: 100px;
+    text-align: right;
+  }
+
+  .logo {
+    position: relative;
+    left: -20px;
+    text-align: left;
+    top: -5px;
+  }
+  .trybe {
+    width: 200px;
+  }
+
+  .wallet {
+    font-size: 0.8em;
+    left: 120px;
+    color: $trybe-grey;
+    margin: 0;
+    position: relative;
+    top: -10px;
+    width: fit-content;
+  }
+}
+

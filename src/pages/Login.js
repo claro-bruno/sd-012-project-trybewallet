@@ -47,13 +47,13 @@ class Login extends React.Component {
   render() {
     const { email, password, redirect } = this.state;
     const { canAuthenticate } = this.props;
-    if (redirect) return <Redirect to="/cateria" />;
+    if (redirect) return <Redirect to="/carteira" />;
     return (
       <div className="login">
         <div className="logo-div">
           <div className="logo">
             <img src={ trybe } alt="trybe logo" className="trybe" />
-            <h1>wallet</h1>
+            <h1 className="wallet">wallet</h1>
           </div>
         </div>
         <form className="forms-div">

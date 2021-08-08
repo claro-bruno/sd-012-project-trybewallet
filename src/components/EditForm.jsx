@@ -46,6 +46,7 @@ class EditForm extends Component {
             id="method-input"
             value={ method }
             data-testid="method-input"
+            className="form-control"
             onChange={ this.handleChange }
           >
             <option value="Dinheiro">Dinheiro</option>
@@ -61,6 +62,7 @@ class EditForm extends Component {
             data-testid="tag-input"
             value={ tag }
             onChange={ this.handleChange }
+            className="form-control"
           >
             <option value="" disabled> </option>
             <option value="Alimentação">Alimentação</option>
@@ -78,7 +80,7 @@ class EditForm extends Component {
     const { currencieNames } = this.props;
     const { value, description, currency } = this.state;
     return (
-      <form onSubmit={ this.handleSubmit }>
+      <form onSubmit={ this.handleSubmit } className="edit expense-form">
         <label htmlFor="value-input">
           Valor
           <input
@@ -88,6 +90,7 @@ class EditForm extends Component {
             id="value-input"
             value={ value }
             onChange={ this.handleChange }
+            className="form-control"
           />
         </label>
         <label htmlFor="desc-input">
@@ -99,6 +102,7 @@ class EditForm extends Component {
             data-testid="description-input"
             value={ description }
             onChange={ this.handleChange }
+            className="form-control"
           />
         </label>
         <label htmlFor="currency-input">
@@ -109,16 +113,16 @@ class EditForm extends Component {
             value={ currency }
             data-testid="currency-input"
             onChange={ this.handleChange }
+            className="form-control"
           >
-            {currencieNames && currencieNames
-              .filter((item) => item !== 'USDT')
+            {currencieNames && currencieNames.filter((item) => item !== 'USDT')
               .map((crcy, i) => (
                 <option key={ i }>{crcy}</option>
               ))}
           </select>
         </label>
         {this.renderSelects()}
-        <button type="submit">Editar despesa</button>
+        <button type="submit" className="btn btn-warning">Editar despesa</button>
       </form>
     );
   }

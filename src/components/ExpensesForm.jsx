@@ -51,6 +51,7 @@ class ExpensesForm extends React.Component {
             id="method-input"
             value={ method }
             onChange={ this.handleChange }
+            className="form-control"
           >
             <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de crédito">Cartão de crédito</option>
@@ -64,6 +65,7 @@ class ExpensesForm extends React.Component {
             id="tag-input"
             value={ tag }
             onChange={ this.handleChange }
+            className="form-control"
           >
             <option value="" disabled> </option>
             <option value="Alimentação">Alimentação</option>
@@ -81,7 +83,7 @@ class ExpensesForm extends React.Component {
     const { currencieNames } = this.props;
     const { value, description, currency } = this.state;
     return (
-      <form onSubmit={ this.handleSubmit }>
+      <form onSubmit={ this.handleSubmit } className="add expense-form">
         <label htmlFor="value-input">
           Valor
           <input
@@ -90,6 +92,7 @@ class ExpensesForm extends React.Component {
             id="value-input"
             value={ value }
             onChange={ this.handleChange }
+            className="form-control"
           />
         </label>
         <label htmlFor="desc-input">
@@ -100,6 +103,7 @@ class ExpensesForm extends React.Component {
             id="desc-input"
             value={ description }
             onChange={ this.handleChange }
+            className="form-control"
           />
         </label>
         <label htmlFor="currency-input">
@@ -109,6 +113,7 @@ class ExpensesForm extends React.Component {
             id="currency-input"
             value={ currency }
             onChange={ this.handleChange }
+            className="form-control"
           >
             {currencieNames && currencieNames
               .filter((item) => item !== 'USDT')
@@ -118,7 +123,7 @@ class ExpensesForm extends React.Component {
           </select>
         </label>
         {this.renderSelects()}
-        <button type="submit">Adicionar despesa</button>
+        <button type="submit" className="btn btn-primary">Adicionar despesa</button>
       </form>
     );
   }

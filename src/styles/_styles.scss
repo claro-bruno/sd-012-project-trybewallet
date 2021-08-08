@@ -8,6 +8,10 @@
 
 @import './login';
 
+@import './header';
+
+@import './expense-form';
+
 @font-face {
   font-family: Verdana;
   src: url('../fonts/Verdana/verdana.ttf');
@@ -18,17 +22,22 @@
 }
 
 body , html , main {
-  font-family: Roboto, sans-serif;
+  font-family: Verdana, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
-
+  overflow-x: hidden;
+  color: $trybe-grey;
   @include sizer(100vh, 100vw);
 }
 
 label {
 
   @include flex(column, wrap, center, flex-start);
-  margin: 3%;
+  margin: 0 10px 20px 10px;
   text-align: left;
+}
+
+body::-webkit-scrollbar {
+  position: absolute;
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import trybe from '../images/trybe-logo.png';
 
 class Header extends React.Component {
   constructor() {
@@ -20,10 +21,22 @@ class Header extends React.Component {
   render() {
     const { email, currency } = this.props;
     return (
-      <header id="page-header">
-        <h4 data-testid="email-field">{ email }</h4>
-        <p data-testid="total-field">{ this.sumTotal() }</p>
-        <p data-testid="header-currency-field">{ currency }</p>
+      <header className="page-header">
+        <div className="logo">
+          <img src={ trybe } alt="trybe logo" className="trybe" />
+          <h1 className="wallet">wallet</h1>
+        </div>
+        <div className="column">
+          <span>Total: R$ </span>
+          <span data-testid="total-field">{ this.sumTotal() }</span>
+        </div>
+        <div className="column">
+          <span>Moeda de conversão: </span>
+          <span data-testid="header-currency-field">{ currency }</span>
+        </div>
+        <div>
+          <h4 data-testid="email-field">{ email }</h4>
+        </div>
       </header>
     );
   }
