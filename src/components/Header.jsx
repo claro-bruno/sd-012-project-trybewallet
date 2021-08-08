@@ -1,11 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import trybe from '../images/trybe-logo.png';
 
 class Header extends React.Component {
   constructor() {
     super();
+    this.state = {
+      redirectHome: false,
+    };
     this.sumTotal = this.sumTotal.bind(this);
   }
 
@@ -26,6 +30,8 @@ class Header extends React.Component {
   }
 
   render() {
+    const { redirectHome } = this.state;
+    if (redirectHome) return <Redirect to="/" />;
     const { email, currency } = this.props;
     return (
       <header className="page-header">
@@ -41,8 +47,15 @@ class Header extends React.Component {
           <span>Moeda de conversão: </span>
           <span data-testid="header-currency-field">{ currency }</span>
         </div>
-        <div>
+        <div className="email-div">
           <h4 data-testid="email-field">{ email }</h4>
+          <button
+            type="button"
+            onClick={ () => this.setState({ redirectHome: true }) }
+            className="btn btn-danger"
+          >
+            <i className="fas fa-sign-out-alt" />
+          </button>
         </div>
       </header>
     );

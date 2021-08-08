@@ -9,6 +9,15 @@
     text-align: center;
   }
 
+  .email-div {
+    @include flex(row, nowrap, flex-end, center);
+    margin: 10px;
+
+    h4 {
+      margin: 0 10px;
+    }
+  }
+
   .logo {
     position: relative;
     left: -20px;
@@ -29,4 +38,3 @@
     width: fit-content;
   }
 }
-
