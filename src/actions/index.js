@@ -1,2 +1,5 @@
-export const emailAction = (value) => ({ type: 'EMAIL', value });
-export const Action = (value) => ({ type: 'action', value });
+export const ADD_EMAIL = 'ADD_EMAIL';
+
+export const saveLogin = (value) => ({
+  type: ADD_EMAIL, payload: value,
+});

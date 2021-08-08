@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { func } from 'prop-types';
 
-import { emailAction } from '../actions';
+import { saveLogin } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -13,9 +14,16 @@ class Login extends React.Component {
       password: '',
     };
 
+    this.saveLogin = this.saveLogin.bind(this);
     this.validateEmail = this.validateEmail.bind(this);
     this.validatePassword = this.validatePassword.bind(this);
     this.validateSubmit = this.validateSubmit.bind(this);
+  }
+
+  saveLogin() {
+    const { changeEmail } = this.props;
+    const { email } = this.state;
+    changeEmail(email);
   }
 
   validateEmail({ target: { value } }) {
@@ -59,15 +67,25 @@ class Login extends React.Component {
           onChange={ (pass) => this.validatePassword(pass) }
         />
         <Link to="/carteira">
-          <button type="button" disabled={ this.validateSubmit() } >ENTRAR</button>
+          <button
+            type="button"
+            disabled={ this.validateSubmit() }
+            onClick={ () => this.saveLogin() }
+          >
+            ENTRAR
+          </button>
         </Link>
       </div>
     );
   }
 }
 
+Login.propTypes = {
+  changeEmail: func.isRequired,
+};
+
 const mapDispatchToProps = (dispatch) => ({
-  emailValue: (value) => dispatch(emailAction(value)),
+  changeEmail: (payload) => dispatch(saveLogin(payload)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
