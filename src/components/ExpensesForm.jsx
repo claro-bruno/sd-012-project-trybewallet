@@ -123,7 +123,7 @@ class ExpensesForm extends React.Component {
           </select>
         </label>
         {this.renderSelects()}
-        <button type="submit" className="btn btn-primary">Adicionar despesa</button>
+        <button type="submit" className="btn btn-success">Adicionar despesa</button>
       </form>
     );
   }

@@ -15,7 +15,14 @@ class Header extends React.Component {
     expenses.forEach(({ value, currency, exchangeRates }) => {
       soma += exchangeRates[currency].ask * value;
     });
-    return soma.toFixed(2);
+
+    const formatter = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    });
+
+    return formatter.format(soma);
+    // return soma.toFixed(2);
   }
 
   render() {
@@ -27,7 +34,7 @@ class Header extends React.Component {
           <h1 className="wallet">wallet</h1>
         </div>
         <div className="column">
-          <span>Total: R$ </span>
+          <span>Total: </span>
           <span data-testid="total-field">{ this.sumTotal() }</span>
         </div>
         <div className="column">

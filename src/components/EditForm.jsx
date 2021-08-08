@@ -134,7 +134,7 @@ EditForm.defaultProps = {
 
 EditForm.propTypes = {
   selectedExpense: PropTypes.shape({
-    value: PropTypes.string,
+    value: PropTypes.number,
     description: PropTypes.string,
     method: PropTypes.string,
     currency: PropTypes.string,

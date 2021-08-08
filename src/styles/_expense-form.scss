@@ -1,17 +1,19 @@
 .expense-form {
   @include flex(row, wrap, space-around, center);
   @include sizer(auto, 100vw);
-  
+  padding-top: 10px;
+  box-shadow: inset 0 5px 3px white;
+
   button {
     width: 180px;
   }
 }
 
 .add {
-  background-color: $trybe-light-green;
+  background-color: $trybe-purple;
+  color: $trybe-light-green;
 }
 
 .edit {
-  background-color: $trybe-purple;
-  color: $trybe-light-green;
+  background-color: $trybe-light-green;
 }

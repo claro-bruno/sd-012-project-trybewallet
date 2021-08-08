@@ -1,0 +1,30 @@
+.wallet-table {
+  @include sizer(auto, 100vw);
+  background-color: $trybe-purple;
+  color: $trybe-light-green;
+}
+
+table {
+  @include flex(row, wrap, center, center);
+  border-collapse: collapse;
+
+  tr {
+    @include flex(row, nowrap, space-around, center);
+    @include sizer(auto, 100vw);
+    text-align: center;
+    border: 1px solid $trybe-green;
+
+    th,
+    td {
+      width: 100%;
+      @include flex(row, nowrap, space-around, center);
+    }
+  }
+
+  .table-buttons {
+    @include flex(row, nowrap, center, center);
+    button {
+      margin: 2px;
+    }
+  }
+}

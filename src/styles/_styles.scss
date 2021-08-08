@@ -12,6 +12,8 @@
 
 @import './expense-form';
 
+@import './wallet-table';
+
 @font-face {
   font-family: Verdana;
   src: url('../fonts/Verdana/verdana.ttf');
@@ -29,6 +31,7 @@ body , html , main {
   overflow-x: hidden;
   color: $trybe-grey;
   @include sizer(100vh, 100vw);
+  background-color: $trybe-purple;
 }
 
 label {

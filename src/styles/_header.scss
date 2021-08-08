@@ -1,20 +1,19 @@
 .page-header {
   @include flex(row, nowrap, space-around, center);
-  @include sizer(95px, 98vw);
+  @include sizer(80px, 100vw);
   background-color: white;
 
   div {
     flex-grow: 1;
-    flex-basis: 1;
     width: 100px;
-    text-align: right;
+    text-align: center;
   }
 
   .logo {
     position: relative;
     left: -20px;
     text-align: left;
-    top: -5px;
+    top: 0;
   }
   .trybe {
     width: 200px;
