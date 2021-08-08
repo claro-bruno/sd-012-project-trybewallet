@@ -8,12 +8,17 @@ class Currencies extends Component {
     const currenciesFiltered = Object.keys(moedas)
       .filter((currency) => currency !== 'USDT');
     return (
-      <div>
-        {currenciesFiltered.map((itens, index) => (
-          <option key={ index }>
-            { itens }
-          </option>))}
-      </div>
+      <>
+        {currenciesFiltered.map((itens, index) => {
+          if (itens !== 'USDT') {
+            return (
+              <option key={ index }>
+                { itens }
+              </option>);
+          }
+          return null;
+        })}
+      </>
     );
   }
 }

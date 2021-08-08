@@ -40,7 +40,7 @@ const mapDispatchToProps = (dispatch) => ({
   voltaMoedas: () => dispatch(usandoAfetch()),
 });
 const mapStateToProps = (state) => ({
-  mymail: state.user.email,
+  myEmail: state.user.email,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
