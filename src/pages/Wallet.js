@@ -6,9 +6,39 @@ class Wallet extends React.Component {
   constructor() {
     super();
 
+    this.state = {
+      coins: [],
+    };
+
     this.renderHeader = this.renderHeader.bind(this);
     this.renderExpenseForm = this.renderExpenseForm.bind(this);
     this.renderExpenseTable = this.renderExpenseTable.bind(this);
+    this.fetchCoinsOptions = this.fetchCoinsOptions.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchCoinsOptions();
+  }
+
+  async fetchCoinsOptions() {
+    // const { coins } = this.state;
+    const request = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const data = await request.json();
+    const arrayCoins = Object.keys(data);
+    // const coins = arrayCoins;
+    // console.log(coins);
+    // const USDT = 'USDT';
+    // arrayCoins.find((element) => element !== USDT);
+    // console.log(arrayCoins);
+    this.setState({
+      coins: arrayCoins,
+    });
+
+    // console.log(coins);
+    // return (arrayCoins);
+    // this.setState({
+    //   coins: [...data.]
+    // })
   }
 
   renderHeader() {
@@ -17,7 +47,7 @@ class Wallet extends React.Component {
       <div>
         <p data-testid="email-field">
           {`Email: ${email}`}
-          { console.log(email) }
+          {/* { console.log(email) } */}
         </p>
         <p data-testid="total-field">0</p>
         <p data-testid="header-currency-field">BRL</p>
@@ -27,22 +57,30 @@ class Wallet extends React.Component {
   }
 
   renderExpenseForm() {
+    const { coins } = this.state;
     return (
       <form>
         <label htmlFor="valor-input">
           Valor:
           <input id="valor-input" type="text" name="valor" />
         </label>
-
         <label htmlFor="description-input">
           Descrição:
           <input id="description-input" type="text" name="description" />
         </label>
-
         <label htmlFor="coin-select">
           Moeda
           <select id="coin-select">
-            {/* <option></option> */}
+            {
+              coins.map((coin) => {
+                if (coin === 'USDT') return '';
+                return (
+                  <option key={ coin }>
+                    { coin }
+                  </option>
+                );
+              })
+            }
           </select>
         </label>
 
@@ -54,7 +92,6 @@ class Wallet extends React.Component {
             <option>Cartão de débito</option>
           </select>
         </label>
-
         <label htmlFor="tag-select">
           Tag
           <select id="tag-select">
@@ -65,7 +102,6 @@ class Wallet extends React.Component {
             <option>Saúde</option>
           </select>
         </label>
-
         <button type="submit">Adicionar despesa</button>
       </form>
     );
