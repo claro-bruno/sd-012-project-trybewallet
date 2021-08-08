@@ -1,10 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import Currencies from './Currencies';
 
 class Form extends React.Component {
   render() {
-    const { moedas } = this.props;
-    const moedasFiltradas = moedas.filter((moeda) => moeda !== 'USDT');
     return (
       <form>
         <label htmlFor="Valor">
@@ -18,11 +16,7 @@ class Form extends React.Component {
         <label htmlFor="Moeda">
           Moeda
           <select id="Moeda">
-            {moedasFiltradas
-              .map((moeda, index) => (
-                <option key={ index }>
-                  {moeda}
-                </option>))}
+            <Currencies />
           </select>
         </label>
         <label htmlFor="Método de pagamento">
@@ -48,9 +42,5 @@ class Form extends React.Component {
     );
   }
 }
-
-Form.propTypes = {
-  moedas: PropTypes.arrayOf(PropTypes.string).isRequired,
-};
 
 export default Form;

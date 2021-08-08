@@ -11,7 +11,7 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { myEmail, moedas } = this.props;
+    const { myEmail } = this.props;
     return (
       <main>
         <header>
@@ -25,7 +25,7 @@ class Wallet extends React.Component {
             BRL:
           </p>
         </header>
-        <Form moedas={ moedas } />
+        <Form />
       </main>
     );
   }
@@ -33,17 +33,14 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   myEmail: PropTypes.string.isRequired,
-  moedas: PropTypes.arrayOf(PropTypes.string).isRequired,
   voltaMoedas: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   voltaMoedas: () => dispatch(usandoAfetch()),
 });
-
 const mapStateToProps = (state) => ({
-  myEmail: state.user.email,
-  moedas: state.wallet.moedas,
+  mymail: state.user.email,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
