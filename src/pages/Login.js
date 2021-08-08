@@ -5,20 +5,6 @@ import PropTypes from 'prop-types';
 import { emailAction } from '../actions';
 
 class Login extends React.Component {
-  constructor() {
-    super();
-
-    this.handleChange = this.handleChange.bind(this);
-    this.validateEmail = this.validateEmail.bind(this);
-    this.validatePassword = this.validatePassword.bind(this);
-    this.validateEntry = this.validateEntry.bind(this);
-
-    this.state = {
-      password: false,
-      email: false,
-    };
-  }
-
   componentDidUpdate() {
     this.activeButton();
     this.makeProps();
@@ -102,15 +88,12 @@ class Login extends React.Component {
           onChange={ (enteredPassword) => this.validateEntry(enteredPassword) }
         />
 
-        <button disabled type="button">
-          <Link to="/carteira">ENTRAR</Link>
-        </button>
-        { /* { email && password
-          ? (
-            <button type="button">
-              <Link to="/carteira">ENTRAR</Link>
-            </button>)
-          : <button type="button" disabled>ENTRAR</button> } */ }
+        <Link to="/carteira">
+          <button disabled type="button">
+            ENTRAR
+          </button>
+        </Link>
+
       </div>);
   }
 }
