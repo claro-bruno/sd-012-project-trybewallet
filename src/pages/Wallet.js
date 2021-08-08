@@ -91,11 +91,6 @@ class Wallet extends React.Component {
             { tags.map((tag) => (
               <option key={ tag }>{tag}</option>
             ))}
-            {/* <option>Alimentação</option>
-            <option>Lazer</option>
-            <option>Trabalho</option>
-            <option>Transporte</option>
-            <option>Saúde</option> */}
           </select>
         </label>
       </form>
