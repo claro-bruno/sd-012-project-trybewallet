@@ -7,6 +7,7 @@ class Wallet extends React.Component {
     super();
 
     this.renderHeader = this.renderHeader.bind(this);
+    this.renderExpenseForm = this.renderExpenseForm.bind(this);
   }
 
   renderHeader() {
@@ -24,6 +25,49 @@ class Wallet extends React.Component {
     );
   }
 
+  renderExpenseForm() {
+    return (
+      <form>
+        <label htmlFor="valor-input">
+          Valor:
+          <input id="valor-input" type="text" name="valor" />
+        </label>
+
+        <label htmlFor="description-input">
+          Descrição:
+          <input id="description-input" type="text" name="description" />
+        </label>
+
+        <label htmlFor="coin-select">
+          Moeda
+          <select id="coin-select">
+            {/* <option></option> */}
+          </select>
+        </label>
+
+        <label htmlFor="payment-method-select">
+          Método de pagamento
+          <select id="payment-method-select">
+            <option>Dinheiro</option>
+            <option>Cartão de crédito</option>
+            <option>Cartão de débito</option>
+          </select>
+        </label>
+
+        <label htmlFor="tag-select">
+          Tag
+          <select id="tag-select">
+            <option>Alimentação</option>
+            <option>Lazer</option>
+            <option>Trabalho</option>
+            <option>Transporte</option>
+            <option>Saúde</option>
+          </select>
+        </label>
+      </form>
+    );
+  }
+
   render() {
     return (
       <div>
@@ -31,6 +75,9 @@ class Wallet extends React.Component {
           <h3>Trybe Wallet</h3>
           { this.renderHeader() }
         </header>
+        <section>
+          { this.renderExpenseForm() }
+        </section>
 
       </div>
     );
