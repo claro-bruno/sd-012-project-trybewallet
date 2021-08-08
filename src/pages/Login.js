@@ -34,6 +34,7 @@ class Login extends React.Component {
   emailState() {
     const { email } = this.state;
     const Regex = /^[a-z0-9_.-]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/;
+    // regex criada por Rodrigo Merlone e disponibilizada no slack da turma
     return Regex.test(email);
   }
 
