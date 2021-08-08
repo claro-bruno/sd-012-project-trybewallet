@@ -1,36 +1,35 @@
-.forms-div {
+.login {
   @include flex(row, wrap, center, center);
 
+  @include sizer(100%, 100%);
+  background-color: $trybe-purple;
+}
+
+.forms-div {
+  @include flex(row, wrap, center, center);
   margin: auto;
-  
+
+  h2 {
+    border-bottom: 1px solid $trybe-light-green;
+    color: $trybe-light-green;
+    width: 100%;
+  }
+
   a {
     @include flex(column, wrap, center, center);
     margin: 3%;
     text-decoration: none;
-    
-    button {
-      @include sizer(50px, auto);
-      background-color: $trybe-light-green;
-      border: none;
-      border-radius: 2px;
+
+    .btn-success {
       color: white;
-      cursor: pointer;
       font-weight: 600;
-      transition: 0.5s;
-      
+
       &:disabled {
-        background-color: lightgray;
-        color: black;
         cursor: not-allowed;
-        transition: 0.5s;
+        font-weight: 600;
       }
     }
   }
-}
-
-.login {
-  @include flex(row, wrap, center, center);
-  @include sizer(100%, 100%);
 }
 
 .logo-div,
@@ -38,25 +37,33 @@
   @include flex(column, wrap, center, center);
 }
 
-.forms-div {
-  input {
-    background-color: transparent;
-    border: 2px solid rgba(0, 0, 0, 0);
-    border-bottom: 2px solid $trybe-purple;
-    transition: 0.5s;
-
-    @include sizer(40px, 500px);
-
-    &:focus {
-      border: 2px solid $trybe-light-green;
-      outline: none;
-      transition: 0.5s;
-    }
-  }
+.form-label {
+  color: $trybe-light-green;
 }
 
 .logo-div {
-  background-color: $trybe-dark-green;
+  background-color: white;
   border-right: 4px solid $trybe-light-green;
+  color: $trybe-grey;
+
   @include sizer(100vh, 50vw);
+
+  .trybe {
+    width: 500px;
+  }
+
+  .wallet {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100px;
+  }
+
+  h1 {
+    left: 400px;
+    margin: 0;
+    position: absolute;
+    top: 60vh;
+    width: fit-content;
+  }
 }
