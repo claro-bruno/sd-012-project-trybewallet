@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { fetchAPI } from '../actions';
 
 class Form extends Component {
-
   componentDidMount() {
     const { actionAPI } = this.props;
     actionAPI();
@@ -56,6 +56,11 @@ class Form extends Component {
     );
   }
 }
+
+Form.propTypes = {
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  actionAPI: PropTypes.func.isRequired,
+};
 
 function mapStateToProps(state) {
   return { currencies: state.wallet.currencies };
