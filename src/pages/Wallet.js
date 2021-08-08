@@ -24,17 +24,19 @@ class Wallet extends React.Component {
 
   handleChange({ target }) {
     const { name, value } = target;
-    const { expenses } = this.props;
 
     return this.setState({
-      id: expenses.length,
       [name]: value,
     });
   }
 
-  handleClick() {
-    const { dispatchRates } = this.props;
-    return dispatchRates(this.state);
+  async handleClick() {
+    const { dispatchRates, expenses } = this.props;
+
+    await this.setState({
+      id: expenses.length,
+    });
+    dispatchRates(this.state);
   }
 
   fetchCurrencies() {
