@@ -70,11 +70,16 @@ Select.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   required: PropTypes.bool.isRequired,
-  options: PropTypes.arrayOf(PropTypes.shape({
-    map: PropTypes.func,
-    name: PropTypes.string,
-    desc: PropTypes.string,
-  })).isRequired,
+  options: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+  ]).isRequired,
 };
 
 export default Select;
+
+/* PropTypes.arrayOf(PropTypes.shape({
+  map: PropTypes.func,
+  name: PropTypes.string,
+  desc: PropTypes.string,
+})).isRequired, */

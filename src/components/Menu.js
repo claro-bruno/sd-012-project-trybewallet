@@ -85,11 +85,7 @@ class Menu extends Component {
 Menu.propTypes = {
   value: PropTypes.string.isRequired,
   currency: PropTypes.string.isRequired,
-  currencies: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string,
-    desc: PropTypes.string,
-    value: PropTypes.string,
-  })).isRequired,
+  currencies: PropTypes.shape().isRequired,
   method: PropTypes.string.isRequired,
   tag: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,

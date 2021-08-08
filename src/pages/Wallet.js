@@ -22,7 +22,7 @@ class Wallet extends Component {
 
     this.state = {
       expense: {
-        id: '',
+        id: 0,
         value: '',
         currency: '',
         method: options.methods[0].name,
@@ -53,7 +53,6 @@ class Wallet extends Component {
     if ((prevProps.wallet.currencies !== currencies)
         && ((prevProps.wallet.currencies.length === 0)
         || (Object.keys(currencies).length === defaultLength))) {
-      console.log('entrou');
       this.setCurrency();
     }
     if (fetchToAdd) this.updateCurrencies();
@@ -122,7 +121,6 @@ class Wallet extends Component {
       expenseToAdd: expense,
       fetchToAdd: false,
       expense: {
-        id: '',
         value: '',
         currency: '',
         method: options.methods[0].name,
@@ -200,24 +198,27 @@ Wallet.propTypes = {
     email: PropTypes.string,
   }).isRequired,
   wallet: PropTypes.shape({
-    isFetching: PropTypes.bool,
+    isFetching: PropTypes.bool.isRequired,
     currency: PropTypes.string,
-    currencies: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string,
-      code: PropTypes.string,
-      ask: PropTypes.string,
-    })),
+    currencies: PropTypes.shape().isRequired,
     expenses: PropTypes.arrayOf(PropTypes.shape({
       exchangeRates: PropTypes.arrayOf(PropTypes.shape({
         name: PropTypes.string,
         code: PropTypes.string,
         ask: PropTypes.number,
       })),
-    })).isRequired,
-  }).isRequired,
+    })),
+  }),
   getCurrenciesHandler: PropTypes.func.isRequired,
   setCurrenciesHandler: PropTypes.func.isRequired,
   setExpenseHandler: PropTypes.func.isRequired,
+};
+
+Wallet.defaultProps = {
+  wallet: PropTypes.shape({
+    currency: undefined,
+    currencies: undefined,
+  }),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
