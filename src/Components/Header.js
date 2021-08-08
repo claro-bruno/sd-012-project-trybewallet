@@ -41,7 +41,6 @@ class Header extends Component {
 
 Header.propTypes = {
   userEmail: PropTypes.string.isRequired,
-  total: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.objectOf).isRequired,
 };
 

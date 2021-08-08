@@ -12,6 +12,7 @@
 
 .form-wallet-container input {
   margin-left: 5px;
+  width: 100px;
 }
 
 .form-wallet-container select {
@@ -20,3 +21,4 @@
   margin-left: 5px;
   padding: 10px;
 }
+
