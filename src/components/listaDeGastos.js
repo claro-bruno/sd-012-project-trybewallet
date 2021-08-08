@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-class listaDeGastos extends React.Component {
+class TabelaGastos extends React.Component {
   constructor(props) {
     super(props);
 
@@ -99,9 +99,9 @@ const mapDispatchToProps = (dispatch) => ({
   remove: (despesas) => dispatch(deleteExpense(despesas)),
 });
 
-listaDeGastos.propTypes = {
+TabelaGastos.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object),
   remove: PropTypes.func,
 }.isRequired;
 
-export default connect(mapStateToProps, mapDispatchToProps)(listaDeGastos);
+export default connect(mapStateToProps, mapDispatchToProps)(TabelaGastos);
