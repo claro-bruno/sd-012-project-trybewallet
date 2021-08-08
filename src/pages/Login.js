@@ -53,7 +53,7 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className="login-area">
+      <section className="login-section">
         <input
           type="text"
           placeholder="Insira seu e-mail aqui :)"
@@ -75,7 +75,7 @@ class Login extends React.Component {
             ENTRAR
           </button>
         </Link>
-      </div>
+      </section>
     );
   }
 }
