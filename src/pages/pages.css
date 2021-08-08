@@ -41,7 +41,24 @@
 
 .form-expenses {
   align-items: center;
+  background-color: #95b19c;
   display: flex;
   flex-flow: row nowrap;
+  gap: 20px;
   justify-content: space-evenly;
+  padding: 15px;
+}
+
+.list-expense {
+  align-items: flex-start;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.list-item-expense {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  list-style: none;
+  padding: 20px 1px;
 }
