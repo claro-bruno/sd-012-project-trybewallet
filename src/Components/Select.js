@@ -26,10 +26,14 @@ class Select extends Component {
 Select.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
   labelName: PropTypes.string.isRequired,
   change: PropTypes.func.isRequired,
+};
+
+Select.defaultProps = {
+  value: 'Not found',
 };
 
 export default Select;

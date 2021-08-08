@@ -58,7 +58,7 @@ class Login extends React.Component {
         <section className="login-content">
           <div className="login-header">
             <img src={ logoPaturso } alt="Logo Paturso" />
-            <hi>Trybe Wallet</hi>
+            <h1>Trybe Wallet</h1>
           </div>
           <form className="login-form">
             <input
