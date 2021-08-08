@@ -10,9 +10,9 @@ class Wallet extends React.Component {
       coins: [],
     };
 
-    this.renderHeader = this.renderHeader.bind(this);
-    this.renderExpenseForm = this.renderExpenseForm.bind(this);
-    this.renderExpenseTable = this.renderExpenseTable.bind(this);
+    // this.renderHeader = this.renderHeader.bind(this);
+    // this.renderExpenseForm = this.renderExpenseForm.bind(this);
+    // this.renderExpenseTable = this.renderExpenseTable.bind(this);
     this.fetchCoinsOptions = this.fetchCoinsOptions.bind(this);
   }
 
@@ -21,13 +21,19 @@ class Wallet extends React.Component {
   }
 
   async fetchCoinsOptions() {
-    const request = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const URL_API = 'https://economia.awesomeapi.com.br/json/all';
+    const request = await fetch(URL_API);
     const data = await request.json();
+    // console.log(data);
     const arrayCoins = Object.keys(data);
     // console.log(arrayCoins);
     this.setState({
       coins: arrayCoins,
     });
+  }
+
+  handleClickAddExpenses() {
+    // const { } = this.state;
   }
 
   renderHeader() {
@@ -47,6 +53,7 @@ class Wallet extends React.Component {
 
   renderExpenseForm() {
     const { coins } = this.state;
+    const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     return (
       <form>
         <label htmlFor="valor-input">
@@ -60,19 +67,16 @@ class Wallet extends React.Component {
         <label htmlFor="coin-select">
           Moeda
           <select id="coin-select">
-            {
-              coins.map((coin) => {
-                if (coin === 'USDT') return '';
-                return (
-                  <option key={ coin }>
-                    { coin }
-                  </option>
-                );
-              })
-            }
+            { coins.map((coin) => {
+              if (coin === 'USDT') return '';
+              return (
+                <option key={ coin }>
+                  { coin }
+                </option>
+              );
+            })}
           </select>
         </label>
-
         <label htmlFor="payment-method-select">
           Método de pagamento
           <select id="payment-method-select">
@@ -84,15 +88,28 @@ class Wallet extends React.Component {
         <label htmlFor="tag-select">
           Tag
           <select id="tag-select">
-            <option>Alimentação</option>
+            { tags.map((tag) => (
+              <option key={ tag }>{tag}</option>
+            ))}
+            {/* <option>Alimentação</option>
             <option>Lazer</option>
             <option>Trabalho</option>
             <option>Transporte</option>
-            <option>Saúde</option>
+            <option>Saúde</option> */}
           </select>
         </label>
-        <button type="submit">Adicionar despesa</button>
       </form>
+    );
+  }
+
+  renderAddExpensesBtn() {
+    return (
+      <button
+        type="submit"
+        onClick={ this.handleClickAddExpenses }
+      >
+        Adicionar despesa
+      </button>
     );
   }
 
@@ -131,6 +148,7 @@ class Wallet extends React.Component {
         </header>
         <section>
           { this.renderExpenseForm() }
+          { this.renderAddExpensesBtn() }
           { this.renderExpenseTable() }
         </section>
 
