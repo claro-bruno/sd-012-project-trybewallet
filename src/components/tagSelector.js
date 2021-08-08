@@ -1,23 +1,29 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class TagSelector extends React.Component {
   render() {
+    const { onChange } = this.props;
     return (
       <label htmlFor="tag">
         Tag
         <select
           name="tag"
           id="tag"
+          onChange={ onChange }
         >
-          <option value="food">Alimentação</option>
-          <option value="recreation">Lazer</option>
-          <option value="work">Trabalho</option>
-          <option value="transport">Transporte</option>
-          <option value="health">Saúde</option>
+          <option value="Alimentação">Alimentação</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Trabalho">Trabalho</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Saúde">Saúde</option>
         </select>
       </label>
     );
   }
 }
 
+TagSelector.propTypes = {
+  onChange: PropTypes.func.isRequired,
+};
 export default TagSelector;

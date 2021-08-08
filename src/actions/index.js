@@ -1,5 +1,6 @@
 export const SAVE_EMAIL = 'SAVE_EMAIL';
 export const GET_CURRENCIES_SUCCESS = 'GET_CURRENCIES_SUCCESS';
+export const ADD_EXPENSES = 'ADD_EXPENSES';
 
 export const actionSaveEmail = (payload) => ({ type: 'SAVE_EMAIL', payload });
 
@@ -18,3 +19,8 @@ export const actionCurrenciThunk = () => (dispatch) => {
       dispatch(actionGetCurrenciesSuccess(currenciesArray));
     });
 };
+
+export const actionAddExpenses = (payload) => ({
+  type: ADD_EXPENSES,
+  payload,
+});

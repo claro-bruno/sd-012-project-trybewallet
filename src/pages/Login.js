@@ -28,6 +28,7 @@ class Login extends React.Component {
 
   checkFields() {
     const { email, password } = this.state;
+    // https://www.horadecodar.com.br/2020/09/07/expressao-regular-para-validar-e-mail-javascript-regex/
     const validationEmail = /\S+@\S+\.\S+/;
     const checkEmail = validationEmail.test(email);
     const minPassword = 5;
