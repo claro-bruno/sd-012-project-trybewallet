@@ -23,9 +23,10 @@ class Input extends Component {
 Input.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
   type: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/require-default-props
+  placeholder: PropTypes.string,
   labelName: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
 };

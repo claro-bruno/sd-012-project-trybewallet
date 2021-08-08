@@ -7,7 +7,9 @@ import './FormWalletStyle.css';
 
 class FormWallet extends React.Component {
   render() {
-    const { value, description, currency, currencyStore, handleChange } = this.props;
+    const {
+      value, description, currency, currencyStore, handleChange, clickSaveExpense,
+    } = this.props;
     return (
       <form className="form-wallet-container">
         <Input
@@ -46,6 +48,7 @@ class FormWallet extends React.Component {
           options={ options }
           key={ id }
         />))}
+        <button type="button" onClick={ clickSaveExpense }>Adicionar Despesas</button>
       </form>
     );
   }
@@ -53,9 +56,10 @@ class FormWallet extends React.Component {
 
 FormWallet.propTypes = {
   description: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
   currency: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
+  clickSaveExpense: PropTypes.func.isRequired,
   currencyStore: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 

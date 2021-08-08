@@ -1,4 +1,4 @@
-import { CURRENCY_SUCCESS, CURRENCY_ERROR } from '../actions';
+import { CURRENCY_SUCCESS, CURRENCY_ERROR, FETCH_EXPENSE_SUCCESS, FETCH_EXPENSE_ERROR } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -11,6 +11,11 @@ const wallet = (state = INITIAL_STATE, action) => {
     return { ...state, currencies: action.payload };
   case CURRENCY_ERROR:
     return { ...state, currencies: action.payload };
+  case FETCH_EXPENSE_SUCCESS:
+    return { ...state,
+      expenses: [...state.expenses, { id: state.expenses.length, ...action.payload }] };
+  case FETCH_EXPENSE_ERROR:
+    return { ...state, expenses: action.payload };
   default:
     return state;
   }

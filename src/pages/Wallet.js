@@ -3,20 +3,23 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../Components/Header';
 import FormWallet from '../Components/FormWallet';
-import { fetchCyrrency } from '../actions';
+// import ExpenseList from '../Components/ExpenseList';
+import { fetchCurrency, fetchExpense } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
     super();
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClickSaveExpense = this.handleClickSaveExpense.bind(this);
 
     this.state = {
       value: 0,
       description: '',
-      currency: '',
+      currency: 'USD',
       payment: 'Dinheiro',
       tag: 'Alimentação',
+      totalExpense: 0,
     };
   }
 
@@ -30,6 +33,20 @@ class Wallet extends React.Component {
       ...state,
       [name]: value,
     }));
+  }
+
+  handleClickSaveExpense() {
+    // console.log('clicou');
+    const { value, description, payment, currency, tag } = this.state;
+    const { setExpenseStore } = this.props;
+    setExpenseStore({ value, description, payment, currency, tag });
+    this.setState({
+      value: 0,
+      description: '',
+      currency: 'USD',
+      payment: 'Dinheiro',
+      tag: 'Alimentação',
+    });
   }
 
   render() {
@@ -46,7 +63,9 @@ class Wallet extends React.Component {
           payment={ payment }
           tag={ tag }
           handleChange={ this.handleChange }
+          clickSaveExpense={ this.handleClickSaveExpense }
         />
+        {/* <ExpenseList /> */}
       </main>
     );
   }
@@ -55,14 +74,17 @@ class Wallet extends React.Component {
 Wallet.propTypes = {
   setCurrencyStore: PropTypes.func.isRequired,
   currencyStore: PropTypes.arrayOf(PropTypes.string).isRequired,
+  setExpenseStore: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currencyStore: state.wallet.currencies,
+  // expenses: state.wallet.expenses,
 });
 
 const mapDispatchToPtops = (dispatch) => ({
-  setCurrencyStore: () => dispatch(fetchCyrrency()),
+  setCurrencyStore: () => dispatch(fetchCurrency()),
+  setExpenseStore: (expense) => dispatch(fetchExpense(expense)),
 });
 
 export default connect(mapStateToProps, mapDispatchToPtops)(Wallet);
