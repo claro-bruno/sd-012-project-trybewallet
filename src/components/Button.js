@@ -7,13 +7,14 @@ import { userLogin } from '../actions';
 class Button extends Component {
   render() {
     const { logIn,
-      onClick: { emailInput, formErrors:
-        { emailInput:
-          emailError,
-        passwordInput:
-          passwordError,
-        },
-      typed: { emailInput: emailTyped, passwordInput: passwordTyped },
+      onClick: {
+        emailInput,
+        formErrors:
+          {
+            emailInput: emailError,
+            passwordInput: passwordError,
+          },
+        typed: { emailInput: emailTyped, passwordInput: passwordTyped },
       },
     } = this.props;
     return (
