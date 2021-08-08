@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { string } from 'prop-types';
 
+import FormWallet from '../components/FormWallet';
+
 class Wallet extends React.Component {
   constructor() {
     super();
@@ -18,18 +20,19 @@ class Wallet extends React.Component {
     return (
       <section className="wallet-section">
         <header>
-          <p data-testid="email-field">
+          <span data-testid="email-field">
             E-mail:
             { email }
-          </p>
-          <p data-testid="total-field">
+          </span>
+          <span data-testid="total-field">
             Despesa total:
             { expensesTotal }
-          </p>
-          <p data-testid="header-currency-field">
+          </span>
+          <span data-testid="header-currency-field">
             Moedal atual:
             { currencyTip }
-          </p>
+          </span>
+          <FormWallet />
         </header>
       </section>
     );
