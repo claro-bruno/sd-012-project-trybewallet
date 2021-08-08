@@ -7,8 +7,7 @@ class Wallet extends React.Component {
       <label htmlFor="Valor">
         Valor
         <input
-          type="text"
-          name="Valor"
+          id="Valor"
           placeholder="Acrescente o valor de sua despesa"
         />
       </label>
@@ -20,8 +19,7 @@ class Wallet extends React.Component {
       <label htmlFor="Descrição">
         Descrição
         <input
-          type="text"
-          name="Descrição"
+          id="Descrição"
           placeholder="Adicione a descrição de sua despesa"
         />
       </label>
