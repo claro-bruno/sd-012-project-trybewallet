@@ -8,6 +8,7 @@ class Wallet extends React.Component {
 
     this.renderHeader = this.renderHeader.bind(this);
     this.renderExpenseForm = this.renderExpenseForm.bind(this);
+    this.renderExpenseTable = this.renderExpenseTable.bind(this);
   }
 
   renderHeader() {
@@ -64,7 +65,35 @@ class Wallet extends React.Component {
             <option>Saúde</option>
           </select>
         </label>
+
+        <button type="submit">Adicionar despesa</button>
       </form>
+    );
+  }
+
+  renderExpenseTable() {
+    return (
+      <div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Descrição</th>
+              <th>Tag</th>
+
+              <th>Método de pagamento</th>
+              <th>Valor</th>
+              <th>Moeda</th>
+              <th>Câmbio utilizado</th>
+              <th>Valor convertido</th>
+              <th>Moeda de conversão</th>
+            </tr>
+          </thead>
+        </table>
+        <button type="button">Editar/Excluir</button>
+        {/* <button type="button">Excluir</button> */}
+
+      </div>
     );
   }
 
@@ -77,6 +106,7 @@ class Wallet extends React.Component {
         </header>
         <section>
           { this.renderExpenseForm() }
+          { this.renderExpenseTable() }
         </section>
 
       </div>
