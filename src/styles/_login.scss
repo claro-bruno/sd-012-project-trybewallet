@@ -3,14 +3,18 @@
 
   @include sizer(100%, 100%);
   background-color: $trybe-purple;
+  background-image: url("../images/Wallpaper_03.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 500px;
 }
 
 .forms-div {
   @include flex(row, wrap, center, center);
+  padding: 20px;
   margin: auto;
-
+  
   h2 {
-    border-bottom: 1px solid $trybe-light-green;
     color: $trybe-light-green;
     width: 100%;
   }
@@ -39,6 +43,7 @@
 
 .form-label {
   color: $trybe-light-green;
+
 }
 
 .logo-div {

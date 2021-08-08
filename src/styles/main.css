@@ -10816,6 +10816,10 @@ a.text-dark:hover, a.text-dark:focus {
   height: 100%;
   width: 100%;
   background-color: #41197f;
+  background-image: url("../images/Wallpaper_03.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 500px;
 }
 
 .forms-div {
@@ -10832,11 +10836,11 @@ a.text-dark:hover, a.text-dark:focus {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  padding: 20px;
   margin: auto;
 }
 
 .forms-div h2 {
-  border-bottom: 1px solid #2fc18c;
   color: #2fc18c;
   width: 100%;
 }
