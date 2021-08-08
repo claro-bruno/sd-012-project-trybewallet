@@ -21,24 +21,13 @@ class Wallet extends React.Component {
   }
 
   async fetchCoinsOptions() {
-    // const { coins } = this.state;
     const request = await fetch('https://economia.awesomeapi.com.br/json/all');
     const data = await request.json();
     const arrayCoins = Object.keys(data);
-    // const coins = arrayCoins;
-    // console.log(coins);
-    // const USDT = 'USDT';
-    // arrayCoins.find((element) => element !== USDT);
     // console.log(arrayCoins);
     this.setState({
       coins: arrayCoins,
     });
-
-    // console.log(coins);
-    // return (arrayCoins);
-    // this.setState({
-    //   coins: [...data.]
-    // })
   }
 
   renderHeader() {
