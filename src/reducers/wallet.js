@@ -1,4 +1,4 @@
-import { RECEIVE_CURRENCY } from '../actions/actionTypes';
+import { RECEIVE_CURRENCY, RECEIVE_EXPENSES } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -9,6 +9,9 @@ const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case RECEIVE_CURRENCY:
     return { ...state, currencies: action.currency };
+
+  case RECEIVE_EXPENSES:
+    return { ...state, expenses: [...state.expenses, action.payload] };
 
   default:
     return state;
