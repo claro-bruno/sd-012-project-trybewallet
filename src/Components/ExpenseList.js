@@ -11,7 +11,7 @@
 //         { expenses.map((expense, index) => (
 //           <li key={ index }>
 //             <p>{expense.value}</p>
-//             <p>{expense.payment}</p>
+//             <p>{expense.method}</p>
 //             <p>{expense.description}</p>
 //             <p>{expense.tag}</p>
 //             <p>{expense.currency}</p>

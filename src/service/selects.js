@@ -1,11 +1,11 @@
-export const payments = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+export const methods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 export const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
 export const selects = [
   {
     labelName: 'Método de pagamento:',
-    id: 'payment-input',
-    name: 'payment',
+    id: 'method-input',
+    name: 'method',
     options: ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'],
   },
   {

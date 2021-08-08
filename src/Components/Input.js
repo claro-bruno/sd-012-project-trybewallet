@@ -23,7 +23,7 @@ class Input extends Component {
 Input.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   type: PropTypes.string.isRequired,
   // placeholder: PropTypes.string.isRequired,
   labelName: PropTypes.string.isRequired,

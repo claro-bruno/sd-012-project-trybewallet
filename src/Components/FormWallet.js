@@ -56,7 +56,7 @@ class FormWallet extends React.Component {
 
 FormWallet.propTypes = {
   description: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   currency: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
   clickSaveExpense: PropTypes.func.isRequired,

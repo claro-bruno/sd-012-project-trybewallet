@@ -17,7 +17,7 @@ class Wallet extends React.Component {
       value: 0,
       description: '',
       currency: 'USD',
-      payment: 'Dinheiro',
+      method: 'Dinheiro',
       tag: 'Alimentação',
       totalExpense: 0,
     };
@@ -37,20 +37,20 @@ class Wallet extends React.Component {
 
   handleClickSaveExpense() {
     // console.log('clicou');
-    const { value, description, payment, currency, tag } = this.state;
+    const { value, description, method, currency, tag } = this.state;
     const { setExpenseStore } = this.props;
-    setExpenseStore({ value, description, payment, currency, tag });
+    setExpenseStore({ value, description, method, currency, tag });
     this.setState({
       value: 0,
       description: '',
       currency: 'USD',
-      payment: 'Dinheiro',
+      method: 'Dinheiro',
       tag: 'Alimentação',
     });
   }
 
   render() {
-    const { value, description, payment, currency, tag } = this.state;
+    const { value, description, method, currency, tag } = this.state;
     const { currencyStore } = this.props;
     return (
       <main>
@@ -60,7 +60,7 @@ class Wallet extends React.Component {
           description={ description }
           currency={ currency }
           currencyStore={ currencyStore }
-          payment={ payment }
+          method={ method }
           tag={ tag }
           handleChange={ this.handleChange }
           clickSaveExpense={ this.handleClickSaveExpense }
