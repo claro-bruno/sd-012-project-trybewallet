@@ -28,7 +28,7 @@ class Header extends React.Component {
           </h5>
           <h5 data-testid="total-field">
             Valor:
-            { this.expensesValue }
+            { this.expensesValue() }
           </h5>
           <h5 data-testid="header-currency-field">
             Câmbio utilizado: BRL

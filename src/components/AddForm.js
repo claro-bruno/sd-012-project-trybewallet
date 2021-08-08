@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import React from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -17,7 +16,7 @@ class AddForm extends React.Component {
       description: '',
     };
     this.handleChange = this.handleChange.bind(this);
-    this.dispatch = this.dispatchx.bind(this);
+    this.dispatchx = this.dispatchx.bind(this);
   }
 
   componentDidMount() {
@@ -25,18 +24,16 @@ class AddForm extends React.Component {
     getCurrency();
   }
 
-  handleChange(event) {
-    const { name, value } = event.target;
+  handleChange(e) {
+    const { name, value } = e.target;
     this.setState(
       { [name]: value },
 
     );
   }
 
-  // Referencia função preventDefault: https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault
-
-  dispatch(event) {
-    event.preventDefault();
+  dispatchx(e) {
+    e.preventDefault();
     const { expenses, getExpenses } = this.props;
     const id = expenses.length;
     getExpenses({ ...this.state, id });
@@ -46,7 +43,7 @@ class AddForm extends React.Component {
     const { description, value, currency, tag, method } = this.state;
     const { currencies } = this.props;
     const currencyFilter = Object.keys(currencies)
-      .filter((currencyFiltered) => currencyFiltered !== 'USDT');
+      .filter((currencyx) => currencyx !== 'USDT');
     return (
       <form>
         <label htmlFor="value">
@@ -65,7 +62,7 @@ class AddForm extends React.Component {
             name="description"
             type="text"
             value={ description }
-            id="descrição"
+            id="description"
             onChange={ this.handleChange }
           />
         </label>
@@ -77,13 +74,8 @@ class AddForm extends React.Component {
             value={ currency }
             onChange={ this.handleChange }
           >
-            { currencyFilter.map((currencySelected) => (
-              <option
-                value={ currencySelected.code }
-                key={ currencySelected }
-              >
-                { currencySelected }
-              </option>
+            { currencyFilter.map((currencyxx) => (
+              <option value={ currencyxx.code } key={ currencyxx }>{ currencyxx }</option>
             ))}
           </select>
         </label>
