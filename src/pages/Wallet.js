@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
-import OutGoing from '../components/OutGoing';
+import Form from '../components/Form';
+import Table from '../components/Table';
 import { walletSubmit } from '../actions';
 
 class Wallet extends React.Component {
@@ -15,7 +16,8 @@ class Wallet extends React.Component {
     return (
       <div className="WalletBody">
         <Header />
-        <OutGoing />
+        <Form />
+        <Table />
       </div>
     );
   }

@@ -45,9 +45,7 @@ class Login extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const { EnviaEmail } = this.props;
-    const { email } = this.state;
     EnviaEmail(this.state);
-    localStorage.setItem('email', email);
     this.setState({ redirect: true });
   }
 
