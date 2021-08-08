@@ -1,4 +1,9 @@
-import { CURRENCY_SUCCESS, CURRENCY_ERROR, FETCH_EXPENSE_SUCCESS, FETCH_EXPENSE_ERROR } from '../actions';
+import {
+  CURRENCY_SUCCESS,
+  CURRENCY_ERROR,
+  FETCH_EXPENSE_SUCCESS,
+  FETCH_EXPENSE_ERROR,
+} from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],

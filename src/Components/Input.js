@@ -25,8 +25,7 @@ Input.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.number.isRequired,
   type: PropTypes.string.isRequired,
-  // eslint-disable-next-line react/require-default-props
-  placeholder: PropTypes.string,
+  placeholder: PropTypes.string.isRequired,
   labelName: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
 };
