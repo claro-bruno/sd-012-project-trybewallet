@@ -1,8 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { actionDeleteExpenses } from '../actions';
 
 class FormTable extends React.Component {
+  constructor() {
+    super();
+    this.deleteExpense = this.deleteExpense.bind(this);
+  }
+
+  deleteExpense(id) {
+    const { deleteExp } = this.props;
+    deleteExp(id);
+  }
+
   render() {
     const { expenses } = this.props;
     return (
@@ -34,6 +45,15 @@ class FormTable extends React.Component {
                 <td>{Number(exchangeRates[currency].ask).toFixed(2)}</td>
                 <td>{Number(exchangeRates[currency].ask * value).toFixed(2)}</td>
                 <td>Real</td>
+                <td>
+                  <button
+                    type="button"
+                    data-testid="delete-btn"
+                    onClick={ () => this.deleteExpense(id) }
+                  >
+                    Deletar
+                  </button>
+                </td>
               </tr>
             );
           })}
@@ -45,9 +65,15 @@ class FormTable extends React.Component {
 
 FormTable.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  deleteExp: PropTypes.func.isRequired,
 };
+
 const mapStateToProps = ({ wallet }) => ({
   expenses: wallet.expenses,
 });
 
-export default connect(mapStateToProps)(FormTable);
+const mapDispatchToProps = (dispatch) => ({
+  deleteExp: (payload) => dispatch(actionDeleteExpenses(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormTable);
