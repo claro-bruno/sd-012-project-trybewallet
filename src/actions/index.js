@@ -1,6 +1,7 @@
 export const ADD_EMAIL = 'ADD_EMAIL';
 export const GET_COINS = 'GET_COINS';
 export const FETCH_COIN = 'FETCH_COIN';
+export const ADD_EXPENSES = 'ADD_EXPENSES';
 
 export const addEmail = (userMail) => ({
   type: ADD_EMAIL,
@@ -16,12 +17,7 @@ export const fetchCoins = () => ({
   type: FETCH_COIN,
 });
 
-export const fetchCoinInfo = () => {
-  const end = 'https://economia.awesomeapi.com.br/json/all';
-  return (dispatch) => {
-    dispatch(fetchCoins());
-    return fetch(end)
-      .then((res) => res.json())
-      .then((response) => dispatch(getCoins(Object.keys(response))));
-  };
-};
+export const addExpenses = (expense) => ({
+  type: ADD_EXPENSES,
+  payload: expense,
+});

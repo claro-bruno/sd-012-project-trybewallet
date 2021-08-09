@@ -22,15 +22,16 @@ class FormDespesas extends Component {
     fetchTheCoins();
     fetch('https://economia.awesomeapi.com.br/json/all')
       .then((res) => res.json())
-      .then((response) => getTheCoins(Object.keys(response)))
-      .then(fetchTheCoins());
+      .then((response) => getTheCoins(Object.keys(response)));
+  }
+
+  populateCoins() {
+
   }
 
   render() {
     const { tags, paymentType } = this.state;
     const { coins, isFetching } = this.props;
-    const THREE = 3;
-    const filterCoins = [...coins].filter((coin) => coin.length === THREE);
     if (isFetching) {
       return <img src="https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif" alt="carregando" />;
     }
@@ -47,7 +48,8 @@ class FormDespesas extends Component {
         <label htmlFor="Moeda">
           Moeda
           <select id="Moeda">
-            {filterCoins.map((option, index) => <option key={ index }>{option}</option>)}
+            {coins && coins.filter((coin) => coin !== 'USDT')
+              .map((option, i) => <option key={ i }>{option}</option>)}
           </select>
         </label>
         <label htmlFor="payment">
