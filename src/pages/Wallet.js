@@ -39,6 +39,7 @@ const mapStateToProps = (state) => ({
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
+  despesas: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 // const mapStateToProps = (state) => ({ personalInputs: state.reducer.personalInputs });
 
