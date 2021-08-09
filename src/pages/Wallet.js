@@ -21,6 +21,7 @@ class Wallet extends React.Component {
     this.renderDescription = this.renderDescription.bind(this);
     this.renderCurrency = this.renderCurrency.bind(this);
     this.renderMethod = this.renderMethod.bind(this);
+    this.renderTag = this.renderTag.bind(this);
     this.renderForm = this.renderForm.bind(this);
     this.addToExpenses = this.addToExpenses.bind(this);
     this.handleTotalValue = this.handleTotalValue.bind(this);
