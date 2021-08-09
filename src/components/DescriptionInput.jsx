@@ -8,6 +8,7 @@ class DescriptionInput extends Component {
       <label htmlFor="description">
         Descrição
         <input
+          className="form-control"
           type="text"
           id="description"
           name="description"

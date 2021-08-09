@@ -8,6 +8,7 @@ class NumberInput extends Component {
       <label htmlFor="value">
         Valor
         <input
+          className="form-control"
           type="number"
           id="value"
           name="value"

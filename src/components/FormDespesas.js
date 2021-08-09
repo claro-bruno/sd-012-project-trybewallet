@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getCoins, fetchCoins, addExpenses } from '../actions';
 import NumberInput from './NumberInput';
 import DescriptionInput from './DescriptionInput';
+import Payment from './PaymentMethod';
 
 const initialState = {
   value: 0,
@@ -61,19 +62,17 @@ class FormDespesas extends Component {
 
   render() {
     const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
-    const paymentType = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const { value, description, currency, method, tag } = this.state;
     const { coins, isFetching } = this.props;
-    if (isFetching) {
-      return <img src="https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif" alt="carregando" />;
-    }
+    if (isFetching) return <img src="https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif" alt="carregando" />;
     return (
-      <form>
+      <form className="container">
         <NumberInput value={ value } onChange={ this.change } />
         <DescriptionInput description={ description } onChange={ this.change } />
         <label htmlFor="currency">
           Moeda
           <select
+            className="form-control"
             id="currency"
             name="currency"
             value={ currency }
@@ -83,19 +82,26 @@ class FormDespesas extends Component {
               .map((option, i) => <option key={ i }>{option}</option>)}
           </select>
         </label>
-        <label htmlFor="method">
-          Método de pagamento
-          <select id="method" name="method" value={ method } onChange={ this.change }>
-            {paymentType.map((option, index) => <option key={ index }>{option}</option>)}
-          </select>
-        </label>
+        <Payment method={ method } onChange={ this.change } />
         <label htmlFor="tag">
           Tag
-          <select id="tag" name="tag" value={ tag } onChange={ this.change }>
+          <select
+            id="tag"
+            name="tag"
+            value={ tag }
+            onChange={ this.change }
+            className="form-control"
+          >
             {tags.map((option, index) => <option key={ index }>{option}</option>)}
           </select>
         </label>
-        <button type="button" onClick={ this.handleSubmit }>Adicionar Despesa</button>
+        <button
+          type="button"
+          onClick={ this.handleSubmit }
+          className="btn btn-primary"
+        >
+          Adicionar Despesa
+        </button>
       </form>
     );
   }

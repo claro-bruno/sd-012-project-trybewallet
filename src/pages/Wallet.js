@@ -1,38 +1,18 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import FormDespesas from '../components/FormDespesas';
+import HeaderWallet from '../components/HeaderWallet';
+import TabelaDeGastos from '../components/TabelaDeGastos';
 
 class Wallet extends React.Component {
   render() {
-    const { user, expenses } = this.props;
-    let total = 0;
-    if (expenses.length > 0) {
-      total = expenses
-        .reduce((acc, { value, exchangeRates, currency }) => (
-          acc + (Number(value) * Number(exchangeRates[currency].ask))), 0);
-    }
     return (
-      <div>
-        <header>
-          <p data-testid="email-field">{ user.email }</p>
-          <p data-testid="total-field">{total}</p>
-          <p data-testid="header-currency-field">BRL</p>
-        </header>
+      <main>
+        <HeaderWallet />
         <FormDespesas />
-      </div>
+        <TabelaDeGastos />
+      </main>
     );
   }
 }
 
-Wallet.propTypes = {
-  user: PropTypes.objectOf(Object).isRequired,
-  expenses: PropTypes.arrayOf(Object).isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  user: state.user,
-  expenses: state.wallet.expenses,
-});
-
-export default connect(mapStateToProps)(Wallet);
+export default Wallet;
