@@ -1,7 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Header from '../components/Header';
+import { fetchAPI } from '../actions';
+import wallet from '../reducers/wallet';
 
 class Wallet extends React.Component {
+  componentDidMount() {
+    const { getCurrencies } = this.props;
+    getCurrencies();
+  }
+
+  handleChange({ target }) {
+    const { type, value } = target;
+    this.setState({ [type]: value });
+  }
+
   addExpense() {
     return (
       <label htmlFor="Valor">
@@ -27,13 +41,21 @@ class Wallet extends React.Component {
   }
 
   addCurrency() {
+    const { wallet: { currencies } } = this.props;
+    console.log(Object.values(currencies));
     return (
       <label htmlFor="Moeda">
         Moeda
         <select
           id="Moeda"
           alt="Moeda"
-        />
+        >
+          { Object.values(currencies).map((currencie, index) => (
+            <option value={ currencie } key={ index }>
+              {currencie}
+            </option>
+          )) }
+        </select>
       </label>
     );
   }
@@ -73,20 +95,37 @@ class Wallet extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        TrybeWallet
-        <Header />
-        <form>
-          {this.addExpense()}
-          {this.addExpDescription()}
-          {this.addCurrency()}
-          {this.paymentMetod()}
-          {this.categorySelection()}
-
-        </form>
-      </div>);
+    const { wallet: { currencies } } = this.props;
+    if (Object.values(currencies).length > 0) {
+      return (
+        <div>
+          TrybeWallet
+          <Header />
+          <form>
+            {this.addExpense()}
+            {this.addExpDescription()}
+            {this.addCurrency()}
+            {this.paymentMetod()}
+            {this.categorySelection()}
+          </form>
+        </div>
+      );
+    }
+    return (wallet);
   }
 }
 
-export default Wallet;
+const mapStateToProps = (state) => ({ wallet: state.wallet });
+
+const mapDispatchToProps = (dispatch) => ({
+  getCurrencies: () => dispatch(fetchAPI()),
+});
+
+Wallet.propTypes = {
+  wallet: PropTypes.shape({
+    currencies: PropTypes.shape(),
+  }).isRequired,
+  getCurrencies: PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
