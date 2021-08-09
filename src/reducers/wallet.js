@@ -1,12 +1,23 @@
-import { REQUEST_CURRENCIES, GET_CURRENCIES, FAILED_REQUEST } from '../actions';
+import {
+  REQUEST_CURRENCIES,
+  GET_CURRENCIES,
+  FAILED_REQUEST,
+  SEND_EXPENSES,
+} from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
+  expenses: [],
   error: '',
 };
 
 function walletReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
+  case SEND_EXPENSES:
+    return {
+      ...state,
+      expenses: [...state.expenses, action.payload],
+    };
   case REQUEST_CURRENCIES:
     return {
       ...state,

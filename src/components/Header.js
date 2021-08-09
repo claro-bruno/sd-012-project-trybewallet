@@ -3,17 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class Header extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      totalExpense: 0,
-    };
-  }
-
   render() {
-    const { email } = this.props;
-    const { totalExpense } = this.state;
+    const { email, expenses } = this.props;
+    const totalExpense = expenses
+      .reduce((acc, { value, currency, exchangeRates }) => (
+        acc + (Number(value * exchangeRates[currency].ask))), 0);
 
     return (
       <header className="wallet-header">
@@ -37,10 +31,12 @@ class Header extends Component {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  expenses: state.wallet.expenses,
 });
 
-Header.propTypes = {
-  email: PropTypes.string.isRequired,
-};
+Header.propTypes = ({
+  email: PropTypes.string,
+  expenses: PropTypes.arrayOf(PropTypes.object),
+}).isRequired;
 
 export default connect(mapStateToProps)(Header);
