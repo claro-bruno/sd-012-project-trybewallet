@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { string } from 'prop-types';
+import PropTypes from 'prop-types';
 
 import FormWallet from '../components/FormWallet';
 
@@ -8,15 +8,20 @@ class Wallet extends React.Component {
   constructor() {
     super();
 
-    this.state = {
-      expensesTotal: 0,
-      currencyTip: 'BRL',
-    };
+    this.sumTotalExpense = this.sumTotalExpense.bind(this);
+  }
+
+  sumTotalExpense() {
+    const { expenses } = this.props;
+    if (!expenses.length) return '0,00';
+    const total = expenses
+      .map(({ value, exchangeRates, currency }) => exchangeRates[currency].ask * value)
+      .reduce((acc, curr) => acc + curr, 0);
+    return total.toFixed(2);
   }
 
   render() {
     const { email } = this.props;
-    const { expensesTotal, currencyTip } = this.state;
     return (
       <section className="wallet-section">
         <header>
@@ -26,11 +31,10 @@ class Wallet extends React.Component {
           </span>
           <span data-testid="total-field">
             Despesa total:
-            { expensesTotal }
+            { this.sumTotalExpense() }
           </span>
           <span data-testid="header-currency-field">
-            Moedal atual:
-            { currencyTip }
+            Moedal atual: BRL
           </span>
         </header>
         <FormWallet />
@@ -41,10 +45,12 @@ class Wallet extends React.Component {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  expenses: state.wallet.expenses,
 });
 
 Wallet.propTypes = {
-  email: string.isRequired,
+  email: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, null)(Wallet);
