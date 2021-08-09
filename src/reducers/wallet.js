@@ -1,29 +1,22 @@
 import { GET_CURRENCY, GET_CURRENCY_ERROR, GET_CURRENCY_SUCCESS } from '../actions';
 
 const INICIAL_STATE = {
-  expenses: {
-    id: 0,
-    value: 0,
-    currency: '',
-    method: '',
-    tag: '',
-    description: '',
-    shouldMount: false,
-    error: null,
-  },
+  expenses: [],
   currencies: [],
 };
 
 const wallet = (state = INICIAL_STATE, action) => {
   switch (action.type) {
   case GET_CURRENCY:
-    return { ...state, shouldMount: true };
+    return { ...state };
 
   case GET_CURRENCY_SUCCESS:
-    return { ...state, payload };
+    return { ...state,
+      currencies: Object.keys(action.payload),
+    };
 
   case GET_CURRENCY_ERROR:
-    return { ...state, payload };
+    return { ...state };
 
   default: return state;
   }

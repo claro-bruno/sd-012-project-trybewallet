@@ -1,27 +1,42 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getCurrenciesThunk } from '../actions';
 
 class AddForm extends React.Component {
-  constructor() {
-    super();
-    this.handleWalletChange = this.handleWalletChange.bind(this);
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
     this.renderInputValue = this.renderInputValue.bind(this);
     this.renderPaymentSelect = this.renderPaymentSelect.bind(this);
     this.renderTagSelect = this.renderTagSelect.bind(this);
     this.renderDescript = this.renderDescript.bind(this);
     this.renderCurrSelect = this.renderCurrSelect.bind(this);
+    this.idIncrement = this.idIncrement.bind(this);
     this.state = {
+      id: 0,
       value: 0,
-      currencies: [],
-      method: '',
-      tag: '',
       description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
   }
 
-  handleWalletChange({ target }) {
+  componentDidMount() {
+    const { getFetch } = this.props;
+    getFetch();
+  }
+
+  handleChange({ target }) {
+    const { name, value } = target;
     this.setState({
-      [target.name]: target.value,
+      [name]: value,
     });
+  }
+
+  idIncrement() {
+    this.setState((state) => ({ id: state.id + 1 }));
   }
 
   renderInputValue() {
@@ -37,7 +52,7 @@ class AddForm extends React.Component {
             value={ value }
             id="valor"
             name="value"
-            onChange={ this.handleWalletChange }
+            onChange={ this.handleChange }
           />
         </label>
       </div>
@@ -45,8 +60,8 @@ class AddForm extends React.Component {
   }
 
   renderCurrSelect() {
-    const { currencies } = this.state;
-    const { currency } = currencies;
+    const { currencies } = this.props;
+    const { currency } = this.state;
 
     return (
       <div>
@@ -57,7 +72,7 @@ class AddForm extends React.Component {
             id="curr-select"
             value={ currency }
             name="currency"
-            onChange={ this.handleWalletChange }
+            onChange={ this.handleChange }
           >
             { currencies.map((curr) => (
               <option
@@ -75,7 +90,6 @@ class AddForm extends React.Component {
 
   renderPaymentSelect() {
     const { method } = this.state;
-
     return (
       <div>
         <label htmlFor="payment-select">
@@ -85,7 +99,7 @@ class AddForm extends React.Component {
             id="payment-select"
             value={ method }
             name="method"
-            onChange={ this.handleWalletChange }
+            onChange={ this.handleChange }
           >
             <option value="Dinheiro">Dinheiro</option>
             <option value="crédito">Cartão de Crédito</option>
@@ -108,7 +122,7 @@ class AddForm extends React.Component {
             id="tag-select"
             value={ tag }
             name="tag"
-            onChange={ this.handleWalletChange }
+            onChange={ this.handleChange }
           >
             <option value="alimentação">Alimentação</option>
             <option value="lazer">Lazer</option>
@@ -134,7 +148,7 @@ class AddForm extends React.Component {
             value={ description }
             id="valor"
             name="descrição"
-            onChange={ this.handleWalletChange }
+            onChange={ this.handleChange }
           />
         </label>
       </div>
@@ -155,4 +169,18 @@ class AddForm extends React.Component {
   }
 }
 
-export default AddForm;
+const mapDispatchToProps = (dispatch) => ({
+  getFetch: () => dispatch(getCurrenciesThunk()),
+});
+
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+  isLoading: state.wallet.isLoading,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddForm);
+
+AddForm.propTypes = {
+  getFetch: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
