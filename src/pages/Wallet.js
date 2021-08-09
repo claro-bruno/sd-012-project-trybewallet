@@ -34,7 +34,7 @@ class Wallet extends React.Component {
             { this.sumTotalExpense() }
           </span>
           <span data-testid="header-currency-field">
-            Moedal atual: BRL
+            Moeda atual: BRL
           </span>
         </header>
         <FormWallet />

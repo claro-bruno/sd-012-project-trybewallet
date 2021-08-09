@@ -11,8 +11,8 @@ class FormWallet extends React.Component {
 
     this.state = {
       value: 0,
-      currency: 'BRL',
       description: '',
+      currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
     };
@@ -26,16 +26,16 @@ class FormWallet extends React.Component {
     getDataFromAPI();
   }
 
-  submitExpense() {
-    const { exchangeRates } = this.props;
-    const { value, currency, description, method, tag } = this.state;
-    exchangeRates({ value, currency, description, method, tag });
-  }
-
   handleChange({ target: { name, value } }) {
     this.setState({
       [name]: value,
     });
+  }
+
+  submitExpense() {
+    const { exchangeRates } = this.props;
+    const { value, description, currency, method, tag } = this.state;
+    exchangeRates({ value, description, currency, method, tag });
   }
 
   render() {
@@ -44,26 +44,29 @@ class FormWallet extends React.Component {
       <form>
         <label htmlFor="value">
           Valor
-          <input type="number" id="value" onChange={ this.handleChange } />
+          <input type="number" name="value" id="value" onChange={ this.handleChange } />
         </label>
         <label htmlFor="description">
           Descrição
-          <input type="text" id="description" onChange={ this.handleChange } />
+          <input
+            type="text"
+            id="description"
+            name="description"
+            onChange={ this.handleChange }
+          />
         </label>
-        <label htmlFor="tip">
+        <label htmlFor="currency">
           Moeda
-          <select id="tip" onChange={ this.handleChange }>
-            { Object.keys(currencies).map((curr) => (
-              <option
-                key={ curr }
-              >
+          <select id="currency" name="currency" onChange={ this.handleChange }>
+            { Object.keys(currencies).map((curr, index) => (
+              <option key={ index } value={ curr }>
                 { curr }
               </option>)) }
           </select>
         </label>
-        <label htmlFor="payment">
+        <label htmlFor="method">
           Método de pagamento
-          <select id="payment" onChange={ this.handleChange }>
+          <select id="method" name="method" onChange={ this.handleChange }>
             <option>Dinheiro</option>
             <option>Cartão de crédito</option>
             <option>Cartão de débito</option>
@@ -71,7 +74,7 @@ class FormWallet extends React.Component {
         </label>
         <label htmlFor="tag">
           Tag
-          <select id="tag" onChange={ this.handleChange }>
+          <select id="tag" name="tag" onChange={ this.handleChange }>
             <option>Alimentação</option>
             <option>Lazer</option>
             <option>Transporte</option>
