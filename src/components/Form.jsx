@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCurrencies } from '../actions';
 
 class Form extends Component {
   render() {
@@ -58,7 +57,6 @@ const mapStateToProps = (state) => ({
 });
 
 Form.propTypes = {
-  fetchCurrencies: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired,
   currenciesNames: PropTypes.arrayOf(PropTypes.string).isRequired,
