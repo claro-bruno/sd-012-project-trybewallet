@@ -25,3 +25,9 @@ export const getCurrencies = () => {
     dispatch(receiveCurrencies(currencies));
   };
 };
+
+export const RECEIVE_EXPENSES = 'RECEIVE_EXPENSES';
+export const setExpenses = (payload) => ({
+  type: RECEIVE_EXPENSES,
+  payload,
+});
