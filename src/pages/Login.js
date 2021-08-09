@@ -2,7 +2,22 @@ import React from 'react';
 
 class Login extends React.Component {
   render() {
-    return <div>Login</div>;
+    return (
+      <div>
+        <h2>Login</h2>
+        <input
+          type="email"
+          placeholder="Insira seu e-mail"
+          data-testid="email-input"
+        />
+        <input
+          type="password"
+          placeholder="Insira sua senha"
+          data-testid="password-input"
+        />
+        <button type="button">Entrar</button>
+      </div>
+    );
   }
 }
 
