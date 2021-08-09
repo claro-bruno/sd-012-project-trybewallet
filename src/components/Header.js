@@ -7,7 +7,10 @@ class Header extends Component {
   constructor(props) {
     super(props);
 
+    this.updateValue = this.updateValue.bind(this);
+
     this.state = {
+      totalValue: 0,
       localCurrency: {
         code: 'R$',
         symbol: 'BRL',
@@ -15,9 +18,24 @@ class Header extends Component {
     };
   }
 
+  componentDidUpdate(prevProps) {
+    const { wallet: { totalValue } } = this.props;
+    if (prevProps.wallet.totalValue !== totalValue) {
+      this.updateValue();
+    }
+  }
+
+  updateValue() {
+    const { wallet: { totalValue } } = this.props;
+    this.setState((prevState) => ({ ...prevState, totalValue }));
+  }
+
   render() {
-    const { user: { email }, wallet: { totalValue } } = this.props;
-    const { localCurrency } = this.state;
+    // const { user: { email }, wallet: { totalValue } } = this.props;
+    const { user: { email } } = this.props;
+    // const { localCurrency } = this.sstate;
+    const { localCurrency, totalValue } = this.state;
+
     console.log(totalValue);
     // const formato = { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' };
     // console.log(totalValue.toLocaleString('pt-BR', formato));
