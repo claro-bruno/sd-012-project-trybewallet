@@ -5,6 +5,7 @@ export const GET_CURRENCIES_SUCCESS = 'GET_CURRENCIES_SUCCESS';
 export const GET_CURRENCIES_ERROR = 'GET_CURRENCIES_ERROR';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
 
 export const setUserEmail = (email) => ({
   type: SET_USER_EMAIL,
@@ -17,6 +18,10 @@ export const deleteExpense = (expenseId) => ({
 
 export const addExpense = (expense) => ({
   type: ADD_EXPENSE, expense,
+});
+
+export const editExpense = (payload) => ({
+  type: EDIT_EXPENSE, payload,
 });
 
 export const getCurrencies = () => ({ type: GET_CURRENCIES });
