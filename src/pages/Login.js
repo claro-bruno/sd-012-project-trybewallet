@@ -1,8 +1,8 @@
 import React from 'react';
-import propTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { loginUser } from '../actions';
+import { connect } from 'react-redux';
+import propTypes from 'prop-types';
+import { userLogin } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -36,9 +36,9 @@ class Login extends React.Component {
   }
 
   handleClick() {
-    const { authentication } = this.props;
+    const { auth } = this.props;
     const { email } = this.state;
-    authentication(email);
+    auth(email);
     this.setState({ redirect: true });
   }
 
@@ -48,6 +48,7 @@ class Login extends React.Component {
     if (redirect) {
       return <Redirect to="/carteira" />;
     }
+
     return (
       <main>
         <form>
@@ -79,13 +80,13 @@ class Login extends React.Component {
     );
   }
 }
-// export default Login;
-const mapDispathToProps = (dispath) => ({
-  authentication: (email) => dispath(loginUser(email)),
+
+const mapDispatchToProps = (dispatch) => ({
+  auth: (email) => dispatch(userLogin(email)),
 });
 
 Login.propTypes = {
-  authentication: propTypes.func.isRequired,
+  auth: propTypes.func.isRequired,
 };
 
-export default connect(null, mapDispathToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login);

@@ -1,27 +1,27 @@
 import React from 'react';
-import propTypes from 'prop-types';
 import { connect } from 'react-redux';
-import InputExpense from './InputExpense';
-import SelectExpense from './SelectExpense';
-import { fetchTheExpense, fetchTheCurrency } from '../actions/index';
+import propTypes from 'prop-types';
+import { editExpense, fetchCurrency } from '../actions';
+import Input from './Input';
+import Select from './Select';
+import methodOptions from './methodOptions';
+import tagOptions from './tagOptions';
 
-class NewExpense extends React.Component {
+class EditExpense extends React.Component {
   constructor(props) {
     super(props);
 
-    const { expenses } = this.props;
-    let id = 0;
+    const { id, expenses } = this.props;
+    const editing = expenses.find((expense) => expense.id === id);
+    const { value, description, currency, method, tag } = editing;
 
-    if (expenses.length > 0) {
-      id = (expenses[expenses.length - 1].id) + 1;
-    }
     this.state = {
       id,
-      value: 0,
-      description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Comida',
+      value,
+      description,
+      currency,
+      method,
+      tag,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -38,25 +38,21 @@ class NewExpense extends React.Component {
   }
 
   handleClick() {
-    const { saveExpense } = this.props;
+    const { edit, onClick } = this.props;
     const teste = { ...this.state };
-    saveExpense(teste);
-    this.setState((prevState) => ({
-      id: prevState.id + 1,
-      value: 0,
-      description: '',
-    }));
+    edit(teste);
+    onClick();
   }
 
   render() {
-    const methodOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
-    const tagOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     const { value, description } = this.state;
     const { currencyOptions, loading } = this.props;
-    if (loading) { return <div>Carregando moedas</div>; }
+    if (loading) {
+      return <div>Carregando moeda</div>;
+    }
     return (
-      <section>
-        <InputExpense
+      <section className="edit-mode">
+        <Input
           text="Valor: "
           type="number"
           name="value"
@@ -64,7 +60,7 @@ class NewExpense extends React.Component {
           value={ value }
           onChange={ this.handleChange }
         />
-        <InputExpense
+        <Input
           text="Descrição: "
           type="text"
           name="description"
@@ -72,56 +68,59 @@ class NewExpense extends React.Component {
           value={ description }
           onChange={ this.handleChange }
         />
-        <SelectExpense
+        <Select
           text="Moeda"
           name="currency"
           dataTestId="currency-input"
           onChange={ this.handleChange }
           options={ currencyOptions }
         />
-        <SelectExpense
+        <Select
           text="Método de pagamento"
           name="method"
           dataTestId="method-input"
           onChange={ this.handleChange }
           options={ methodOptions }
         />
-        <SelectExpense
+        <Select
           text="Tag"
           name="tag"
           dataTestId="tag-input"
           onChange={ this.handleChange }
           options={ tagOptions }
         />
-        <button type="button" onClick={ this.handleClick }>Adicionar despesa</button>
+        <button type="button" onClick={ this.handleClick }>Editar despesa</button>
       </section>
     );
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  saveExpense: (expense) => dispatch(fetchTheExpense(expense)),
-  getCurrencies: () => dispatch(fetchTheCurrency()),
+const mapDisptachToProps = (dispatch) => ({
+  edit: (expense) => dispatch(editExpense(expense)),
+  getCurrencies: () => dispatch(fetchCurrency()),
 });
 
 const mapStateToProps = (state) => ({
-  currencyOptions: state.wallet.currencies,
   expenses: state.wallet.expenses,
+  currencyOptions: state.wallet.currencies,
   loading: state.wallet.loading,
 });
 
-NewExpense.propTypes = {
-  saveExpense: propTypes.func.isRequired,
+EditExpense.propTypes = {
+  id: propTypes.number.isRequired,
+  edit: propTypes.func.isRequired,
+  onClick: propTypes.func.isRequired,
+  expenses: propTypes.arrayOf(propTypes.shape({
+    id: propTypes.number.isRequired,
+    value: propTypes.oneOfType([propTypes.number, propTypes.string]).isRequired,
+    description: propTypes.string.isRequired,
+    currency: propTypes.string.isRequired,
+    method: propTypes.string.isRequired,
+    tag: propTypes.string.isRequired,
+  })).isRequired,
   getCurrencies: propTypes.func.isRequired,
   currencyOptions: propTypes.arrayOf(propTypes.string).isRequired,
-  expenses: propTypes.arrayOf(propTypes.shape({
-    id: propTypes.number,
-  })).isRequired,
-  loading: propTypes.bool,
+  loading: propTypes.bool.isRequired,
 };
 
-NewExpense.defaultProps = {
-  loading: false,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(NewExpense);
+export default connect(mapStateToProps, mapDisptachToProps)(EditExpense);
