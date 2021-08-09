@@ -12,3 +12,9 @@ export const newExpenses = (expenses) => ({
   type: 'NEW_EXPENSES',
   payload: expenses,
 });
+
+export const fetchCurrency = (state) => (dispatch) => (
+  fetch('https://economia.awesomeapi.com.br/json/all')
+    .then((response) => response.json())
+    .then((response) => dispatch(newExpenses({ ...state, exchangeRates: response })))
+);

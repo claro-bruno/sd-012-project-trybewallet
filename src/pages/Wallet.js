@@ -22,8 +22,22 @@ class Wallet extends React.Component {
       .then((moedas) => currenciesDispatch(moedas));
   }
 
+  handleUpdate() {
+    const { despesas } = this.props;
+    if (despesas.length > 0) {
+      const total = despesas.reduce((acc, curr) => {
+        const costs = parseFloat(curr.value);
+        const { currency, exchangeRates } = curr;
+        const convert = exchangeRates[currency].ask * costs;
+        return acc + convert;
+      }, 0);
+      return total;
+    }
+    return -0;
+  }
+
   render() {
-    const { email, despesas } = this.props;
+    const { email } = this.props;
     return (
       <div>
         <header>
@@ -34,7 +48,7 @@ class Wallet extends React.Component {
           </div>
           <div data-testid="total-field">
             Despesas totais:
-            { despesas.reduce((acc, curr) => acc + curr, 0) }
+            { this.handleUpdate() }
             <div data-testid="header-currency-field">BRL</div>
           </div>
         </header>
