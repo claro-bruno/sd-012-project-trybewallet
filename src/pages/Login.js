@@ -16,7 +16,7 @@ class Login extends Component {
 
     this.HandleChange = this.HandleChange.bind(this);
     this.FormValidate = this.FormValidate.bind(this);
-    this.OnSubmitUser = this.OnSubmitUser.bind(this);
+    this.SendUser = this.SendUser.bind(this);
   }
 
   HandleChange({ target }) {
@@ -26,7 +26,7 @@ class Login extends Component {
     }, () => this.FormValidate());
   }
 
-  OnSubmitUser() {
+  SendUser() {
     const { email } = this.state;
     const { SetUserStore } = this.props;
     SetUserStore(email);
@@ -78,7 +78,7 @@ class Login extends Component {
           <button
             type="button"
             disabled={ disable }
-            onClick={ this.OnSubmitUser }
+            onClick={ this.SendUser }
           >
             Entrar
           </button>

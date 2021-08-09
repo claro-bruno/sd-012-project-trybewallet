@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Form from '../components/Form';
+import FormExpenses from '../components/ExpensesForm/FormExpenses';
 
 class Wallet extends Component {
   render() {
-    const { email } = this.props;
+    const { email, despesas } = this.props;
     return (
       <div>
         Wallet
@@ -16,14 +16,14 @@ class Wallet extends Component {
           </p>
           <p>
             Despesa total:
-            <span data-testid="total-field">0</span>
+            <span data-testid="total-field">{ despesas }</span>
           </p>
           <p>
             Câmbio:
             <span data-testid="header-currency-field">BRL</span>
           </p>
         </header>
-        <Form />
+        <FormExpenses />
       </div>
     );
   }
@@ -31,6 +31,10 @@ class Wallet extends Component {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  despesas: state.wallet.expenses
+    .reduce((acc, { value, exchangeRates, currency }) => (
+      acc + Number(value) * Number(exchangeRates[currency].ask)),
+    0),
 });
 
 Wallet.propTypes = {
