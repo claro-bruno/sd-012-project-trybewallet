@@ -2,8 +2,9 @@ import {
   CHANGE_USER_INFORMATION,
   CHANGE_WALLET_INFORMATION,
   GET_CURRENCIES,
-  SET_CURRENCIES,
+  GET_EXCHANGE_RATES,
   SET_EXPENSE,
+  REMOVE_EXPENSE,
   REQUEST_CURRENCIES,
   FAILED_REQUEST,
 } from './ActionTypes';
@@ -18,9 +19,9 @@ export const walletInfo = (info) => ({
   info,
 });
 
-export const setCurrencies = (selecteds) => ({
-  type: SET_CURRENCIES,
-  selecteds,
+export const getExchangeRates = (exchange) => ({
+  type: GET_EXCHANGE_RATES,
+  exchange,
 });
 
 export const setExpense = (expense) => ({
@@ -28,28 +29,34 @@ export const setExpense = (expense) => ({
   expense,
 });
 
-const getCurrencies = (json) => ({
-  type: GET_CURRENCIES,
-  payload: Object.values(json).filter((array) => array.codein !== 'BRLT'),
+export const removeExpense = (id) => ({
+  type: REMOVE_EXPENSE,
+  id,
 });
 
-function requestCurrencies() {
-  return { type: REQUEST_CURRENCIES };
-}
+const requestCurrencies = () => ({
+  type: REQUEST_CURRENCIES,
+});
 
-function failedRequest(error) {
-  return { type: FAILED_REQUEST, payload: error };
-}
+const getCurrencies = (currencies) => ({
+  type: GET_CURRENCIES,
+  currencies,
+});
 
-export function fetchCurrencies() {
-  return (dispatch) => {
-    dispatch(requestCurrencies());
-    const currencies = fetch('https://economia.awesomeapi.com.br/json/all')
-      .then((r) => r.json()
-        .then(
-          (json) => dispatch(getCurrencies(json)),
-          (error) => dispatch(failedRequest(error)),
-        ));
+const failedRequest = (error) => ({
+  type: FAILED_REQUEST,
+  error,
+});
+
+export const fetchCurrencies = (type) => async (dispatch) => {
+  dispatch(requestCurrencies());
+  try {
+    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const currencies = await response.json();
+    if (type === 'currencies') dispatch(getCurrencies(currencies));
+    if (type === 'exchange') dispatch(getExchangeRates(currencies));
     return currencies;
-  };
-}
+  } catch (error) {
+    dispatch(failedRequest(error));
+  }
+};

@@ -24,7 +24,7 @@
 
 .menu-form {
   align-items: center;
-  background-color: rgb(50, 55, 60);
+  background-color: rgb(40, 45, 55);
   color: rgb(210, 210, 210);
   display: flex;
   flex-direction: row;
@@ -80,25 +80,35 @@
 
 }
 
-.table-container {
-  background-color: rgb(55, 65, 65);
+.row-header {
+  background-color: rgb(50, 55, 60);
   color: rgb(210, 210, 210);
-  display: flex;
-  flex-direction: column;
+  height: 2.5em;
+  margin: auto;
+}
+
+.row-body {
+  color: rgb(80, 90, 100);
+}
+
+.column-body {
+  font-size: 1em;
   font-weight: 600;
-  height: 3em;
-  justify-content: center;
+  text-align: center;
 }
 
-.table-header {
-  color: rgb(225, 230, 230);
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+.edit-button {
+  background-color: rgb(250, 190, 10);
+  border: transparent;
+  border-radius: 3px;
+  color: rgb(50, 55, 60);
+  margin-right: 0.1em;
 }
 
-.collumn-title {
-  font-size: 14px;
-  font-weight: 700;
-  margin: 0 2em;
+.delete-button {
+  background-color: rgb(200, 30, 50);
+  border: transparent;
+  border-radius: 3px;
+  color: white;
+  margin-left: 0.1em;
 }

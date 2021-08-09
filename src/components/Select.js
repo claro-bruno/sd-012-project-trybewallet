@@ -14,8 +14,6 @@ class Select extends Component {
       options,
     } = this.props;
 
-    const optionsList = Object.keys(options).map((option) => option);
-
     return (
       (name === 'currency' ? (
         <label htmlFor={ id }>
@@ -28,7 +26,7 @@ class Select extends Component {
             onChange={ onChange }
             required={ required }
           >
-            { optionsList.map((option, index) => (
+            { options.map((option, index) => (
               <option
                 key={ index }
                 value={ option }
@@ -77,9 +75,3 @@ Select.propTypes = {
 };
 
 export default Select;
-
-/* PropTypes.arrayOf(PropTypes.shape({
-  map: PropTypes.func,
-  name: PropTypes.string,
-  desc: PropTypes.string,
-})).isRequired, */

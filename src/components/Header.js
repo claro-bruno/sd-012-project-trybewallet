@@ -7,10 +7,7 @@ class Header extends Component {
   constructor(props) {
     super(props);
 
-    this.addToTotal = this.addToTotal.bind(this);
-
     this.state = {
-      total: 0,
       localCurrency: {
         code: 'R$',
         symbol: 'BRL',
@@ -18,37 +15,11 @@ class Header extends Component {
     };
   }
 
-  componentDidUpdate(prevProps) {
-    const { wallet: { expenses } } = this.props;
-    if ((prevProps.wallet.expenses !== expenses)
-        && (expenses.length > 0)) {
-      this.addToTotal();
-    }
-  }
-
-  addToTotal() {
-    const { wallet: { expenses } } = this.props;
-
-    const totalSumExpenses = expenses.map((expenseValue) => {
-      const exchangeExpense = (Object.values(expenseValue.exchangeRates)
-        .find((exchangeRate) => exchangeRate.code === expenseValue.currency)
-        .bid) * expenseValue.value;
-      return exchangeExpense;
-    }).reduce((currentValue, nextValue) => {
-      const sumExpenses = parseFloat(currentValue) + parseFloat(nextValue);
-      return sumExpenses;
-    }, 0);
-
-    this.setState((prevProps) => ({
-      ...prevProps,
-      total: totalSumExpenses,
-    }));
-  }
-
   render() {
-    const { email } = this.props;
-    const { total, localCurrency } = this.state;
-    const formato = { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' };
+    const { user: { email }, wallet: { totalValue } } = this.props;
+    const { localCurrency } = this.state;
+    // const formato = { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' };
+    // console.log(totalValue.toLocaleString('pt-BR', formato));
     return (
       <div className="header-container">
         <img className="wallet-logo" src={ trybePath } alt="trybe" />
@@ -57,7 +28,8 @@ class Header extends Component {
           <div className="total-expenses">
             <span>Despesa Total: </span>
             <span data-testid="total-field">
-              { total.toLocaleString('pt-BR', formato) }
+              {/* { totalValue.toLocaleString('pt-BR', formato) } */}
+              {` ${totalValue.toFixed(2)} `}
             </span>
             <span data-testid="header-currency-field">{` ${localCurrency.symbol}`}</span>
           </div>
@@ -67,17 +39,16 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({ wallet: state.wallet });
+const mapStateToProps = (state) => ({ user: state.user, wallet: state.wallet });
 
 Header.propTypes = {
-  email: PropTypes.string.isRequired,
+  user: PropTypes.shape({
+    email: PropTypes.string,
+  }).isRequired,
   wallet: PropTypes.shape({
+    totalValue: PropTypes.number,
     expenses: PropTypes.arrayOf(PropTypes.shape({
-      exchangeRates: PropTypes.arrayOf(PropTypes.shape({
-        name: PropTypes.string,
-        code: PropTypes.string,
-        ask: PropTypes.number,
-      })),
+      exchangeRates: PropTypes.shape(),
     })).isRequired,
   }).isRequired,
 };

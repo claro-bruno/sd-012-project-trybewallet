@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Header } from '../components';
 import Menu from '../components/Menu';
 import Table from '../components/Table';
-import { fetchCurrencies, setCurrencies, setExpense } from '../actions';
+import { fetchCurrencies, setExpense } from '../actions';
 import options from '../data';
 import './Wallet.css';
 
@@ -14,6 +14,7 @@ class Wallet extends Component {
 
     this.setCurrency = this.setCurrency.bind(this);
     this.updateCurrencies = this.updateCurrencies.bind(this);
+    this.getExchangeRates = this.getExchangeRates.bind(this);
     this.addExchangeRates = this.addExchangeRates.bind(this);
     this.setExpense = this.setExpense.bind(this);
     this.resetState = this.resetState.bind(this);
@@ -22,7 +23,6 @@ class Wallet extends Component {
 
     this.state = {
       expense: {
-        id: 0,
         value: '',
         currency: '',
         method: options.methods[0].name,
@@ -38,28 +38,22 @@ class Wallet extends Component {
 
   componentDidMount() {
     const { getCurrenciesHandler } = this.props;
-    getCurrenciesHandler();
+    getCurrenciesHandler('currencies');
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { wallet: { currencies }, setExpenseHandler } = this.props;
+    const { wallet: { currencies, exchange }, setExpenseHandler } = this.props;
     const {
       expenseToAdd: { exchangeRates },
       fetchToAdd,
       readyToAdd,
       expenseToAdd,
     } = this.state;
-    const defaultLength = 15;
-    if ((prevProps.wallet.currencies !== currencies)
-        && ((prevProps.wallet.currencies.length === 0)
-        || (Object.keys(currencies).length === defaultLength))) {
-      this.setCurrency();
-    }
+    if (prevProps.wallet.currencies !== currencies) this.setCurrency();
     if (fetchToAdd) this.updateCurrencies();
     if ((prevState.fetchToAdd !== fetchToAdd)
-        && (prevState.expenseToAdd !== expenseToAdd)) {
-      this.addExchangeRates();
-    }
+        && (prevState.expenseToAdd !== expenseToAdd)) this.getExchangeRates();
+    if (prevProps.wallet.exchange !== exchange) this.addExchangeRates();
     if ((prevState.exchangeRates !== exchangeRates)
         && (prevState.readyToAdd !== readyToAdd)
         && (readyToAdd === true)) {
@@ -69,18 +63,10 @@ class Wallet extends Component {
   }
 
   setCurrency() {
-    const { wallet: { currencies, expenses }, setCurrenciesHandler } = this.props;
-
-    setCurrenciesHandler(currencies);
-
-    this.setState((prevState) => ({
-      ...prevState,
-      expense: {
-        ...prevState.expense,
-        id: (expenses.length),
-        currency: Object.values(currencies)[0].code,
-      },
-    }));
+    const { wallet: { currencies } } = this.props;
+    this.setState((prevState) => (
+      { expense: { ...prevState.expense, currency: currencies[0] } }
+    ));
   }
 
   setExpense() {
@@ -104,32 +90,36 @@ class Wallet extends Component {
     }
   }
 
+  async getExchangeRates() {
+    const { getCurrenciesHandler } = this.props;
+    await getCurrenciesHandler('exchange');
+  }
+
   addExchangeRates() {
-    const { wallet: { currencies } } = this.props;
+    const { wallet: { exchange } } = this.props;
     this.setState((prevState) => ({
       ...prevState,
-      expenseToAdd: { ...prevState.expenseToAdd, exchangeRates: currencies },
+      expenseToAdd: { ...prevState.expenseToAdd, exchangeRates: exchange },
       readyToAdd: true,
     }));
   }
 
   updateCurrencies() {
+    const { wallet: { currencies } } = this.props;
     const { expense } = this.state;
-    const { getCurrenciesHandler } = this.props;
     this.setState((prevState) => ({
       ...prevState,
       expenseToAdd: expense,
       fetchToAdd: false,
       expense: {
         value: '',
-        currency: '',
+        currency: currencies[0],
         method: options.methods[0].name,
         tag: options.tags[0].name,
         description: '',
         exchangeRates: {},
       },
     }));
-    getCurrenciesHandler();
   }
 
   resetState() {
@@ -151,36 +141,32 @@ class Wallet extends Component {
   }
 
   render() {
-    const { user: { email }, wallet: { isFetching, currencies } } = this.props;
+    const { wallet: { isFetching, currencies } } = this.props;
 
-    const {
-      total,
-      localCurrency,
-      expense: { value, currency, method, tag, description },
-    } = this.state;
+    const { expense: { value, currency, method, tag, description } } = this.state;
 
     return (
-      (isFetching ? (
-        <div className="wallet-container">
-          <Header email={ email } localCurrency={ localCurrency } />
-          <p>Loading...</p>
-        </div>
-      ) : (
-        <div className="wallet-container">
-          <Header email={ email } total={ total } localCurrency={ localCurrency } />
-          <Menu
-            value={ value }
-            currency={ currency }
-            currencies={ currencies }
-            method={ method }
-            tag={ tag }
-            description={ description }
-            onChange={ this.handleChange }
-            onClick={ this.handleClick }
-          />
-          <Table />
-        </div>
-      ))
+      <div className="wallet-container">
+        { (isFetching || Object.values(currencies).length === 0) ? (
+          <> </>
+        ) : (
+          <>
+            <Header />
+            <Menu
+              value={ value }
+              currency={ currency }
+              currencies={ currencies }
+              method={ method }
+              tag={ tag }
+              description={ description }
+              onChange={ this.handleChange }
+              onClick={ this.handleClick }
+            />
+            {/* <Table expenses={ expenses.length > 0 ? { expenses } : false } /> */}
+            <Table />
+          </>
+        )}
+      </div>
     );
   }
 }
@@ -188,8 +174,7 @@ class Wallet extends Component {
 const mapStateToProps = (state) => ({ user: state.user, wallet: state.wallet });
 
 const mapDispatchToProps = (dispatch) => ({
-  getCurrenciesHandler: () => dispatch(fetchCurrencies()),
-  setCurrenciesHandler: (selecteds) => dispatch(setCurrencies(selecteds)),
+  getCurrenciesHandler: (type) => dispatch(fetchCurrencies(type)),
   setExpenseHandler: (expense) => dispatch(setExpense(expense)),
 });
 
@@ -200,17 +185,16 @@ Wallet.propTypes = {
   wallet: PropTypes.shape({
     isFetching: PropTypes.bool.isRequired,
     currency: PropTypes.string,
-    currencies: PropTypes.shape().isRequired,
+    currencies: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.object,
+    ]),
     expenses: PropTypes.arrayOf(PropTypes.shape({
-      exchangeRates: PropTypes.arrayOf(PropTypes.shape({
-        name: PropTypes.string,
-        code: PropTypes.string,
-        ask: PropTypes.number,
-      })),
+      exchangeRates: PropTypes.shape(),
     })),
+    exchange: PropTypes.shape(),
   }),
   getCurrenciesHandler: PropTypes.func.isRequired,
-  setCurrenciesHandler: PropTypes.func.isRequired,
   setExpenseHandler: PropTypes.func.isRequired,
 };
 
