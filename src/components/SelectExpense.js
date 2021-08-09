@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-class selectExpense extends React.Component {
+class SelectExpense extends React.Component {
   render() {
     const {
       text,
@@ -29,7 +29,7 @@ class selectExpense extends React.Component {
   }
 }
 
-selectExpense.propTypes = {
+SelectExpense.propTypes = {
   text: propTypes.string.isRequired,
   name: propTypes.string.isRequired,
   dataTestId: propTypes.string.isRequired,
@@ -37,4 +37,4 @@ selectExpense.propTypes = {
   onChange: propTypes.func.isRequired,
 };
 
-export default selectExpense;
+export default SelectExpense;

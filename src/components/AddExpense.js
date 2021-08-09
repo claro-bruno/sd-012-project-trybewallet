@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { fetchExpense, fetchCurrency } from '../actions';
-import Input from './Input';
-import Select from './Select';
-import methodOptions from './methodOptions';
-import tagOptions from './tagOptions';
+import Input from './InputExpense';
+import Select from './SelectExpense';
+/* import methodOptions from './methodOptions';
+import tagOptions from './tagOptions'; */
 
 class AddExpense extends React.Component {
   constructor(props) {
@@ -52,11 +52,11 @@ class AddExpense extends React.Component {
   }
 
   render() {
+    const methodOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+    const tagOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     const { value, description } = this.state;
     const { currencyOptions, loading } = this.props;
-    if (loading) {
-      return <div>Carregando moedas</div>;
-    }
+    if (loading) { return <div>Carregando moedas</div>; }
     return (
       <section>
         <Input

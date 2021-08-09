@@ -2,10 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { editExpense, fetchCurrency } from '../actions';
-import Input from './Input';
-import Select from './Select';
-import methodOptions from './methodOptions';
-import tagOptions from './tagOptions';
+import InputExpense from './InputExpense';
+import SelectExpense from './SelectExpense';
 
 class EditExpense extends React.Component {
   constructor(props) {
@@ -45,14 +43,14 @@ class EditExpense extends React.Component {
   }
 
   render() {
+    const methodOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+    const tagOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     const { value, description } = this.state;
     const { currencyOptions, loading } = this.props;
-    if (loading) {
-      return <div>Carregando moeda</div>;
-    }
+    if (loading) { return <div>Carregando moeda</div>; }
     return (
       <section className="edit-mode">
-        <Input
+        <InputExpense
           text="Valor: "
           type="number"
           name="value"
@@ -60,7 +58,7 @@ class EditExpense extends React.Component {
           value={ value }
           onChange={ this.handleChange }
         />
-        <Input
+        <InputExpense
           text="Descrição: "
           type="text"
           name="description"
@@ -68,21 +66,21 @@ class EditExpense extends React.Component {
           value={ description }
           onChange={ this.handleChange }
         />
-        <Select
+        <SelectExpense
           text="Moeda"
           name="currency"
           dataTestId="currency-input"
           onChange={ this.handleChange }
           options={ currencyOptions }
         />
-        <Select
+        <SelectExpense
           text="Método de pagamento"
           name="method"
           dataTestId="method-input"
           onChange={ this.handleChange }
           options={ methodOptions }
         />
-        <Select
+        <SelectExpense
           text="Tag"
           name="tag"
           dataTestId="tag-input"
