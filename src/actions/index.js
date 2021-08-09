@@ -2,6 +2,7 @@ export const ADD_EMAIL = 'ADD_EMAIL';
 export const GET_COINS = 'GET_COINS';
 export const FETCH_COIN = 'FETCH_COIN';
 export const ADD_EXPENSES = 'ADD_EXPENSES';
+export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
 
 export const addEmail = (userMail) => ({
   type: ADD_EMAIL,
@@ -20,4 +21,9 @@ export const fetchCoins = () => ({
 export const addExpenses = (expense) => ({
   type: ADD_EXPENSES,
   payload: expense,
+});
+
+export const removeExpense = (id) => ({
+  type: REMOVE_EXPENSE,
+  payload: id,
 });

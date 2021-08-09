@@ -10,7 +10,7 @@ const initialState = {
   value: 0,
   currency: 'USD',
   method: 'Cartão de crédito',
-  tag: '',
+  tag: 'Alimentação',
   description: '',
   exchangeRates: {},
 };
@@ -68,7 +68,6 @@ class FormDespesas extends Component {
     return (
       <form className="container">
         <NumberInput value={ value } onChange={ this.change } />
-        <DescriptionInput description={ description } onChange={ this.change } />
         <label htmlFor="currency">
           Moeda
           <select
@@ -82,6 +81,7 @@ class FormDespesas extends Component {
               .map((option, i) => <option key={ i }>{option}</option>)}
           </select>
         </label>
+        <DescriptionInput description={ description } onChange={ this.change } />
         <Payment method={ method } onChange={ this.change } />
         <label htmlFor="tag">
           Tag

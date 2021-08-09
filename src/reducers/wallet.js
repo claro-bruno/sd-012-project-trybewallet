@@ -1,4 +1,4 @@
-import { GET_COINS, FETCH_COIN, ADD_EXPENSES } from '../actions';
+import { GET_COINS, FETCH_COIN, ADD_EXPENSES, REMOVE_EXPENSE } from '../actions';
 
 const INITIAL_STATE = {
   coins: [],
@@ -23,6 +23,11 @@ const fetchAPI = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       expenses: [...state.expenses, action.payload],
+    };
+  case REMOVE_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.filter((expense) => expense.id !== action.payload),
     };
   default: return state;
   }

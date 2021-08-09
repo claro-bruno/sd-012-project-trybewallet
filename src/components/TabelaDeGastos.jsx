@@ -1,8 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { removeExpense } from '../actions';
 
 class TabelaDeGastos extends Component {
+  constructor() {
+    super();
+    this.delete = this.delete.bind(this);
+  }
+
+  delete(id) {
+    const { deleteExpense } = this.props;
+    deleteExpense(id);
+  }
+
   render() {
     const params = [
       'Descrição',
@@ -34,7 +45,15 @@ class TabelaDeGastos extends Component {
                   <td>{Math.round(exchangeRates[currency].ask * 100) / 100}</td>
                   <td>{Math.round(value * exchangeRates[currency].ask * 100) / 100}</td>
                   <td>Real</td>
-                  <td>void</td>
+                  <td>
+                    <button
+                      type="button"
+                      onClick={ () => this.delete(id) }
+                      data-testid="delete-btn"
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
           </tbody>
@@ -46,10 +65,15 @@ class TabelaDeGastos extends Component {
 
 TabelaDeGastos.propTypes = {
   expenses: PropTypes.arrayOf(Object).isRequired,
+  deleteExpense: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps, null)(TabelaDeGastos);
+const mapDispatchToProps = (dispatch) => ({
+  deleteExpense: (id) => dispatch(removeExpense(id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TabelaDeGastos);
