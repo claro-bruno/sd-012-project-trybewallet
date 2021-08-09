@@ -52,7 +52,7 @@ class AddForm extends React.Component {
     return (
       <div>
         <label htmlFor="valor">
-          Valor:
+          Valor
           <input
             className="input-style"
             type="number"
@@ -73,7 +73,7 @@ class AddForm extends React.Component {
     return (
       <div>
         <label htmlFor="curr-select">
-          Moeda:
+          Moeda
           <select
             className="input-style"
             id="curr-select"
@@ -100,7 +100,7 @@ class AddForm extends React.Component {
     return (
       <div>
         <label htmlFor="payment-select">
-          Método de Pagamento:
+          Método de Pagamento
           <select
             className="input-style"
             id="payment-select"
@@ -123,7 +123,7 @@ class AddForm extends React.Component {
     return (
       <div>
         <label htmlFor="tag-select">
-          Tag:
+          Tag
           <select
             className="input-style"
             id="tag-select"
@@ -148,7 +148,7 @@ class AddForm extends React.Component {
     return (
       <div>
         <label htmlFor="descrição">
-          Descrição:
+          Descrição
           <input
             className="input-style"
             type="text"
