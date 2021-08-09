@@ -3,6 +3,9 @@ export const CHANGE_EMAIL = 'CHANGE_EMAIL';
 export const API_SUCESS = 'API_SUCESS';
 export const ADD_RATES = 'ADD_RATES';
 export const ADD_EXPENSES = 'ADD_EXPENSES';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+
+export const actionDeleteExpense = (id) => ({ type: DELETE_EXPENSE, id });
 
 export const actionChangeEmail = (state) => ({ type: CHANGE_EMAIL, state });
 
