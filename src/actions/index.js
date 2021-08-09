@@ -33,7 +33,7 @@ export function thunkExchange(obj) {
     try {
       const response = await fetch('https://economia.awesomeapi.com.br/json/all');
       const data = await response.json();
-      obj.exchangeRate = data;
+      obj.exchangeRates = data;
       return dispatch(userExpense(obj));
     } catch (error) {
       console.error(error);

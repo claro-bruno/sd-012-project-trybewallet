@@ -14,11 +14,12 @@ class Wallet extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.renderMoeda = this.renderMoeda.bind(this);
     this.updateExpenses = this.updateExpenses.bind(this);
-    this.sumExpenses = this.sumExpenses.bind(this);
+    this.calculateExpenses = this.calculateExpenses.bind(this);
 
     this.state = {
-      id: -1,
       currencies: {},
+      totalValue: 0,
+      id: -1,
       value: 0,
       description: '',
       currency: 'USD',
@@ -42,7 +43,7 @@ class Wallet extends React.Component {
     });
   }
 
-  updateExpenses() {
+  async updateExpenses() {
     this.idCounter();
     const { fetchExchange } = this.props;
     const { value, description, currency, method, tag, id } = this.state;
@@ -54,15 +55,8 @@ class Wallet extends React.Component {
       method,
       tag,
     };
-    fetchExchange(stateObject);
-    this.sumExpenses();
-  }
-
-  sumExpenses() {
-    const { expensesInfo } = this.props;
-    if (expensesInfo !== []) {
-      console.log(expensesInfo);
-    }
+    await fetchExchange(stateObject);
+    this.calculateExpenses();
   }
 
   idCounter() {
@@ -81,6 +75,15 @@ class Wallet extends React.Component {
     } catch (error) {
       return console.error(error);
     }
+  }
+
+  calculateExpenses() {
+    const { expensesInfo } = this.props;
+    const totalValue = expensesInfo.reduce((acc, { value, currency, exchangeRates }) => {
+      const convertedValue = +value * exchangeRates[currency].ask;
+      return convertedValue + acc;
+    }, 0);
+    this.setState({ totalValue });
   }
 
   renderMetPag() {
@@ -148,7 +151,7 @@ class Wallet extends React.Component {
 
   render() {
     const { userEmail } = this.props;
-    const { value, description } = this.state;
+    const { value, description, totalValue } = this.state;
     return (
       <div>
         <header>
@@ -157,8 +160,9 @@ class Wallet extends React.Component {
             Email:&nbsp;
             {userEmail}
           </h3>
-          <h3 data-testid="total-field">
-            Despesa total: R$ 0
+          <h3>
+            Despesa total: R$&nbsp;
+            <span data-testid="total-field">{totalValue.toFixed(2)}</span>
           </h3>
           <h3 data-testid="header-currency-field">BRL</h3>
         </header>
@@ -207,6 +211,7 @@ const mapDispatchToProps = (dispatch) => ({
 Wallet.propTypes = {
   userEmail: propTypes.string.isRequired,
   fetchExchange: propTypes.func.isRequired,
+  expensesInfo: propTypes.arrayOf(propTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
