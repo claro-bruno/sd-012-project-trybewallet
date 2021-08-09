@@ -3,6 +3,7 @@ export const ADD_MAIL = 'ADD_MAIL';
 export const REQ_COIN = 'REQ_COIN';
 export const REC_COIN = 'REC_COIN ';
 export const FAI_COIN = 'FAI_COIN';
+export const ADD_EXPENSE = 'ADD_EXPENSE';
 
 export const addMail = (email) => ({
   type: ADD_MAIL,
@@ -34,3 +35,10 @@ export function fetchCoin() {
     }
   };
 }
+
+export const addExpenses = (thisState) => (
+  {
+    type: ADD_EXPENSE,
+    payload: thisState,
+  }
+);
