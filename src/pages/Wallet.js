@@ -1,19 +1,34 @@
-import { UPDATE_CURRENCY, UPDATE_EXPENSE } from '../actions/index';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchCurrencies } from '../actions';
+import WalletHeader from '../Components/WalletHeader';
+import WalletNewForm from '../Components/WalletNewForm';
+import ExpensesTable from '../Components/ExpensesTable';
 
-const INITIAL_STATE = {
-  currencies: [],
-  expenses: [],
-};
-
-const wallet = (state = INITIAL_STATE, { type, payload }) => {
-  switch (type) {
-  case UPDATE_CURRENCY:
-    return { ...state, currencies: [...state.currencies, payload] };
-  case UPDATE_EXPENSE:
-    return { ...state, expenses: [...state.expenses, payload] };
-  default:
-    return state;
+class Wallet extends React.Component {
+  componentDidMount() {
+    const { setCurrencies } = this.props;
+    setCurrencies();
   }
+
+  render() {
+    return (
+      <div>
+        <WalletHeader />
+        <WalletNewForm />
+        <ExpensesTable />
+      </div>
+    );
+  }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  setCurrencies: () => dispatch(fetchCurrencies()),
+});
+
+Wallet.propTypes = {
+  setCurrencies: PropTypes.func.isRequired,
 };
 
-export default wallet;
+export default connect(null, mapDispatchToProps)(Wallet);

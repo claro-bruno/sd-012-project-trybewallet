@@ -1,3 +1,12 @@
-const EMAIL = 'EMAIL';
+export const EMAIL = 'EMAIL';
 
-export default EMAIL;
+export const GET_CURRENCIES = 'GET_CURRENCIES';
+export const GET_CURRENCIES_SUCCESS = 'GET_CURRENCIES_SUCCESS';
+export const GET_CURRENCIES_ERROR = 'GET_CURRENCIES_ERROR';
+
+export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
+export const UPDATE_EXPENSE = 'UPDATE_EXPENSE';
+export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
+
+export const SUM_EXPENSES = 'SUM_EXPENSES';
