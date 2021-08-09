@@ -9,7 +9,7 @@ class OutGoing extends Component {
     this.state = {
       id: 0,
       value: '',
-      currency: [],
+      currency: 'USD',
       description: '',
       method: 'Dinheiro',
       tag: 'alimentacao',
@@ -32,7 +32,7 @@ class OutGoing extends Component {
 
   handleCurrencies() {
     const { currenciesProps } = this.props;
-    const cur = [...Object.keys(currenciesProps).filter(moeda => moeda !== 'USDT')];
+    const cur = [...Object.keys(currenciesProps).filter((moeda) => moeda !== 'USDT')];
 
     return cur.map((moeda) => (
       <option key={ moeda } value={ moeda }>
@@ -40,7 +40,6 @@ class OutGoing extends Component {
       </option>));
   }
 
-  
   inputDescricao(onChange) {
     const { description } = this.state;
     return (
@@ -52,18 +51,18 @@ class OutGoing extends Component {
           name="description"
           value={ description }
           onChange={ onChange }
-          />
+        />
       </label>
     );
   }
-  
+
   inputValue(onChange) {
     const { value } = this.state;
     return (
       <label htmlFor="value">
         Valor:
         <input
-          type="text"
+          type="number"
           id="value"
           name="value"
           value={ value }
@@ -75,10 +74,10 @@ class OutGoing extends Component {
 
   async handleOnSubmit(e) {
     e.preventDefault();
-    const { addExpensive, currenciesProps } = this.props;
-    await this.setState({ exchangeRates: currenciesProps })
-    addExpensive(this.state);
-    this.setState(({id}) => ({ id: id + 1}))
+    const { addExp, currenciesProps } = this.props;
+    await this.setState({ exchangeRates: currenciesProps });
+    await addExp(this.state);
+    this.setState(({ id }) => ({ id: id + 1 }));
   }
 
   render() { // FUNCAP RENDER
@@ -108,7 +107,7 @@ class OutGoing extends Component {
           >
             <option value="dinheiro">Dinheiro</option>
             <option value="Cartão de crédito">Cartão de crédito</option>
-            <option value="Cartão de Débito">Cartão de Débito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
           </select>
         </label>
         <label htmlFor="tag">
@@ -134,7 +133,7 @@ class OutGoing extends Component {
 
 OutGoing.propTypes = {
   currenciesProps: PropTypes.arrayOf(PropTypes.string).isRequired,
-  addExpensive: PropTypes.func.isRequired,
+  addExp: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -142,7 +141,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addExpensive: (state) => dispatch(addExpensive(state)),
+  addExp: (state) => dispatch(addExpensive(state)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OutGoing);

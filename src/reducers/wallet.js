@@ -1,4 +1,9 @@
-import { FETCH_API, FETCH_API_SUCCESS, FETCH_API_ERROR, SAVE_EXPENSIVE } from '../actions';
+import {
+  FETCH_API,
+  FETCH_API_SUCCESS,
+  FETCH_API_ERROR,
+  SAVE_EXPENSIVE,
+} from '../actions';
 
 const initialState = {
   currencies: [],
@@ -13,17 +18,18 @@ const WalletReducer = (state = initialState, action) => {
     return { ...state, isLoading: true };
   case FETCH_API_SUCCESS:
     return {
+      ...state,
       error: null,
       currencies: action.payload.results,
       isLoading: false };
   case FETCH_API_ERROR:
-    return { error: action.error, isLoading: false };
+    return { ...state, error: action.error, isLoading: false };
   case SAVE_EXPENSIVE:
     return {
       ...state,
       error: null,
       currencies: action.payload.results,
-      expenses: action.payload.state,
+      expenses: ([...state.expenses, action.payload.state]),
       isLoading: false,
     };
   default:

@@ -6,13 +6,20 @@ class Header extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      total: 0,
-    };
+    this.handleTotal = this.handleTotal.bind(this);
+  }
+
+  handleTotal() {
+    const { valorTotal } = this.props;
+    return valorTotal
+      .reduce(
+        (acc, ele) => acc
+      + (Number(ele.value) * Number(ele.exchangeRates[ele.currency].ask)),
+        0,
+      );
   }
 
   render() {
-    const { total } = this.state;
     const { userEmail } = this.props;
 
     return (
@@ -30,13 +37,12 @@ class Header extends Component {
         </label>
         <label htmlFor="total">
           Total:
-          <input
-            type="text"
+          <span
             id="total"
             data-testid="total-field"
-            value={ total }
-            readOnly
-          />
+          >
+            { (this.handleTotal()).toFixed(2) }
+          </span>
         </label>
         <label htmlFor="exchange">
           Exchange:
@@ -54,10 +60,12 @@ class Header extends Component {
 }
 Header.propTypes = {
   userEmail: PropTypes.string.isRequired,
+  valorTotal: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   userEmail: state.user.email,
+  valorTotal: state.wallet.expenses,
 });
 
 export default connect(mapStateToProps)(Header);
