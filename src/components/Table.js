@@ -3,7 +3,15 @@ import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
 
 class Table extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+
+    };
+  }
+
   render() {
+    // const { expenses } = this.props;
     return (
       <table>
         <thead>
