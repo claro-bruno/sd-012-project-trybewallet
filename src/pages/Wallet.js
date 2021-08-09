@@ -5,12 +5,18 @@ import FormDespesas from '../components/FormDespesas';
 
 class Wallet extends React.Component {
   render() {
-    const { user } = this.props;
+    const { user, expenses } = this.props;
+    let total = 0;
+    if (expenses.length > 0) {
+      total = expenses
+        .reduce((acc, { valor, response, moeda }) => (
+          acc + (Number(valor) * Number(response[moeda].ask))), 0);
+    }
     return (
       <div>
         <header>
           <p data-testid="email-field">{ user.email }</p>
-          <p data-testid="total-field">0</p>
+          <p data-testid="total-field">{total}</p>
           <p data-testid="header-currency-field">BRL</p>
         </header>
         <FormDespesas />
@@ -21,10 +27,12 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   user: PropTypes.objectOf(Object).isRequired,
+  expenses: PropTypes.arrayOf(Object).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   user: state.user,
+  expenses: state.wallet.expenses,
 });
 
 export default connect(mapStateToProps)(Wallet);
