@@ -19,7 +19,6 @@ export const getCurrencyError = (payload) => ({
 const fetchAPI = async () => {
   const response = await fetch(endpoint);
   const result = response.json();
-  delete result.USDT;
   console.log(result);
   return result;
 };

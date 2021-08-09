@@ -81,7 +81,7 @@ class AddForm extends React.Component {
             name="currency"
             onChange={ this.handleChange }
           >
-            { currencies.map((curr) => (
+            { currencies.filter((curr) => curr !== 'USDT').map((curr) => (
               <option
                 value={ curr }
                 key={ curr }
