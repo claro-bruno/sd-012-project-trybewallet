@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { getEmail } from '../actions';
 import Input from '../components/Input';
 import Button from '../components/Button';
+import './styles/Login.css';
 
 class Login extends React.Component {
   constructor(props) {
@@ -53,26 +54,30 @@ class Login extends React.Component {
 
     return (
       <div>
-        <Input
-          type="email"
-          name="email"
-          dataTestId="email-input"
-          handleChange={ this.handleChange }
-        />
+        <div className="container">
+          <h1>Trybe Wallet</h1>
 
-        <Input
-          type="text"
-          name="password"
-          dataTestId="password-input"
-          handleChange={ this.handleChange }
-        />
+          <Input
+            type="email"
+            name="email"
+            dataTestId="email-input"
+            handleChange={ this.handleChange }
+          />
 
-        <Button
-          name="login-button"
-          text="Entrar"
-          disableButton={ !this.checkEmailAndPassword() }
-          handleClick={ this.handleClick }
-        />
+          <Input
+            type="text"
+            name="password"
+            dataTestId="password-input"
+            handleChange={ this.handleChange }
+          />
+
+          <Button
+            name="login-button"
+            text="Entrar"
+            disableButton={ !this.checkEmailAndPassword() }
+            handleClick={ this.handleClick }
+          />
+        </div>
 
         { redirect && <Redirect to="/carteira" />}
       </div>
