@@ -3,8 +3,10 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Input from '../components/Input';
-import { userAction } from '../actions';
-import Button from '../components/Button';
+import { loginAction, getCurrencyAPI } from '../actions';
+import Button from '../components/SubmitButton';
+
+const passwordLength = 6;
 
 class Login extends Component {
   constructor() {
@@ -16,6 +18,7 @@ class Login extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.checkCredentials = this.checkCredentials.bind(this);
   }
 
   handleChange({ target }) {
@@ -25,22 +28,33 @@ class Login extends Component {
     });
   }
 
-  handleClick(e) {
-    e.preventDefault();
+  handleClick(event) {
+    event.preventDefault();
     const { email } = this.state;
-    const { userStateToRedux } = this.props;
+    const { userStateToRedux, currencyStateToProps } = this.props;
     userStateToRedux(email);
+    currencyStateToProps();
     this.setState({
       shouldRedirect: true,
     });
   }
 
+  // source: https://ui.dev/validate-email-address-javascript/
+  emailIsValid(email) {
+    return /\S+@\S+\.\S+/.test(email);
+  }
+
+  passwordIsValid(password) {
+    return password.length >= passwordLength;
+  }
+
+  checkCredentials() {
+    const { email, password } = this.state;
+    return this.emailIsValid(email) && this.passwordIsValid(password);
+  }
+
   render() {
     const { email, password, shouldRedirect } = this.state;
-    const pwLength = 6;
-    const emailFirstValidation = !email.includes('@');
-    const emailSecondValidation = !email.includes('.');
-    const emailThirdValidation = !email.includes('com');
 
     return (
       <main id="mainSection">
@@ -68,8 +82,7 @@ class Login extends Component {
           <div>
             <Button
               onClick={ this.handleClick }
-              disabled={ password.length < pwLength
-                || emailFirstValidation || emailSecondValidation || emailThirdValidation }
+              disabled={ !this.checkCredentials() }
               buttonTxt="Entrar"
             />
           </div>
@@ -81,11 +94,13 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  userStateToRedux: (objState) => dispatch(userAction(objState)),
+  userStateToRedux: (objState) => dispatch(loginAction(objState)),
+  currencyStateToProps: () => dispatch(getCurrencyAPI()),
 });
 
 Login.propTypes = {
   userStateToRedux: PropTypes.func.isRequired,
+  currencyStateToProps: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Login);

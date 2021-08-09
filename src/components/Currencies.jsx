@@ -1,48 +1,48 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { getCurrencyAPI } from '../actions/index';
 
 class Currencies extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currencies: [],
-      currency: 'USD',
-    };
-    this.getCurrencies = this.getCurrencies.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
   componentDidMount() {
-    this.getCurrencies();
-  }
-
-  async getCurrencies() {
-    const request = await fetch('https://economia.awesomeapi.com.br/json/all');
-    const response = await request.json();
-    delete response.USDT;
-    this.setState({
-      currencies: Object.keys(response),
-    });
-  }
-
-  handleChange({ target }) {
-    const { value } = target;
-    this.setState({
-      currency: value,
-    });
+    const { currencyFetchToRedux } = this.props;
+    currencyFetchToRedux();
   }
 
   render() {
-    const { currencies } = this.state;
-    const { currency } = this.state;
+    const { currencyStateFromRedux, value, name, onChange } = this.props;
+
     return (
-      <label htmlFor="moedas">
+      <label htmlFor="moeda">
         Moeda
-        <select value={ currency } onChange={ this.handleChange } id="moedas">
-          { currencies.map((item) => <option key={ item }>{ item }</option>) }
+        <select
+          id="moeda"
+          value={ value }
+          name={ name }
+          onChange={ onChange }
+        >
+          { currencyStateFromRedux.map((item) => (
+            <option key={ item }>{ item }</option>)) }
         </select>
       </label>
     );
   }
 }
 
-export default Currencies;
+const mapStateToProps = (state) => ({
+  currencyStateFromRedux: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  currencyFetchToRedux: () => dispatch(getCurrencyAPI()),
+});
+
+Currencies.propTypes = {
+  value: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  currencyStateFromRedux: PropTypes.arrayOf(PropTypes.string).isRequired,
+  currencyFetchToRedux: PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Currencies);

@@ -1,35 +1,33 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Tag extends Component {
-  constructor() {
-    super();
-    this.state = {
-      tag: 'food',
-    };
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange({ target }) {
-    this.setState({
-      tag: target.value,
-    });
-  }
-
   render() {
-    const { tag } = this.state;
+    const { value, name, onChange } = this.props;
     return (
       <label htmlFor="paymentTag">
         Tag
-        <select id="paymentTag" onChange={ this.handleChange } value={ tag }>
-          <option value="food">Alimentação</option>
-          <option value="recreation">Lazer</option>
-          <option value="work">Trabalho</option>
-          <option value="mobility">Transporte</option>
-          <option value="health">Saúde</option>
+        <select
+          id="paymentTag"
+          onChange={ onChange }
+          value={ value }
+          name={ name }
+        >
+          <option value="Alimentação">Alimentação</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Trabalho">Trabalho</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Saúde">Saúde</option>
         </select>
       </label>
     );
   }
 }
+
+Tag.propTypes = {
+  value: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default Tag;

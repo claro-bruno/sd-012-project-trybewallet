@@ -1,27 +1,32 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import { isRequest, doneRequest } from '../actions';
+import { REQUEST_START, REQUEST_SUCCESS, SAVE_EXPENSE } from '../actions';
 
 const initialState = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-    totalExpenses: 0,
-    isFetch: false,
-  },
+  currencies: [],
+  expenses: [],
+  totalExpenses: 0,
+  fetch: false,
 };
 
 const walletReducer = (state = initialState, action) => {
   switch (action.type) {
-  case isRequest:
-    return {
-      ...state.wallet,
-      isFetch: true,
-    };
-  case doneRequest:
+  case REQUEST_START:
     return {
       ...state,
-      currencies: action.value,
-      isFetch: false,
+      fetch: action.payload.isFetching,
+    };
+  case REQUEST_SUCCESS:
+    return {
+      ...state,
+      currencies: action.payload.currencies,
+      fetch: action.payload.isFetching,
+    };
+  case SAVE_EXPENSE:
+    return {
+      ...state,
+      expenses: [...state.expenses, { id: state.expenses.length,
+        ...action.payload,
+        exchangeRates: action.cotation }],
     };
   default: return state;
   }

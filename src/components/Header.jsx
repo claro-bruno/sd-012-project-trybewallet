@@ -3,12 +3,37 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class Header extends Component {
+  constructor() {
+    super();
+    this.sumOfExpenses = this.sumOfExpenses.bind(this);
+  }
+
+  sumOfExpenses() {
+    const { walletStateFromRedux } = this.props;
+    const zero = '0';
+    if (walletStateFromRedux) {
+      const { expenses } = walletStateFromRedux;
+      if (expenses) {
+        let total = 0;
+        for (let index = 0; index < expenses.length; index += 1) {
+          const string = expenses[index].value ? expenses[index].value : '0';
+          const number = parseFloat(string, 0);
+          total += number;
+          console.log(expenses[index]);
+        }
+        return total;
+      }
+      return zero;
+    }
+    return zero;
+  }
+
   render() {
     const imgPath = 'https://www.abcdacomunicacao.com.br/wp-content/uploads/Trybe_logo-baixa.png';
-    const { userStateFromRedux, walletStateFromRedux } = this.props;
+    const { userStateFromRedux } = this.props;
     const { email } = userStateFromRedux;
-    const { totalExpenses } = walletStateFromRedux;
-    const despesas = totalExpenses || 0;
+    const texto1 = 'Total de despesas: ';
+    const texto2 = 'BRL';
 
     return (
       <header>
@@ -19,9 +44,11 @@ class Header extends Component {
           <div data-testid="email-field">
             { email }
           </div>
-          <div data-testid="total-field">
-            <p data-testid="header-currency-field">
-              { `Total de despesas: ${despesas.toFixed(2)} BRL` }
+          <div data-testid="header-currency-field">
+            <p>
+              { texto1 }
+              <span data-testid="total-field">{ this.sumOfExpenses() }</span>
+              { texto2 }
             </p>
           </div>
         </div>
