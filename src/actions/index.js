@@ -5,3 +5,8 @@ export const login = (email) => ({
   type: LOGIN,
   email,
 });
+
+export const wallet = (currencies) => ({
+  type: WALLET,
+  currencies,
+});
