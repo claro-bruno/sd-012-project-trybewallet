@@ -2,18 +2,23 @@ import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import './wallet.css';
-import { thunkCurrencies, userExpense } from '../actions';
+import { thunkExchange } from '../actions';
 
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
 
+    this.idCounter = this.idCounter.bind(this);
     this.renderMetPag = this.renderMetPag.bind(this);
     this.renderTag = this.renderTag.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.renderMoeda = this.renderMoeda.bind(this);
+    this.updateExpenses = this.updateExpenses.bind(this);
+    this.sumExpenses = this.sumExpenses.bind(this);
 
     this.state = {
+      id: -1,
+      currencies: {},
       value: 0,
       description: '',
       currency: 'USD',
@@ -23,14 +28,8 @@ class Wallet extends React.Component {
   }
 
   componentDidMount() {
-    const { fetchCurrencies } = this.props;
-    fetchCurrencies();
+    this.fetchCurrencies();
   }
-
-  // componentDidUpdate() {
-  //   const { userExp } = this.props;
-  //   userExp(this.state);
-  // }
 
   handleChange(event) {
     const { name } = event.target;
@@ -38,10 +37,50 @@ class Wallet extends React.Component {
     if (typeof value === 'number') {
       value = value.toString();
     }
-    this.setState((prevState) => ({
-      ...prevState,
+    this.setState({
       [name]: value,
+    });
+  }
+
+  updateExpenses() {
+    this.idCounter();
+    const { fetchExchange } = this.props;
+    const { value, description, currency, method, tag, id } = this.state;
+    const stateObject = {
+      id: id + 1,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+    };
+    fetchExchange(stateObject);
+    this.sumExpenses();
+  }
+
+  sumExpenses() {
+    const { expensesInfo } = this.props;
+    if (expensesInfo !== []) {
+      console.log(expensesInfo);
+    }
+  }
+
+  idCounter() {
+    this.setState((prevState) => ({
+      id: prevState.id + 1,
     }));
+  }
+
+  async fetchCurrencies() {
+    try {
+      const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+      const data = await response.json();
+      this.setState({
+        currencies: data,
+      });
+    } catch (error) {
+      return console.error(error);
+    }
   }
 
   renderMetPag() {
@@ -87,8 +126,8 @@ class Wallet extends React.Component {
   }
 
   renderMoeda() {
-    const { currencyList } = this.props;
-    const listaMoedas = Object.keys(currencyList);
+    const { currencies } = this.state;
+    const listaMoedas = Object.keys(currencies);
     const currencyFiltered = listaMoedas
       .filter((item) => item !== 'USDT' && item !== 'DOGE');
     return (
@@ -108,7 +147,7 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { userEmail, userExp } = this.props;
+    const { userEmail } = this.props;
     const { value, description } = this.state;
     return (
       <div>
@@ -147,7 +186,7 @@ class Wallet extends React.Component {
           { this.renderMoeda() }
           { this.renderTag() }
           { this.renderMetPag() }
-          <button type="button" onClick={ userExp(this.state) }>
+          <button type="button" onClick={ this.updateExpenses }>
             Adicionar despesa
           </button>
         </form>
@@ -158,31 +197,16 @@ class Wallet extends React.Component {
 
 const mapStateToProps = (state) => ({
   userEmail: state.user.email,
-  currencyList: state.wallet.currencies,
+  expensesInfo: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchCurrencies: () => dispatch(thunkCurrencies()),
-  userExp: (expense) => dispatch(userExpense(expense)),
+  fetchExchange: (expense) => dispatch(thunkExchange(expense)),
 });
 
 Wallet.propTypes = {
   userEmail: propTypes.string.isRequired,
-  fetchCurrencies: propTypes.func.isRequired,
-  userExp: propTypes.func.isRequired,
-  currencyList: propTypes.shape({
-    code: propTypes.string,
-    codein: propTypes.string,
-    name: propTypes.string,
-    high: propTypes.string,
-    low: propTypes.string,
-    varBid: propTypes.string,
-    pctChange: propTypes.string,
-    bid: propTypes.string,
-    ask: propTypes.string,
-    timestamp: propTypes.string,
-    create_date: propTypes.string,
-  }).isRequired,
+  fetchExchange: propTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

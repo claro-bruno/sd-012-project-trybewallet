@@ -1,8 +1,8 @@
 export const USER_LOGIN = 'USER_LOGIN';
-export const WALLET_REQUEST_MOEDAS = 'WALLET_REQUEST_MOEDAS';
-export const WALLET_RECEIVED_MOEDAS = 'WALLET_RECEIVED_MOEDAS';
-export const WALLET_FAILED_MOEDAS = 'WALLET_FAILED_MOEDAS';
 export const WALLET_USER_EXPENSE = 'WALLET_USER_EXPENSE';
+export const REQ_EXCHANGE_R = 'REQ_EXCHANGE_R';
+export const REC_EXCHANGE_R = 'REC_EXCHANGE_R';
+export const ERR_EXCHANGE_R = 'ERR_EXCHANGE_R';
 
 export const userLogin = (email, senha) => ({
   type: USER_LOGIN,
@@ -10,33 +10,34 @@ export const userLogin = (email, senha) => ({
   senha,
 });
 
-export const reqMoedas = () => ({
-  type: WALLET_REQUEST_MOEDAS,
-});
-
-export const sucessMoedas = (data) => ({
-  type: WALLET_RECEIVED_MOEDAS,
-  data,
-});
-
-export const failedMoedas = () => ({
-  type: WALLET_FAILED_MOEDAS,
-});
-
 export const userExpense = (expense) => ({
   type: WALLET_USER_EXPENSE,
   expense,
 });
 
-export function thunkCurrencies() {
+export const reqExchangeR = () => ({
+  type: REQ_EXCHANGE_R,
+});
+
+export const recExchangeR = () => ({
+  type: REC_EXCHANGE_R,
+});
+
+export const errExchangeR = () => ({
+  type: ERR_EXCHANGE_R,
+});
+
+export function thunkExchange(obj) {
   return async (dispatch) => {
-    dispatch(reqMoedas());
+    dispatch((reqExchangeR()));
     try {
       const response = await fetch('https://economia.awesomeapi.com.br/json/all');
       const data = await response.json();
-      return dispatch(sucessMoedas(data));
+      obj.exchangeRate = data;
+      return dispatch(userExpense(obj));
     } catch (error) {
-      return dispatch(failedMoedas());
+      console.error(error);
+      return dispatch(errExchangeR());
     }
   };
 }
