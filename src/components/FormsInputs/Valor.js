@@ -11,7 +11,7 @@ class Valor extends Component {
           <input
             id="value"
             type="text"
-            name="valor"
+            name="value"
             value={ value }
             onChange={ hadlechange }
           />
