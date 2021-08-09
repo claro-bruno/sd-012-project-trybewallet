@@ -1,4 +1,9 @@
-import { GET_CURRENCY, GET_CURRENCY_ERROR, GET_CURRENCY_SUCCESS } from '../actions';
+import {
+  GET_CURRENCY,
+  GET_CURRENCY_ERROR,
+  GET_CURRENCY_SUCCESS,
+  SAVE_STATE_FORM,
+} from '../actions';
 
 const INICIAL_STATE = {
   expenses: [],
@@ -17,6 +22,9 @@ const wallet = (state = INICIAL_STATE, action) => {
 
   case GET_CURRENCY_ERROR:
     return { ...state };
+
+  case SAVE_STATE_FORM:
+    return { ...state, expenses: action.payload };
 
   default: return state;
   }

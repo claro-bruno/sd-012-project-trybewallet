@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCurrenciesThunk } from '../actions';
+import { getCurrenciesThunk, saveStateForm } from '../actions';
 
 class AddForm extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.renderInputValue = this.renderInputValue.bind(this);
     this.renderPaymentSelect = this.renderPaymentSelect.bind(this);
     this.renderTagSelect = this.renderTagSelect.bind(this);
@@ -37,6 +38,12 @@ class AddForm extends React.Component {
 
   idIncrement() {
     this.setState((state) => ({ id: state.id + 1 }));
+  }
+
+  handleClick() {
+    const { saveForm } = this.props;
+    this.idIncrement();
+    saveForm();
   }
 
   renderInputValue() {
@@ -147,7 +154,7 @@ class AddForm extends React.Component {
             type="text"
             value={ description }
             id="valor"
-            name="descrição"
+            name="description"
             onChange={ this.handleChange }
           />
         </label>
@@ -163,7 +170,13 @@ class AddForm extends React.Component {
         {this.renderPaymentSelect()}
         {this.renderTagSelect()}
         {this.renderDescript()}
-        <button type="button" className="btn-add">Adicionar Despesa</button>
+        <button
+          type="button"
+          className="btn-add"
+          onClick={ this.handleClick }
+        >
+          Adicionar Despesa
+        </button>
       </form>
     );
   }
@@ -171,6 +184,7 @@ class AddForm extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   getFetch: () => dispatch(getCurrenciesThunk()),
+  saveForm: () => dispatch(saveStateForm()),
 });
 
 const mapStateToProps = (state) => ({
@@ -182,5 +196,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(AddForm);
 
 AddForm.propTypes = {
   getFetch: PropTypes.func.isRequired,
+  saveForm: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

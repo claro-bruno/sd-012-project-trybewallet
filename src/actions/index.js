@@ -1,6 +1,7 @@
 export const GET_CURRENCY = 'GET_CURRENCY';
 export const GET_CURRENCY_SUCCESS = 'GET_CURRENCY_SUCCESS';
 export const GET_CURRENCY_ERROR = 'GET_CURRENCY_SUCCESS';
+export const SAVE_STATE_FORM = 'SAVE_STATE_FORM';
 const endpoint = 'https://economia.awesomeapi.com.br/json/all';
 
 export const actGetEmail = (email) => ({ type: 'GET_EMAIL', payload: email });
@@ -31,3 +32,5 @@ export const getCurrenciesThunk = () => async (dispatch) => {
     dispatch(getCurrencyError(error));
   }
 };
+
+export const saveStateForm = (state) => ({ type: SAVE_STATE_FORM, payload: state });
