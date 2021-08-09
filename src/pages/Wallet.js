@@ -32,8 +32,8 @@ class Wallet extends React.Component {
             Moedal atual:
             { currencyTip }
           </span>
-          <FormWallet />
         </header>
+        <FormWallet />
       </section>
     );
   }
