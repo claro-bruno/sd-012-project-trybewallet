@@ -31,14 +31,11 @@ class Header extends Component {
   }
 
   render() {
-    // const { user: { email }, wallet: { totalValue } } = this.props;
     const { user: { email } } = this.props;
-    // const { localCurrency } = this.sstate;
     const { localCurrency, totalValue } = this.state;
 
-    console.log(totalValue);
-    // const formato = { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' };
-    // console.log(totalValue.toLocaleString('pt-BR', formato));
+    const formato = { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' };
+
     return (
       <div className="header-container">
         <img className="wallet-logo" src={ trybePath } alt="trybe" />
@@ -47,9 +44,7 @@ class Header extends Component {
           <div className="total-expenses">
             <span>Despesa Total: </span>
             <span data-testid="total-field">
-              {/* { totalValue.toLocaleString('pt-BR', formato) } */}
-              {/* {` ${totalValue.toFixed(2)} `} */}
-              {`${totalValue}`}
+              { totalValue.toLocaleString('en-US', formato) }
             </span>
             <span data-testid="header-currency-field">{` ${localCurrency.symbol}`}</span>
           </div>

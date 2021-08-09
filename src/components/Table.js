@@ -8,18 +8,37 @@ class Table extends Component {
     super(props);
 
     this.handleClick = this.handleClick.bind(this);
+    this.editExpense = this.editExpense.bind(this);
   }
 
   handleClick({ target: { name, value } }) {
     const { handleRemoveExpense } = this.props;
     switch (name) {
     case 'edit':
-      return (console.log('edit'));
+      return this.editExpense(value);
     case 'delete':
       return handleRemoveExpense(value);
     default:
       return 0;
     }
+  }
+
+  editExpense(id) {
+    console.log(id);
+    document.querySelector('.menu-form').style.backgroundColor = 'rgb(10, 160, 105)';
+    document.querySelector('.menu-form').style.color = 'rgb(40, 45, 55)';
+    document.querySelector('.add-expense').style.backgroundColor = 'rgb(40, 45, 55)';
+    document.querySelector('.add-expense').innerHTML = 'Editar despesa';
+    document.querySelector('.edit-button').disabled = true;
+    document.querySelector('.delete-button').disabled = true;
+    document.querySelector('.delete-button')
+      .style.backgroundColor = 'rgba(200, 30, 50, 0.5)';
+
+    document.querySelector('.wallet-value').value = 60;
+    document.querySelector('.wallet-currency').value = 'USD';
+    document.querySelector('.wallet-payment-method').value = 'Dinheiro';
+    document.querySelector('.wallet-tag').value = 'Alimentação';
+    document.querySelector('.wallet-description').value = 'Disney';
   }
 
   render() {
@@ -47,6 +66,7 @@ class Table extends Component {
               style: 'currency',
               currency: 'BRL',
             }; */
+
             return (
               <tr className="row-body" key={ expense.id }>
                 <td className="column-body">{ expense.description }</td>

@@ -25,11 +25,15 @@ const generateID = (expenses, action) => {
 
 const format = (rawCurrencies) => {
   const formatedCurrencies = Object.values(rawCurrencies)
-    .filter(((currencie) => currencie.codein !== 'BRLT'))
+    // .filter(((currencie) => currencie.codein !== 'BRLT'))
     .map((formated) => {
-      const currenciesObject = {
-        [formated.code]: { ...formated, name: formated.name.split('/')[0] },
-      };
+      const currenciesObject = {};
+      if (formated.codein !== 'BRLT') {
+        currenciesObject[formated.code] = {
+          ...formated,
+          name: formated.name.split('/')[0],
+        };
+      } else currenciesObject.USDT = { ...formated, name: formated.name.split('/')[0] };
       return currenciesObject;
     }).reduce((prev, next) => Object.assign(prev, next), {});
   return formatedCurrencies;
