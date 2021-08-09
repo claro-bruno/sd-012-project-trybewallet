@@ -131,11 +131,11 @@ class AddForm extends React.Component {
             name="tag"
             onChange={ this.handleChange }
           >
-            <option value="alimentação">Alimentação</option>
-            <option value="lazer">Lazer</option>
-            <option value="trabalho">Trabalho</option>
-            <option value="transporte">Transporte</option>
-            <option value="saude">Saúde</option>
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
           </select>
         </label>
       </div>
@@ -153,7 +153,7 @@ class AddForm extends React.Component {
             className="input-style"
             type="text"
             value={ description }
-            id="valor"
+            id="descrição"
             name="description"
             onChange={ this.handleChange }
           />
