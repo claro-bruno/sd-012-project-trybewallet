@@ -14,15 +14,16 @@ const WalletReducer = (state = initialState, action) => {
   case FETCH_API_SUCCESS:
     return {
       error: null,
-      currencies: action.payload,
+      currencies: action.payload.results,
       isLoading: false };
   case FETCH_API_ERROR:
     return { error: action.error, isLoading: false };
   case SAVE_EXPENSIVE:
-    return { 
+    return {
+      ...state,
       error: null,
-      currencies: action,
-      expenses: state,
+      currencies: action.payload.results,
+      expenses: action.payload.state,
       isLoading: false,
     };
   default:

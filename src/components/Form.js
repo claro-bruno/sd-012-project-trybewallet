@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addExpensive, saveExpensive } from '../actions';
+import { addExpensive } from '../actions';
 
 class OutGoing extends Component {
   constructor(props) {
     super(props);
-    const {currenciesProps} = this.props;
     this.state = {
       id: 0,
       value: '',
@@ -19,7 +18,7 @@ class OutGoing extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleCurrencies = this.handleCurrencies.bind(this);
     this.handleOnSubmit = this.handleOnSubmit.bind(this);
-    this.handleExpenses= this.handleExpenses.bind(this);
+    // this.handleExpenses= this.handleExpenses.bind(this);
     this.inputDescricao = this.inputDescricao.bind(this);
     this.inputValue = this.inputValue.bind(this);
   }
@@ -41,9 +40,6 @@ class OutGoing extends Component {
       </option>));
   }
 
-  handleExpenses() {
-    
-  }
   
   inputDescricao(onChange) {
     const { description } = this.state;
@@ -80,9 +76,9 @@ class OutGoing extends Component {
   async handleOnSubmit(e) {
     e.preventDefault();
     const { addExpensive, currenciesProps } = this.props;
-    await this.setState({ exchangeRates: {currenciesProps}})
+    await this.setState({ exchangeRates: currenciesProps })
     addExpensive(this.state);
-    
+    this.setState(({id}) => ({ id: id + 1}))
   }
 
   render() { // FUNCAP RENDER
@@ -111,8 +107,8 @@ class OutGoing extends Component {
             onChange={ this.handleChange }
           >
             <option value="dinheiro">Dinheiro</option>
-            <option value="credito">Cartão de crédito</option>
-            <option value="debito">Cartão de Débito</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de Débito">Cartão de Débito</option>
           </select>
         </label>
         <label htmlFor="tag">
@@ -123,11 +119,11 @@ class OutGoing extends Component {
             value={ tag }
             onChange={ this.handleChange }
           >
-            <option value="alimentacao">Alimentação</option>
-            <option value="lazer">Lazer</option>
-            <option value="trabalho">Trabalho</option>
-            <option value="trasporte">Transporte</option>
-            <option value="saude">Saúde</option>
+            <option value="Alimentacao">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Trasporte">Transporte</option>
+            <option value="Saude">Saúde</option>
           </select>
         </label>
         <button type="submit">adicionar despesa</button>

@@ -11,7 +11,7 @@ export const saveExpensive = (payload) => ({ type: SAVE_EXPENSIVE, payload });
 
 export const fetchApi = () => ({ type: FETCH_API });
 
-export const fetchApiSuccess = (payload) => ({ type: FETCH_API_SUCCESS, payload });
+export const fetchApiSuccess = (payload ) => ({ type: FETCH_API_SUCCESS, payload });
 
 export const fetchApiError = (error) => ({ type: FETCH_API_ERROR, error });
 
@@ -20,7 +20,7 @@ export const walletSubmit = () => async (dispatch) => {
   const URL = 'https://economia.awesomeapi.com.br/json/all';
   fetch(URL)
     .then((data) => data.json())
-    .then((results) => dispatch(fetchApiSuccess(results)))
+    .then((results) => dispatch(fetchApiSuccess({results})))
     .catch((err) => dispatch(fetchApiError(err)));
 };
 
@@ -29,6 +29,6 @@ export const addExpensive = (state) => async (dispatch) => {
   const URL = 'https://economia.awesomeapi.com.br/json/all';
   fetch(URL)
     .then((data) => data.json())
-    .then((results) => dispatch(saveExpensive(results)))
+    .then((results) => dispatch(saveExpensive({results, state})))
     .catch((err) => dispatch(fetchApiError(err)));
 };
