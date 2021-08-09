@@ -5,17 +5,21 @@ import { getCoins, fetchCoins, addExpenses } from '../actions';
 import NumberInput from './NumberInput';
 import DescriptionInput from './DescriptionInput';
 
+const initialState = {
+  value: 0,
+  currency: 'USD',
+  method: 'Cartão de crédito',
+  tag: '',
+  description: '',
+  exchangeRates: {},
+};
+
 class FormDespesas extends Component {
   constructor() {
     super();
     this.state = {
-      valor: 0,
-      description: '',
-      moeda: 'USD',
-      payment: 'Dinheiro',
-      tag: 'Alimentação',
       id: 0,
-      response: {},
+      ...initialState,
     };
     this.getCoinInfo = this.getCoinInfo.bind(this);
     this.change = this.change.bind(this);
@@ -41,7 +45,7 @@ class FormDespesas extends Component {
   async fetchExchangeRate() {
     const res = await fetch('https://economia.awesomeapi.com.br/json/all');
     const response = await res.json();
-    await this.setState({ response });
+    await this.setState({ exchangeRates: response });
   }
 
   async handleSubmit() {
@@ -51,37 +55,37 @@ class FormDespesas extends Component {
     addExpense(expense);
     this.setState((prevState) => ({
       id: prevState.id + 1,
-      valor: 0,
-      description: '',
-      moeda: '',
-      payment: '',
-      tag: '',
-      response: {},
+      ...initialState,
     }));
   }
 
   render() {
     const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     const paymentType = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
-    const { valor, description, moeda, payment, tag } = this.state;
+    const { value, description, currency, method, tag } = this.state;
     const { coins, isFetching } = this.props;
     if (isFetching) {
       return <img src="https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif" alt="carregando" />;
     }
     return (
       <form>
-        <NumberInput valor={ valor } onChange={ this.change } />
+        <NumberInput value={ value } onChange={ this.change } />
         <DescriptionInput description={ description } onChange={ this.change } />
-        <label htmlFor="moeda">
+        <label htmlFor="currency">
           Moeda
-          <select id="moeda" name="moeda" value={ moeda } onChange={ this.change }>
+          <select
+            id="currency"
+            name="currency"
+            value={ currency }
+            onChange={ this.change }
+          >
             {coins && coins.filter((coin) => coin !== 'USDT')
               .map((option, i) => <option key={ i }>{option}</option>)}
           </select>
         </label>
-        <label htmlFor="payment">
+        <label htmlFor="method">
           Método de pagamento
-          <select id="payment" name="payment" value={ payment } onChange={ this.change }>
+          <select id="method" name="method" value={ method } onChange={ this.change }>
             {paymentType.map((option, index) => <option key={ index }>{option}</option>)}
           </select>
         </label>

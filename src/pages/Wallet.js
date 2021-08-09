@@ -9,8 +9,8 @@ class Wallet extends React.Component {
     let total = 0;
     if (expenses.length > 0) {
       total = expenses
-        .reduce((acc, { valor, response, moeda }) => (
-          acc + (Number(valor) * Number(response[moeda].ask))), 0);
+        .reduce((acc, { value, exchangeRates, currency }) => (
+          acc + (Number(value) * Number(exchangeRates[currency].ask))), 0);
     }
     return (
       <div>
