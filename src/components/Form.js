@@ -85,8 +85,8 @@ class Form extends Component {
           name="currency"
           onChange={ this.handleChange }
         >
-          {currencies.map((mapCurrency) => (
-            <option key={ mapCurrency.code }>{mapCurrency.code}</option>))}
+          {currencies.map((mapCurrency, index) => (
+            <option key={ index }>{mapCurrency.code}</option>))}
         </select>
       </label>
     );

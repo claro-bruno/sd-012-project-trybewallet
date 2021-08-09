@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 class Header extends Component {
   render() {
     const { email, expenses } = this.props;
+
+    // Referência: Natalia Ribeiro - turma 11. Url: https://github.com/tryber/sd-011-project-trybewallet/pull/43/files
     const totalExpense = expenses
       .reduce((acc, { value, currency, exchangeRates }) => (
         acc + (Number(value * exchangeRates[currency].ask))), 0);
