@@ -28,8 +28,8 @@ class FormWallet extends React.Component {
 
   submitExpense() {
     const { exchangeRates } = this.props;
-    const { expenses, currency, description, method, tag } = this.state;
-    exchangeRates({ expenses, currency, description, method, tag });
+    const { value, currency, description, method, tag } = this.state;
+    exchangeRates({ value, currency, description, method, tag });
   }
 
   handleChange({ target: { name, value } }) {
