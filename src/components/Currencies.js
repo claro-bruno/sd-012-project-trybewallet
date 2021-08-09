@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 
 class Currencies extends Component {
   render() {
-    const { moedas } = this.props;
-    const currenciesFiltered = Object.keys(moedas)
+    const { currencies } = this.props;
+    const currenciesFiltered = Object.keys(currencies)
       .filter((currency) => currency !== 'USDT');
     return (
       <>
@@ -23,11 +23,11 @@ class Currencies extends Component {
   }
 }
 const mapStateToProps = (state) => ({
-  moedas: state.wallet.moedas,
+  currencies: state.wallet.currencies,
 });
 
 Currencies.propTypes = {
-  moedas: PropTypes.arrayOf(Object).isRequired,
+  currencies: PropTypes.arrayOf(Object).isRequired,
 };
 
 export default connect(mapStateToProps)(Currencies);

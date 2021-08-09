@@ -2,7 +2,7 @@ export const PEGANDO_MOEDAS = 'PEGANDO_MOEDAS';
 export const PEGOU_AS_MOEDAS = 'PEGOU_AS_MOEDAS';
 
 const INITIAL_STATE = {
-  moedas: [],
+  currencies: [],
 };
 
 const reducerFetch = (state = INITIAL_STATE, action) => {
@@ -12,7 +12,7 @@ const reducerFetch = (state = INITIAL_STATE, action) => {
   case PEGOU_AS_MOEDAS:
     return {
       ...state,
-      moedas: action.state };
+      currencies: action.state };
   default:
     return state;
   }
