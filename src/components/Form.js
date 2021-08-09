@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchAPI, addRates, addExpenses } from '../actions';
+import Table from './Table';
 
 class Form extends Component {
   constructor(props) {
@@ -140,7 +141,9 @@ class Form extends Component {
           </select>
         </label>
         <button type="button" onClick={ this.handleClick }>Adicionar despesa</button>
+        <Table />
       </form>
+
     );
   }
 }
