@@ -141,31 +141,24 @@ class Wallet extends Component {
   }
 
   render() {
-    const { wallet: { isFetching, currencies } } = this.props;
+    const { wallet: { currencies } } = this.props;
 
     const { expense: { value, currency, method, tag, description } } = this.state;
 
     return (
       <div className="wallet-container">
-        { (isFetching || Object.values(currencies).length === 0) ? (
-          <> </>
-        ) : (
-          <>
-            <Header />
-            <Menu
-              value={ value }
-              currency={ currency }
-              currencies={ currencies }
-              method={ method }
-              tag={ tag }
-              description={ description }
-              onChange={ this.handleChange }
-              onClick={ this.handleClick }
-            />
-            {/* <Table expenses={ expenses.length > 0 ? { expenses } : false } /> */}
-            <Table />
-          </>
-        )}
+        <Header />
+        <Menu
+          value={ value }
+          currency={ currency }
+          currencies={ currencies }
+          method={ method }
+          tag={ tag }
+          description={ description }
+          onChange={ this.handleChange }
+          onClick={ this.handleClick }
+        />
+        <Table />
       </div>
     );
   }

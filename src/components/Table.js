@@ -39,65 +39,60 @@ class Table extends Component {
             <th className="column-header">Editar/Excluir</th>
           </tr>
         </thead>
-        { (expenses.length > 0) ? (
-          expenses.map((expense) => {
+        <tbody>
+          { expenses.map((expense) => {
             const { exchangeRates: { [expense.currency]: { name, ask } } } = expense;
-            const formato = {
+            /* const formato = {
               minimumFractionDigits: 2,
               style: 'currency',
               currency: 'BRL',
-            };
-
+            }; */
             return (
-              <tbody key={ expense.id }>
-                <tr className="row-body">
-                  <td className="column-body">{ expense.description }</td>
-                  <td className="column-body">{ expense.tag }</td>
-                  <td className="column-body">{ expense.method }</td>
-                  <td className="column-body">
-                    {/* { expense.value } */}
-                    { `${expense.currency} ${parseFloat(expense.value)
-                      .toFixed(2).replace('.', ',')}` }
-                  </td>
-                  <td className="column-body">{ name }</td>
-                  <td className="column-body">
-                    {/* { parseFloat(ask).toFixed(2) } */}
-                    { parseFloat(ask).toLocaleString('pt-BR', formato) }
-                  </td>
-                  <td className="column-body">
-                    {/* { (expense.value * ask).toFixed(2) } */}
-                    { (expense.value * ask).toLocaleString('pt-BR', formato) }
-                  </td>
-                  <td className="column-body">Real</td>
-                  <td className="column-body">
-                    <button
-                      name="edit"
-                      value={ expense.id }
-                      type="button"
-                      className="edit-button material-icons"
-                      data-testid="edit-btn"
-                      onClick={ this.handleClick }
-                    >
-                      edit
-                    </button>
-                    <button
-                      name="delete"
-                      value={ expense.id }
-                      type="button"
-                      className="delete-button material-icons"
-                      data-testid="delete-btn"
-                      onClick={ this.handleClick }
-                    >
-                      delete
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
+              <tr className="row-body" key={ expense.id }>
+                <td className="column-body">{ expense.description }</td>
+                <td className="column-body">{ expense.tag }</td>
+                <td className="column-body">{ expense.method }</td>
+                <td className="column-body">
+                  { expense.value }
+                  {/* { `${expense.currency} ${parseFloat(expense.value)
+                    .toFixed(2).replace('.', ',')}` } */}
+                </td>
+                <td className="column-body">{ name }</td>
+                <td className="column-body">
+                  { parseFloat(ask).toFixed(2) }
+                  {/* { parseFloat(ask).toLocaleString('pt-BR', formato) } */}
+                </td>
+                <td className="column-body">
+                  { (expense.value * ask).toFixed(2) }
+                  {/* { (expense.value * ask).toLocaleString('pt-BR', formato) } */}
+                </td>
+                <td className="column-body">Real</td>
+                <td className="column-body">
+                  <button
+                    name="edit"
+                    value={ expense.id }
+                    type="button"
+                    className="edit-button material-icons"
+                    data-testid="edit-btn"
+                    onClick={ this.handleClick }
+                  >
+                    edit
+                  </button>
+                  <button
+                    name="delete"
+                    value={ expense.id }
+                    type="button"
+                    className="delete-button material-icons"
+                    data-testid="delete-btn"
+                    onClick={ this.handleClick }
+                  >
+                    delete
+                  </button>
+                </td>
+              </tr>
             );
-          })
-        ) : (
-          <thead><tr><th> </th></tr></thead>
-        )}
+          })}
+        </tbody>
       </table>
     );
   }
