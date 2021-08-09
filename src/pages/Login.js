@@ -1,4 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { getEmail } from '../actions';
 import Input from '../components/Input';
 import Button from '../components/Button';
 
@@ -9,18 +13,18 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
+      redirect: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.checkEmailAndPassword = this.checkEmailAndPassword.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange({ target }) {
     const { value, name } = target;
 
-    this.setState({
-      [name]: value,
-    });
+    this.setState({ [name]: value });
   }
 
   checkEmailAndPassword() {
@@ -35,7 +39,18 @@ class Login extends React.Component {
     return false;
   }
 
+  handleClick() {
+    const { email } = this.state;
+    const { setEmail } = this.props;
+
+    setEmail(email);
+
+    this.setState({ redirect: true });
+  }
+
   render() {
+    const { redirect } = this.state;
+
     return (
       <div>
         <Input
@@ -56,10 +71,21 @@ class Login extends React.Component {
           name="login-button"
           text="Entrar"
           disableButton={ !this.checkEmailAndPassword() }
+          handleClick={ this.handleClick }
         />
+
+        { redirect && <Redirect to="/carteira" />}
       </div>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  setEmail: (value) => dispatch(getEmail(value)),
+});
+
+Login.propTypes = {
+  setEmail: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
