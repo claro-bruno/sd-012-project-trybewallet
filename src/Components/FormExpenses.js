@@ -1,6 +1,25 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { string } from 'yargs';
 
 class FormExpenses extends React.Component {
+  constructor() {
+    super();
+    this.getCurrencies = this.getCurrencies.bind(this);
+  }
+
+  getCurrencies() {
+    const { currencies } = this.props;
+    const currkeys = Object.keys(currencies);
+    return currkeys.map((currency) => {
+      if (currency !== 'USDT') {
+        return <option>{ currency }</option>;
+      }
+      return null;
+    });
+  }
+
   render() {
     return (
       <form>
@@ -15,7 +34,7 @@ class FormExpenses extends React.Component {
         <label htmlFor="moeda">
           Moeda
           <select name="input-moeda" id="moeda">
-            <option>1</option>
+            { this.getCurrencies() }
           </select>
         </label>
         <label htmlFor="pagamento">
@@ -41,4 +60,12 @@ class FormExpenses extends React.Component {
   }
 }
 
-export default FormExpenses;
+FormExpenses.propTypes = {
+  currencies: PropTypes.objectOf(string).isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+export default connect(mapStateToProps)(FormExpenses);
