@@ -1,8 +1,10 @@
-import EMAIL from './types';
+import { EMAIL } from './types';
 
-const changeEmailLogin = (value) => ({
-  type: EMAIL,
-  value,
-});
+function changeEmailLogin(value) {
+  return {
+    type: EMAIL,
+    value,
+  };
+}
 
 export default changeEmailLogin;
