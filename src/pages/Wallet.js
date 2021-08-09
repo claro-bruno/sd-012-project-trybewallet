@@ -88,7 +88,6 @@ class Wallet extends React.Component {
   renderCurrencySelect() {
     const { currency } = this.state;
     const { currencies } = this.props;
-    const currencyList = Object.keys(currencies).map((cur) => cur);
     return (
       <label htmlFor="currency-select" id="currency-label">
         Moeda
@@ -99,9 +98,15 @@ class Wallet extends React.Component {
           value={ currency }
           onChange={ (event) => this.handleChange(event, 'currency') }
         >
-          {currencyList.map((cur) => (cur !== /USDT/i
-            ? <option key={ cur } value={ cur }>{ cur }</option> : null
-          ))}
+          {currencies.map((cur) => (cur !== /USDT/i
+            ? (
+              <option
+                key={ cur }
+                data-testid={ cur }
+                value={ cur }
+              >
+                { cur }
+              </option>) : null)) }
         </select>
       </label>
     );
@@ -209,7 +214,7 @@ Wallet.propTypes = {
   userEmail: PropTypes.string.isRequired,
   getCurrencies: PropTypes.func.isRequired,
   addNewExpense: PropTypes.func.isRequired,
-  currencies: PropTypes.shape(PropTypes.shape).isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   deleteThisExpense: PropTypes.func.isRequired,
   totalExpended: PropTypes.number.isRequired,
   expenseList: PropTypes.arrayOf(PropTypes.shape).isRequired,

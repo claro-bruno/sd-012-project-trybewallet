@@ -7,7 +7,7 @@ import {
 
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 const INITIAL_STATE = {
-  currencies: {},
+  currencies: [],
   expenses: [],
   error: null,
   isLoading: false,
@@ -23,7 +23,10 @@ const wallet = (state = INITIAL_STATE, action) => {
   case GET_CURRENCIES_SUCCESS: {
     const { USDT, ...validCur } = action.payload;
     return {
-      ...state, isLoading: false, currencies: validCur, exchangeRates: action.payload }; }
+      ...state,
+      isLoading: false,
+      currencies: Object.keys(validCur),
+      exchangeRates: action.payload }; }
   case GET_CURRENCIES_ERROR:
     return { ...state, isLoading: false, error: action.error };
   case ADD_EXPENSE: {

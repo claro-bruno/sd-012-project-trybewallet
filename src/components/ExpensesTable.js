@@ -39,11 +39,13 @@ class ExpensesTable extends React.Component {
               <td role="cell">{ Math.round(expense.value * 100) / 100 }</td>
               <td role="cell">{ expense.exchangeRates[expense.currency].name }</td>
               <td role="cell">
-                { Math.round(expense.exchangeRates[expense.currency].ask * 100) / 100 }
+                { (Math.round(
+                  expense.exchangeRates[expense.currency].ask * 100,
+                ) / 100).toFixed(2) }
               </td>
               <td role="cell">
-                { Math.round(expense.exchangeRates[expense.currency].ask
-                * expense.value * 100) / 100}
+                { (Math.round(expense.exchangeRates[expense.currency].ask
+                * expense.value * 100) / 100).toFixed(2) }
               </td>
               <td role="cell">Real</td>
               <td role="cell">{ expense.description }</td>
