@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Form from '../components/Form';
 import usandoAfetch from '../actions/fetchAction';
+import Tabela from '../components/tabela';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -21,13 +22,14 @@ class Wallet extends React.Component {
           <p data-testid="total-field">
             Despesas totais:
             {' '}
-            { total.toFixed(2) }
+            { total }
           </p>
           <p data-testid="header-currency-field">
             BRL:
           </p>
         </header>
         <Form />
+        <Tabela />
       </main>
     );
   }

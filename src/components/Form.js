@@ -14,7 +14,7 @@ class Form extends React.Component {
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
-      tag: '',
+      tag: 'Alimentação',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
