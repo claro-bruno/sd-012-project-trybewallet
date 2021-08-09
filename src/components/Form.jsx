@@ -4,22 +4,27 @@ import PropTypes from 'prop-types';
 import Input from './Input';
 import Select from './Select';
 import { fetchAPI } from '../actions';
+import './components.css';
+import Button from './Button';
 
 class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      valor: '',
-      descricao: '',
+      value: '',
+      description: '',
+      currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
+      id: 0,
     };
     this.handleChange = this.handleChange.bind(this);
+    this.idCurriencies = this.idCurriencies.bind(this);
   }
 
   componentDidMount() {
-    const { currency } = this.props;
-    currency();
+    const { getCurrencies } = this.props;
+    getCurrencies();
   }
 
   handleChange({ target }) {
@@ -29,32 +34,26 @@ class Form extends React.Component {
     });
   }
 
-  render() {
-    const { valor, descricao, method, tag } = this.state;
-    const { currencies } = this.props;
+  idCurriencies(id) {
+    this.setState({
+      id: id + 1,
+    });
+  }
 
+  render() {
+    const { value, description, method, tag, id } = this.state;
+    const { currencies, exchange } = this.props;
     return (
       <div>
-        <form>
+        <form className="form-add">
           <Input
             label="Valor"
             datatestid="semTest"
             type="number"
-            name="valor"
+            name="value"
             id="value-input"
-            value={ valor }
+            value={ value }
             onChange={ this.handleChange }
-          />
-
-          <Input
-            label="Descrição"
-            datatestid="semTest"
-            type="text"
-            name="descricao"
-            id="desc-input"
-            value={ descricao }
-            onChange={ this.handleChange }
-
           />
 
           <Select
@@ -64,6 +63,21 @@ class Form extends React.Component {
             onChange={ this.handleChange }
           />
 
+          <Input
+            label="Descrição"
+            datatestid="semTest"
+            type="text"
+            name="description"
+            id="desc-input"
+            value={ description }
+            onChange={ this.handleChange }
+          />
+
+          <Button
+            name="Adicionar despesa"
+            onClick={ () => { exchange(this.state); this.idCurriencies(id); } }
+            disabled={ false }
+          />
         </form>
       </div>
     );
@@ -72,7 +86,8 @@ class Form extends React.Component {
 
 Form.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
-  currency: PropTypes.func.isRequired,
+  getCurrencies: PropTypes.func.isRequired,
+  exchange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ wallet }) => ({
@@ -80,7 +95,8 @@ const mapStateToProps = ({ wallet }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  currency: () => dispatch(fetchAPI()),
+  getCurrencies: () => dispatch(fetchAPI()),
+  exchange: (state) => dispatch(fetchAPI(state)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

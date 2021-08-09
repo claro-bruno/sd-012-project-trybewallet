@@ -186,7 +186,6 @@ describe('8 - Desenvolva a opção de "Adicionar despesa" na sua tabela de gasto
         exchangeRates: mockData,
       },
     ];
-
     expect(store.getState().wallet.expenses).toStrictEqual(expectedStateExpense);
 
     userEvent.type(valueInput, '20');

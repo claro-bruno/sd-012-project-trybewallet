@@ -9,12 +9,12 @@ class Select extends Component {
         <label htmlFor="coin-select">
           Moeda
           <select
-            name="moeda"
+            name="currency"
             onChange={ onChange }
             id="coin-select"
           >
-            { currencies.map((currencie, index) => (
-              <option key={ index } value={ currencie }>{ currencie }</option>
+            { currencies.map((currency, index) => (
+              <option key={ index } value={ currency }>{ currency }</option>
             )) }
           </select>
         </label>

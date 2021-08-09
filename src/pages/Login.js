@@ -21,6 +21,7 @@ class Login extends React.Component {
     const { name, value } = target;
     this.setState({
       [name]: value,
+
     });
   }
 
@@ -39,7 +40,7 @@ class Login extends React.Component {
     const { handlerUser } = this.props;
 
     return (
-      <div>
+      <div className="login">
         <Input
           label="Email"
           datatestid="email-input"

@@ -1,0 +1,40 @@
+/* header de informação do usuario */
+.trybeHeader {
+  align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+  margin: 1px;
+}
+
+.trybeHeader > p {
+  margin: 1%;
+}
+
+.trybeHeader :nth-child( 3 ) {
+  margin-right: 0.5%;
+}
+
+.trybeHeader :nth-child( 4 ) {
+  margin-left: 0;
+}
+
+.trybeHeader > img {
+  height: 20px;
+  margin: 2%;
+  padding-right: 45%;
+  width: 80px;
+}
+
+/* formulario de adicionar dispensas */
+.form-add {
+  background-color: black;
+  border-radius: 3px;
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+
+.form-add :nth-child( n ) {
+  margin: 1px 5px;
+  }
