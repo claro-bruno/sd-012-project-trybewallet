@@ -3,13 +3,15 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchApi, fetchApiExchange } from '../actions';
 
+import Button from './Button';
+
 class FormWallet extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      expensesTotal: 0,
-      currencyTip: 'BRL',
+      value: 0,
+      currency: 'BRL',
       description: '',
       method: 'Dinheiro',
       tag: 'Alimentação',
@@ -26,8 +28,8 @@ class FormWallet extends React.Component {
 
   submitExpense() {
     const { exchangeRates } = this.props;
-    const { expensesTotal, currencyTip, description, method, tag } = this.state;
-    exchangeRates({ expensesTotal, currencyTip, description, method, tag });
+    const { expenses, currency, description, method, tag } = this.state;
+    exchangeRates({ expenses, currency, description, method, tag });
   }
 
   handleChange({ target: { name, value } }) {
@@ -77,12 +79,7 @@ class FormWallet extends React.Component {
             <option>Saúde</option>
           </select>
         </label>
-        <button
-          type="button"
-          onClick={ () => this.submitExpense() }
-        >
-          ENVIAR DESPESA
-        </button>
+        <Button onClick={ () => this.submitExpense() } />
       </form>
     );
   }
