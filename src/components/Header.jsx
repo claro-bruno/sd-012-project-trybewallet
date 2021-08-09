@@ -16,12 +16,13 @@ class Header extends Component {
       if (expenses) {
         let total = 0;
         for (let index = 0; index < expenses.length; index += 1) {
-          const string = expenses[index].value ? expenses[index].value : '0';
-          const number = parseFloat(string, 0);
-          total += number;
-          console.log(expenses[index]);
+          const value = expenses[index].value
+            ? expenses[index].value
+              * expenses[index].exchangeRates[expenses[index].currency].ask
+            : 0;
+          total += value;
         }
-        return total;
+        return total.toFixed(2);
       }
       return zero;
     }
