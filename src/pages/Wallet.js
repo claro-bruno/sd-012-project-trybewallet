@@ -11,7 +11,7 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { myEmail } = this.props;
+    const { myEmail, total } = this.props;
     return (
       <main>
         <header>
@@ -19,7 +19,9 @@ class Wallet extends React.Component {
             {`E-mail: ${myEmail}`}
           </p>
           <p data-testid="total-field">
-            Despesas totais: 0
+            Despesas totais:
+            {' '}
+            { total.toFixed(2) }
           </p>
           <p data-testid="header-currency-field">
             BRL:
@@ -34,6 +36,7 @@ class Wallet extends React.Component {
 Wallet.propTypes = {
   myEmail: PropTypes.string.isRequired,
   voltaMoedas: PropTypes.func.isRequired,
+  total: PropTypes.number.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -41,6 +44,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const mapStateToProps = (state) => ({
   myEmail: state.user.email,
+  total: state.wallet.total,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
