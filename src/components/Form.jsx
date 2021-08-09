@@ -57,10 +57,6 @@ const mapStateToProps = (state) => ({
   currenciesNames: state.wallet.currenciesNames,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchCurrencies: () => dispatch(getCurrencies()),
-});
-
 Form.propTypes = {
   fetchCurrencies: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
@@ -68,8 +64,4 @@ Form.propTypes = {
   currenciesNames: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-Form.defaultProps = {
-  currencies: undefined,
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
+export default connect(mapStateToProps)(Form);
