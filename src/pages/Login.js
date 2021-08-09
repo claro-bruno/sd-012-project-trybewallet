@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router';
+import { validateLogin } from '../uttils/index';
 
 class Login extends React.Component {
   constructor(props) {
@@ -33,42 +34,50 @@ class Login extends React.Component {
   }
 
   render() {
+    // TRECHO INSPIRADO PELO CÓDIGO DO COLEGA THALLES CARNEIRO
+    // Fonte: https://github.com/tryber/sd-012-project-trybewallet/pull/51/commits/eca9ba660b15da38212d310b582f9b4be8a73fe1
+
     const { email, password, redirect } = this.state;
     if (redirect) { return <Redirect to="/carteira" />; }
+
     return (
-      <form onSubmit={ this.handleSubmit }>
-        <h1>TrybeWallet</h1>
-        <label htmlFor="email">
-          <input
-            type="email"
-            name="email"
-            data-testid="email-input"
-            placeholder="Email"
-            value={ email }
-            onChange={ this.handleChange }
-            required
-          />
-        </label>
-        <label htmlFor="password">
-          <input
-            type="password"
-            name="password"
-            data-testid="password-input"
-            placeholder="Senha"
-            value={ password }
-            minLength="6"
-            onChange={ this.handleChange }
-            required
-          />
-        </label>
-        <button
-          className="btn-login"
-          type="submit"
-          onClick={ this.handleSubmit }
-        >
-          Entrar
-        </button>
-      </form>
+      <main>
+        <form onSubmit={ this.handleSubmit }>
+          <label htmlFor="email-input">
+            <h1>TrybeWallet</h1>
+            <input
+              id="email-input"
+              type="email"
+              name="email"
+              data-testid="email-input"
+              placeholder="Email"
+              value={ email }
+              onChange={ this.handleChange }
+              required
+            />
+          </label>
+          <label htmlFor="password-input">
+            <input
+              id="password-input"
+              type="password"
+              name="password"
+              data-testid="password-input"
+              placeholder="Senha"
+              value={ password }
+              minLength="6"
+              onChange={ this.handleChange }
+              required
+            />
+          </label>
+          <button
+            className="btn-login"
+            type="submit"
+            disabled={ !validateLogin({ email, password }) }
+          >
+            Entrar
+          </button>
+        </form>
+      </main>
     );
   }
 }
