@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 
 class Input extends Component {
   render() {
-    const { type, name, dataTestId } = this.props;
+    const { type, name, dataTestId, handleChange } = this.props;
 
     return (
       <input
         type={ type }
         name={ name }
         data-testid={ dataTestId }
+        onChange={ handleChange }
       />
     );
   }
