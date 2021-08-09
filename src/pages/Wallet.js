@@ -104,6 +104,6 @@ Wallet.propTypes = {
 
 Wallet.defaultProps = {
   currencies: undefined,
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

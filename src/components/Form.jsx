@@ -63,7 +63,9 @@ const mapDispatchToProps = (dispatch) => ({
 
 Form.propTypes = {
   fetchCurrencies: PropTypes.func.isRequired,
-  currencies: PropTypes.arrayOf(PropTypes.object),
+  handleChange: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
+  currenciesNames: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 Form.defaultProps = {
