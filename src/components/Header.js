@@ -18,6 +18,7 @@ class Header extends Component {
   render() {
     const { user: { email }, wallet: { totalValue } } = this.props;
     const { localCurrency } = this.state;
+    console.log(totalValue);
     // const formato = { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' };
     // console.log(totalValue.toLocaleString('pt-BR', formato));
     return (
@@ -29,7 +30,8 @@ class Header extends Component {
             <span>Despesa Total: </span>
             <span data-testid="total-field">
               {/* { totalValue.toLocaleString('pt-BR', formato) } */}
-              {` ${totalValue.toFixed(2)} `}
+              {/* {` ${totalValue.toFixed(2)} `} */}
+              {`${totalValue}`}
             </span>
             <span data-testid="header-currency-field">{` ${localCurrency.symbol}`}</span>
           </div>

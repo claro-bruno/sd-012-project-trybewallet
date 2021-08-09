@@ -30,11 +30,11 @@ class Table extends Component {
           <tr className="row-header">
             <th className="column-header">Descrição</th>
             <th className="column-header">Tag</th>
-            <th className="column-header">Método de Pagamento</th>
+            <th className="column-header">Método de pagamento</th>
             <th className="column-header">Valor</th>
             <th className="column-header">Moeda</th>
             <th className="column-header">Câmbio utilizado</th>
-            <th className="column-header">Valor Convertido</th>
+            <th className="column-header">Valor convertido</th>
             <th className="column-header">Moeda de conversão</th>
             <th className="column-header">Editar/Excluir</th>
           </tr>
