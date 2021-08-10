@@ -1,6 +1,7 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
 import { addUser } from '../actions';
 
 class Login extends React.Component {
@@ -15,6 +16,7 @@ class Login extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.inputValidation = this.inputValidation.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   inputValidation() {
@@ -41,6 +43,12 @@ class Login extends React.Component {
     }, this.inputValidation);
   }
 
+  handleClick() {
+    const { add } = this.props;
+    const { email } = this.state;
+    add(email);
+  }
+
   render() {
     const { disableBtn } = this.state;
     return (
@@ -65,13 +73,15 @@ class Login extends React.Component {
               onChange={ this.handleChange }
             />
           </label>
-          <input
-            type="button"
-            name="Entrar"
-            value="Entrar"
-            onClick={ this.inputValidation }
-            disabled={ disableBtn }
-          />
+          <Link to="/carteira">
+            <input
+              type="button"
+              name="Entrar"
+              value="Entrar"
+              onClick={ this.handleClick }
+              disabled={ disableBtn }
+            />
+          </Link>
         </form>
       </div>
     );
@@ -81,8 +91,8 @@ const mapDispatchToProps = (dispatch) => ({
   add: (user) => dispatch(addUser(user)),
 });
 
-// Login.propTypes = {
-//   add: PropTypes.func.isRequired,
-// };
+Login.propTypes = {
+  add: PropTypes.func.isRequired,
+};
 
 export default connect(null, mapDispatchToProps)(Login);
