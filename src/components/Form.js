@@ -35,18 +35,18 @@ export default class Form extends Component {
     return (
       <form onSubmit={ this.handleSubmit }>
         <Input
+          id="expenseValue"
           name="expenseValue"
-          label="Valor: "
+          label="Valor"
           type="number"
-          testId="expenseValue"
           value={ expenseValue }
           onChange={ this.handleChange }
         />
         <Input
           name="expenseDescription"
-          label="Descrição: "
+          label="Descrição"
           type="text"
-          testId="expenseDescription"
+          id="expenseDescription"
           value={ expenseDescription }
           onChange={ this.handleChange }
         />

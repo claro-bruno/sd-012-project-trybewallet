@@ -8,34 +8,10 @@ import { fetchAPI as fetchAPICreator } from '../actions';
 import Form from '../components/Form';
 
 class Wallet extends React.Component {
-  // constructor(props) {
-  //   super(props);
-
-  //   this.state = {
-  //     expenseValue: '',
-  //     expenseDescription: '',
-  //     currentExchange: '',
-  //     paymentMethod: '',
-  //     expenseCategory: '',
-  //   };
-
-  //   this.handleChange = this.handleChange.bind(this);
-  //   this.handleSubmit = this.handleSubmit.bind(this);
-  // }
-
   componentDidMount() {
     const { fetchAPI } = this.props;
     fetchAPI();
   }
-
-  // handleChange({ target }) {
-  //   const { name, value } = target;
-  //   this.setState({ [name]: value });
-  // }
-
-  // handleSubmit(event) {
-  //   event.preventDefault();
-  // }
 
   render() {
     const paymentMethods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
@@ -47,13 +23,6 @@ class Wallet extends React.Component {
       'Saúde',
     ];
     const { email, data } = this.props;
-    // const {
-    //   expenseValue,
-    //   expenseDescription,
-    //   currentExchange,
-    //   paymentMethod,
-    //   expenseCategory,
-    // } = this.state;
 
     return (
       <>
