@@ -1,8 +1,7 @@
 import {
-  REQUEST_CURRENCIES,
   GET_CURRENCIES,
   FAILED_REQUEST,
-  SEND_EXPENSES,
+  SEND_EXPENSE,
   DELETE_EXPENSE,
 } from '../actions';
 
@@ -19,14 +18,10 @@ function walletReducer(state = INITIAL_STATE, action) {
       ...state,
       expenses: state.expenses.filter((expense) => expense.id !== action.payload),
     };
-  case SEND_EXPENSES:
+  case SEND_EXPENSE:
     return {
       ...state,
       expenses: [...state.expenses, action.payload],
-    };
-  case REQUEST_CURRENCIES:
-    return {
-      ...state,
     };
   case GET_CURRENCIES:
     return {

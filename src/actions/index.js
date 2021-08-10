@@ -1,13 +1,12 @@
-export const USER_INFO = 'USER_INFO';
+export const SEND_EMAIL = 'SEND_EMAIL';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
-export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
 export const FAILED_REQUEST = 'FAILED_REQUEST';
-export const WALLET_EXPENSES = 'WALLET_EXPENSES';
-export const SEND_EXPENSES = 'SEND_EXPENSES';
+export const GET_EXPENSES = 'GET_EXPENSES';
+export const SEND_EXPENSE = 'SEND_EXPENSE';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export const userInfo = (email) => ({
-  type: USER_INFO,
+  type: SEND_EMAIL,
   email,
 });
 
@@ -16,17 +15,12 @@ export const getCurrencies = (json) => ({
   payload: json,
 });
 
-export const requestCurrencies = () => ({
-  type: REQUEST_CURRENCIES,
-});
-
 export const failedRequest = (error) => ({
   type: FAILED_REQUEST,
   payload: error,
 });
 
 export const fetchCurrencies = () => (dispatch) => {
-  dispatch(requestCurrencies());
   const endpoint = 'https://economia.awesomeapi.com.br/json/all';
   fetch(endpoint)
     .then((data) => data.json()
@@ -37,12 +31,12 @@ export const fetchCurrencies = () => (dispatch) => {
 };
 
 export const getExpenses = (payload) => ({
-  type: WALLET_EXPENSES,
+  type: GET_EXPENSES,
   payload,
 });
 
 export const sendExpenses = (payload) => ({
-  type: SEND_EXPENSES,
+  type: SEND_EXPENSE,
   payload,
 });
 

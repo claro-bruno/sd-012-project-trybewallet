@@ -1,4 +1,4 @@
-import { USER_INFO } from '../actions';
+import { SEND_EMAIL } from '../actions';
 
 const INITIAL_STATE = {
   email: '',
@@ -6,7 +6,7 @@ const INITIAL_STATE = {
 
 function user(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case USER_INFO:
+  case SEND_EMAIL:
     return { ...state, email: action.email };
   default:
     return state;
