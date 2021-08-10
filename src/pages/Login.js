@@ -1,4 +1,7 @@
 import React from 'react';
+// import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { addUser } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -7,31 +10,39 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      disableButton: true,
+      disableBtn: true,
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.inputValidation = this.inputValidation.bind(this);
+  }
+
+  inputValidation() {
+    const { email, password } = this.state;
+    const minPassword = 6;
+    const validationEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+    /* Validação de email com regex vista no link:
+    https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail */
+    if (validationEmail.test(email) && password.length >= minPassword) {
+      this.setState({
+        disableBtn: false,
+      });
+    } else {
+      this.setState({
+        disableBtn: true,
+      });
+    }
   }
 
   handleChange({ target }) {
     const { name, value } = target;
     this.setState({
       [name]: value,
-    });
-  }
-
-  inputValidation() {
-    const { email, password } = this.state;
-    const minPassword = 6;
-    if (email || password >= minPassword) {
-      return this.setState({
-        disableButton: false,
-      });
-    }
+    }, this.inputValidation);
   }
 
   render() {
-    const { email, password, disableButton } = this.state;
+    const { disableBtn } = this.state;
     return (
       <div>
         <form>
@@ -42,7 +53,6 @@ class Login extends React.Component {
               id="email"
               data-testId="email-input"
               name="email"
-              value={ email }
               onChange={ this.handleChange }
             />
           </label>
@@ -52,7 +62,6 @@ class Login extends React.Component {
               id="password"
               data-testId="password-input"
               name="password"
-              value={ password }
               onChange={ this.handleChange }
             />
           </label>
@@ -60,12 +69,20 @@ class Login extends React.Component {
             type="button"
             name="Entrar"
             value="Entrar"
-            disabled={ disableButton }
+            onClick={ this.inputValidation }
+            disabled={ disableBtn }
           />
         </form>
       </div>
     );
   }
 }
+const mapDispatchToProps = (dispatch) => ({
+  add: (user) => dispatch(addUser(user)),
+});
 
-export default Login;
+// Login.propTypes = {
+//   add: PropTypes.func.isRequired,
+// };
+
+export default connect(null, mapDispatchToProps)(Login);
