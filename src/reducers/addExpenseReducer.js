@@ -1,15 +1,13 @@
+import { GET_COIN_ACHRONYMS_API } from '../actions/index';
+
 const INITIAL_STATE = {
-  expenseValue: '',
-  expenseDescription: '',
-  currentExchange: '',
-  paymentMethod: '',
-  expenseCategory: '',
+  currentQuote: {},
 };
 
 const addExpenseReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case '':
-    return '';
+  case GET_COIN_ACHRONYMS_API:
+    return { ...state, currentQuote: action.payload };
   default:
     return state;
   }

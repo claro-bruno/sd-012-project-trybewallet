@@ -1,22 +1,31 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Input from './Input';
 import Select from './Select';
+import { fetchApiObject, getNewExpense } from '../actions/index';
 
-export default class Form extends Component {
+class Form extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      id: 0,
       expenseValue: '',
       expenseDescription: '',
-      currentExchange: '',
-      paymentMethod: '',
-      expenseCategory: '',
+      currentExchange: 'USD',
+      paymentMethod: 'Dinheiro',
+      expenseCategory: 'Lazer',
+      exchangeRates: {},
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    const { fetchAPIExchange } = this.props;
+    fetchAPIExchange();
   }
 
   handleChange({ target }) {
@@ -25,6 +34,16 @@ export default class Form extends Component {
   }
 
   handleSubmit(event) {
+    const { getExpense, currentQuote } = this.props;
+    const { id } = this.state;
+    console.log(currentQuote);
+    if (!id) {
+      getExpense(this.state);
+      this.setState((prevState) => ({ id: prevState.id + 1 }));
+    } else {
+      this.setState((prevState) => ({ id: prevState.id + 1 }));
+      getExpense(this.state);
+    }
     event.preventDefault();
   }
 
@@ -92,3 +111,14 @@ Form.propTypes = {
   expenseCategory: PropTypes.string,
   expenseCategories: PropTypes.arrayOf(PropTypes.string),
 }.isRequired;
+
+const mapStateToProps = (state) => ({
+  currentQuote: state.addExpenseReducer.currentQuote,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getExpense: (userInfos) => dispatch(getNewExpense(userInfos)),
+  fetchAPIExchange: () => dispatch(fetchApiObject()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
