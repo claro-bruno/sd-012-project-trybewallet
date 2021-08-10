@@ -1,15 +1,27 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchAPI } from '../actions';
 
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
+
     this.expenseAmount = this.expenseAmount.bind(this);
     this.expenseDescription = this.expenseDescription.bind(this);
     this.selectCurrency = this.selectCurrency.bind(this);
     this.paymentMethod = this.paymentMethod.bind(this);
     this.selectCategory = this.selectCategory.bind(this);
+  }
+
+  componentDidMount() {
+    const { getCurrencies } = this.props;
+    getCurrencies();
+  }
+
+  handleChange({ target }) {
+    const { name, value } = target;
+    this.setState({ [name]: value });
   }
 
   expenseAmount() {
@@ -37,14 +49,19 @@ class Wallet extends React.Component {
   }
 
   selectCurrency() {
+    const { wallet: { currencies } } = this.props;
     return (
       <label htmlFor="input-currency">
         Moeda
         <select
           id="input-currency"
-          placeholder="adicionar em qual moeda será registrada a despesa"
+          placeholder="adicionar moeda"
         >
-          REQUISISAO PARA API
+          { Object.values(currencies).map((currencie, index) => (
+            <option value={ currencie } key={ index }>
+              {currencie}
+            </option>
+          )) }
         </select>
       </label>
     );
@@ -85,7 +102,7 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { email } = this.props;
+    const { user: { email } } = this.props;
     const teste = 0;
     return (
       <div>
@@ -95,24 +112,39 @@ class Wallet extends React.Component {
           <p data-testid="total-field">{teste}</p>
           <p data-testid="header-currency-field">BRL</p>
         </header>
-        <div>
-          <form>
-            {this.expenseAmount()}
-            {this.expenseDescription()}
-            {this.selectCurrency()}
-            {this.paymentMethod()}
-            {this.selectCategory()}
-          </form>
-        </div>
-      </div>);
+        <form>
+          { this.expenseAmount() }
+          { this.expenseDescription() }
+          { this.selectCurrency() }
+          { this.paymentMethod() }
+          { this.selectCategory() }
+        </form>
+      </div>
+    );
   }
 }
-const mapStateToProps = ({ user }) => ({
-  email: user.email,
+
+const mapStateToProps = (state) => ({
+  wallet: state.wallet,
+  user: state.user,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getCurrencies: () => dispatch(fetchAPI()),
 });
 
 Wallet.propTypes = {
-  email: PropTypes.string.isRequired,
+  wallet: PropTypes.shape({
+    currencies: PropTypes.arrayOf(PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object,
+    ])),
+  }).isRequired,
+  getCurrencies: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    email: PropTypes.string,
+  }).isRequired,
+
 };
 
-export default connect(mapStateToProps, null)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
