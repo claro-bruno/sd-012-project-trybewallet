@@ -38,23 +38,21 @@ class EditExpense extends React.Component {
 
   handleClick() {
     const { edit, onClick } = this.props;
-    const teste = { ...this.state };
-    edit(teste);
+    const editedExpense = { ...this.state };
+    edit(editedExpense);
     onClick();
   }
 
   render() {
-    const { value, description } = this.state;
-    const { currencyOptions, loading } = this.props;
-    if (loading) {
-      return <div>Carregando moedas</div>;
-    }
+    const { value, description, method, currency, tag } = this.state;
+    const { currencyOptions } = this.props;
     return (
-      <section className="edit-mode">
+      <section className="edit-expense">
         <Input
           text="Valor: "
           type="number"
           name="value"
+          min="0"
           dataTestId="value-input"
           value={ value }
           onChange={ this.handleChange }
@@ -68,23 +66,26 @@ class EditExpense extends React.Component {
           onChange={ this.handleChange }
         />
         <Select
-          text="Moeda"
+          text="Moeda: "
           name="currency"
           dataTestId="currency-input"
+          selected={ currency }
           onChange={ this.handleChange }
           options={ currencyOptions }
         />
         <Select
-          text="Método de pagamento"
+          text="Método de pagamento: "
           name="method"
           dataTestId="method-input"
+          selected={ method }
           onChange={ this.handleChange }
           options={ methodOptions }
         />
         <Select
-          text="Tag"
+          text="Tag: "
           name="tag"
           dataTestId="tag-input"
+          selected={ tag }
           onChange={ this.handleChange }
           options={ tagOptions }
         />
@@ -119,7 +120,6 @@ EditExpense.propTypes = {
   })).isRequired,
   getCurrencies: propTypes.func.isRequired,
   currencyOptions: propTypes.arrayOf(propTypes.string).isRequired,
-  loading: propTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, mapDisptachToProps)(EditExpense);

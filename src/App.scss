@@ -1,0 +1,176 @@
+$primary-color: #7f5af0;
+$secondary-color: #fffffe;
+
+body {
+  background-color: #16161a;
+  color: $secondary-color;
+}
+
+header {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap-reverse;
+  justify-content: flex-end;
+  padding: 20px 16px;
+
+  div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  h1 {
+    margin: auto;
+  }
+}
+
+table {
+  border: 1px solid $secondary-color;
+  border-collapse: collapse;
+  width: 100%;
+
+  th, td {
+    text-align: center;
+    height: 36px;
+  }
+
+  th {
+    background-color: #010101;
+    color: $secondary-color;
+  }
+
+  tr:nth-child(odd) {
+    background-color: $primary-color;
+  }
+
+  .table-buttons {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+  }
+}
+
+form {
+  align-items: center;
+  background-color: $primary-color;
+  border: 5px solid $secondary-color;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+  margin: auto;
+  margin-top: 10vh;
+  padding: 50px 20px;
+  width: fit-content;
+
+  h3 {
+    margin: 0;
+  }
+
+  img {
+    width: 40%;
+  }
+
+  input {
+    border: none;
+    border-radius: 4px;
+    padding: 4px;
+  }
+}
+
+main h1 {
+  text-align: center;
+}
+
+.add-expense, .edit-expense {
+  padding: 16px;
+  background-color: $primary-color;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 15px;
+
+    button {
+      padding: 6px 10px;
+      font-size: 16px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      color: $secondary-color;
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 4px;
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      &:active {
+        transform: translateY(2px);
+      }
+    }
+}
+
+.edit-expense{
+  background-color: #9d4edd;
+}
+
+.edit-btn, .delete-btn {
+  border: none;
+  border-radius: 4px;
+  color: $secondary-color;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 4px 0px;
+  padding: 4px;
+  text-align: center;
+  text-decoration: none;
+
+  &:hover {
+    opacity: 0.4;
+  }
+
+  &:active {
+    transform: translateY(2px);
+  }
+}
+
+.edit-btn {
+  background-color: yellow;
+}
+
+.delete-btn {
+  background-color: red;
+}
+
+.login-btn{
+  background-color: $primary-color;
+  border: 2px solid $secondary-color;
+  border-radius: 4px;
+  color: $secondary-color;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 8px 40px;
+  text-align: center;
+  text-decoration: none;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.disabled-btn{
+  background-color: $primary-color;
+  border: 2px solid $secondary-color;
+  border-radius: 4px;
+  color: $secondary-color;
+  cursor: not-allowed;
+  font-size: 16px;
+  opacity: 0.4;
+  padding: 8px 40px;
+  text-align: center;
+  text-decoration: none;
+}

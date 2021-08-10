@@ -3,15 +3,10 @@ export const UPDATE_CURRENCY = 'UPDATE_CURRENCY';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const EDIT_EXPENSE = 'EDIT_EXPENSE';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
-export const SET_LOADING = 'SET_LOADING';
 
 export const userLogin = (email) => ({
   type: USER_LOGIN,
   payload: email,
-});
-
-export const loading = () => ({
-  type: SET_LOADING,
 });
 
 export const updateCurrency = (currency) => ({
@@ -40,13 +35,12 @@ export const fetchExpense = (state) => (dispatch) => (
     .then((response) => dispatch(updateExpense({ ...state, exchangeRates: response })))
 );
 
-export const fetchCurrency = () => (dispatch) => {
-  dispatch(loading());
-  return fetch('https://economia.awesomeapi.com.br/json/all')
+export const fetchCurrency = () => (dispatch) => (
+  fetch('https://economia.awesomeapi.com.br/json/all')
     .then((response) => response.json())
     .then((response) => {
       const allCurrencies = Object.keys(response);
       const USDTdeleted = allCurrencies.filter((currency) => currency !== 'USDT');
       dispatch(updateCurrency(USDTdeleted));
-    });
-};
+    })
+);

@@ -39,28 +39,29 @@ class AddExpense extends React.Component {
   }
 
   handleClick() {
-    const { saveExpense } = this.props;
-    const teste = { ...this.state };
-    saveExpense(teste);
-    this.setState((prevState) => ({
-      id: prevState.id + 1,
-      value: 0,
-      description: '',
-    }));
+    const { value, description } = this.state;
+    if (value && description) {
+      const { saveExpense } = this.props;
+      const teste = { ...this.state };
+      saveExpense(teste);
+      this.setState((prevState) => ({
+        id: prevState.id + 1,
+        value: 0,
+        description: '',
+      }));
+    }
   }
 
   render() {
     const { value, description } = this.state;
-    const { currencyOptions, loading } = this.props;
-    if (loading) {
-      return <div>Carregando moedas</div>;
-    }
+    const { currencyOptions } = this.props;
     return (
-      <section>
+      <section className="add-expense">
         <Input
           text="Valor: "
           type="number"
           name="value"
+          min="0"
           dataTestId="value-input"
           value={ value }
           onChange={ this.handleChange }
@@ -74,21 +75,21 @@ class AddExpense extends React.Component {
           onChange={ this.handleChange }
         />
         <Select
-          text="Moeda"
+          text="Moeda: "
           name="currency"
           dataTestId="currency-input"
           onChange={ this.handleChange }
           options={ currencyOptions }
         />
         <Select
-          text="Método de pagamento"
+          text="Método de pagamento: "
           name="method"
           dataTestId="method-input"
           onChange={ this.handleChange }
           options={ methodOptions }
         />
         <Select
-          text="Tag"
+          text="Tag: "
           name="tag"
           dataTestId="tag-input"
           onChange={ this.handleChange }
@@ -118,11 +119,6 @@ AddExpense.propTypes = {
   expenses: propTypes.arrayOf(propTypes.shape({
     id: propTypes.number,
   })).isRequired,
-  loading: propTypes.bool,
-};
-
-AddExpense.defaultProps = {
-  loading: false,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddExpense);

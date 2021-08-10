@@ -51,7 +51,10 @@ class Login extends React.Component {
 
     return (
       <main>
+        <h1>TrybeWallet</h1>
         <form>
+          <img src="https://media.giphy.com/media/67ThRZlYBvibtdF9JH/giphy.gif" alt="gif pernalonga contando dinheiro" />
+          <h3>Login</h3>
           <input
             name="email"
             type="text"
@@ -67,11 +70,13 @@ class Login extends React.Component {
             data-testid="password-input"
             value={ password }
             onChange={ this.handleChange }
+            onKeyUp={ (event) => event.key === 'Enter' && this.handleClick() }
           />
           <button
             type="button"
             disabled={ blockSubmit }
             onClick={ this.handleClick }
+            className={ blockSubmit ? 'disabled-btn' : 'login-btn' }
           >
             Entrar
           </button>

@@ -30,7 +30,7 @@ class Wallet extends React.Component {
         <Header />
         { !edit && <AddExpense />}
         { edit && <EditExpense id={ id } onClick={ this.finishEdit } />}
-        <Table onClick={ this.handleEdit } />
+        <Table onClick={ this.handleEdit } showButtons={ edit } />
       </>
     );
   }
