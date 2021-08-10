@@ -5,6 +5,7 @@ export const USER_LOGIN = 'USER_LOGIN';
 export const REQUEST_START = 'REQUEST_START';
 export const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
 export const SAVE_EXPENSE = 'SAVE_EXPENSE';
+export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
 
 export const loginAction = (value) => ({
   type: USER_LOGIN,
@@ -45,3 +46,8 @@ export const saveAndFetchExpenses = (expense) => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const removeExpense = (id) => ({
+  type: REMOVE_EXPENSE,
+  payload: id,
+});
