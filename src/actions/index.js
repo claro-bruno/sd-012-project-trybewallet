@@ -1,4 +1,9 @@
-import { USER, WALLET, WALLET_SUCESS, WALLET_ERROR } from './actionTypes';
+import { USER, WALLET, WALLET_SUCESS, WALLET_ERROR, FORMWALLET } from './actionTypes';
+
+export const formWallet = (state) => ({
+  type: FORMWALLET,
+  state,
+});
 
 export const userAccess = (state) => ({
   type: USER,

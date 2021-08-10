@@ -10,8 +10,9 @@ class Wallet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      expenses: 0,
+      totalExpenses: 0,
     };
+    this.getTotal = this.getTotal.bind(this);
   }
 
   componentDidMount() {
@@ -19,17 +20,25 @@ class Wallet extends React.Component {
     submitCurrencies();
   }
 
+  getTotal(maney) {
+    const { totalExpenses } = this.state;
+    const value = +maney;
+    this.setState({ totalExpenses: (totalExpenses + value) });
+  }
+
   render() {
-    const { expenses } = this.state;
+    const { totalExpenses } = this.state;
     const { user } = this.props;
 
     return (
       <div>
         <Header
           email={ user.email }
-          expenses={ expenses }
+          totalExpenses={ totalExpenses }
         />
-        <Form />
+        <Form
+          getTotal={ this.getTotal }
+        />
       </div>
     );
   }
@@ -37,6 +46,7 @@ class Wallet extends React.Component {
 
 const mapStateToProps = (state) => ({
   user: state.user,
+  wallet: state.wallet,
 });
 
 const mapDispatchToProps = (dispatch) => ({
