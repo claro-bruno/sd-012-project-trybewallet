@@ -6,6 +6,8 @@ export const EXPENSES_API_FAILED = 'EXPENSES_API_FAILED';
 export const FETCHING_DATA = 'FETCHING_DATA';
 export const FAILED_REQUEST = 'FAILED_REQUEST';
 export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
+export const TOGGLE_EDIT = 'TOGGLE_EDIT';
 
 export const userAction = (state) => ({ type: EMAIL, email: state });
 
@@ -44,3 +46,7 @@ export const fetchForExpense = (stateData) => async (dispatch) => { // action qu
 };
 
 export const removeExpenseAct = (state) => ({ type: REMOVE_EXPENSE, state });
+
+export const toggleEdit = (id) => ({ type: TOGGLE_EDIT, id }); // action pega id que será usado para alternar entre o botão que edita e o que adiciona o que foi editado. [Ref.: Luciano Almeida]
+
+export const editExpenseAct = (payload, id) => ({ type: EDIT_EXPENSE, payload, id }); // payload recebera o estado do componente que corresponde aos dados da despesa que foi editada. O id vai separar a despesa que será editada. [Ref.: Luciano Almeida]
