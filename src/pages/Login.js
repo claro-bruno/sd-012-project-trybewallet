@@ -58,15 +58,19 @@ class Login extends React.Component {
           <h1>Trybe Wallet</h1>
 
           <Input
+            id="email"
             type="email"
             name="email"
+            labelText="Email:"
             dataTestId="email-input"
             handleChange={ this.handleChange }
           />
 
           <Input
+            id="password"
             type="text"
             name="password"
+            labelText="Senha:"
             dataTestId="password-input"
             handleChange={ this.handleChange }
           />
