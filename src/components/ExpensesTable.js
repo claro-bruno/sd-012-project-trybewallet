@@ -34,9 +34,10 @@ class ExpensesTable extends React.Component {
         <tbody>
           { expenseList.map((expense) => (
             <tr role="row" key={ expense.id }>
+              <td role="cell">{ expense.description }</td>
               <td role="cell">{ expense.tag }</td>
               <td role="cell">{ expense.method }</td>
-              <td role="cell">{ Math.round(expense.value * 100) / 100 }</td>
+              <td role="cell">{ (Math.round(expense.value * 100) / 100).toFixed(2) }</td>
               <td role="cell">{ expense.exchangeRates[expense.currency].name }</td>
               <td role="cell">
                 { (Math.round(
@@ -48,7 +49,6 @@ class ExpensesTable extends React.Component {
                 * expense.value * 100) / 100).toFixed(2) }
               </td>
               <td role="cell">Real</td>
-              <td role="cell">{ expense.description }</td>
               <td role="cell">
                 <button
                   type="button"

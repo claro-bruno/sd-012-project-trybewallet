@@ -185,7 +185,9 @@ class Wallet extends React.Component {
       <main>
         <header>
           <p data-testid="email-field">{ userEmail }</p>
-          <p data-testid="total-field">{ totalExpended || 0 }</p>
+          <p data-testid="total-field">
+            { (Math.round(totalExpended * 100) / 100).toFixed(2) || 0 }
+          </p>
           <p>
             Moeda:
             <span data-testid="header-currency-field">{ selectedCurrency }</span>
