@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { addUser } from '../actions';
 
 class Login extends React.Component {
@@ -59,7 +59,7 @@ class Login extends React.Component {
             Email:
             <input
               id="email"
-              data-testId="email-input"
+              data-testid="email-input"
               name="email"
               onChange={ this.handleChange }
             />
@@ -68,7 +68,7 @@ class Login extends React.Component {
             Senha:
             <input
               id="password"
-              data-testId="password-input"
+              data-testid="password-input"
               name="password"
               onChange={ this.handleChange }
             />
