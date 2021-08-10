@@ -4,6 +4,7 @@ export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
 export const FAILED_REQUEST = 'FAILED_REQUEST';
 export const WALLET_EXPENSES = 'WALLET_EXPENSES';
 export const SEND_EXPENSES = 'SEND_EXPENSES';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export const userInfo = (email) => ({
   type: USER_INFO,
@@ -53,3 +54,8 @@ export function fetchExpense(element) {
     dispatch(sendExpenses(elements));
   };
 }
+
+export const deleteExpense = (id) => ({
+  type: DELETE_EXPENSE,
+  payload: id,
+});

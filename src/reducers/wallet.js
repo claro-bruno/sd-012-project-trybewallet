@@ -3,6 +3,7 @@ import {
   GET_CURRENCIES,
   FAILED_REQUEST,
   SEND_EXPENSES,
+  DELETE_EXPENSE,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -13,6 +14,11 @@ const INITIAL_STATE = {
 
 function walletReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
+  case DELETE_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.filter((expense) => expense.id !== action.payload),
+    };
   case SEND_EXPENSES:
     return {
       ...state,
