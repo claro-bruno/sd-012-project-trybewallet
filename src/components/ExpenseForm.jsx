@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Input from './Input';
 import Select from './Select';
 import { paymentMethods, tags } from '../data';
 
 class ExpenseForm extends Component {
   render() {
+    const { currencies } = this.props;
+
     return (
       <form>
         <Input
@@ -18,7 +21,7 @@ class ExpenseForm extends Component {
           id="curreny"
           name="currency"
           labelText="Moeda"
-          options={ { options: ['BRL'] } }
+          options={ currencies }
         />
 
         <Select
@@ -45,5 +48,9 @@ class ExpenseForm extends Component {
     );
   }
 }
+
+ExpenseForm.propTypes = {
+  currencies: PropTypes.arrayOf(PropTypes.string),
+}.isrequired;
 
 export default ExpenseForm;
