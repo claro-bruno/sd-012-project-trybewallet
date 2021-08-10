@@ -1,65 +1,92 @@
 import React from 'react';
-import history from '../history';
+import { Redirect } from 'react-router-dom';
+import Button from '../components/Button';
+import Input from '../components/Input';
+
+const FOUR = 4;
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      user: {
-        email: '',
-      },
+      email: '',
+      password: '',
+      disabled: true,
+      redirect: false,
     };
 
-    this.saveUser = this.saveUser.bind(this);
+    // this.saveUser = this.saveUser.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e) {
+    const input = e.target;
+    const { email, password } = this.state;
+
     this.setState({
-      user: {
-        email: e.target.value,
-      },
+      [input.id]: input.value,
+    });
+
+    if (email.includes('@') && password.length > FOUR) {
+      // Perguntar depois sobre o bug do length
+      this.setState({
+        disabled: false,
+      });
+    }
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+
+    this.setState({
+      redirect: true,
     });
   }
 
-  saveUser(e) {
-    e.preventDefault();
-    history.push('/carteira');
-  }
-
   render() {
-    const { user: { email } } = this.state;
+    const {
+      state: {
+        email,
+        password,
+        disabled,
+        redirect,
+      },
+    } = this;
     return (
-      <div>
-        <h2>Trybe Wallet</h2>
-        <h3>Login de Usuário</h3>
-        <label htmlFor="input-email">
-          Insira seu e-mail:
-          <input
-            id="input-email"
+      <>
+        {redirect && <Redirect to="/carteira" />}
+        <form onSubmit={ this.handleSubmit }>
+          <h2>Trybe Wallet</h2>
+          <h3>Login de Usuário</h3>
+          <Input
+            htmlFor="input-email"
+            id="email"
+            placeholder="E-mail"
             type="email"
             value={ email }
-            data-testid="email-input"
+            testId="email-input"
             onChange={ this.handleChange }
           />
-        </label>
-        <label htmlFor="input-password">
-          Insira sua senha:
-          <input
-            id="input-password"
+          <Input
+            htmlFor="input-password"
+            id="password"
+            placeholder="Senha"
             type="password"
-            data-testid="password-input"
+            value={ password }
+            testId="password-input"
             minLength="6"
+            onChange={ this.handleChange }
           />
-        </label>
-        <button
-          type="submit"
-          onClick={ this.saveUser }
-        >
-          Entrar
-        </button>
-      </div>
+          <Button
+            type="submit"
+            testId="submit-button"
+            disabled={ disabled }
+          // onClick={ this.saveUser }
+          />
+        </form>
+      </>
     );
   }
 }
