@@ -68,9 +68,7 @@ class Wallet extends React.Component {
         />
         <Form
           array={ data }
-          paymentMethod={ paymentMethod }
           paymentMethodsArray={ paymentMethods }
-          expenseCategory={ expenseCategory }
           expenseCategories={ expenseCategories }
         />
         <div>
@@ -80,50 +78,6 @@ class Wallet extends React.Component {
     );
   }
 }
-
-{/* <form onSubmit={ this.handleSubmit }>
-          <Input
-            name="expenseValue"
-            label="Valor: "
-            type="number"
-            testId="expenseValue"
-            value={ expenseValue }
-            onChange={ this.handleChange }
-          />
-          <Input
-            name="expenseDescription"
-            label="Descrição: "
-            type="text"
-            testId="expenseDescription"
-            value={ expenseDescription }
-            onChange={ this.handleChange }
-          />
-          <Select
-            name="current-exchange"
-            label="Moeda: "
-            id="current-exchange"
-            value={ currentExchange }
-            onChange={ this.handleChange }
-            array={ data }
-          />
-          <Select
-            name="payment-options"
-            label="Método de pagamento: "
-            id="payment-options"
-            value={ paymentMethod }
-            onChange={ this.handleChange }
-            array={ paymentMethods }
-          />
-          <Select
-            name="expense-categories"
-            label="Tag: "
-            id="expense-categories"
-            value={ expenseCategory }
-            onChange={ this.handleChange }
-            array={ expenseCategories }
-          />
-          <input type="submit" value="Adicionar despesa" />
-        </form> */}
 
 Wallet.propTypes = {
   fetchAPI: PropTypes.func.isRequired,

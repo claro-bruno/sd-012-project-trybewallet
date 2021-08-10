@@ -29,10 +29,9 @@ export default class Form extends Component {
   }
 
   render() {
-    const { expenseValue, expenseDescription, currentExchange, paymentMethod
-      ,  } = this.state;
-    const { array, paymentMethodsArray,
-      expenseCategory, expenseCategories } = this.props;
+    const { expenseValue, expenseDescription, currentExchange,
+      paymentMethod, expenseCategory } = this.state;
+    const { array, paymentMethodsArray, expenseCategories } = this.props;
     return (
       <form onSubmit={ this.handleSubmit }>
         <Input
@@ -52,25 +51,25 @@ export default class Form extends Component {
           onChange={ this.handleChange }
         />
         <Select
-          name="current-exchange"
+          name="currentExchange"
           label="Moeda: "
-          id="current-exchange"
+          id="currentExchange"
           value={ currentExchange }
           onChange={ this.handleChange }
           array={ array }
         />
         <Select
-          name="payment-options"
+          name="paymentMethod"
           label="Método de pagamento: "
-          id="payment-options"
+          id="paymentMethod"
           value={ paymentMethod }
           onChange={ this.handleChange }
-          array={ paymentMethods }
+          array={ paymentMethodsArray }
         />
         <Select
-          name="expense-categories"
+          name="expenseCategory"
           label="Tag: "
-          id="expense-categories"
+          id="expenseCategory"
           value={ expenseCategory }
           onChange={ this.handleChange }
           array={ expenseCategories }
