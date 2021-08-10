@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Input from './Input';
 import Select from './Select';
-import { fetchApiObject, getNewExpense } from '../actions/index';
+import { getNewExpense } from '../actions/index';
 
 class Form extends Component {
   constructor(props) {
@@ -23,10 +23,10 @@ class Form extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    const { fetchAPIExchange } = this.props;
-    fetchAPIExchange();
-  }
+  // componentDidMount() {
+  //   const { fetchAPIExchange } = this.props;
+  //   fetchAPIExchange();
+  // }
 
   handleChange({ target }) {
     const { name, value } = target;
@@ -34,9 +34,9 @@ class Form extends Component {
   }
 
   handleSubmit(event) {
-    const { getExpense, currentQuote } = this.props;
+    const { getExpense } = this.props;
     const { id } = this.state;
-    console.log(currentQuote);
+    // console.log(currentQuote);
     if (!id) {
       getExpense(this.state);
       this.setState((prevState) => ({ id: prevState.id + 1 }));
@@ -112,13 +112,13 @@ Form.propTypes = {
   expenseCategories: PropTypes.arrayOf(PropTypes.string),
 }.isRequired;
 
-const mapStateToProps = (state) => ({
-  currentQuote: state.addExpenseReducer.currentQuote,
-});
+// const mapStateToProps = (state) => ({
+//   currentQuote: state.addExpenseReducer.currentQuote,
+// });
 
 const mapDispatchToProps = (dispatch) => ({
   getExpense: (userInfos) => dispatch(getNewExpense(userInfos)),
-  fetchAPIExchange: () => dispatch(fetchApiObject()),
+  // fetchAPIExchange: () => dispatch(fetchApiObject()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
+export default connect(null, mapDispatchToProps)(Form);
