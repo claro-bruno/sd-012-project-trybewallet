@@ -1,7 +1,40 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import getApi from '../api';
+import { getCurrencies } from '../actions';
 
 class Form extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      currencies: [],
+      // currency: 'USD',
+
+    };
+    this.returnApi = this.returnApi.bind(this);
+    this.handleInputs = this.handleInputs.bind(this);
+  }
+
+  componentDidMount() {
+    this.returnApi();
+  }
+
+  async returnApi() {
+    const getCoin = await getApi();
+    const listCoin = Object.keys(getCoin).filter((coin) => coin !== 'USDT');
+    const { sendCurrenciesToStore } = this.props;
+    sendCurrenciesToStore(listCoin);
+    this.setState({ currencies: listCoin });
+  }
+
+  handleInputs({ target }) {
+    const { name, value } = target;
+    this.setState({ [name]: value });
+  }
+
   render() {
+    const { currencies } = this.state;
     return (
       <form>
         <label htmlFor="valor">
@@ -12,10 +45,18 @@ class Form extends React.Component {
           Descrição:
           <input type="text" name="descricao" id="descricao" />
         </label>
-        <label htmlFor="moeda">
+        <label htmlFor="currency">
           Moeda:
-          <select name="moeda" id="moeda">
+          <select
+            name="currency"
+            id="currency"
+            onChange={ this.handleInputs }
+          >
             {/* <option>Teste<option/> */}
+            { currencies.map((coin, index) => (
+              <option key={ index }>
+                { coin }
+              </option>))}
           </select>
         </label>
         <label htmlFor="category">
@@ -36,14 +77,21 @@ class Form extends React.Component {
             <option>Cartão de débito</option>
           </select>
         </label>
-        <button
-          name="button"
-          type="button"
-        >
+        <button name="button" type="button">
           Adicionar despesa
         </button>
       </form>
     );
   }
 }
-export default Form;
+
+const mapDispatchToProps = (dispatch) => ({
+  sendCurrenciesToStore: (currencies) => dispatch(getCurrencies(currencies)),
+
+});
+
+Form.propTypes = {
+  sendCurrenciesToStore: PropTypes.arrayOf(PropTypes.object),
+}.isRequired;
+
+export default connect(null, mapDispatchToProps)(Form);
