@@ -87,7 +87,6 @@ class Form extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   sendCurrenciesToStore: (currencies) => dispatch(getCurrencies(currencies)),
-
 });
 
 Form.propTypes = {
