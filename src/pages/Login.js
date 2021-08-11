@@ -1,5 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { getEmail } from '../actions/user';
 
 const MIN_LENGTH_PASSWORD = 6;
 
@@ -11,6 +14,7 @@ class Login extends React.Component {
       password: '',
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange({ target: { name, value } }) {
@@ -33,6 +37,12 @@ class Login extends React.Component {
 
   checkDataLogin() {
     return this.emailIsValid() && this.checkPassword();
+  }
+
+  handleClick() {
+    const { setDataLoginStore } = this.props;
+    const { email } = this.state;
+    setDataLoginStore(email);
   }
 
   render() {
@@ -65,6 +75,7 @@ class Login extends React.Component {
           <button
             type="button"
             disabled={ !this.checkDataLogin() }
+            onClick={ this.handleClick() }
           >
             Entrar
           </button>
@@ -75,4 +86,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  setDataLoginStore: (value) => dispatch(getEmail(value)),
+});
+
+Login.propTypes = {
+  setDataLoginStore: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
