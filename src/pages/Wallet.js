@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ExpenseForm from '../components/ExpenseForm';
+import ExpenseBoard from '../components/ExpenseBoard';
 import './styles/Wallet.css';
 
 class Wallet extends React.Component {
@@ -39,6 +40,7 @@ class Wallet extends React.Component {
 
         <section>
           <ExpenseForm />
+          <ExpenseBoard />
         </section>
       </div>
     );
