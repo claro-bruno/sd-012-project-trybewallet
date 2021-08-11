@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Input from './Input';
 import Select from './Select';
-import { getNewExpense } from '../actions/index';
+import { addNewExpenseAndCurrencyQuote } from '../actions/index';
 
 class Form extends Component {
   constructor(props) {
@@ -11,22 +11,17 @@ class Form extends Component {
 
     this.state = {
       id: 0,
-      expenseValue: '',
-      expenseDescription: '',
-      currentExchange: 'USD',
-      paymentMethod: 'Dinheiro',
-      expenseCategory: 'Lazer',
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Lazer',
       exchangeRates: {},
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
-  // componentDidMount() {
-  //   const { fetchAPIExchange } = this.props;
-  //   fetchAPIExchange();
-  // }
 
   handleChange({ target }) {
     const { name, value } = target;
@@ -36,7 +31,6 @@ class Form extends Component {
   handleSubmit(event) {
     const { getExpense } = this.props;
     const { id } = this.state;
-    // console.log(currentQuote);
     if (!id) {
       getExpense(this.state);
       this.setState((prevState) => ({ id: prevState.id + 1 }));
@@ -48,48 +42,48 @@ class Form extends Component {
   }
 
   render() {
-    const { expenseValue, expenseDescription, currentExchange,
-      paymentMethod, expenseCategory } = this.state;
+    const { value, description, currency,
+      method, tag } = this.state;
     const { array, paymentMethodsArray, expenseCategories } = this.props;
     return (
       <form onSubmit={ this.handleSubmit }>
         <Input
-          id="expenseValue"
-          name="expenseValue"
+          id="value"
+          name="value"
           label="Valor"
           type="number"
-          value={ expenseValue }
+          value={ value }
           onChange={ this.handleChange }
         />
         <Input
-          name="expenseDescription"
+          name="description"
           label="Descrição"
           type="text"
-          id="expenseDescription"
-          value={ expenseDescription }
+          id="description"
+          value={ description }
           onChange={ this.handleChange }
         />
         <Select
-          name="currentExchange"
+          name="currency"
           label="Moeda: "
-          id="currentExchange"
-          value={ currentExchange }
+          id="currency"
+          value={ currency }
           onChange={ this.handleChange }
           array={ array }
         />
         <Select
-          name="paymentMethod"
+          name="method"
           label="Método de pagamento: "
-          id="paymentMethod"
-          value={ paymentMethod }
+          id="method"
+          value={ method }
           onChange={ this.handleChange }
           array={ paymentMethodsArray }
         />
         <Select
-          name="expenseCategory"
+          name="tag"
           label="Tag: "
-          id="expenseCategory"
-          value={ expenseCategory }
+          id="tag"
+          value={ tag }
           onChange={ this.handleChange }
           array={ expenseCategories }
         />
@@ -101,14 +95,14 @@ class Form extends Component {
 
 Form.propTypes = {
   onSubmit: PropTypes.func,
-  expenseValue: PropTypes.number,
+  value: PropTypes.number,
   onChange: PropTypes.func,
-  expenseDescription: PropTypes.string,
-  currentExchange: PropTypes.string,
+  description: PropTypes.string,
+  currency: PropTypes.string,
   array: PropTypes.arrayOf(PropTypes.string),
-  paymentMethod: PropTypes.string,
+  method: PropTypes.string,
   paymentMethodsArray: PropTypes.arrayOf(PropTypes.string),
-  expenseCategory: PropTypes.string,
+  tag: PropTypes.string,
   expenseCategories: PropTypes.arrayOf(PropTypes.string),
 }.isRequired;
 
@@ -117,7 +111,7 @@ Form.propTypes = {
 // });
 
 const mapDispatchToProps = (dispatch) => ({
-  getExpense: (userInfos) => dispatch(getNewExpense(userInfos)),
+  getExpense: (userInfos) => dispatch(addNewExpenseAndCurrencyQuote(userInfos)),
   // fetchAPIExchange: () => dispatch(fetchApiObject()),
 });
 

@@ -33,7 +33,7 @@ Header.propTypes = {
   email: PropTypes.string.isRequired,
   dataTestIdAmount: PropTypes.string.isRequired,
   amountOfExpensesLabel: PropTypes.string.isRequired,
-  amountOfExpenses: PropTypes.string.isRequired,
+  amountOfExpenses: PropTypes.number.isRequired,
   dataTestIdCurrencyField: PropTypes.string.isRequired,
   currentExchange: PropTypes.string.isRequired,
 };

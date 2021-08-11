@@ -1,3 +1,5 @@
+import fetchAll from '../services/index';
+
 const GET_USER_DATA = 'GET_USER_DATA';
 export default GET_USER_DATA;
 // * action type para da cotação das moedas atual
@@ -29,19 +31,23 @@ export const fetchAPI = () => async (dispatch) => {
 };
 
 // * action creator para adicionar uma nova despesa
-export const getNewExpense = (payload) => ({
+export const getNewExpense = (value) => ({
   type: ADD_NEW_EXPENSE,
-  payload,
+  payload: value,
 });
 
 // * action creator para fazer a requisição na API
 // * Ela vai adicionar tanto o objeto 'exchangeRates' quanto as infos da despesa
-export const fetchApiObject = () => async (dispatch) => {
-  const url = 'https://economia.awesomeapi.com.br/json/all';
-  const response = await fetch(url);
-  const currentExchange = await response.json();
-  console.log(currentExchange);
-  dispatch(getCoinAchronymsAPI(currentExchange));
+export const addNewExpenseAndCurrencyQuote = (value) => async (dispatch) => {
+  const data = await fetchAll();
+  delete data.USDT;
+  const expenseDetails = {
+    ...value,
+    exchangeRates: {
+      ...data,
+    },
+  };
+  dispatch(getNewExpense(expenseDetails));
 };
 
 export const deleteExpense = (payload) => ({
