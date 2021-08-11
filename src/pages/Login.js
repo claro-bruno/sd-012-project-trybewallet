@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { userInfo } from '../actions';
+import './Login.css';
 
 class Login extends React.Component {
   constructor(props) {
@@ -43,33 +44,35 @@ class Login extends React.Component {
     const { sendEmail } = this.props;
     const { email, password } = this.state;
     return (
-      <form className="form-login">
-        <input
-          data-testid="email-input"
-          type="email"
-          name="email"
-          value={ email }
-          placeholder="Email"
-          onChange={ this.handleChange }
-        />
-        <input
-          data-testid="password-input"
-          type="password"
-          name="password"
-          value={ password }
-          placeholder="Senha"
-          onChange={ this.handleChange }
-        />
-        <Link to="/carteira">
-          <button
-            type="submit"
-            disabled={ this.validateEmail() }
-            onClick={ () => sendEmail(email) }
-          >
-            Entrar
-          </button>
-        </Link>
-      </form>
+      <fieldset>
+        <form className="form-login">
+          <input
+            data-testid="email-input"
+            type="email"
+            name="email"
+            value={ email }
+            placeholder="Email"
+            onChange={ this.handleChange }
+          />
+          <input
+            data-testid="password-input"
+            type="password"
+            name="password"
+            value={ password }
+            placeholder="Senha"
+            onChange={ this.handleChange }
+          />
+          <Link to="/carteira">
+            <button
+              type="submit"
+              disabled={ this.validateEmail() }
+              onClick={ () => sendEmail(email) }
+            >
+              Entrar
+            </button>
+          </Link>
+        </form>
+      </fieldset>
     );
   }
 }

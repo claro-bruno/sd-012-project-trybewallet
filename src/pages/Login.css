@@ -1,0 +1,26 @@
+body {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+}
+
+fieldset {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 25vh;
+  justify-content: center;
+  padding: 15px;
+  width: 25vw;
+}
+
+form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+}
