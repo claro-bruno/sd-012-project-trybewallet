@@ -18,7 +18,7 @@ body {
   min-width: 100vw;
 }
 
-main.container {
+.container {
   background: white;
   border-radius: 15px;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
@@ -47,7 +47,7 @@ form {
   margin-bottom: 1.5rem;
 }
 
-.input-fild .underline::before {
+.input-fild .underline:before {
   background: rgba(0, 0, 0, 0.2);
   bottom: -5px;
   content: '';
@@ -57,24 +57,24 @@ form {
   width: 100%;
 }
 
-.input-fild .underline::after {
+.input-fild .underline:after {
   background: linear-gradient(45deg, green, rgb(0, 183, 255), rgb(0, 132, 255));
   bottom: -5px;
   content: '';
-  height: 01px;
+  height: 1px;
   left: 0;
   position: absolute;
   transform: scaleX(0);
   transform-origin: left;
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   width: 100%;
 }
 
-.input-fild input:focus ~ .underline::after {
+.input-fild input:focus ~ .underline:after {
   transform: scaleX(1);
 }
 
-main h2::before {
+main h2:before {
   background: linear-gradient(45deg, green, rgb(0, 183, 255), rgb(0, 132, 255));
   border-radius: 8px;
   bottom: 3px;
@@ -97,7 +97,7 @@ main h2::before {
   color: rgba(0, 0, 0, 0.5);
 }
 
-form input[ type = "button" ]:enabled {
+input[ type = 'button' ]:enabled {
   background: linear-gradient(to left, rgb(39, 133, 39), rgb(15, 164, 223));
   border-radius: 4px;
   color: white;
@@ -111,7 +111,7 @@ form input[ type = "button" ]:enabled {
   transition: all 0.3s ease;
 }
 
-form input[ type = "button" ]:disabled {
+input[ type = 'button' ]:disabled {
   background: linear-gradient(to left, rgb(132, 197, 132), rgb(98, 153, 175));
   border-radius: 4px;
   color: white;
