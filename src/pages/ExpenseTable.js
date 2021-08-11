@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { func, arrayOf, string, oneOfType, number } from 'prop-types';
+import { func, arrayOf, string } from 'prop-types';
 import { headTable } from '../componentData/index';
 import { removeExpenseAct } from '../actions/index';
 
