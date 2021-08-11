@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 
 class Button extends Component {
   render() {
-    const { name, text, disableButton, handleClick } = this.props;
+    const { name, value, dataTestId, disableButton, handleClick, text } = this.props;
 
     return (
       <button
         type="button"
         name={ name }
+        value={ value }
+        data-testid={ dataTestId }
         disabled={ disableButton }
         onClick={ handleClick }
       >

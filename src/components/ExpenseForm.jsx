@@ -145,7 +145,7 @@ class ExpenseForm extends Component {
         { this.renderInputDescription() }
 
         <Button
-          name="login-button"
+          name="expense-button"
           text="Adicionar despesa"
           handleClick={ this.handleCLick }
         />

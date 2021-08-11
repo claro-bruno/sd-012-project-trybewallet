@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Button from './Button';
+import { deleteExpense } from '../actions/wallet';
 
 class ExpenseBoard extends Component {
   constructor(props) {
     super(props);
 
     this.renderTableLines = this.renderTableLines.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick({ target }) {
+    const { expenses, delExpense } = this.props;
+    const newExpenses = expenses.filter(({ id }) => id !== +target.value);
+    delExpense(newExpenses);
   }
 
   renderTableHeader() {
@@ -53,7 +62,17 @@ class ExpenseBoard extends Component {
           <td>{ currencyName[0] }</td>
           <td>{ Number(ask).toFixed(2) }</td>
           <td>{ price }</td>
-          <td>Real</td>
+          <td>
+            Real
+          </td>
+          <td>
+            <Button
+              name="delete-button"
+              dataTestId="delete-btn"
+              value={ id }
+              handleClick={ this.handleClick }
+            />
+          </td>
         </tr>
       );
     });
@@ -79,8 +98,12 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  delExpense: (expense) => dispatch(deleteExpense(expense)),
+});
+
 ExpenseBoard.propTypes = {
   expenses: PropTypes.arrayOf(Object),
 }.isrequired;
 
-export default connect(mapStateToProps)(ExpenseBoard);
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseBoard);
