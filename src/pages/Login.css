@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&display=swap');
+
+* {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: linear-gradient(-45deg, green, rgb(0, 183, 255));
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex ;
+  align-items: center;
+  justify-content: center;
+}
+
+main.container {
+  background: white;
+  min-width: 450px;
+  min-height: 30vh;
+  padding: 2rem;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+}
+
+main h2 {
+  font-weight: 600;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-fild:first-child {
+  margin-bottom: 1.5rem;
+}
+
+.input-fild .underline::before {
+  content:'';
+  position: absolute;
+  height: 1px;
+  width: 100%;
+  bottom: -5px;
+  left: 0;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.input-fild .underline::after {
+  content:'';
+  position: absolute;
+  height: 1px;
+  width: 100%;
+  bottom: -5px;
+  left: 0;
+  background: linear-gradient(45deg, green, rgb(0, 183, 255), rgb(0, 132, 255));
+  transform: scaleX(0);
+  transition: all .3s ease-in-out;
+  transform-origin: left;
+}
+
+.input-fild input:focus ~ .underline::after {
+  transform: scaleX(1);
+}
+
+main h2::before {
+  content: '';
+  position: absolute;
+  height: 4px;
+  width: 25px;
+  bottom: 3px;
+  left: 0;
+  border-radius: 8px;
+  background: linear-gradient(45deg, green, rgb(0, 183, 255), rgb(0, 132, 255));
+}
+
+.input-fild {
+  position: relative;
+}
+
+.input-fild input {
+  outline: none;
+  font-size: 0.9em;
+  color: rgba(0, 0, 0, 0.7);
+  width: 350px;
+  height: 2rem;
+}
+
+.input-fild input::placeholder {
+  color:rgba(0, 0, 0, 0.5);
+}
+
+form input[type="button"]:enabled {
+  margin-top: 2rem;
+  padding: 0.4rem;
+  background: linear-gradient(to left, rgb(39, 133, 39), rgb(15, 164, 223));
+  cursor: pointer;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  min-width: 150px;
+  transition: all 1s ease;
+  transform-origin: left;
+}
+
+form input[type="button"]:disabled {
+  margin-top: 2rem;
+  padding: 0.4rem;
+  background: linear-gradient(to left, rgb(132, 197, 132), rgb(98, 153, 175));
+  cursor: pointer;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  min-width: 150px;
+}
