@@ -50,7 +50,7 @@ export const addNewExpenseAndCurrencyQuote = (value) => async (dispatch) => {
   dispatch(getNewExpense(expenseDetails));
 };
 
-export const deleteExpense = (payload) => ({
+export const deleteExpense = (value) => ({
   type: DELETE_EXPENSE,
-  payload,
+  payload: value,
 });
