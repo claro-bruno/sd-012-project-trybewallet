@@ -84,6 +84,7 @@ class Login extends React.Component {
           </label>
           <Link to="/carteira">
             <input
+              className="enter-button"
               type="button"
               name="Entrar"
               value="Entrar"
