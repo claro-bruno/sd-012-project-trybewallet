@@ -1,3 +1,3 @@
-export const paymentMethods = ['Dinheiro', 'Cartão de Crédito', 'Cartão de Débito'];
+export const methods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 
-export const tags = ['Alimentação', 'lazer', 'trabalho', 'transporte', 'saúde'];
+export const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde', 'Outro'];

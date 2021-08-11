@@ -7,6 +7,7 @@ class Input extends Component {
       id,
       type,
       name,
+      value,
       labelText,
       dataTestId,
       handleChange,
@@ -19,6 +20,7 @@ class Input extends Component {
           id={ id }
           type={ type }
           name={ name }
+          value={ value }
           data-testid={ dataTestId }
           onChange={ handleChange }
         />

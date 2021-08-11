@@ -1,6 +1,7 @@
 export const LOADING = 'LOADING';
 export const API_SUCCESS = 'API_SUCCESS';
 export const API_ERROR = 'API_ERROR';
+export const REGISTER_EXPENSE = 'REGISTER_EXPENSE';
 
 export const loading = () => ({
   type: LOADING,
@@ -26,3 +27,8 @@ export const fetchApi = () => async (dispatch) => {
     dispatch(apiError(error.message));
   }
 };
+
+export const registerExpense = (expense) => ({
+  type: REGISTER_EXPENSE,
+  payload: expense,
+});
