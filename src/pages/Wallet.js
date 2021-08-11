@@ -4,12 +4,13 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import { fetchAPI as fetchAPICreator } from '../actions';
 import Form from '../components/Form';
+import TableRow from '../components/TableRow';
 
 class Wallet extends React.Component {
   constructor() {
     super();
 
-    this.renderTableBody = this.renderTableBody.bind(this);
+    this.getInfo = this.getInfo.bind(this);
   }
 
   componentDidMount() {
@@ -27,17 +28,28 @@ class Wallet extends React.Component {
   //   return expensesSum;
   // }
 
-  renderTableBody() {
-    const { expenses } = this.props;
-    expenses.map((expense, index) => {
-      const { id, description, method, currency, value, exchangeRates } = expense;
-      const { name, ask } = exchangeRates[currency];
-      // const expensesArray = [id, description, method, value, exchangeRates, name, ask];
-      return (
-        <td key={ index }>{ description }</td>
-        // expensesArray.map((item, index1) => (<td key={ index1 }>{ id }</td>))
-      );
-    });
+  getInfo(item) {
+    const { id, description, method, tag, currency, value, exchangeRates } = item;
+    const { name, ask } = exchangeRates[currency];
+    const info = [description, tag, method, (Math.round(value * 100) / 100),
+      name, (Math.round(ask * 100) / 100).toFixed(2),
+      (Math.round((ask * value) * 100) / 100).toFixed(2), 'Real',
+      <button
+        data-testid="delete-btn"
+        type="button"
+        key={ id }
+      >
+        Excluir
+      </button>,
+      <button
+        data-testid="edit-btn"
+        type="button"
+        key={ id }
+      >
+        Editar
+      </button>,
+    ];
+    return info;
   }
 
   render() {
@@ -81,9 +93,10 @@ class Wallet extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              { this.renderTableBody() }
-            </tr>
+            { expenses.length > 0 && expenses.map((item, index) => (<TableRow
+              key={ index }
+              content={ this.getInfo(item) }
+            />))}
           </tbody>
         </table>
       </>
