@@ -2,18 +2,21 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ExpenseForm from '../components/ExpenseForm';
-import { fetchCurrencies } from '../actions/wallet';
+import { fetchApi } from '../actions/wallet';
 import './styles/Wallet.css';
 
 class Wallet extends React.Component {
   componentDidMount() {
-    const { setCurrencies } = this.props;
+    const { setApi } = this.props;
 
-    setCurrencies();
+    setApi();
   }
 
   render() {
     const { email, currencies } = this.props;
+
+    const currenciesData = Object.keys(currencies)
+      .filter((currency) => currency !== 'USDT');
 
     return (
       <div>
@@ -28,7 +31,7 @@ class Wallet extends React.Component {
         </header>
 
         <section>
-          <ExpenseForm currencies={ currencies } />
+          <ExpenseForm currencies={ currenciesData } />
         </section>
       </div>
     );
@@ -41,11 +44,13 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setCurrencies: () => dispatch(fetchCurrencies()),
+  setApi: () => dispatch(fetchApi()),
 });
 
 Wallet.propTypes = {
   email: PropTypes.string,
+  currencies: PropTypes.arrayOf(Object),
+  setApi: PropTypes.func,
 }.isrequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

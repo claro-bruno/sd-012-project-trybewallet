@@ -1,24 +1,28 @@
-export const GET_CURRENCIES = 'GET_CURRENCIES';
-export const GET_EXPENSES = 'GET_EXPENSES';
+export const LOADING = 'LOADING';
+export const API_SUCCESS = 'API_SUCCESS';
+export const API_ERROR = 'API_ERROR';
 
-export const getCurrencies = (currencies) => ({
-  type: GET_CURRENCIES,
-  currencies,
+export const loading = () => ({
+  type: LOADING,
 });
 
-export const getExpenses = (expenses) => ({
-  type: GET_EXPENSES,
-  expenses,
+export const apiSuccess = (response) => ({
+  type: API_SUCCESS,
+  payload: response,
 });
 
-export const fetchCurrencies = () => async (dispatch) => {
+export const apiError = (error) => ({
+  type: API_ERROR,
+  payload: error,
+});
+
+export const fetchApi = () => async (dispatch) => {
+  dispatch(loading());
   try {
     const request = await fetch('https://economia.awesomeapi.com.br/json/all');
     const response = await request.json();
-    const currencies = await Object.keys(response)
-      .filter((currency) => currency !== 'USDT');
-    await dispatch(getCurrencies(currencies));
+    await dispatch(apiSuccess(response));
   } catch (error) {
-    dispatch(getCurrencies('Error'));
+    dispatch(apiError(error.message));
   }
 };

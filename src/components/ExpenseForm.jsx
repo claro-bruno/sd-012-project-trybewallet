@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Input from './Input';
 import Select from './Select';
+import Button from './Button';
 import { paymentMethods, tags } from '../data';
 
 class ExpenseForm extends Component {
@@ -43,6 +44,12 @@ class ExpenseForm extends Component {
           type="text"
           name="description"
           labelText="Descrição"
+        />
+
+        <Button
+          name="login-button"
+          text="Adicionar despesa"
+          handleClick={ () => console.log('adicionar despesa') }
         />
       </form>
     );
