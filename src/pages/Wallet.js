@@ -6,11 +6,11 @@ import { fetchAPI as fetchAPICreator } from '../actions';
 import Form from '../components/Form';
 
 class Wallet extends React.Component {
-  // constructor() {
-  //   super();
+  constructor() {
+    super();
 
-  //   this.sumTotalExpenses = this.sumTotalExpenses.bind(this);
-  // }
+    this.renderTableBody = this.renderTableBody.bind(this);
+  }
 
   componentDidMount() {
     const { fetchAPI } = this.props;
@@ -27,6 +27,19 @@ class Wallet extends React.Component {
   //   return expensesSum;
   // }
 
+  renderTableBody() {
+    const { expenses } = this.props;
+    expenses.map((expense, index) => {
+      const { id, description, method, currency, value, exchangeRates } = expense;
+      const { name, ask } = exchangeRates[currency];
+      // const expensesArray = [id, description, method, value, exchangeRates, name, ask];
+      return (
+        <td key={ index }>{ description }</td>
+        // expensesArray.map((item, index1) => (<td key={ index1 }>{ id }</td>))
+      );
+    });
+  }
+
   render() {
     const paymentMethods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const expenseCategories = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
@@ -34,6 +47,7 @@ class Wallet extends React.Component {
       'Moeda', 'Câmbio utilizado', 'Valor convertido', 'Moeda de conversão',
       'Editar/Excluir'];
     const { email, data, expenses } = this.props;
+    console.log(expenses);
     return (
       <>
         <Header
@@ -66,6 +80,11 @@ class Wallet extends React.Component {
               ))}
             </tr>
           </thead>
+          <tbody>
+            <tr>
+              { this.renderTableBody() }
+            </tr>
+          </tbody>
         </table>
       </>
     );
