@@ -12,7 +12,7 @@ body {
   align-items: center;
   background: linear-gradient(-45deg, green, rgb(0, 183, 255));
   background-repeat: no-repeat;
-  display: flex ;
+  display: flex;
   justify-content: center;
   min-height: 100vh;
   min-width: 100vw;
@@ -20,10 +20,10 @@ body {
 
 main.container {
   background: white;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
   border-radius: 15px;
-  min-width: 450px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
   min-height: 30vh;
+  min-width: 450px;
   padding: 2rem;
 }
 
@@ -39,14 +39,18 @@ form {
   flex-direction: column;
 }
 
+.input-fild {
+  position: relative;
+}
+
 .input-fild:first-child {
   margin-bottom: 1.5rem;
 }
 
 .input-fild .underline::before {
-  content:'';
   background: rgba(0, 0, 0, 0.2);
   bottom: -5px;
+  content: '';
   height: 1px;
   left: 0;
   position: absolute;
@@ -56,13 +60,13 @@ form {
 .input-fild .underline::after {
   background: linear-gradient(45deg, green, rgb(0, 183, 255), rgb(0, 132, 255));
   bottom: -5px;
-  content:'';
-  height: 1px;
+  content: '';
+  height: 01px;
   left: 0;
   position: absolute;
   transform: scaleX(0);
-  transition: all .3s ease-in-out;
   transform-origin: left;
+  transition: all .3s ease-in-out;
   width: 100%;
 }
 
@@ -81,10 +85,6 @@ main h2::before {
   width: 25px;
 }
 
-.input-fild {
-  position: relative;
-}
-
 .input-fild input {
   color: rgba(0, 0, 0, 0.7);
   font-size: 0.9em;
@@ -94,10 +94,10 @@ main h2::before {
 }
 
 .input-fild input::placeholder {
-  color:rgba(0, 0, 0, 0.5);
+  color: rgba(0, 0, 0, 0.5);
 }
 
-form input[type="button"]:enabled {
+form input[ type = "button" ]:enabled {
   background: linear-gradient(to left, rgb(39, 133, 39), rgb(15, 164, 223));
   border-radius: 4px;
   color: white;
@@ -109,10 +109,9 @@ form input[type="button"]:enabled {
   padding: 0.4rem;
   transform-origin: left;
   transition: all 0.3s ease;
-  transition: all 1s ease;
 }
 
-form input[type="button"]:disabled {
+form input[ type = "button" ]:disabled {
   background: linear-gradient(to left, rgb(132, 197, 132), rgb(98, 153, 175));
   border-radius: 4px;
   color: white;
