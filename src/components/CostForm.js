@@ -1,18 +1,25 @@
+// toDo: passar para arrow function [ ]
+// toDo: colocar moeda para fora do return, ficar a parte [ ]
 import React, { Component } from 'react';
 import { func, arrayOf, string } from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchAPI } from '../actions';
+import { fetchAPI, addExpense } from '../actions';
+
+const INICIAL_STATE = {
+  value: 0,
+  description: '',
+  currency: 'USD',
+  method: '',
+  tag: '',
+};
 
 class CostForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      value: 0,
-      description: '',
-      currency: 0,
-      paymentMethod: '',
-      tag: '',
-    };
+    this.state = INICIAL_STATE;
+    this.renderMethod = this.renderMethod.bind(this);
+    this.renderTagSelection = this.renderTagSelection.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -20,15 +27,23 @@ class CostForm extends Component {
     getCurrencies();
   }
 
-  renderPaymentMethod() {
-    const { paymentMethod } = this.state;
+  handleSubmit(event) {
+    event.preventDefault();
+    const { getCurrencies, addObj } = this.props;
+    getCurrencies();
+    addObj(this.state);
+    this.setState(INICIAL_STATE);
+  }
+
+  renderMethod() {
+    const { method } = this.state;
     const methods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     return (
       <label htmlFor="payment-method-input">
         Método de pagamento:
         <select
-          onChange={ (event) => this.setState({ paymentMethod: event.target.value }) }
-          value={ paymentMethod }
+          onChange={ (event) => this.setState({ method: event.target.value }) }
+          value={ method }
           id="payment-method-input"
         >
           {methods.map((item, index) => (
@@ -61,11 +76,11 @@ class CostForm extends Component {
     const { value, description, currency } = this.state;
     const { currenciesNames } = this.props;
     return (
-      <form>
+      <form onSubmit={ this.handleSubmit }>
         <label htmlFor="value-input">
           Valor:
           <input
-            type="text"
+            type="number"
             id="value-input"
             value={ value }
             onChange={ (event) => this.setState({ value: event.target.value }) }
@@ -88,26 +103,30 @@ class CostForm extends Component {
             id="currency-input"
           >
             { currenciesNames && currenciesNames.map((item, index) => (
-              <option key={ index }>{item}</option>
+              <option key={ index } value={ item }>{ item }</option>
             ))}
           </select>
         </label>
-        { this.renderPaymentMethod()}
+        { this.renderMethod()}
         { this.renderTagSelection()}
+        <button type="submit">Adicionar despesa</button>
       </form>
     );
   }
 }
 const mapStateToProps = (state) => ({
   currenciesNames: state.wallet.currenciesNames,
+  exchangeRates: state.wallet.exchangeRates,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getCurrencies: () => dispatch(fetchAPI()),
+  addObj: (stateItens) => dispatch(addExpense(stateItens)),
 });
 
 CostForm.propTypes = {
   getCurrencies: func.isRequired,
+  addObj: func.isRequired,
   currenciesNames: arrayOf(string),
 };
 

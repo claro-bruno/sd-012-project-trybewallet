@@ -1,6 +1,6 @@
 // Coloque aqui suas actions
 import exchangeAPI from '../service/exchangeApi';
-import { ADD_USER, CURRENCY_DATA } from './actionTypes';
+import { ADD_EXPENSE, ADD_USER, CURRENCY_DATA, DELETE_ITEM } from './actionTypes';
 
 const addUser = (payload) => ({
   type: ADD_USER,
@@ -12,6 +12,16 @@ const dataCurrency = (data) => ({
   data,
 });
 
+const addExpense = (expense) => ({
+  type: ADD_EXPENSE,
+  expense,
+});
+
+const deleteItem = (item) => ({
+  type: DELETE_ITEM,
+  item,
+});
+
 function fetchAPI() {
   return async (dispatch) => {
     const data = await exchangeAPI();
@@ -19,4 +29,4 @@ function fetchAPI() {
   };
 }
 
-export { addUser, dataCurrency, fetchAPI };
+export { addUser, dataCurrency, fetchAPI, addExpense, deleteItem };
