@@ -183,29 +183,31 @@ class Wallet extends React.Component {
     const { selectedCurrency, mode } = this.state;
     return (
       <main>
-        <header>
-          <p data-testid="email-field">{ userEmail }</p>
-          <p data-testid="total-field">
-            { (Math.round(totalExpended * 100) / 100).toFixed(2) || 0 }
-          </p>
-          <p>
-            Moeda:
-            <span data-testid="header-currency-field">{ selectedCurrency }</span>
-          </p>
-        </header>
         <div>
-          <form>
-            { this.renderValueInput() }
-            { this.renderCurrencySelect() }
-            { this.renderPaymentMethodSelect() }
-            { this.renderTagSelect() }
-            { this.renderDescriptionInput() }
-            { this.renderAddExpenseButton(mode) }
-            <ExpensesTable
-              handleDeleteExpense={ this.handleDeleteExpense }
-              handleEditExpense={ this.handleEditExpense }
-            />
-          </form>
+          <header>
+            <p data-testid="email-field">{ userEmail }</p>
+            <p data-testid="total-field">
+              { (Math.round(totalExpended * 100) / 100) || 0 }
+            </p>
+            <p>
+              Moeda:
+              <span data-testid="header-currency-field">{ selectedCurrency }</span>
+            </p>
+          </header>
+          <div>
+            <form>
+              { this.renderValueInput() }
+              { this.renderCurrencySelect() }
+              { this.renderPaymentMethodSelect() }
+              { this.renderTagSelect() }
+              { this.renderDescriptionInput() }
+              { this.renderAddExpenseButton(mode) }
+              <ExpensesTable
+                handleDeleteExpense={ this.handleDeleteExpense }
+                handleEditExpense={ this.handleEditExpense }
+              />
+            </form>
+          </div>
         </div>
       </main>
     );

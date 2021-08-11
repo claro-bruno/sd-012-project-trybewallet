@@ -37,7 +37,7 @@ class ExpensesTable extends React.Component {
               <td role="cell">{ expense.description }</td>
               <td role="cell">{ expense.tag }</td>
               <td role="cell">{ expense.method }</td>
-              <td role="cell">{ (Math.round(expense.value * 100) / 100).toFixed(2) }</td>
+              <td role="cell">{ (Math.round(expense.value * 100) / 100) }</td>
               <td role="cell">{ expense.exchangeRates[expense.currency].name }</td>
               <td role="cell">
                 { (Math.round(

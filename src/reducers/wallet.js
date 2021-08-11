@@ -3,6 +3,7 @@ import {
   ADD_EXPENSE,
   DELETE_EXPENSE,
   EDIT_EXPENSE,
+  SETINITIALWALLETSTATE,
 } from '../actions';
 
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
@@ -18,6 +19,8 @@ const INITIAL_STATE = {
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+  case SETINITIALWALLETSTATE:
+    return { ...state };
   case GET_CURRENCIES:
     return { ...state, isLoading: true };
   case GET_CURRENCIES_SUCCESS: {

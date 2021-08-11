@@ -6,10 +6,15 @@ export const GET_CURRENCIES_ERROR = 'GET_CURRENCIES_ERROR';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 export const EDIT_EXPENSE = 'EDIT_EXPENSE';
+export const SETINITIALWALLETSTATE = 'SETINITIALWALLETSTATE';
 
 export const setUserEmail = (email) => ({
   type: SET_USER_EMAIL,
   payload: email,
+});
+
+export const setInitialWalletState = () => ({
+  type: SETINITIALWALLETSTATE,
 });
 
 export const deleteExpense = (expenseId) => ({

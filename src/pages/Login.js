@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { setUserEmail } from '../actions/index';
+import { setUserEmail, setInitialWalletState } from '../actions/index';
 
 class Login extends React.Component {
   constructor(props) {
@@ -46,9 +46,10 @@ class Login extends React.Component {
   }
 
   submitLogin() {
-    const { setEmail } = this.props;
+    const { setEmail, initializeWallet } = this.props;
     const { emailInputText } = this.state;
     setEmail(emailInputText);
+    initializeWallet();
     this.setState({
       canRedirect: true,
     });
@@ -104,10 +105,12 @@ class Login extends React.Component {
 
 Login.propTypes = {
   setEmail: PropTypes.func.isRequired,
+  initializeWallet: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   setEmail: (email) => dispatch(setUserEmail(email)),
+  initializeWallet: () => dispatch(setInitialWalletState()),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
