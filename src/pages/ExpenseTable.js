@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { func, arrayOf, string } from 'prop-types';
-import headTable from '../componentData/index';
+import { func, arrayOf, string, oneOfType, number } from 'prop-types';
+import { headTable } from '../componentData/index';
 import { removeExpenseAct } from '../actions/index';
 
 class ExpenseTable extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
+  buttonRemove(getIdToRemove, idT) {
+    return (
+      <button
+        type="button"
+        data-testid="delete-btn"
+        onClick={ () => getIdToRemove(idT) }
+      >
+        Excluir
+      </button>
+    );
   }
 
   render() {
-    const { expenses, getIdToRemove } = this.props;
+    const { expenses, getIdToRemove, handleToggleEdit } = this.props;
     return (
       <table>
         <thead>
@@ -41,12 +48,13 @@ class ExpenseTable extends Component {
                 <td>{total}</td>
                 <td>Real</td>
                 <td>
+                  { this.buttonRemove(getIdToRemove, idT) }
                   <button
                     type="button"
-                    data-testid="delete-btn"
-                    onClick={ () => getIdToRemove(idT) }
+                    data-testid="edit-btn"
+                    onClick={ () => handleToggleEdit(idT) }
                   >
-                    Excluir
+                    Editar
                   </button>
                 </td>
               </tr>
@@ -70,6 +78,7 @@ ExpenseTable.propTypes = {
   expenses: arrayOf(string).isRequired,
   map: func.isRequired,
   getIdToRemove: func.isRequired,
+  handleToggleEdit: func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseTable);

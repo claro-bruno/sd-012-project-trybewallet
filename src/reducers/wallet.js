@@ -22,6 +22,13 @@ const addEditedExpense = (expenses, payload, id) => {
   return newExpenses; // o retorno da função é um objeto, que corresponde à despesa e será usado no reducer.
 };
 
+const editingAndRemoving = (editing, id) => {
+  if (editing === id) {
+    return 'none';
+  }
+  return editing;
+};
+
 const wallet = (state = INIT_STATE, action) => {
   switch (action.type) {
   case FETCHING_DATA:
@@ -52,6 +59,7 @@ const wallet = (state = INIT_STATE, action) => {
     return {
       ...state,
       expenses: state.expenses.filter(({ id }) => id !== action.state),
+      editing: editingAndRemoving(state.editing, action.id),
     };
 
   case TOGGLE_EDIT:
@@ -60,7 +68,7 @@ const wallet = (state = INIT_STATE, action) => {
   case EDIT_EXPENSE:
     return {
       ...state,
-      expense: addEditedExpense(state.expenses, action.payload, action.id), // o array expenses está no estado global.
+      expenses: addEditedExpense(state.expenses, action.payload, action.id), // o array expenses está no estado global.
       editing: 'none', // lógica para alternância do botão entre editar e adicionar.
     };
 

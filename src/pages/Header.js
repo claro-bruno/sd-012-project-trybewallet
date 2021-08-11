@@ -35,7 +35,7 @@ class Header extends React.Component {
           </p>
         </header>
 
-        <ExpenseForm /* onChange={ this.handleChange } */ />
+        <ExpenseForm />
       </div>
     );
   }
