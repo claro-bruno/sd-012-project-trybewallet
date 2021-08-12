@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import { arrayOf, func, string, oneOfType, number } from 'prop-types';
 import { fetchForExpense, editExpenseAct, toggleEdit } from '../actions/index';
 import ExpenseTable from './ExpenseTable';
-import { categoryArr, methodArr } from '../componentData/index';
-// import ButtonEditAdd from './ButtonEditAdd';
+import { categoryArr } from '../componentData/index';
+import Input from './Input';
+import InputDescript from './InputDescript';
+import SelectPayment from './SelectPayment';
 
 const INIT_STATE = {
   description: '',
@@ -73,50 +75,37 @@ class ExpenseForm extends React.Component {
 
   render() {
     const { apiResponse, editing, expenses,
-      addEditedExpense, changeExpense } = this.props;
+      addEditedExpense, changeExpense, value, description } = this.props;
     return (
       <form>
-        <label htmlFor="valor">
-          Valor
-          <input
-            id="valor"
-            type="number"
-            name="value"
-            data-testid="value-input"
-            onChange={ this.handleChange }
-          />
-        </label>
+        <Input handleChange={ this.handleChange } value={ value } />
         <label htmlFor="moeda">
           Moedas
-          <select id="moeda" name="currency" data-testid="currency-input" onChange={ this.handleChange }>
+          <select
+            id="moeda"
+            name="currency"
+            data-testid="currency-input"
+            onChange={ this.handleChange }
+          >
             { apiResponse.map(
               (moeda,
                 index) => (<option key={ index } value={ moeda }>{moeda}</option>),
             )}
           </select>
         </label>
-        <label htmlFor="pagamento">
-          Método de pagamento
-          <select id="pagamento" name="method" data-testid="method-input" onChange={ this.handleChange }>
-            {methodArr.map((e, index) => <option key={ index }>{ e }</option>)}
-          </select>
-        </label>
+        <SelectPayment handleChange={ this.handleChange } />
         <label htmlFor="categoria">
           Tag
-          <select id="categoria" name="tag" data-testid="tag-input" onChange={ this.handleChange }>
+          <select
+            id="categoria"
+            name="tag"
+            data-testid="tag-input"
+            onChange={ this.handleChange }
+          >
             {categoryArr.map((e, index) => <option key={ index }>{ e }</option>)}
           </select>
         </label>
-        <label htmlFor="descricao">
-          Descrição
-          <input
-            id="descricao"
-            type="text"
-            name="description"
-            data-testid="description-input"
-            onChange={ this.handleChange }
-          />
-        </label>
+        <InputDescript handleChange={ this.handleChange } description={ description } />
         { editing === 'none'
           ? this.buttonAddExpense(changeExpense)
           : this.buttonEdit(addEditedExpense, editing)}
@@ -150,6 +139,8 @@ ExpenseForm.propTypes = ({
   expenses: arrayOf(string).isRequired,
   toggleEditToReduce: func.isRequired,
   changeExpense: func.isRequired,
+  value: oneOfType([string, number]).isRequired,
+  description: string.isRequired,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);
