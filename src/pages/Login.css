@@ -1,0 +1,124 @@
+* {
+    border: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    align-items: center;
+    background: linear-gradient(-45deg, green, rgb(0, 183, 255));
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    min-width: 100vw;
+  }
+  
+  .container {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+    min-height: 30vh;
+    min-width: 450px;
+    padding: 2rem;
+  }
+  
+  main h2 {
+    font-weight: 600;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+  
+  form {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .input-fild {
+    position: relative;
+  }
+  
+  .input-fild:first-child {
+    margin-bottom: 1.5rem;
+  }
+  
+  .input-fild .underline:before {
+    background: rgba(0, 0, 0, 0.2);
+    bottom: -5px;
+    content: '';
+    height: 1px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+  }
+  
+  .input-fild .underline:after {
+    background: linear-gradient(45deg, green, rgb(0, 183, 255), rgb(0, 132, 255));
+    bottom: -5px;
+    content: '';
+    height: 1px;
+    left: 0;
+    position: absolute;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+  }
+  
+  .input-fild input:focus ~ .underline:after {
+    transform: scaleX(1);
+  }
+  
+  main h2:before {
+    background: linear-gradient(45deg, green, rgb(0, 183, 255), rgb(0, 132, 255));
+    border-radius: 8px;
+    bottom: 1px;
+    content: '';
+    height: 4px;
+    left: 0;
+    position: absolute;
+    width: 25px;
+  }
+  
+  .input-fild input {
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 0.9em;
+    height: 2rem;
+    outline: none;
+    width: 350px;
+  }
+  
+  .input-fild input::placeholder {
+    color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .enter-button:enabled {
+    background: linear-gradient(to left, rgb(39, 133, 39), rgb(15, 164, 223));
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-top: 2rem;
+    min-width: 150px;
+    padding: 0.4rem;
+    transform-origin: left;
+    transition: all 0.3s ease;
+  }
+  
+  .enter-button:disabled {
+    background: linear-gradient(to left, rgb(132, 197, 132), rgb(98, 153, 175));
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-top: 2rem;
+    min-width: 150px;
+    padding: 0.4rem;
+    transition: all 0.3s ease;
+  }
+  
