@@ -1,20 +1,25 @@
-// Coloque aqui suas actions
-export const ADD_USER = 'ADD_USER';
-export const ADD_CURRENCIES = 'ADD_CURRENCIES';
+export const SAVE_USER_EMAIL = 'SAVE_USER_EMAIL';
+export const REQUEST_CURRENCIES_SUCCESS = 'REQUEST_CURRENCIES_SUCCESS';
+export const REQUEST_CURRENCIES_ERROR = 'REQUEST_CURRENCIES_ERROR';
+export const REQUEST_CURRENCIESII_SUCCESS = 'REQUEST_CURRENCIESII_SUCCESS';
+export const REQUEST_CURRENCIESII_ERROR = 'REQUEST_CURRENCIESII_ERROR';
+export const EXCLUDE_EXPENSE = 'EXCLUDE_EXPENSE';
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
 
-export const addUser = (email) => ({ type: ADD_USER, email });
-export const addCurrencies = (currencies) => ({ type: ADD_CURRENCIES, currencies });
+export const saveUserEmail = (payload) => ({ type: SAVE_USER_EMAIL, payload });
 
-export const fetchAPI = () => (
-  async (dispatch) => {
-    try {
-      const URL = 'https://economia.awesomeapi.com.br/json/all';
-      const fetchApi = await fetch(URL);
-      const obj = await fetchApi.json();
-      const currencies = Object.keys(obj);
-      dispatch(addCurrencies(currencies.filter((curr) => curr !== 'USDT')));
-    } catch (error) {
-      console.log(error);
-    }
-  }
-);
+export const requestCurrenciesSuccess = (payload) => ({
+  type: REQUEST_CURRENCIES_SUCCESS, payload,
+});
+
+export const requestCurrenciesError = ({ type: REQUEST_CURRENCIES_ERROR });
+
+export const requestCurrenciesIISuccess = (payload) => ({
+  type: REQUEST_CURRENCIESII_SUCCESS, payload,
+});
+
+export const requestCurrenciesIIError = ({ type: REQUEST_CURRENCIESII_ERROR });
+
+export const excludeExpense = (payload) => ({ type: EXCLUDE_EXPENSE, payload });
+
+export const editExpense = (state) => ({ type: EDIT_EXPENSE, state });
