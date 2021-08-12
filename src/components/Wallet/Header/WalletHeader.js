@@ -1,15 +1,18 @@
-import { requestCurrenciesSuccess, requestCurrenciesError } from '../actions';
+import React, { Component } from 'react';
+import EmailDisplay from './EmailDisplay';
+import TotalValueDisplay from './TotalValueDisplay';
+import TotalValueCurrencyDisplay from './TotalValueCurrencyDisplay';
 
-const URL = 'https://economia.awesomeapi.com.br/json/all';
+class WalletHeader extends Component {
+  render() {
+    return (
+      <header>
+        <EmailDisplay />
+        <TotalValueDisplay />
+        <TotalValueCurrencyDisplay />
+      </header>
+    );
+  }
+}
 
-const fetchCurrencies = () => async (dispatch) => {
-  const response = await fetch(URL);
-  if (!response.ok) return dispatch(requestCurrenciesError());
-  const currencies = await response.json();
-  const currenciesAbbreviation = Object.keys(currencies);
-  const currenciesFiltered = currenciesAbbreviation
-    .filter((currencie) => currencie !== 'USDT');
-  dispatch(requestCurrenciesSuccess(currenciesFiltered));
-};
-
-export default fetchCurrencies;
+export default WalletHeader;
