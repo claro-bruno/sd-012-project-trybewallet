@@ -5,6 +5,18 @@ import { headTable } from '../componentData/index';
 import { removeExpenseAct } from '../actions/index';
 
 class ExpenseTable extends Component {
+  buttoneEdit(handleToggleEdit, idT) {
+    return (
+      <button
+        type="button"
+        data-testid="edit-btn"
+        onClick={ () => handleToggleEdit(idT) }
+      >
+        Editar
+      </button>
+    );
+  }
+
   buttonRemove(getIdToRemove, idT) {
     return (
       <button
@@ -49,13 +61,7 @@ class ExpenseTable extends Component {
                 <td>Real</td>
                 <td>
                   { this.buttonRemove(getIdToRemove, idT) }
-                  <button
-                    type="button"
-                    data-testid="edit-btn"
-                    onClick={ () => handleToggleEdit(idT) }
-                  >
-                    Editar
-                  </button>
+                  { this.buttoneEdit(handleToggleEdit, idT) }
                 </td>
               </tr>
             );

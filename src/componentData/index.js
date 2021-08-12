@@ -4,3 +4,5 @@ export const headTable = [
   'Moeda de conversão', 'Editar/Excluir'];
 
 export const categoryArr = ['Alimentação', 'Lazer', 'Trabalho', 'Saúde', 'Transporte'];
+
+export const methodArr = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];

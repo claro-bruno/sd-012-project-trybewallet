@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { arrayOf, func, string, oneOfType, number } from 'prop-types';
-import AddExpensesButton from './AddExpensesButton';
 import { fetchForExpense, editExpenseAct, toggleEdit } from '../actions/index';
 import ExpenseTable from './ExpenseTable';
-import { categoryArr } from '../componentData/index';
+import { categoryArr, methodArr } from '../componentData/index';
+// import ButtonEditAdd from './ButtonEditAdd';
 
 const INIT_STATE = {
   description: '',
@@ -16,21 +16,30 @@ const INIT_STATE = {
 class ExpenseForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { ...INIT_STATE };
+    this.state = INIT_STATE;
     this.handleChange = this.handleChange.bind(this);
-    this.onSubmitToExchangeRates = this.onSubmitToExchangeRates.bind(this);
+    this.changeExpense = this.changeExpense.bind(this);
     this.addEditedExpense = this.addEditedExpense.bind(this);
     this.handleToggleEdit = this.handleToggleEdit.bind(this);
     this.buttonEdit = this.buttonEdit.bind(this);
+    this.buttonAddExpense = this.buttonAddExpense.bind(this);
   }
 
-  onSubmitToExchangeRates() {
+  changeExpense() {
     const { sendToExchangeRates } = this.props;
     const { value, description, currency, method, tag } = this.state;
     sendToExchangeRates({ value, description, currency, method, tag }); // envia para o estado global.
     this.setState({
       value: 0, description: '', currency: 'USD', method: 'Dinheiro', tag: 'Alimentação',
     });
+  }
+
+  buttonAddExpense() {
+    return (
+      <button type="button" onClick={ this.changeExpense }>
+        Adicionar despesa
+      </button>
+    );
   }
 
   handleChange({ target: { name, value } }) {
@@ -47,8 +56,7 @@ class ExpenseForm extends React.Component {
     return (
       <button
         type="button"
-        data-testid="edit-btn"
-        onClick={ () => addEditedExpense(editing) }
+        onClick={ () => this.addEditedExpense(editing) }
       >
         Editar despesa
       </button>
@@ -64,17 +72,23 @@ class ExpenseForm extends React.Component {
   }
 
   render() {
-    const { apiResponse, editing, addEditedExpense } = this.props;
-    // const { id, value, description, currency, method, tag, exchangeRates } = this.props;
+    const { apiResponse, editing, expenses,
+      addEditedExpense, changeExpense } = this.props;
     return (
       <form>
         <label htmlFor="valor">
           Valor
-          <input id="valor" type="number" name="value" onChange={ this.handleChange } />
+          <input
+            id="valor"
+            type="number"
+            name="value"
+            data-testid="value-input"
+            onChange={ this.handleChange }
+          />
         </label>
         <label htmlFor="moeda">
           Moedas
-          <select id="moeda" name="currency" onChange={ this.handleChange }>
+          <select id="moeda" name="currency" data-testid="currency-input" onChange={ this.handleChange }>
             { apiResponse.map(
               (moeda,
                 index) => (<option key={ index } value={ moeda }>{moeda}</option>),
@@ -83,15 +97,13 @@ class ExpenseForm extends React.Component {
         </label>
         <label htmlFor="pagamento">
           Método de pagamento
-          <select id="pagamento" name="method" onChange={ this.handleChange }>
-            <option>Dinheiro</option>
-            <option>Cartão de crédito</option>
-            <option>Cartão de débito</option>
+          <select id="pagamento" name="method" data-testid="method-input" onChange={ this.handleChange }>
+            {methodArr.map((e, index) => <option key={ index }>{ e }</option>)}
           </select>
         </label>
         <label htmlFor="categoria">
           Tag
-          <select id="categoria" name="tag" onChange={ this.handleChange }>
+          <select id="categoria" name="tag" data-testid="tag-input" onChange={ this.handleChange }>
             {categoryArr.map((e, index) => <option key={ index }>{ e }</option>)}
           </select>
         </label>
@@ -101,11 +113,15 @@ class ExpenseForm extends React.Component {
             id="descricao"
             type="text"
             name="description"
+            data-testid="description-input"
             onChange={ this.handleChange }
           />
         </label>
-        { editing !== 'none' ? (this.buttonEdit(addEditedExpense, editing)) : (<AddExpensesButton onSubmitToExchangeRates={ this.onSubmitToExchangeRates } />) }
+        { editing === 'none'
+          ? this.buttonAddExpense(changeExpense)
+          : this.buttonEdit(addEditedExpense, editing)}
         <ExpenseTable
+          expenses={ expenses }
           handleToggleEdit={ this.handleToggleEdit }
         />
       </form>
@@ -115,6 +131,8 @@ class ExpenseForm extends React.Component {
 
 const mapStateToProps = (state) => ({
   apiResponse: state.wallet.currencies,
+  expenses: state.wallet.expenses,
+  editing: state.wallet.editing,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -126,17 +144,12 @@ const mapDispatchToProps = (dispatch) => ({
 ExpenseForm.propTypes = ({
   apiResponse: arrayOf(string).isRequired,
   editExpenseToReduce: func.isRequired,
+  addEditedExpense: func.isRequired,
   editing: oneOfType([string, number]).isRequired,
-  // id: number.isRequired,
-  // value: string.isRequired,
-  // description: string.isRequired,
-  // currency: string.isRequired,
-  // method: string.isRequired,
-  // tag: string.isRequired,
-  // exchangeRates: objectOf(string).isRequired,
   sendToExchangeRates: func.isRequired,
   expenses: arrayOf(string).isRequired,
   toggleEditToReduce: func.isRequired,
+  changeExpense: func.isRequired,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);
