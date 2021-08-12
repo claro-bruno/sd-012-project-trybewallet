@@ -16,7 +16,7 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       expenses: [...state.expenses.filter(
-        (item) => (item.id === action.payload.id ? action.payload : item),
+        (item) => (item.id !== action.payload),
       )],
     };
   default:
