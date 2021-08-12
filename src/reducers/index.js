@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import user from './user';
-import wallet from './wallet';
+import userReducer from './userReducer';
+import walletReducer from './walletReducer';
 
-const rootReducer = combineReducers({ user, wallet });
+const rootReducer = combineReducers({ userReducer, walletReducer });
 
 export default rootReducer;

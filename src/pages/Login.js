@@ -1,9 +1,12 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { addEmail } from '../actions';
 import Button from '../components/Button';
 import Input from '../components/Input';
 
-const FOUR = 4;
+const FIVE = 5;
 
 class Login extends React.Component {
   constructor(props) {
@@ -23,18 +26,21 @@ class Login extends React.Component {
 
   handleChange(e) {
     const input = e.target;
-    const { email, password } = this.state;
 
     this.setState({
       [input.id]: input.value,
+    }, () => {
+      const { email, password } = this.state;
+      if (email.includes('@') && password.length > FIVE) {
+        this.setState({
+          disabled: false,
+        });
+      } else {
+        this.setState({
+          disabled: true,
+        });
+      }
     });
-
-    if (email.includes('@') && password.length > FOUR) {
-      // Perguntar depois sobre o bug do length
-      this.setState({
-        disabled: false,
-      });
-    }
   }
 
   handleSubmit(e) {
@@ -43,6 +49,11 @@ class Login extends React.Component {
     this.setState({
       redirect: true,
     });
+
+    const { state: { email } } = this;
+    const { emailDispatch } = this.props;
+
+    emailDispatch(email);
   }
 
   render() {
@@ -91,4 +102,13 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const { func } = PropTypes;
+Login.propTypes = {
+  emailDispatch: func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  emailDispatch: (state) => dispatch(addEmail(state)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);

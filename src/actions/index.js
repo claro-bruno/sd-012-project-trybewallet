@@ -1,1 +1,1 @@
-// Coloque aqui suas actions
+export { ADD_EMAIL, addEmail } from './userAction';
