@@ -7,23 +7,20 @@ class Login extends React.Component {
       email: '',
       password: '',
     };
+
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChangeEmail(e) {
-    this.setState({
-      email: e.target.value,
-    });
-  }
-
-  handleChangePassword(e) {
-    this.setState({
-      password: e.target.value,
-    });
+  handleChange({ target }) {
+    const { value, name } = target;
+    this.setState({ [name]: value });
   }
 
   render() {
+    const regEx = /^[a-z0-9_.-]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/i;
+    const minLength = 6;
     const { email, password } = this.state;
-    const isEnabled = email.length > 0 && password.length > 0;
+    const isEnabled = regEx.test(email) && password.length >= minLength;
 
     return (
       <form>
@@ -37,7 +34,7 @@ class Login extends React.Component {
             id="input-email"
             pattern="/^[a-z0-9_.-]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/"
             value={ email }
-            onChange={ this.handleChangeEmail }
+            onChange={ this.handleChange }
             data-testid="email-input"
           />
         </label>
@@ -49,7 +46,7 @@ class Login extends React.Component {
             type="password"
             name="password"
             value={ password }
-            onChange={ this.handleChangePassword }
+            onChange={ this.handleChange }
             id="input-senha"
             data-testid="password-input"
           />
@@ -65,6 +62,6 @@ class Login extends React.Component {
   }
 }
 
-// utilizei o pattern RegEx fornecido pelo Rodrigo Merlone no canal do Slack
+// utilizei o RegEx fornecido pelo Rodrigo Merlone no canal do Slack
 
 export default Login;
