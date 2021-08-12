@@ -69,7 +69,7 @@ class Login extends React.Component {
             data-testid="password-input"
             onChange={ this.handleChange }
           />
-          <Link to="/carteira">
+          <Link to="/wallet">
             <button
               type="submit"
               disabled={ isDisable }
